@@ -2,7 +2,7 @@ package gestorAplicacion;
 
 import java.util.ArrayList;
 
-public class CursoEstudiante {
+public class CursoEstudiante extends Curso {
     private ArrayList<int[]> listaNotas;
     private int semestre;
     private Estudiante estudiante;
