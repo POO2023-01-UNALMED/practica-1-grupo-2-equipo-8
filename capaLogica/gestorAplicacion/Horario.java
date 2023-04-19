@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Horario {
     private int id;
     private Estudiante estudiante;
-    private ArrayList<Curso> cursos = new ArrayList<>;
+    private ArrayList<Curso> cursos = new ArrayList<>();
     private static int count;
 
     //Constructores

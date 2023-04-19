@@ -8,12 +8,12 @@ public class Estimulo {
     private String nombre;
     private String descripcion;
     private tipoUsuario aQuienAplica;
-    private ArrayList<facultades> facultadesAplica = new ArrayList<>;
+    private ArrayList<facultades> facultadesAplica = new ArrayList<>();
     private int cupos;
     private int PBM;
     private int PAPA;
     private ArrayList<Curso> materiasImpartidas;
-    private ArrayList<tipoUsuario> inscritos = new ArrayList<>;
+    private ArrayList<tipoUsuario> inscritos = new ArrayList<>();
 
     //Constructores
     public Estimulo(String nombre, String descripcion, tipoUsuario aQuienAplica, 
