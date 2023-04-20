@@ -30,7 +30,7 @@ public class Estimulo {
         this.inscritos = inscritos;
     }
 
-    //Metodos
+    // Métodos
     public boolean verificarRequisitos(Estudiante estudiante) {
         ArrayList<String> razones = new ArrayList<>(); 
         boolean cumpleRequisitos = true; 
@@ -61,6 +61,10 @@ public class Estimulo {
         }
     }
     
+    public void inscribirse(Estudiante estudiante){
+        this.inscritos.add(estudiante);
+        this.cupos--;
+    }
 
     //Gets y Sets
 
