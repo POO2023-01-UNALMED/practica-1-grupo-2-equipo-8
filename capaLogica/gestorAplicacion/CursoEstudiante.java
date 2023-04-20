@@ -7,7 +7,7 @@ public class CursoEstudiante extends Curso {
     private int semestre;
     private Estudiante estudiante;
 
-    public ArrayList getListaNotas() {
+    public ArrayList<int[]> getListaNotas() {
         return listaNotas;
     }
 
