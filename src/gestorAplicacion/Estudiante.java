@@ -8,13 +8,13 @@ public class Estudiante extends Registro{
     private ArrayList<CursoEstudiante> listaCursos;
     private ArrayList<CursoEstudiante> cursosVistos;
     private ArrayList<Curso> listaCursosInscritos;
-    private Carrera carrera;
-    private Facultad facultad;
+    private Carreras carrera;
+    private Facultades facultad;
     private int semestre;
     private ArrayList<Horario> horariosCreados;
     private ArrayList<Estimulo> Estimulos;
 
-    public Estudiante(String nombre, String correo, String nombreUsuario, String clave, String documento, Carrera carrera, Facultad facultad, int semestre) {
+    public Estudiante(String nombre, String correo, String nombreUsuario, String clave, String documento, Carreras carrera, Facultades facultad, int semestre) {
         super(nombre, correo, nombreUsuario, clave, documento);
         this.carrera = carrera;
         this.facultad = facultad;
@@ -45,19 +45,19 @@ public class Estudiante extends Registro{
         listaCursosInscritos.add(curso);
     }
 
-    public Carrera getCarrera() {
+    public Carreras getCarrera() {
         return carrera;
     }
 
-    public void setCarrera(Carrera carrera) {
+    public void setCarrera(Carreras carrera) {
         this.carrera = carrera;
     }
 
-    public Facultad getFacultad() {
+    public Facultades getFacultad() {
         return facultad;
     }
 
-    public void setFacultad(Facultad facultad) {
+    public void setFacultad(Facultades facultad) {
         this.facultad = facultad;
     }
 
@@ -83,11 +83,11 @@ public class Estudiante extends Registro{
             int sumc = 0;
             for(CursoEstudiante c:cursosVistos){
                 if(c.getSemestre() == sem){
-                    sum+=c.calcularPromedio()*c.getCreditos;
-                    sumc+=c.getCreditos;
+                    sum+=c.calcularPromedio()*c.getCreditos();
+                    sumc+=c.getCreditos();
                 }
             }
-            return sum/sumc;
+            return sumc == 0 ? 0: sum/sumc;
         }
         return -1; // Hay que corregir la lógica en la capa de UI
     }
@@ -96,11 +96,11 @@ public class Estudiante extends Registro{
         int sum = 0;
         int sumc = 0;
         for(CursoEstudiante c:cursosVistos){
-            sum+=c.calcularPromedio()*c.getCreditos;
-            sumc+=c.getCreditos;
+            sum+=c.calcularPromedio()*c.getCreditos();
+            sumc+=c.getCreditos();
         }
-        return sum/sumc;
-        
+
+        return sumc == 0 ? 0: sum/sumc;
     }
     
     public void inscribirMateria(CursoEstudiante curso){
@@ -120,17 +120,18 @@ public class Estudiante extends Registro{
     }
     
     public void crearHorario(){
-        Horario horario = new Horario(this);
+        Horario horario = new Horario(this, new ArrayList<Curso>());
         horariosCreados.add(horario);
     }
     
-    public void añadirMateriaAlHorario(int id, Curso curso){ //Para añadir una materia a algún horario, necesitamos especificar el id del horario en cuestión
+    public void agregarMateriaAlHorario(int id, Curso curso){ //Para añadir una materia a algún horario, necesitamos especificar el id del horario en cuestión
         for(Horario h: horariosCreados){
-            if(h.getId() = id){
-                h.añadirCurso(curso);
-            }
-            if(h.validarDisponibilidad() == false){
-                h.getCursos.remove(h.getCursos.size()-1);
+            if(h.getId() == id){
+                h.agregarCurso(curso);
+
+                if(!h.validarDisponibilidad()){
+                    h.getCursos().remove(h.getCursos().size()-1);
+                }
             }
         }
     }

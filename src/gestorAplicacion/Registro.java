@@ -1,6 +1,6 @@
 package gestorAplicacion;
 
-import capaPersistencia.Deserializador;
+import baseDatos.Deserializador;
 import java.util.ArrayList;
 import java.io.Serializable;
 
@@ -87,7 +87,7 @@ public class Registro implements Serializable{
         Registro.estudiantes = estudiantes;
     }
     
-    public static void añadirEstudiante(Estudiante estudiante){
+    public static void agregarEstudiante(Estudiante estudiante){
         Registro.estudiantes.add(estudiante);
     }
 
@@ -100,7 +100,7 @@ public class Registro implements Serializable{
         Registro.estudiantesMatriculados = estudiantesMatriculados;
     }
     
-    public static void añadirEstudianteMatriculado(Estudiante estudiante){
+    public static void agregarEstudianteMatriculado(Estudiante estudiante){
         Registro.estudiantesMatriculados.add(estudiante);
     }
     
@@ -113,7 +113,7 @@ public class Registro implements Serializable{
         Registro.cursos = cursos;
     }
     
-    public static void añadirCurso(Curso curso){
+    public static void agregarCurso(Curso curso){
         Registro.cursos.add(curso);
     }
     
@@ -126,7 +126,7 @@ public class Registro implements Serializable{
         Registro.admins = admins;
     }
     
-    public static void añadirAdmin(Admin admin){
+    public static void agregarAdmin(Admin admin){
         Registro.admins.add(admin);
     }
 
@@ -139,7 +139,7 @@ public class Registro implements Serializable{
         Registro.profesores = profesores;
     }
     
-    public static void añadirProfesor(Profesor profesor){
+    public static void agregarProfesor(Profesor profesor){
         Registro.profesores.add(profesor);
     }
     

@@ -30,7 +30,10 @@ public class Horario {
         this.cursos = cursos;
     }
 
-    
+    public void agregarCurso(Curso curso) {
+
+    }
+
     public void imprimirHorario() {
         String[] dias = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"};
         String[] abreviado = {"L", "M", "X", "J", "V", "S"};

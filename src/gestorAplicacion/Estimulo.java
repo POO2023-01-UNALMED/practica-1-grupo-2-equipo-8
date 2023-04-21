@@ -7,18 +7,18 @@ import javax.lang.model.util.ElementScanner6;
 public class Estimulo {
     private String nombre;
     private String descripcion;
-    private tipoUsuario aQuienAplica;
-    private ArrayList<facultades> facultadesAplica = new ArrayList<>();
+    private TipoUsuarios aQuienAplica;
+    private ArrayList<Facultades> facultadesAplica = new ArrayList<>();
     private int cupos;
     private int PBM;
     private int PAPA;
     private ArrayList<Curso> materiasImpartidas;
-    private ArrayList<tipoUsuario> inscritos = new ArrayList<>();
+    //private ArrayList<Estudiante | Profesor> inscritos = new ArrayList<>();
 
     //Constructores
-    public Estimulo(String nombre, String descripcion, tipoUsuario aQuienAplica, 
-    ArrayList<facultades> facultadesAplica, int cupos, int PBM, int PAPA, 
-    ArrayList<Curso> materiasImpartidas, ArrayList<tipoUsuario> inscritos) {
+    public Estimulo(String nombre, String descripcion, TipoUsuarios aQuienAplica, 
+    ArrayList<Facultades> facultadesAplica, int cupos, int PBM, int PAPA, 
+    ArrayList<Curso> materiasImpartidas) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.aQuienAplica = aQuienAplica;
@@ -27,7 +27,6 @@ public class Estimulo {
         this.PBM = PBM;
         this.PAPA = PAPA;
         this.materiasImpartidas = materiasImpartidas;
-        this.inscritos = inscritos;
     }
 
     // Métodos
@@ -48,7 +47,8 @@ public class Estimulo {
         if (estudiante.calcularPAPA() < this.PAPA) {
             razones.add("Tu PAPA es demasiado bajo");
             cumpleRequisitos = false; 
-    
+        }
+
         if (cumpleRequisitos) {
             System.out.println("Cumples con todos los requisitos para inscribirte");
             return true;
@@ -58,13 +58,13 @@ public class Estimulo {
                 System.out.println(razon);
             }
             return false;
-        }
+        }  
     }
-    
-    public void inscribirse(Estudiante estudiante){
+
+    /*public void inscribirse(TipoUsuarios estudiante){
         this.inscritos.add(estudiante);
         this.cupos--;
-    }
+    }*/
 
     //Gets y Sets
 
@@ -82,17 +82,17 @@ public class Estimulo {
         this.descripcion = descripcion;
     }
     
-    public tipoUsuario getaQuienAplica() {
+    public TipoUsuarios getaQuienAplica() {
         return aQuienAplica;
     }
-    public void setaQuienAplica(tipoUsuario aQuienAplica) {
+    public void setaQuienAplica(TipoUsuarios aQuienAplica) {
         this.aQuienAplica = aQuienAplica;
     }
 
-    public ArrayList<facultades> getFacultadesAplica() {
+    public ArrayList<Facultades> getFacultadesAplica() {
         return facultadesAplica;
     }
-    public void setFacultadesAplica(ArrayList<facultades> facultadesAplica) {
+    public void setFacultadesAplica(ArrayList<Facultades> facultadesAplica) {
         this.facultadesAplica = facultadesAplica;
     }
     
@@ -124,10 +124,10 @@ public class Estimulo {
         this.materiasImpartidas = materiasImpartidas;
     }
     
-    public ArrayList<tipoUsuario> getInscritos() {
+    /*public ArrayList<TipoUsuarios> getInscritos() {
         return inscritos;
     }
-    public void setInscritos(ArrayList<tipoUsuario> inscritos) {
+    public void setInscritos(ArrayList<TipoUsuarios> inscritos) {
         this.inscritos = inscritos;
-    }
+    }*/
 }
