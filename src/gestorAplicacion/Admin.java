@@ -5,7 +5,7 @@ public class Admin extends Registro {
     public Admin(String nombre, String correo, String nombreUsuario, String clave, String documento){
         super(nombre, correo, nombreUsuario, clave, documento);
     }
-    public void añadirCurso() {
-        
+    public void agregarCurso() {
+        // EXTRA
     }
 }

@@ -17,6 +17,7 @@ public class Registro implements Serializable{
     private static ArrayList<Curso> cursos;
     private static ArrayList<Admin> admins;
     private static ArrayList<Profesor> profesores;
+    private static ArrayList<Estimulo> estimulos;
 
     public Registro(){
         Deserializador.deserializador();
@@ -142,7 +143,18 @@ public class Registro implements Serializable{
     public static void agregarProfesor(Profesor profesor){
         Registro.profesores.add(profesor);
     }
+
+    public static ArrayList<Estimulo> getEstimulos() {
+        return estimulos;
+    }
+
+    public static void setEstimulos(ArrayList<Estimulo> estimulos) {
+        Registro.estimulos = estimulos;
+    }
     
+    public static void agregarEstimulos(Estimulo estimulos){
+        Registro.estimulos.add(estimulos);
+    }
     
     public void buscarCursos() {
         

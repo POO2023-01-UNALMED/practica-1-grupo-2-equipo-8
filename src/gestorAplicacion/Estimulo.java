@@ -1,10 +1,9 @@
 package gestorAplicacion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.lang.model.util.ElementScanner6;
-
-public class Estimulo {
+public class Estimulo implements Serializable {
     private String nombre;
     private String descripcion;
     private TipoUsuarios aQuienAplica;

@@ -11,7 +11,6 @@ public class Curso implements Serializable {
     private short creditos;
     private ArrayList<String> horariosClase;
     private int numeroParciales;
-    private int seguimiento;
     private ArrayList<int[]> listaPorcentajes;
     private ArrayList<Curso> preRequisitos;
     private ArrayList<Carreras> carrerasRelacionadas;
@@ -20,7 +19,7 @@ public class Curso implements Serializable {
 
 
     public Curso(String nombre, int id, short cupos, short creditos, ArrayList<String> horariosClase,
-        int numeroParciales, int seguimiento, ArrayList<int[]> listaPorcentajes, ArrayList<Curso> preRequisitos,
+        int numeroParciales, ArrayList<int[]> listaPorcentajes, ArrayList<Curso> preRequisitos,
         ArrayList<Carreras> carrerasRelacionadas, ArrayList<Profesor> profesoresQueDictanElCurso,
         ArrayList<Facultades> facultad) {
       this.nombre = nombre;
@@ -29,7 +28,6 @@ public class Curso implements Serializable {
       this.creditos = creditos;
       this.horariosClase = horariosClase;
       this.numeroParciales = numeroParciales;
-      this.seguimiento = seguimiento;
       this.listaPorcentajes = listaPorcentajes;
       this.preRequisitos = preRequisitos;
       this.carrerasRelacionadas = carrerasRelacionadas;
@@ -84,14 +82,6 @@ public class Curso implements Serializable {
 
     public void setNumeroParciales(int numeroParciales) {
       this.numeroParciales = numeroParciales;
-    }
-
-    public int getSeguimiento() {
-      return seguimiento;
-    }
-
-    public void setSeguimiento(int seguimiento) {
-      this.seguimiento = seguimiento;
     }
 
     public ArrayList<int[]> getListaPorcentajes() {

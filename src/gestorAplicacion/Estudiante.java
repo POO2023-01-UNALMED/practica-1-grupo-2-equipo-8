@@ -92,6 +92,7 @@ public class Estudiante extends Registro{
         return -1; // Hay que corregir la lógica en la capa de UI
     }
     
+    // METODOS
     public int calcularPAPA(){
         int sum = 0;
         int sumc = 0;
