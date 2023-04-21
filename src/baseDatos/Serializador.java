@@ -1,4 +1,4 @@
-package capaPersistencia;
+package baseDatos;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 import gestorAplicacion.Registro;
 
 public class Serializador {
-    private static File temp = new File("src\\capaPersistencia\\temp");
+    private static File temp = new File("src\\baseDatos\\temp");
     
     public static void serializador(){
         FileOutputStream fos;

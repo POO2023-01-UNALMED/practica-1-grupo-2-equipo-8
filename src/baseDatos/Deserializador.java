@@ -1,4 +1,4 @@
-package capaPersistencia;
+package baseDatos;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,7 +13,7 @@ import gestorAplicacion.Curso;
 import java.util.ArrayList;
 
 public class Deserializador {
-    private static File temp = new File("src\\capaPersistencia\\temp");
+    private static File temp = new File("src\\baseDatos\\temp");
     public static void deserializador(){
         File[] docs = temp.listFiles();
         FileInputStream fis;
