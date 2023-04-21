@@ -3,7 +3,7 @@ package gestorAplicacion;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Curso {
+public class Curso{
     private String nombre;
     private int id;
     private short cupos;

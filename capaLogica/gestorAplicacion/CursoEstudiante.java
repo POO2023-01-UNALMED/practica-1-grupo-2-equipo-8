@@ -3,17 +3,45 @@ package gestorAplicacion;
 import java.util.ArrayList;
 
 public class CursoEstudiante extends Curso {
+    private static final long serialVersionUID = 6L;
     private ArrayList<int[]> listaNotas;
     private int semestre;
     private Estudiante estudiante;
+    
+    public CursoEstudiante(int id, String nombre, short cupos, short creditos, int semestre, Estudiante estudiante){
+        super(id, nombre, cupos, creditos);
+        this.semestre = semestre;
+        this.estudiante = estudiante;
+    }
 
     public ArrayList<int[]> getListaNotas() {
         return listaNotas;
     }
 
-    public void setListaNotas(int[] nota) {
+    public void setListaNotas(ArrayList<int[]> listaNotas) {
+        this.listaNotas = listaNotas;
+    }
+
+    public void añadirNota(int[] nota) {
         listaNotas.add(nota);
     }
+
+    public int getSemestre() {
+        return semestre;
+    }
+
+    public void setSemestre(int semestre) {
+        this.semestre = semestre;
+    }
+
+    public Estudiante getEstudiante() {
+        return estudiante;
+    }
+
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
+    }
+    
     
     public int calcularPromedio(){
         if(semestre != estudiante.getSemestre() && listaNotas.isEmpty() != false){

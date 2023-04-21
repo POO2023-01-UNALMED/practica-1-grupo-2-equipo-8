@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 public class Estudiante extends Registro{
+    private static final long serialVersionUID = 3L;
     private ArrayList<CursoEstudiante> listaCursos;
     private ArrayList<CursoEstudiante> cursosVistos;
     private ArrayList<Curso> listaCursosInscritos;
@@ -80,10 +81,10 @@ public class Estudiante extends Registro{
         if(sem<semestre && sem>0){
             int sum = 0;
             int sumc = 0;
-            for(cursoEstudiante c:cursosVistos){
+            for(CursoEstudiante c:cursosVistos){
                 if(c.getSemestre() == sem){
-                    sum+=c.calcularPromedio()*c.creditos;
-                    sumc+=c.creditos;
+                    sum+=c.calcularPromedio()*c.getCreditos;
+                    sumc+=c.getCreditos;
                 }
             }
             return sum/sumc;
@@ -94,9 +95,9 @@ public class Estudiante extends Registro{
     public int calcularPAPA(){
         int sum = 0;
         int sumc = 0;
-        for(cursoEstudiante c:cursosVistos){
-            sum+=c.calcularPromedio()*c.creditos;
-            sumc+=c.creditos;
+        for(CursoEstudiante c:cursosVistos){
+            sum+=c.calcularPromedio()*c.getCreditos;
+            sumc+=c.getCreditos;
         }
         return sum/sumc;
         
@@ -125,11 +126,11 @@ public class Estudiante extends Registro{
     
     public void añadirMateriaAlHorario(int id, Curso curso){ //Para añadir una materia a algún horario, necesitamos especificar el id del horario en cuestión
         for(Horario h: horariosCreados){
-            if(h.id = id){
-                h.cursos.add(curso);
+            if(h.getId() = id){
+                h.añadirCurso(curso);
             }
-            if(h.validarDisponibilidad == false){
-                h.cursos.remove(h.cursos.size()-1);
+            if(h.validarDisponibilidad() == false){
+                h.getCursos.remove(h.getCursos.size()-1);
             }
         }
     }

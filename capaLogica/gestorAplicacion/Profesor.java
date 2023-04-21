@@ -3,6 +3,7 @@ package gestorAplicacion; //Falta especificar en qué sub-paquéte estará
 import java.util.ArrayList;
 
 public class Profesor extends Registro{
+    private static final long serialVersionUID = 2L;
     private ArrayList<CursoProfesor> listaCursos;
     private Facultad facultad;
 
