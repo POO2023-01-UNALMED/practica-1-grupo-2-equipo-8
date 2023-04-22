@@ -10,7 +10,6 @@ import gestorAplicacion.Profesor;
 import gestorAplicacion.Estudiante;
 import gestorAplicacion.Admin;
 import gestorAplicacion.Curso;
-import gestorAplicacion.Estimulo;
 import java.util.ArrayList;
 
 public class Deserializador {
@@ -78,23 +77,6 @@ public class Deserializador {
                     ois = new ObjectInputStream(fis);
                     
                     Registro.setCursos((ArrayList<Curso>) ois.readObject());
-                }
-                catch (FileNotFoundException e){
-                    e.printStackTrace();
-                }
-                catch (IOException e){
-                    e.printStackTrace();
-                }
-                catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-            else if(f.getAbsolutePath().contains("estimulos")){
-                try{
-                    fis = new FileInputStream(f);
-                    ois = new ObjectInputStream(fis);
-                    
-                    Registro.setEstimulos((ArrayList<Estimulo>) ois.readObject());
                 }
                 catch (FileNotFoundException e){
                     e.printStackTrace();

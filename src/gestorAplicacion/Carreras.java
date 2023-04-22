@@ -1,8 +1,8 @@
 package gestorAplicacion;
 
 public enum Carreras {
-  SISTEMAS(1, "Minas", Facultades.MINAS),
-  COMPUTACION(2, "Ciencias", Facultades.CIENCIAS);
+  SISTEMAS(1, "Ingenieria de Sistemas", Facultades.MINAS),
+  COMPUTACION(2, "Ciencias de la Computacion", Facultades.CIENCIAS);
 
   private String nombre;
   private int id;
