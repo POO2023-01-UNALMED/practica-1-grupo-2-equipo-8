@@ -102,10 +102,12 @@ public class Register {
                 }
                 break;
             }
-            Registro.agregarEstudiante(new Estudiante(nombre, correo, nombreUsuario, clave, documento, carrera, facultad, semestre));
+            Estudiante estudiante = new Estudiante(nombre, correo, nombreUsuario, clave, documento, carrera, facultad, semestre);
+            Registro.agregarEstudiante(estudiante);
+            Menu.sistema(estudiante);
         }
         
-        if(tu.tipoUsuario().equals("Profesor")){
+        else if(tu.tipoUsuario().equals("Profesor")){
             ArrayList<CursoProfesor> listaCursos = new ArrayList();
             System.out.println("Cursos que dicta\n"); // Agregar cursos a un profesor puede ser una funcionalidad aparte
             
@@ -174,11 +176,15 @@ public class Register {
                 }
                 break;
             }
-            Registro.agregarProfesor(new Profesor(nombre, correo, nombreUsuario, clave, documento, listaCursos, facultad));
+            Profesor profesor = new Profesor(nombre, correo, nombreUsuario, clave, documento, listaCursos, facultad);
+            Registro.agregarProfesor(profesor);
+            Menu.sistema(profesor);
         }
         
-        if(tu.tipoUsuario().equals("Admin")){
-            Registro.agregarAdmin(new Admin(nombre, correo, nombreUsuario, clave, documento));
+        else if(tu.tipoUsuario().equals("Admin")){
+            Admin admin = new Admin(nombre, correo, nombreUsuario, clave, documento);
+            Registro.agregarAdmin(admin);
+            Menu.sistema(admin);
         }
     }
 }

@@ -60,6 +60,7 @@ public class Login {
                 for(Estudiante us : Registro.getEstudiantes()){
                     if(us.getNombreUsuario().equals(nom) && us.getClave().equals(clav)){
                         comp = true;
+                        Menu.sistema(us);
                         break;
                     }
                 }
@@ -74,6 +75,7 @@ public class Login {
                 for(Profesor us : Registro.getProfesores()){
                     if(us.getNombreUsuario().equals(nom) && us.getClave().equals(clav)){
                         comp = true;
+                        Menu.sistema(us);
                         break;
                     }
                 }
@@ -88,6 +90,7 @@ public class Login {
                 for(Admin us : Registro.getAdmins()){
                     if(us.getNombreUsuario().equals(nom) && us.getClave().equals(clav)){
                         comp = true;
+                        Menu.sistema(us);
                         break;
                     }
                 }
