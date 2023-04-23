@@ -19,7 +19,7 @@ public class Login {
                     + "1. Iniciar sesión (ya tiene un usuario)\n"
                     + "2. Registrase");
             opcion = sc.next();
-            if(!opcion.equals("1") || !opcion.equals("2")){
+            if(!(opcion.equals("1")) && !(opcion.equals("2"))){
                 System.out.println("Debe seleccionar un número entre el 1 y el 2");
                 continue;
             }
@@ -39,7 +39,7 @@ public class Login {
                     + "2. Profesor\n"
                     + "3. Admin");
             opcion = sc.next();
-            if(!opcion.equals("1") || !opcion.equals("2") || !opcion.equals("3")){
+            if(!opcion.equals("1") && !opcion.equals("2") && !opcion.equals("3")){
                 System.out.println("Debe seleccionar un número entre el 1 y el 3");
                 continue;
             }

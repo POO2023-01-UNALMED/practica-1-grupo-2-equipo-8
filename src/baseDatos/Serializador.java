@@ -21,7 +21,6 @@ public class Serializador {
             
             try{
                 pw = new PrintWriter(f);
-                pw.print("");
             }
             catch (FileNotFoundException e){
                 e.printStackTrace();

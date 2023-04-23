@@ -12,12 +12,12 @@ public class Registro implements Serializable{
     private String nombreUsuario;
     private String clave;
     private String documentoIdentificacion;
-    private static ArrayList<Estudiante> estudiantes;
-    private static ArrayList<Estudiante> estudiantesMatriculados;
-    private static ArrayList<Curso> cursos;
-    private static ArrayList<Admin> admins;
-    private static ArrayList<Profesor> profesores;
-    private static ArrayList<Estimulo> estimulos;
+    private static ArrayList<Estudiante> estudiantes = new ArrayList<Estudiante>();
+    private static ArrayList<Estudiante> estudiantesMatriculados = new ArrayList<Estudiante>();
+    private static ArrayList<Curso> cursos = new ArrayList<Curso>();
+    private static ArrayList<Admin> admins = new ArrayList<Admin>();
+    private static ArrayList<Profesor> profesores = new ArrayList<Profesor>();
+    private static ArrayList<Estimulo> estimulos = new ArrayList<Estimulo>();
 
     public Registro(){
         Deserializador.deserializador();

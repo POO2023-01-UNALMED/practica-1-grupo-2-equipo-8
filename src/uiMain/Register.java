@@ -24,7 +24,7 @@ public class Register {
                     + "2. Profesor\n"
                     + "3. Admin");
             String opcion = sc.next();
-            if(!opcion.equals("1") || !opcion.equals("2") || !opcion.equals("3")){
+            if(!opcion.equals("1") && !opcion.equals("2") && !opcion.equals("3")){
                 System.out.println("Debe seleccionar un número entre el 1 y el 3");
                 continue;
             }
@@ -48,9 +48,9 @@ public class Register {
         while(true){
             boolean comp = false;
             documento = sc.next();
-            char[] lis = {'1','2','3','4','5','6','7','8','9','0'};
+            String[] lis = {"1","2","3","4","5","6","7","8","9","0"};
             for(int x = 0;x<documento.length();x++){
-               if(!(Arrays.asList(lis).contains(documento.charAt(x)))){
+               if(!(Arrays.asList(lis).contains(String.valueOf(documento.charAt(x))))){
                     System.out.println("El documento indicado es incorrecto");
                     comp = true;
                     break;
@@ -69,7 +69,7 @@ public class Register {
                     + "1. Ingenieria de Sistemas\n"
                     + "2. Ciencias de la Computacion");
                 String opcion = sc.next();
-                if(!opcion.equals("1") || !opcion.equals("2")){
+                if(!opcion.equals("1") && !opcion.equals("2")){
                     System.out.println("Debe seleccionar un número entre el 1 y el 2");
                     continue;
                 }
@@ -89,7 +89,7 @@ public class Register {
                     + "4\n"
                     + "5");
                 String opcion = sc.next();
-                if(!opcion.equals("1") || !opcion.equals("2") || !opcion.equals("3") || !opcion.equals("4") || !opcion.equals("5")){
+                if(!opcion.equals("1") && !opcion.equals("2") && !opcion.equals("3") && !opcion.equals("4") && !opcion.equals("5")){
                     System.out.println("Debe seleccionar un número entre el 1 y el 5");
                     continue;
                 }
@@ -164,7 +164,7 @@ public class Register {
                     + "1. Ciencias\n"
                     + "2. Minas");
                 String opcion = sc.next();
-                if(!opcion.equals("1") || !opcion.equals("2")){
+                if(!opcion.equals("1") && !opcion.equals("2")){
                     System.out.println("Debe seleccionar un número entre el 1 y el 2");
                     continue;
                 }
