@@ -14,7 +14,9 @@ public class Admin extends Registro {
     // METHODS
     public static void agregarCurso() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Crear curso");
+
+        // Obtenemos datos como nombre, cupos, creditos y cantidad parciales.
+        System.out.println("CREAR CURSO");
         System.out.print("Nombre: ");
         String nombre = sc.nextLine();
         System.out.print("Cupos: ");
@@ -24,6 +26,7 @@ public class Admin extends Registro {
         System.out.print("Cantidad Parciales: ");
         int numeroParciales = sc.nextInt();
 
+        // Se asigna un porcentaje a cada parcial según la cantidad indicada.
         ArrayList<int[]> listaPorcentajes = new ArrayList<int[]>();
         for (int i = 0; i < numeroParciales; i++) {
             System.out.printf("Porcentaje parcial %d: ", i + 1);
@@ -32,17 +35,34 @@ public class Admin extends Registro {
             listaPorcentajes.add(nota);
         }
 
+        // Se definen los cursos que serán prerrequisitos.
         ArrayList<Curso> preRequisitos = new ArrayList<Curso>();
         while (true) {
-            for (int i = 0; i < Registro.getCursos().size(); i++) {
-                System.out.printf("%d. %s\n", i + 1, Registro.getCursos().get(i).getNombre());
+            // Se construye la lista de cursos que no son prerrequisitos,
+            // esto para evitar repeticiones.
+            ArrayList<Curso> notInPreRequisitos = new ArrayList<Curso>();
+            for (Curso curso : Registro.getCursos()) {
+                if (!preRequisitos.contains(curso)) {
+                    notInPreRequisitos.add(curso);
+                }
             }
+            // Si no hay cursos disponibles, se continua al siguiente apartado.
+            if (notInPreRequisitos.isEmpty()) {
+                System.out.println("No hay cursos disponibles como prerrequisitos.");
+                break;
+            }
+
+            // Se imprimen los posibles prerrequisitos.
+            for (int i = 0; i < notInPreRequisitos.size(); i++) {
+                System.out.printf("%d. %s\n", i + 1, notInPreRequisitos.get(i).getNombre());
+            }
+            // El usuario elige algún curso como prerrequisito o 0 para continuar con el siguiente apartado.
             System.out.print("Elige un curso como prerrequisito o 0 para continuar: ");
             int opcion = sc.nextInt();
-            if (opcion == 0 || opcion > Registro.getCursos().size()) break;
-            if (!preRequisitos.contains(Registro.getCursos().get(opcion - 1))) {
-                preRequisitos.add(Registro.getCursos().get(opcion - 1));
-            }
+            if (opcion == 0 || opcion > notInPreRequisitos.size()) break;
+
+            // Se agrega el curso seleccionado como prerrequisito.
+            preRequisitos.add(notInPreRequisitos.get(opcion - 1));
         }
 
         ArrayList<Carreras> carrerasRelacionadas = new ArrayList<Carreras>();
