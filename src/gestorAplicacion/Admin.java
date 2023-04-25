@@ -128,22 +128,60 @@ public class Admin extends Registro {
             profesoresQueDictanElCurso.add(notInProfesoresQueDictanElCurso.get(opcion - 1));
         }
 
+        // PROFESORES
+        // Se definen las facultades del curso.
         ArrayList<Facultades> facultades = new ArrayList<Facultades>();
         while (true) {
-            for (int i = 0; i < Facultades.values().length; i++) {
-                System.out.printf("%d. %s\n", i + 1, Facultades.values()[i].getNombre());
+            // Se construye la lista de facultades disponibles,
+            // esto para evitar repeticiones.
+            ArrayList<Facultades> notInFacultades = new ArrayList<Facultades>();
+            for (Facultades facultad : Facultades.values()) {
+                if (!facultades.contains(facultad)) {
+                    notInFacultades.add(facultad);
+                }
             }
-            System.out.print("Elige una facultad relacionada o 0 para continuar: ");
+            // Si no hay facultades disponibles, se continua al siguiente apartado.
+            if (notInFacultades.isEmpty()) {
+                System.out.println("No hay facultades disponibles.");
+                break;
+            }
+
+            // Se imprimen las facultades disponibles.
+            for (int i = 0; i < notInFacultades.size(); i++) {
+                System.out.printf("%d. %s\n", i + 1, notInFacultades.get(i).getNombre());
+            }
+            // El usuario elige alguna facultad o 0 para continuar con el siguiente apartado.
+            System.out.print("Elige una facultad o 0 para continuar: ");
             int opcion = sc.nextInt();
-            if (opcion == 0 || opcion > Facultades.values().length) break;
-            if (!facultades.contains(Facultades.values()[opcion - 1])) {
-                facultades.add(Facultades.values()[opcion - 1]);
-            }
+            if (opcion == 0 || opcion > notInFacultades.size()) break;
+
+            // Se agrega la facultad seleccionada.
+            facultades.add(notInFacultades.get(opcion - 1));
         }
 
         System.out.printf("Curso %s agregado con exito.\n", nombre);
         Curso nuevoCurso = new Curso(nombre, cupos, creditos, numeroParciales, listaPorcentajes, preRequisitos, carrerasRelacionadas, profesoresQueDictanElCurso, facultades);
         Registro.agregarCurso(nuevoCurso);
         Menu.salir();
+    }
+
+    public static void eliminarCurso() {
+        // TIENE ERRORES
+
+        Scanner sc = new Scanner(System.in);
+
+        while (!Registro.getCursos().isEmpty()) {
+            for (int i = 0; i < Registro.getCursos().size(); i++) {
+                System.out.printf("%d. %s\n", i + 1, Registro.getCursos().get(i).getNombre());
+            }
+            // El usuario elige alguna facultad o 0 para continuar con el siguiente apartado.
+            System.out.print("Elige un curso o 0 para continuar: ");
+            int opcion = sc.nextInt();
+            if (opcion == 0 || opcion > Registro.getCursos().size()) break;
+            
+            ArrayList<Curso> newList = Registro.getCursos();
+            newList.remove(opcion - 1);
+            Registro.setCursos(newList);
+        }
     }
 }
