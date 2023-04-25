@@ -5,25 +5,26 @@ import java.util.ArrayList;
 
 public class Curso implements Serializable {
     private static final long serialVersionUID = 5L;
+    private static int cursosExistentes = 0;
     private String nombre;
     private int id;
-    private short cupos;
-    private short creditos;
+    private int cupos;
+    private int creditos;
     static private ArrayList<String> horariosClase;
     private int numeroParciales;
     private ArrayList<int[]> listaPorcentajes;
     private ArrayList<Curso> preRequisitos;
     private ArrayList<Carreras> carrerasRelacionadas;
     private ArrayList<Profesor> profesoresQueDictanElCurso;
-    private ArrayList<Facultades> facultad;
+    private ArrayList<Facultades> facultades;
 
 
-    public Curso(String nombre, int id, short cupos, short creditos,
+    public Curso(String nombre, int cupos, int creditos,
         int numeroParciales, ArrayList<int[]> listaPorcentajes, ArrayList<Curso> preRequisitos,
         ArrayList<Carreras> carrerasRelacionadas, ArrayList<Profesor> profesoresQueDictanElCurso,
-        ArrayList<Facultades> facultad) {
+        ArrayList<Facultades> facultades) {
       this.nombre = nombre;
-      this.id = id;
+      this.id = 100000 + cursosExistentes;
       this.cupos = cupos;
       this.creditos = creditos;
       this.numeroParciales = numeroParciales;
@@ -31,7 +32,8 @@ public class Curso implements Serializable {
       this.preRequisitos = preRequisitos;
       this.carrerasRelacionadas = carrerasRelacionadas;
       this.profesoresQueDictanElCurso = profesoresQueDictanElCurso;
-      this.facultad = facultad;
+      this.facultades = facultades;
+      Curso.cursosExistentes++;
     }
 
     // get y set
@@ -55,7 +57,7 @@ public class Curso implements Serializable {
       this.id = id;
     }
 
-    public short getCupos() {
+    public int getCupos() {
       return cupos;
     }
 
@@ -63,7 +65,7 @@ public class Curso implements Serializable {
       this.cupos = cupos;
     }
 
-    public short getCreditos() {
+    public int getCreditos() {
       return creditos;
     }
 
@@ -122,11 +124,11 @@ public class Curso implements Serializable {
       this.profesoresQueDictanElCurso = profesoresQueDictanElCurso;
     }
 
-    public ArrayList<Facultades> getFacultad() {
-      return facultad;
+    public ArrayList<Facultades> getFacultades() {
+      return facultades;
     }
 
-    public void setFacultad(ArrayList<Facultades> facultad) {
-      this.facultad = facultad;
+    public void setFacultades(ArrayList<Facultades> facultad) {
+      this.facultades = facultad;
     }
 }

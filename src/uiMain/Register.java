@@ -144,8 +144,8 @@ public class Register {
                             System.out.println("En qué horario dicta el curso (formato 01:00 - 24:00) Ejemplo: 12:00-14:00");
                             String horario = sc.next();
                             Curso curso = Registro.getCursos().get(x-1);
-                            cp = new CursoProfesor(curso.getNombre(), curso.getId(), curso.getCupos(), curso.getCreditos(), curso.getNumeroParciales(), curso.getListaPorcentajes(), curso.getPreRequisitos(),
-                            curso.getCarrerasRelacionadas(), curso.getProfesoresQueDictanElCurso(), curso.getFacultad(), horario);
+                            cp = new CursoProfesor(curso.getNombre(), curso.getCupos(), curso.getCreditos(), curso.getNumeroParciales(), curso.getListaPorcentajes(), curso.getPreRequisitos(),
+                            curso.getCarrerasRelacionadas(), curso.getProfesoresQueDictanElCurso(), curso.getFacultades(), horario);
                             listaCursos.add(cp);
                             curso.agregarHorario(horario);
                             break;

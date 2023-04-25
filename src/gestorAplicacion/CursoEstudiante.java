@@ -8,11 +8,11 @@ public class CursoEstudiante extends Curso {
     private int semestre;
     private Estudiante estudiante;
 
-    public CursoEstudiante(String nombre, int id, short cupos, short creditos,
+    public CursoEstudiante(String nombre, int cupos, int creditos,
             int numeroParciales, ArrayList<int[]> listaPorcentajes, ArrayList<Curso> preRequisitos,
             ArrayList<Carreras> carrerasRelacionadas, ArrayList<Profesor> profesoresQueDictanElCurso,
             ArrayList<Facultades> facultad, ArrayList<int[]> listaNotas, int semestre, Estudiante estudiante) {
-        super(nombre, id, cupos, creditos, numeroParciales, listaPorcentajes, preRequisitos,
+        super(nombre, cupos, creditos, numeroParciales, listaPorcentajes, preRequisitos,
                 carrerasRelacionadas, profesoresQueDictanElCurso, facultad);
         this.listaNotas = listaNotas;
         this.semestre = semestre;

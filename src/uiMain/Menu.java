@@ -70,15 +70,17 @@ public class Menu {
         while(true){
             System.out.println("Indique lo que quiere realizar:\n"
                     + "1. Ver recomendación de asignaturas\n"
-                    + "2. Salir");
-            String opcion = sc.next();
-            if(!(opcion.equals("1")) && !(opcion.equals("2"))){
-                System.out.println("Debe seleccionar un número entre el 1 y el 2");
+                    + "2. Crear curso\n"
+                    + "3. Salir");
+            int opcion = sc.nextInt();
+            if (opcion < 0 || opcion > 3) {
+                System.out.println("Debe seleccionar un número entre el 1 y el 3");
                 continue;
             }
             switch(opcion){
-                case "1": ; break; // Añadir llamada al método correspondiente
-                case "2": salir(); break;
+                case 1: ; break; // Añadir llamada al método correspondiente
+                case 2: Admin.agregarCurso(); break; // Añadir llamada al método correspondiente
+                case 3: salir(); break;
             }
             break;
         }

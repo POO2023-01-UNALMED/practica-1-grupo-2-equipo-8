@@ -7,11 +7,11 @@ public class CursoProfesor extends Curso {
     private static ArrayList<Estudiante> listaEstudiantes;
     private String horario;
 
-    public CursoProfesor(String nombre, int id, short cupos, short creditos,
+    public CursoProfesor(String nombre, int cupos, int creditos,
         int numeroParciales, ArrayList<int[]> listaPorcentajes, ArrayList<Curso> preRequisitos,
         ArrayList<Carreras> carrerasRelacionadas, ArrayList<Profesor> profesoresQueDictanElCurso,
         ArrayList<Facultades> facultad, String horario) {
-      super(nombre, id, cupos, creditos, numeroParciales, listaPorcentajes, preRequisitos,
+      super(nombre, cupos, creditos, numeroParciales, listaPorcentajes, preRequisitos,
           carrerasRelacionadas, profesoresQueDictanElCurso, facultad);
       this.horario = horario;
     }
