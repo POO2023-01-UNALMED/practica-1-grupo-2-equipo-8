@@ -96,7 +96,9 @@ public class Admin extends Registro {
             // Se agrega la carrera seleccionada como relacionada.
             carrerasRelacionadas.add(notIncarrerasRelacionadas.get(opcion - 1));
         }
-
+        
+        ArrayList<Profesor> profesoresQueDictanElCurso = new ArrayList<Profesor>();
+        /*
         // PROFESORES
         // Se definen los profesores que dictan el curso.
         ArrayList<Profesor> profesoresQueDictanElCurso = new ArrayList<Profesor>();
@@ -127,8 +129,9 @@ public class Admin extends Registro {
             // Se agrega el profesor seleccionado.
             profesoresQueDictanElCurso.add(notInProfesoresQueDictanElCurso.get(opcion - 1));
         }
+        */
 
-        // PROFESORES
+        // FACULTADES
         // Se definen las facultades del curso.
         ArrayList<Facultades> facultades = new ArrayList<Facultades>();
         while (true) {
@@ -162,26 +165,47 @@ public class Admin extends Registro {
         System.out.printf("Curso %s agregado con exito.\n", nombre);
         Curso nuevoCurso = new Curso(nombre, cupos, creditos, numeroParciales, listaPorcentajes, preRequisitos, carrerasRelacionadas, profesoresQueDictanElCurso, facultades);
         Registro.agregarCurso(nuevoCurso);
+        sc.close();
         Menu.salir();
     }
 
     public static void eliminarCurso() {
-        // TIENE ERRORES
-
         Scanner sc = new Scanner(System.in);
 
-        while (!Registro.getCursos().isEmpty()) {
+        // Cursos para eliminar.
+        while (true) {
+            // Si no hay cursos que eliminar, terminar el proceso.
+            if (Registro.getCursos().isEmpty()) {
+                System.out.println("No hay cursos.");
+                break;
+            }
+
+            // Se imprimen los cursos existentes.
             for (int i = 0; i < Registro.getCursos().size(); i++) {
                 System.out.printf("%d. %s\n", i + 1, Registro.getCursos().get(i).getNombre());
             }
-            // El usuario elige alguna facultad o 0 para continuar con el siguiente apartado.
+            // El usuario elige algún curso o 0 para terminar el proceso.
             System.out.print("Elige un curso o 0 para continuar: ");
             int opcion = sc.nextInt();
             if (opcion == 0 || opcion > Registro.getCursos().size()) break;
             
+            // Se elimina el curso del sistema.
             ArrayList<Curso> newList = Registro.getCursos();
             newList.remove(opcion - 1);
             Registro.setCursos(newList);
         }
+        sc.close();
+        Menu.salir();
+    }
+
+    public static void verCursos() {
+        System.out.println("Lista de cursos");
+
+        // Se imprimen los cursos.
+        for (int i = 0; i < Registro.getCursos().size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, Registro.getCursos().get(i));
+            //System.out.printf("%d. %s\n", i + 1, Registro.getCursos().get(i).getNombre());
+        }
+        Menu.salir();
     }
 }

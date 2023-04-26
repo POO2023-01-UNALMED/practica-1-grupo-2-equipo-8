@@ -131,4 +131,8 @@ public class Curso implements Serializable {
     public void setFacultades(ArrayList<Facultades> facultad) {
       this.facultades = facultad;
     }
+
+    public String toString() {
+      return this.nombre + " (" + this.id + ")";
+    }
 }

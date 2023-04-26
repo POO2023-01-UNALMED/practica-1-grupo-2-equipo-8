@@ -17,16 +17,15 @@ public class UIRecomendarAsignaturas {
         // Por cada curso
         for (Curso curso : Registro.getCursos()) {
             // Si las carreras del curso no están relacionadas con la carrera del estudiante,
-            // o el estudiante ya vio el curso,
-            // no se toma en cuenta
-            boolean isCarrera = curso.getCarrerasRelacionadas().contains(estudiante.getCarrera());
-            boolean isCursada = estudiante.getCursosVistos().contains(curso);
-            if (!isCarrera || isCursada) continue;
+            // o el estudiante ya vio el curso, no se toma en cuenta
+            boolean esDeLaCarrera = curso.getCarrerasRelacionadas().contains(estudiante.getCarrera());
+            boolean fueCursada = estudiante.getCursosVistos().contains(curso);
+            if (!esDeLaCarrera || fueCursada) continue;
             
             // Se recomienda un curso si
             // el estudiante ya vio todos los prerrequisitos del curso
-            boolean isPrerrequisitos = estudiante.getCursosVistos().containsAll(curso.getPreRequisitos());
-            if (isPrerrequisitos) {
+            boolean vioPrerrequisitos = estudiante.getCursosVistos().containsAll(curso.getPreRequisitos());
+            if (vioPrerrequisitos) {
                 cursosParaRecomendar.add(curso);
             // o si el curso no tiene prerrequisitos
             } else if (curso.getPreRequisitos().isEmpty()) {
@@ -38,5 +37,7 @@ public class UIRecomendarAsignaturas {
         for (int i = 0; i < cursosParaRecomendar.size(); i++) {
             System.out.printf("%i. %s", i + 1, cursosParaRecomendar.get(i));
         }
+
+        Menu.salir();
     }
 }
