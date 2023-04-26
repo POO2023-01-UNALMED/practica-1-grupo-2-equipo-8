@@ -9,30 +9,38 @@ public class Curso implements Serializable {
     private int id;
     private short cupos;
     private short creditos;
-    static private ArrayList<String> horariosClase;
+    private ArrayList<String> horariosClase = new ArrayList<String>();
     private int numeroParciales;
-    private ArrayList<int[]> listaPorcentajes;
-    private ArrayList<Curso> preRequisitos;
-    private ArrayList<Carreras> carrerasRelacionadas;
-    private ArrayList<Profesor> profesoresQueDictanElCurso;
-    private ArrayList<Facultades> facultad;
+    private ArrayList<int[]> listaPorcentajes = new ArrayList<int[]>();
+    private ArrayList<Curso> preRequisitos = new ArrayList<Curso>();
+    private ArrayList<Carreras> carrerasRelacionadas = new ArrayList<Carreras>();
+    private ArrayList<Profesor> profesoresQueDictanElCurso = new ArrayList<Profesor>();
+    private ArrayList<Facultades> facultad = new ArrayList<Facultades>();
+    private static int cont = 0;
 
 
-    public Curso(String nombre, int id, short cupos, short creditos,
-        int numeroParciales, ArrayList<int[]> listaPorcentajes, ArrayList<Curso> preRequisitos,
-        ArrayList<Carreras> carrerasRelacionadas, ArrayList<Profesor> profesoresQueDictanElCurso,
-        ArrayList<Facultades> facultad) {
-      this.nombre = nombre;
-      this.id = id;
-      this.cupos = cupos;
-      this.creditos = creditos;
-      this.numeroParciales = numeroParciales;
-      this.listaPorcentajes = listaPorcentajes;
-      this.preRequisitos = preRequisitos;
-      this.carrerasRelacionadas = carrerasRelacionadas;
-      this.profesoresQueDictanElCurso = profesoresQueDictanElCurso;
-      this.facultad = facultad;
+    public Curso(String nombre, short creditos, int numeroParciales, ArrayList<int[]> listaPorcentajes, ArrayList<Curso> preRequisitos, ArrayList<Carreras> carrerasRelacionadas, ArrayList<Facultades> facultad) {
+        this.nombre = nombre;
+        this.creditos = creditos;
+        this.numeroParciales = numeroParciales;
+        this.listaPorcentajes = listaPorcentajes;
+        this.preRequisitos = preRequisitos;
+        this.carrerasRelacionadas = carrerasRelacionadas;
+        this.facultad = facultad;
+        Curso.cont++;
+        this.id = Curso.cont;
     }
+    
+    public Curso(String nombre, int id, short creditos, int numeroParciales, ArrayList<int[]> listaPorcentajes, ArrayList<Facultades> facultad){
+        this.nombre = nombre;
+        this.creditos = creditos;
+        this.numeroParciales = numeroParciales;
+        this.listaPorcentajes = listaPorcentajes;
+        this.facultad = facultad;
+        this.id = id;
+    }
+    
+    
 
     // get y set
     public ArrayList<String> getHorariosClase() {
@@ -74,11 +82,11 @@ public class Curso implements Serializable {
     
 
     public void setHorariosClase(ArrayList<String> horariosClase) {
-        Curso.horariosClase = horariosClase;
+        this.horariosClase = horariosClase;
     }
     
     public void agregarHorario(String horario){
-        Curso.horariosClase.add(horario);
+        this.horariosClase.add(horario);
     }
     
 
@@ -120,6 +128,10 @@ public class Curso implements Serializable {
 
     public void setProfesoresQueDictanElCurso(ArrayList<Profesor> profesoresQueDictanElCurso) {
       this.profesoresQueDictanElCurso = profesoresQueDictanElCurso;
+    }
+    
+    public void agregarProfesor(Profesor profesor){
+        this.profesoresQueDictanElCurso.add(profesor);
     }
 
     public ArrayList<Facultades> getFacultad() {

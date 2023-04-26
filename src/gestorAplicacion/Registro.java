@@ -115,7 +115,16 @@ public class Registro implements Serializable{
     }
     
     public static void agregarCurso(Curso curso){
-        Registro.cursos.add(curso);
+        boolean comp = true;
+        for(Curso c : cursos){
+            if(c.getNombre().equals(curso.getNombre())){
+                comp = false;
+                break;
+            }  
+        }
+        if(comp == true){
+            Registro.cursos.add(curso);
+        }
     }
     
     

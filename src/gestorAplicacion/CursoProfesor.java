@@ -4,15 +4,14 @@ import java.util.ArrayList;
 
 public class CursoProfesor extends Curso {
     private static final long serialVersionUID = 7L;
-    private static ArrayList<Estudiante> listaEstudiantes;
+    private ArrayList<Estudiante> listaEstudiantes;
     private String horario;
+    private final short cupos = 5;
 
-    public CursoProfesor(String nombre, int id, short cupos, short creditos,
-        int numeroParciales, ArrayList<int[]> listaPorcentajes, ArrayList<Curso> preRequisitos,
-        ArrayList<Carreras> carrerasRelacionadas, ArrayList<Profesor> profesoresQueDictanElCurso,
+    public CursoProfesor(String nombre, int id, short creditos,
+        int numeroParciales, ArrayList<int[]> listaPorcentajes,
         ArrayList<Facultades> facultad, String horario) {
-      super(nombre, id, cupos, creditos, numeroParciales, listaPorcentajes, preRequisitos,
-          carrerasRelacionadas, profesoresQueDictanElCurso, facultad);
+      super(nombre, id, creditos, numeroParciales, listaPorcentajes, facultad);
       this.horario = horario;
     }
     
@@ -23,10 +22,25 @@ public class CursoProfesor extends Curso {
     }
 
     public void setListaEstudiantes(ArrayList<Estudiante> listaEstudiantes) {
-        CursoProfesor.listaEstudiantes = listaEstudiantes;
+        this.listaEstudiantes = listaEstudiantes;
     }
     
     public void agregarEstudiante(Estudiante estudiante){
-        CursoProfesor.listaEstudiantes.add(estudiante);
+        this.listaEstudiantes.add(estudiante);
     }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+    
+    @Override
+    public short getCupos() {
+        return cupos;
+    }
+    
+    
 }

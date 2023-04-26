@@ -5,14 +5,14 @@ import java.util.ArrayList;
 
 public class Estudiante extends Registro{
     private static final long serialVersionUID = 3L;
-    private ArrayList<CursoEstudiante> listaCursos;
-    private ArrayList<CursoEstudiante> cursosVistos;
-    private ArrayList<Curso> listaCursosInscritos;
+    private ArrayList<CursoEstudiante> listaCursos = new ArrayList<CursoEstudiante>();
+    private ArrayList<CursoEstudiante> cursosVistos = new ArrayList<CursoEstudiante>();
+    private ArrayList<Curso> listaCursosInscritos = new ArrayList<Curso>();
     private Carreras carrera;
     private Facultades facultad;
     private int semestre;
-    private ArrayList<Horario> horariosCreados;
-    private ArrayList<Estimulo> Estimulos;
+    private ArrayList<Horario> horariosCreados = new ArrayList<Horario>();
+    private ArrayList<Estimulo> Estimulos = new ArrayList<Estimulo>();
 
     public Estudiante(String nombre, String correo, String nombreUsuario, String clave, String documento, Carreras carrera, Facultades facultad, int semestre) {
         super(nombre, correo, nombreUsuario, clave, documento);
@@ -73,7 +73,11 @@ public class Estudiante extends Registro{
         return horariosCreados;
     }
 
-    public void setHorariosCreados(Horario horario) {
+    public void setHorariosCreados(ArrayList<Horario> horariosCreados) {
+        this.horariosCreados = horariosCreados;
+    }
+
+    public void agregarHorario(Horario horario){
         horariosCreados.add(horario);
     }
     
@@ -121,19 +125,8 @@ public class Estudiante extends Registro{
     }
     
     public void crearHorario(){
-        Horario horario = new Horario(this, new ArrayList<Curso>());
+        Horario horario = new Horario(this, new ArrayList<CursoEstudiante>());
         horariosCreados.add(horario);
     }
     
-    public void agregarMateriaAlHorario(int id, Curso curso){ //Para añadir una materia a algún horario, necesitamos especificar el id del horario en cuestión
-        for(Horario h: horariosCreados){
-            if(h.getId() == id){
-                h.agregarCurso(curso);
-
-                if(!h.validarDisponibilidad()){
-                    h.getCursos().remove(h.getCursos().size()-1);
-                }
-            }
-        }
-    }
 }

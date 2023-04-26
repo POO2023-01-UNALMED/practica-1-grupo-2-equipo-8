@@ -4,13 +4,14 @@ import java.util.ArrayList;
 
 public class Profesor extends Registro{
     private static final long serialVersionUID = 2L;
-    private ArrayList<CursoProfesor> listaCursos;
+    private ArrayList<CursoProfesor> listaCursos = new ArrayList<CursoProfesor>();
     private Facultades facultad;
 
     public Profesor(String nombre, String correo, String nombreUsuario, String clave, String documento, ArrayList<CursoProfesor> listaCursos, Facultades facultad) {
         super(nombre, correo, nombreUsuario, clave, documento);
-        this.listaCursos = new ArrayList<CursoProfesor>();
+        this.listaCursos = listaCursos;
         this.facultad = facultad;
+        
     }
 
     public ArrayList<CursoProfesor> getListaCursos() {
@@ -46,6 +47,17 @@ public class Profesor extends Registro{
       // TODO: mire si el estuainte existe entre los estudiantes de ese curso 
       // TODO: mire si la nota es valdia, crear metodo estatico para validar de forma general
       return true;
+    }
+    
+    public void agregarCurso(ArrayList<Curso> listaCursos, ArrayList<String> listaHorarios){ //Método único para crear profesores en el menú
+        for(int x = 0; x<listaCursos.size(); x++){
+            Curso curso = listaCursos.get(x);
+            String horario = listaHorarios.get(x);
+            CursoProfesor cp = new CursoProfesor(curso.getNombre(), curso.getId(), curso.getCreditos(), curso.getNumeroParciales(), curso.getListaPorcentajes(), curso.getFacultad(), horario);
+            this.listaCursos.add(cp);
+            curso.agregarHorario(horario);
+            curso.setCupos((short)(curso.getCupos()+5));
+        }
     }
 
     private boolean validarExistenciaCurso(Curso curso) {
