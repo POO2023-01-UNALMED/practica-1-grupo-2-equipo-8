@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class Curso implements Serializable {
     private static final long serialVersionUID = 5L;
-    private static int cursosExistentes = 0;
     private String nombre;
     private int id;
     private int cupos;
@@ -24,7 +23,7 @@ public class Curso implements Serializable {
         ArrayList<Carreras> carrerasRelacionadas, ArrayList<Profesor> profesoresQueDictanElCurso,
         ArrayList<Facultades> facultades) {
       this.nombre = nombre;
-      this.id = 100000 + cursosExistentes;
+      this.id = 100000 + Registro.getCursos().size();
       this.cupos = cupos;
       this.creditos = creditos;
       this.numeroParciales = numeroParciales;
@@ -33,7 +32,6 @@ public class Curso implements Serializable {
       this.carrerasRelacionadas = carrerasRelacionadas;
       this.profesoresQueDictanElCurso = profesoresQueDictanElCurso;
       this.facultades = facultades;
-      Curso.cursosExistentes++;
     }
 
     // get y set

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Estudiante extends Registro{
     private static final long serialVersionUID = 3L;
     private ArrayList<CursoEstudiante> listaCursos;
-    private ArrayList<CursoEstudiante> cursosVistos;
+    private ArrayList<CursoEstudiante> cursosVistos = new ArrayList<CursoEstudiante>();
     private ArrayList<Curso> listaCursosInscritos;
     private Carreras carrera;
     private Facultades facultad;

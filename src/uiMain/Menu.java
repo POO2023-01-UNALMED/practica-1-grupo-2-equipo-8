@@ -1,5 +1,8 @@
 package uiMain;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import baseDatos.Serializador;
 import gestorAplicacion.Admin;
@@ -32,7 +35,7 @@ public class Menu {
                 continue;
             }
             switch(opcion){
-                case "1": ; break; // Añadir llamada al método correspondiente
+                case "1": UIRecomendarAsignaturas.recomendarAsignaturas(estudiante); continue; // Añadir llamada al método correspondiente
                 case "2": ; break; // Añadir llamada al método correspondiente
                 case "3": ; break; // Añadir llamada al método correspondiente
                 case "4": ; break; // Añadir llamada al método correspondiente
@@ -42,6 +45,7 @@ public class Menu {
             }
             break;
         }
+        sc.close();
     }
     public static void sistema(Profesor profesor){
         System.out.println("Bienvenido "+profesor.getNombre());
@@ -63,6 +67,7 @@ public class Menu {
             }
             break;
         }
+        sc.close();
     }
     public static void sistema(Admin admin){
         System.out.println("Bienvenido "+admin.getNombre());
@@ -74,17 +79,18 @@ public class Menu {
                     + "3. Eliminar curso\n"
                     + "4. Ver cursos\n"
                     + "5. Salir");
-            int opcion = sc.nextInt();
-            if (opcion < 0 || opcion > 5) {
+            String opcion = sc.nextLine();
+            ArrayList<String> opciones = new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5"));
+            if (!opciones.contains(opcion)) {
                 System.out.println("Debe seleccionar un número entre el 1 y el 5");
                 continue;
             }
             switch(opcion){
-                case 1: ; break; // Añadir llamada al método correspondiente
-                case 2: Admin.agregarCurso(); break;
-                case 3: Admin.eliminarCurso(); break;
-                case 4: Admin.verCursos(); break;
-                case 5: salir(); break;
+                case "1": ; break; // Añadir llamada al método correspondiente
+                case "2": Admin.agregarCurso(); continue;
+                case "3": Admin.eliminarCurso(); continue;
+                case "4": Admin.verCursos(); continue;
+                case "5": salir(); break;
             }
             break;
         }
