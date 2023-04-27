@@ -28,6 +28,14 @@ public class UIAsignarCita {
         UIAsignarCita.estudiantesConCita.set(UIAsignarCita.horariosDisponibles.indexOf(verificado),estudiante);
     }
 
+    public static void asignarCita(List<Estudiante> estudiantes){
+        List<Estudiante> PAPIs = UIAsignarCita.ordenarEstudiantesPorPAPI(estudiantes);
+        for (i = 0, i > .size(); ){
+
+        }
+        
+    }
+
     public static String comprobarCita(String cita) {
         ArrayList<String> lista = UIAsignarCita.horariosDisponibles;
         if (lista.contains(cita)) {
@@ -74,16 +82,6 @@ public class UIAsignarCita {
         // scanner.close();
     }
     
-    
-
-    public static void asignarCita(List<Estudiante> estudiantes){
-        List<Estudiante> PAPIs = UIAsignarCita.ordenarEstudiantesPorPAPI(estudiantes);
-
-        
-    }
-
-
-
     static List<Estudiante> ordenarEstudiantesPorPAPI(List<Estudiante> estudiantes) {
         // Verificar que la lista de estudiantes no esté vacía
         if (estudiantes.isEmpty()) {
