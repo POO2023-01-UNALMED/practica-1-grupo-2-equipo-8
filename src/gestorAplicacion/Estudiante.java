@@ -13,6 +13,7 @@ public class Estudiante extends Registro{
     private int semestre;
     private ArrayList<Horario> horariosCreados = new ArrayList<Horario>();
     private ArrayList<Estimulo> Estimulos = new ArrayList<Estimulo>();
+    private String cita;
 
     public Estudiante(String nombre, String correo, String nombreUsuario, String clave, String documento, Carreras carrera, Facultades facultad, int semestre) {
         super(nombre, correo, nombreUsuario, clave, documento);
@@ -21,6 +22,14 @@ public class Estudiante extends Registro{
         this.semestre = semestre;
     }
     
+    public String getCita() {
+        return cita;
+    }
+
+    public void setCita(String cita) {
+        this.cita = cita;
+    }
+
     public ArrayList<CursoEstudiante> getListaCursos() {
         return listaCursos;
     }
