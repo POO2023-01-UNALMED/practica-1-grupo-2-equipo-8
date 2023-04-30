@@ -32,17 +32,37 @@ public class UIRecomendarAsignaturas {
             if (estudiante.getCursosVistos() == null) {
                 fueCursada = false;
             } else {
-                fueCursada = estudiante.getCursosVistos().contains(curso);
+                // La comparación se realiza entre los nombres, ya que son clases distintas,
+                // por lo que se obtiene la lista de nombres,
+                ArrayList<String> nombresCursosEstudiante = new ArrayList<String>();
+                for (CursoEstudiante asignatura : estudiante.getCursosVistos()) {
+                    nombresCursosEstudiante.add(asignatura.getNombre());
+                }
+                // y se revisa si el nombre del curso está en los cursos vistos.
+                fueCursada = nombresCursosEstudiante.contains(curso.getNombre());
             }
             if (!esDeLaCarrera || fueCursada) continue;
             
             // Se recomienda un curso si
             // el estudiante ya vio todos los prerrequisitos del curso
             boolean vioPrerrequisitos;
+            // Si el estudiante es nuevo, no ha cursado niguna materia
             if (estudiante.getCursosVistos() == null) {
                 vioPrerrequisitos = false;
             } else {
-                vioPrerrequisitos = estudiante.getCursosVistos().containsAll(curso.getPreRequisitos());
+                // La comparación se realiza entre los nombres, ya que son clases distintas,
+                // por lo que se obtiene la lista de nombres de los preRequisitos,
+                ArrayList<String> nombresCursosPreRequisitos = new ArrayList<String>();
+                for (Curso asignatura : curso.getPreRequisitos()) {
+                    nombresCursosPreRequisitos.add(asignatura.getNombre());
+                }
+                // y la lista de nombres de los cursos vistos,
+                ArrayList<String> nombresCursosEstudiante = new ArrayList<String>();
+                for (CursoEstudiante asignatura : estudiante.getCursosVistos()) {
+                    nombresCursosEstudiante.add(asignatura.getNombre());
+                }
+                // finalmente se verifica si el estudiante a cursado todos los preRequisitos.
+                vioPrerrequisitos = nombresCursosEstudiante.containsAll(nombresCursosPreRequisitos);
             }
             if (vioPrerrequisitos) {
                 cursosParaRecomendar.add(curso);
