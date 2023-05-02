@@ -9,8 +9,8 @@ import java.util.Scanner;
 
 public class BusquedaCursos { 
   public static void buscarEstimulos() {
-    ArrayList<EstimuloEstudiante> estimulosEstudiante = obtenerEstimulos();
-    ArrayList<EstimuloProfesor> estimulosProfesor =  obtenerEstimulos();
+    ArrayList<EstimuloEstudiante> estimulosEstudiante = obtenerEstimulos(TipoUsuario.ESTUDIANTE);
+    ArrayList<EstimuloProfesor> estimulosProfesor =  obtenerEstimulos(TipoUsuario.PROFESOR);
 
     ArrayList<ArrayList<Estudiante>> estudiantesQueAplican = new ArrayList<ArrayList<Estudiante>>(estimulosEstudiante.lenght());
     ArrayList<ArrayList<Profesor>> profesoresQueAplican = new ArrayList<ArrayList<Profesor>>(estimulosProfesor.lenght());
@@ -47,7 +47,7 @@ public class BusquedaCursos {
   }
 
   public static void buscarEstimulos(Estudiante estudiante) {
-    ArrayList<EstimuloEstudiante> estimulosEstudiante = obtenerEstimulos();
+    ArrayList<EstimuloEstudiante> estimulosEstudiante = obtenerEstimulos(TipoUsuario.ESTUDIANTE);
     ArrayList<boolean> estimulosALosQueAplica = new ArrayList<boolean>(estimulosEstudiante.lenght(), false);
     int totalAplicables = 0;
 
@@ -85,7 +85,7 @@ public class BusquedaCursos {
 
   // TODO: Usar genericos para evitar duplicidad de codigo
   public static void buscarEstimulos(Profesor profesor) {
-    ArrayList<EstimuloProfesor> estimulosProfesor = obtenerEstimulos();
+    ArrayList<EstimuloProfesor> estimulosProfesor = obtenerEstimulos(TipoUsuario.PROFESOR);
     ArrayList<boolean> estimulosALosQueAplica = new ArrayList<boolean>(estimulosProfesor.lenght(), false);
     int totalAplicables = 0;
 
