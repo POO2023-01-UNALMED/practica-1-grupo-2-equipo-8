@@ -25,11 +25,6 @@ public class Estimulo implements Serializable {
         this.cupos = cupos;
     }
 
-    // metodos
-    public void obtenerCriterios() {
-
-    }
-
     // getters
     public TipoUsuarios getAQuienAplica() {
         return aQuienAplica;

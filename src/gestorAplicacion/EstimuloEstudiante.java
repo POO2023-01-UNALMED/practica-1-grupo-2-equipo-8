@@ -22,8 +22,20 @@ public class EstimuloEstudiante extends Estimulo {
   }
 
   // metodos
-  public void obtenerAplicantes() {
+  public ArrayList<String> obtenerCriterios() {
+    ArrayList<String> criterios;
 
+    criterio.add("Facultad: " + this.facultad);
+    criterio.add("PAPA: " + this.papa);
+    criterio.add("PBM: " + this.pbm);
+    criterio.add("Cupos: " + this.cupos);
+    criterio.add("Tipo usuario: Estudiante");
+
+    return criterios;
+  }
+
+  public void obtenerAplicantes() {
+    // buscar personas que cumplan los requisitos
   }
 
   public boolean verificarRequisitos(Estudiante estudiante) {
@@ -37,11 +49,11 @@ public class EstimuloEstudiante extends Estimulo {
 
     if (!this.facultadesAplica.contains(estudiante.getFacultad())) {
       razones.add("Este estímulo no aplica a tu facultad");
-      cumpleRequisitos = false; 
+      cumpleRequisitos = false;
     }
 
-    if (estudiante.calcularPAPA() < this.PAPA) {
-      razones.add("Tu PAPA es demasiado bajo");
+    if (estudiante.calcularPAPA() < this.papa) {
+      razones.add("Tu PAPA es inferior al requerido");
       cumpleRequisitos = false; 
     }
 
@@ -52,7 +64,7 @@ public class EstimuloEstudiante extends Estimulo {
 
     System.out.println("No puedes aplicar a este estímulo por las siguientes razones:");
     for (String razon : razones) {
-        System.out.println(razon);
+      System.out.println(razon);
     }
     return false;
   }

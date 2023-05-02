@@ -7,7 +7,7 @@ import gestorAplicacion.Profesor;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class BusquedaCursos { 
+public class BusquedaCursos {
   public static void buscarEstimulos() {
     ArrayList<EstimuloEstudiante> estimulosEstudiante = obtenerEstimulos(TipoUsuario.ESTUDIANTE);
     ArrayList<EstimuloProfesor> estimulosProfesor =  obtenerEstimulos(TipoUsuario.PROFESOR);
