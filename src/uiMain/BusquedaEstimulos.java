@@ -5,6 +5,7 @@ import gestorAplicacion.EstimuloProfesor;
 import gestorAplicacion.Estudiante;
 import gestorAplicacion.Profesor;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class BusquedaCursos { 
   public static void buscarEstimulos() {
@@ -82,21 +83,77 @@ public class BusquedaCursos {
     }
   }
 
+  // TODO: Usar genericos para evitar duplicidad de codigo
   public static void buscarEstimulos(Profesor profesor) {
+    ArrayList<EstimuloProfesor> estimulosProfesor = obtenerEstimulos();
+    ArrayList<boolean> estimulosALosQueAplica = new ArrayList<boolean>(estimulosProfesor.lenght(), false);
+    int totalAplicables = 0;
+
+    for(int i=0; i<estimulosProfesor.lenght(); ++i) {
+      if(estimulosProfesor[i].verificarAplicabilidad(estudiante)) {
+        estimulosALosQueAplica[i] = true;
+        totalAplicables += 1;
+      }
+    }
+
+    System.out.println("Usted aplica a " + Integer.toString(totalAplicables) + " estimulos");
+    for(int i=0, j=1; i<estimulosProfesor.lenght(); ++i) {
+      if(estimulosALosQueAplica[i]) {
+        imprimirEstimulo(
+          Integer.toString(j) + ".",
+          estimulosProfesor[i],
+          estimulosProfesor[i].obtenerCriterios()
+        );
+        j++;
+      }
+    }
+
+    System.out.println("Otros estimulos para profesores");
+    for(int i=0, j=1; i<estimulosProfesor.lenght(); ++i) {
+      if(!estimulosALosQueAplica[i]) {
+        imprimirEstimulo(
+          Integer.toString(j) + ".",
+          estimulosProfesor[i],
+          estimulosProfesor[i].obtenerCriterios()
+        );
+        j++;
+      }
+    }    
+  }
+
+  public static boolean buscarEstimulosPorId() {
+    Scanner sc = new Scanner(System.in);
     
-  }
+    System.out.println("Digite el id del usuario a consultar")
+    String id = sc.nextLine();
+    
+    if(!id) {
+      System.out.println("Digite un id válido (solo números)")
+      return false;
+    }
 
-  public static void buscarEstimulosPorId() {
-    // preguntar por id
     // buscar persona (verificar existencia como estudiante o profesor)
-    // 
-    // buscar todas los estimulos
-    // para cad uno ver quien aplica
-    // imprimr
+    
+    buscarEstimulos(); // TODO: llamelo de acuerdo al tipo
   }
 
-  public List<Estimulo> obtenerEstimulos() {
+  public List<Estimulo> obtenerEstimulos(TipoUsuario tipoUsuario) {
+    List<Estimulo> estimulos = new ArrayList<>();
 
+    switch (tipoUsuario) {
+      case ESTUDIANTE:
+        // busqwue estimulos de estudiantes
+        // agregeulos a estimulo
+      break;  
+      case PROFESOR:
+        // busqwue estimulos de estudiantes
+        // agregeulos a estimulo
+      break;
+      default:
+      break;
+    }
+
+    return estimulos;
   }
 
   public void imprimirEstimulo(
