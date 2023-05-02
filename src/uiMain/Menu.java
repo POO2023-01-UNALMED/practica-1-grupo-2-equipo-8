@@ -52,7 +52,7 @@ public class Menu {
                     + "2. Buscar asignatura\n"
                     + "3. Crear horario\n"
                     + "4. Inscribir materias\n"
-                    + "5. Ver aplicabilidad a estimulos\n"
+                    + "5. Ver estimulos a los que aplica\n"
                     + "6. Calificar a un docente\n"
                     + "7. Salir");
             String opcion = sc.next();
@@ -65,7 +65,7 @@ public class Menu {
                 case "2": BusquedaCursos.buscarCursos(estudiante); break;
                 case "3": Horario horario = new Horario(estudiante, new ArrayList<CursoEstudiante>()); estudiante.agregarHorario(horario); BusquedaCursos.buscarCursos(estudiante, horario); break;
                 case "4": ; break; // Añadir llamada al método correspondiente
-                case "5": ; break; // Añadir llamada al método correspondiente
+                case "5": BusquedaEstimulos.buscarEstimulos(estudiante);
                 case "6": ; break; // Añadir llamada al método correspondiente
                 case "7": salir(); break;
             }
@@ -78,16 +78,18 @@ public class Menu {
             System.out.println("Indique lo que quiere realizar:\n"
                     + "1. Calificar\n"
                     + "2. Ver aplicabilidad a estimulos\n"
-                    + "3. Salir");
+                    + "3. Ver estimulos a los que aplica\n"
+                    + "4. Salir");
             String opcion = sc.next();
-            if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3"))){
-                System.out.println("Debe seleccionar un número entre el 1 y el 3");
+            if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3")) && !(opcion.equals("4"))){
+                System.out.println("Debe seleccionar un número entre el 1 y el 4");
                 continue;
             }
             switch(opcion){
                 case "1": ; break; // Añadir llamada al método correspondiente
                 case "2": ; break; // Añadir llamada al método correspondiente
-                case "3": salir(); break;
+                case "3": BusquedaEstimulos.buscarEstimulos(profesor);
+                case "4": salir(); break;
             }
         }
     }
@@ -97,15 +99,19 @@ public class Menu {
         while(true){
             System.out.println("Indique lo que quiere realizar:\n"
                     + "1. Ver recomendación de asignaturas\n"
-                    + "2. Salir");
+                    + "2. Ver estimulos [por id]\n"
+                    + "3. Ver estimulos [todos]\n"
+                    + "4. Salir");
             String opcion = sc.next();
-            if(!(opcion.equals("1")) && !(opcion.equals("2"))){
-                System.out.println("Debe seleccionar un número entre el 1 y el 2");
+            if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3")) && !(opcion.equals("4"))){
+                System.out.println("Debe seleccionar un número entre el 1 y el 4");
                 continue;
             }
             switch(opcion){
                 case "1": ; break; // Añadir llamada al método correspondiente
-                case "2": salir(); break;
+                case "2": BusquedaEstimulos.buscarEstimulosPorId();
+                case "3": BusquedaEstimulos.buscarEstimulos();
+                case "4": salir(); break;
             }
         }
     }
