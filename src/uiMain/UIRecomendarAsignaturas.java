@@ -1,6 +1,10 @@
 package uiMain;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Scanner;
+import java.util.Collections;
+import java.util.Comparator;
 
 import gestorAplicacion.*;
 
@@ -9,6 +13,8 @@ import gestorAplicacion.Registro;
 
 public class UIRecomendarAsignaturas {
     public static void recomendarAsignaturas(Estudiante estudiante) {
+        Scanner sc = new Scanner(System.in);
+
         System.out.println("RECOMENDACION DE ASIGNATURAS");
         System.out.println("A continuación se muestran las asignaturas recomendadas para cursar el próximo semestre:");
         
@@ -80,6 +86,46 @@ public class UIRecomendarAsignaturas {
         // Se imprimen los cursos
         for (int i = 0; i < cursosParaRecomendar.size(); i++) {
             System.out.printf("\t%d. %s\n", i + 1, cursosParaRecomendar.get(i));
+        }
+
+        while (true) {
+            System.out.printf("Elija un curso para ver profesores recomendados o 0 para terminar: ");
+
+            int opcion = sc.nextInt();
+            if (opcion <= 0 || opcion > cursosParaRecomendar.size()) break;
+
+            // Se obtiene el curso de interés y la lista de profesores que lo dictan.
+            Curso curso = cursosParaRecomendar.get(opcion - 1);
+            ArrayList<Profesor> listaProfesores = curso.getProfesoresQueDictanElCurso();
+            // Si no hay profesores, volver a preguntar por otro curso.
+            if (listaProfesores == null || listaProfesores.isEmpty()) {
+                System.out.println("\tNo hay profesores que dicten el curso.");
+                continue;
+            }
+            
+            // Se ordena la lista de forma descendente según las calificaciones de los profesores.
+            Collections.sort(listaProfesores, new Comparator<Profesor>() {
+                @Override
+                public int compare(Profesor p1, Profesor p2) {
+                    return Double.compare(p2.getCalificacion(), p1.getCalificacion());
+                }
+            });
+
+            // Si un profesor tiene calificación de -1, significa que no ha sido calificado.
+            for (Profesor profesor : listaProfesores) {
+                if (profesor.getCalificacion() == -1) {
+                    listaProfesores.remove(profesor);
+                }
+            }
+            if (listaProfesores.isEmpty()) {
+                System.out.println("\tNo hay profesores que hallan sido calificados.");
+                continue;
+            }
+
+            // Se imprimen los profesores y su respectiva calificación.
+            for (int i = 0; i < listaProfesores.size(); i++) {
+                System.out.printf("\t%d. %s\n", i + 1, listaProfesores.get(i).toString());
+            }
         }
 
         return;

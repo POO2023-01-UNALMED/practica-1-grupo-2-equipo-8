@@ -6,11 +6,21 @@ public class Profesor extends Registro{
     private static final long serialVersionUID = 2L;
     private ArrayList<CursoProfesor> listaCursos;
     private Facultades facultad;
+    private double calificacion;
 
     public Profesor(String nombre, String correo, String nombreUsuario, String clave, String documento, ArrayList<CursoProfesor> listaCursos, Facultades facultad) {
         super(nombre, correo, nombreUsuario, clave, documento);
         this.listaCursos = new ArrayList<CursoProfesor>();
         this.facultad = facultad;
+        this.calificacion = -1;
+    }
+
+    public double getCalificacion() {
+      return calificacion;
+    }
+
+    public void setCalificacion(double calificacion) {
+      this.calificacion = calificacion;
     }
 
     public ArrayList<CursoProfesor> getListaCursos() {
@@ -53,5 +63,9 @@ public class Profesor extends Registro{
         if(cursoActual.getId() == curso.getId()) return true;
       }
       return false;
+    }
+
+    public String toString() {
+      return this.getNombre() + " (" + this.getCalificacion() + ")";
     }
 }
