@@ -14,6 +14,7 @@ public class Estudiante extends Registro{
     private ArrayList<Horario> horariosCreados = new ArrayList<Horario>();
     private ArrayList<Estimulo> Estimulos = new ArrayList<Estimulo>();
     private String cita;
+    private Boolean inscribir = false;
 
     public Estudiante(String nombre, String correo, String nombreUsuario, String clave, String documento, Carreras carrera, Facultades facultad, int semestre) {
         super(nombre, correo, nombreUsuario, clave, documento);
@@ -22,6 +23,14 @@ public class Estudiante extends Registro{
         this.semestre = semestre;
     }
     
+    public Boolean getInscribir() {
+        return inscribir;
+    }
+
+    public void setInscribir(Boolean inscribir) {
+        this.inscribir = inscribir;
+    }
+
     public String getCita() {
         return cita;
     }

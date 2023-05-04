@@ -16,6 +16,7 @@ import gestorAplicacion.TipoUsuarios;
 public class UIAsignarCita {
     static Scanner sc = new Scanner(System.in);
 
+    private static ArrayList<Estudiante> estudiantesConCita = new ArrayList<Estudiante>();
     private static ArrayList<String> horariosDisponibles = new ArrayList<String>(Arrays.asList("6:00", "6:30", "7:00", "7:30", "8:00", 
     "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", 
     "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"));
@@ -32,6 +33,7 @@ public class UIAsignarCita {
             }
             estudiante.setCita(verificado);
             UIAsignarCita.horariosDisponibles.remove(verificado);
+            UIAsignarCita.estudiantesConCita.add(estudiante);
         }
     }
 
@@ -41,8 +43,16 @@ public class UIAsignarCita {
             String horario = UIAsignarCita.horariosDisponibles.get(i);
             Estudiante estudiante = PAPIs.get(i);
             estudiante.setCita(horario);
+            UIAsignarCita.estudiantesConCita.add(estudiante);
         }
         
+    }
+
+    public static void siguienteEnInscribir(){
+        if (!UIAsignarCita.estudiantesConCita.isEmpty()){
+            Estudiante primero = UIAsignarCita.estudiantesConCita.get(0);
+            primero.setInscribir(true);
+        }
     }
 
     public static String comprobarCita(String cita) {
