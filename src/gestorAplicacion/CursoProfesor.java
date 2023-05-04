@@ -6,7 +6,7 @@ public class CursoProfesor extends Curso {
     private static final long serialVersionUID = 7L;
     private ArrayList<Estudiante> listaEstudiantes;
     private String horario;
-    private final short cupos = 5;
+    private short cupos = 5;
 
     public CursoProfesor(String nombre, int id, short creditos,
         int numeroParciales, ArrayList<int[]> listaPorcentajes,
@@ -15,7 +15,10 @@ public class CursoProfesor extends Curso {
       this.horario = horario;
     }
     
-    
+    public void resetearCurso(){
+        this.cupos = 5;
+        this.listaEstudiantes = new ArrayList<Estudiante>();
+    }
 
     public ArrayList<Estudiante> getListaEstudiantes() {
       return listaEstudiantes;
