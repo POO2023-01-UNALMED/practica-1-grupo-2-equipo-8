@@ -6,12 +6,14 @@ public class CursoProfesor extends Curso {
     private static final long serialVersionUID = 7L;
     private ArrayList<Estudiante> listaEstudiantes;
     private String horario;
-    private short cupos = 5;
+    private int cupos = 5;
 
-    public CursoProfesor(String nombre, int id, short creditos,
-        int numeroParciales, ArrayList<int[]> listaPorcentajes,
+    public CursoProfesor(String nombre, int cupos, int creditos,
+        int numeroParciales, ArrayList<int[]> listaPorcentajes, ArrayList<Curso> preRequisitos,
+        ArrayList<Carreras> carrerasRelacionadas, ArrayList<Profesor> profesoresQueDictanElCurso,
         ArrayList<Facultades> facultad, String horario) {
-      super(nombre, id, creditos, numeroParciales, listaPorcentajes, facultad);
+      super(nombre, cupos, creditos, numeroParciales, listaPorcentajes, preRequisitos,
+          carrerasRelacionadas, profesoresQueDictanElCurso, facultad);
       this.horario = horario;
     }
     
@@ -41,7 +43,7 @@ public class CursoProfesor extends Curso {
     }
     
     @Override
-    public short getCupos() {
+    public int getCupos() {
         return cupos;
     }
     

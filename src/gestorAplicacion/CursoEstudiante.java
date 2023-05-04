@@ -68,10 +68,9 @@ public class CursoEstudiante extends Curso {
     }
     
     @Override
-    public short getCupos(){
+    public int getCupos(){
         return cupos;
     }
-    
     
     
     
@@ -85,8 +84,7 @@ public class CursoEstudiante extends Curso {
         }
         return -1; //Hay que corregir la lógica en la capa de UI
     }
-    
-    
+
     
     public void mostrarNotas(){ //Falta complemento de la UI
         
