@@ -56,15 +56,15 @@ public class Admin extends Registro {
 
             // Se crea la lista de opciones.
             ArrayList<Integer> opciones = new ArrayList<Integer>();
-            for (int i = 0; i < notInPreRequisitos.size(); i++) {
+            for (int i = 0; i <= notInPreRequisitos.size(); i++) {
                 opciones.add(i);
             }
             // El usuario elige alguna facultad o 0 para continuar con el siguiente apartado.
-            System.out.print("\tElige una facultad o 0 para continuar: ");
+            System.out.print("\tElige un curso o 0 para continuar: ");
             int opcion = sc.nextInt();
             // Se verifica la opcion ingresada.
             if (!opciones.contains(opcion)) {
-                System.out.printf("Debe seleccionar un número entre el 0 y el %d\n", opciones.size());
+                System.out.printf("\t\tDebe seleccionar un número entre el 0 y el %d\n", opciones.get(opciones.size() - 1));
                 continue;
             } else if (opcion == 0) break;
 
@@ -98,15 +98,15 @@ public class Admin extends Registro {
 
             // Se crea la lista de opciones.
             ArrayList<Integer> opciones = new ArrayList<Integer>();
-            for (int i = 0; i < notIncarrerasRelacionadas.size(); i++) {
+            for (int i = 0; i <= notIncarrerasRelacionadas.size(); i++) {
                 opciones.add(i);
             }
             // El usuario elige alguna facultad o 0 para continuar con el siguiente apartado.
-            System.out.print("\tElige una facultad o 0 para continuar: ");
+            System.out.print("\tElige una carrera o 0 para continuar: ");
             int opcion = sc.nextInt();
             // Se verifica la opcion ingresada.
             if (!opciones.contains(opcion)) {
-                System.out.printf("Debe seleccionar un número entre el 0 y el %d\n", opciones.size());
+                System.out.printf("\t\tDebe seleccionar un número entre el 0 y el %d\n", opciones.get(opciones.size() - 1));
                 continue;
             } else if (opcion == 0) break;
 
@@ -174,7 +174,7 @@ public class Admin extends Registro {
 
             // Se crea la lista de opciones.
             ArrayList<Integer> opciones = new ArrayList<Integer>();
-            for (int i = 0; i < notInFacultades.size(); i++) {
+            for (int i = 0; i <= notInFacultades.size(); i++) {
                 opciones.add(i);
             }
             // El usuario elige alguna facultad o 0 para continuar con el siguiente apartado.
@@ -182,7 +182,7 @@ public class Admin extends Registro {
             int opcion = sc.nextInt();
             // Se verifica la opcion ingresada.
             if (!opciones.contains(opcion)) {
-                System.out.printf("Debe seleccionar un número entre el 0 y el %d\n", opciones.size());
+                System.out.printf("\t\tDebe seleccionar un número entre el 0 y el %d\n", opciones.get(opciones.size() - 1));
                 continue;
             } else if (opcion == 0) break;
 
@@ -190,9 +190,9 @@ public class Admin extends Registro {
             facultades.add(notInFacultades.get(opcion - 1));
         }
 
+        // Se crea el nuevo curso.
         Curso nuevoCurso = new Curso(nombre, (short)creditos, numeroParciales, listaPorcentajes, preRequisitos, carrerasRelacionadas, facultades);
         System.out.printf("Curso %s (%d) agregado con exito.\n", nuevoCurso.getNombre(), nuevoCurso.getId());
-        Registro.agregarCurso(nuevoCurso);
         return;
     }
 
@@ -213,7 +213,7 @@ public class Admin extends Registro {
 
             // Se crea la lista de opciones.
             ArrayList<Integer> opciones = new ArrayList<Integer>();
-            for (int i = 0; i < Registro.getCursos().size(); i++) {
+            for (int i = 0; i <= Registro.getCursos().size(); i++) {
                 opciones.add(i);
             }
             // El usuario elige algún curso o 0 para terminar el proceso.
@@ -221,14 +221,12 @@ public class Admin extends Registro {
             int opcion = sc.nextInt();
             // Se verifica la opcion ingresada.
             if (!opciones.contains(opcion)) {
-                System.out.printf("Debe seleccionar un número entre el 0 y el %d\n", opciones.size());
+                System.out.printf("\t\tDebe seleccionar un número entre el 0 y el %d\n", opciones.get(opciones.size() - 1));
                 continue;
             } else if (opcion == 0) break;
             
             // Se elimina el curso del sistema.
-            ArrayList<Curso> newList = Registro.getCursos();
-            newList.remove(opcion - 1);
-            Registro.setCursos(newList);
+            Registro.eliminarCurso(opcion - 1);
         }
         return;
     }

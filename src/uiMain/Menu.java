@@ -41,8 +41,6 @@ public class Menu {
         pre2.add(c1);
         Curso c2 = new Curso("Análisis de datos", (short)3, 3, por,pre1,carreras1,facultades2);
         //    public Curso(String nombre, short creditos, int numeroParciales, ArrayList<int[]> listaPorcentajes, ArrayList<Curso> preRequisitos, ArrayList<Carreras> carrerasRelacionadas, ArrayList<Facultades> facultad)
-        Registro.agregarCurso(c1);
-        Registro.agregarCurso(c2);
         Login.login();
         sc.close();
     }

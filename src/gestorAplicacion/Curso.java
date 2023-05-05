@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class Curso implements Serializable {
     private static final long serialVersionUID = 5L;
-    private static int cont;
     private String nombre;
     private int id;
     private short cupos;
@@ -44,6 +43,7 @@ public class Curso implements Serializable {
         this.listaPorcentajes = listaPorcentajes;
         this.facultades = facultades;
         this.id = id;
+        Registro.agregarCurso(this); // Se agrega el curso creado a la base de datos.
     }
 
     // Sobrecarga que funciona en la clase Menu, clase Admin
@@ -55,8 +55,8 @@ public class Curso implements Serializable {
         this.preRequisitos = preRequisitos;
         this.carrerasRelacionadas = carrerasRelacionadas;
         this.facultades = facultad;
-        Curso.cont++;
-        this.id = Curso.cont;
+        this.id = 100000 + Registro.getCursos().size();
+        Registro.agregarCurso(this); // Se agrega el curso creado a la base de datos.
     }
 
     // get y set
