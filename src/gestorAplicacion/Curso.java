@@ -19,6 +19,7 @@ public class Curso implements Serializable {
     private ArrayList<Facultades> facultades = new ArrayList<Facultades>();
 
     // Sobrecarga que funciona en la clase Admin
+    /*
     public Curso(String nombre, short cupos, short creditos,
         int numeroParciales, ArrayList<int[]> listaPorcentajes, ArrayList<Curso> preRequisitos,
         ArrayList<Carreras> carrerasRelacionadas, ArrayList<Profesor> profesoresQueDictanElCurso,
@@ -34,6 +35,7 @@ public class Curso implements Serializable {
       this.profesoresQueDictanElCurso = profesoresQueDictanElCurso;
       this.facultades = facultades;
     }
+    */
     
     public Curso(String nombre, int id, short creditos, int numeroParciales, ArrayList<int[]> listaPorcentajes, ArrayList<Facultades> facultades){
         this.nombre = nombre;
@@ -44,7 +46,7 @@ public class Curso implements Serializable {
         this.id = id;
     }
 
-    // Sobrecarga que funciona en la clase Menu
+    // Sobrecarga que funciona en la clase Menu, clase Admin
     public Curso(String nombre, short creditos, int numeroParciales, ArrayList<int[]> listaPorcentajes, ArrayList<Curso> preRequisitos, ArrayList<Carreras> carrerasRelacionadas, ArrayList<Facultades> facultad) {
         this.nombre = nombre;
         this.creditos = creditos;

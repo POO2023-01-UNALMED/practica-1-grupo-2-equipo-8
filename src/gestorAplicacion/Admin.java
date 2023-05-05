@@ -3,8 +3,6 @@ package gestorAplicacion;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import uiMain.Menu;
-
 public class Admin extends Registro {
     private static final long serialVersionUID = 4L;
     public Admin(String nombre, String correo, String nombreUsuario, String clave, String documento){
@@ -12,15 +10,11 @@ public class Admin extends Registro {
     }
 
     // METHODS
-    public static void agregarCurso() {
-        Scanner sc = new Scanner(System.in);
-
+    public static void agregarCurso(Scanner sc) {
         // Obtenemos datos como nombre, cupos, creditos y cantidad parciales.
         System.out.println("CREAR CURSO");
         System.out.print("Nombre: ");
         String nombre = sc.nextLine();
-        System.out.print("Cupos: ");
-        int cupos = sc.nextInt();
         System.out.print("Creditos: ");
         int creditos = sc.nextInt();
         System.out.print("Cantidad Parciales: ");
@@ -59,10 +53,20 @@ public class Admin extends Registro {
             for (int i = 0; i < notInPreRequisitos.size(); i++) {
                 System.out.printf("\t%d. %s\n", i + 1, notInPreRequisitos.get(i).getNombre());
             }
-            // El usuario elige algún curso como prerrequisito o 0 para continuar con el siguiente apartado.
-            System.out.print("\tElige un curso como prerrequisito o 0 para continuar: ");
+
+            // Se crea la lista de opciones.
+            ArrayList<Integer> opciones = new ArrayList<Integer>();
+            for (int i = 0; i < notInPreRequisitos.size(); i++) {
+                opciones.add(i);
+            }
+            // El usuario elige alguna facultad o 0 para continuar con el siguiente apartado.
+            System.out.print("\tElige una facultad o 0 para continuar: ");
             int opcion = sc.nextInt();
-            if (opcion == 0 || opcion > notInPreRequisitos.size()) break;
+            // Se verifica la opcion ingresada.
+            if (!opciones.contains(opcion)) {
+                System.out.printf("Debe seleccionar un número entre el 0 y el %d\n", opciones.size());
+                continue;
+            } else if (opcion == 0) break;
 
             // Se agrega el curso seleccionado como prerrequisito.
             preRequisitos.add(notInPreRequisitos.get(opcion - 1));
@@ -91,17 +95,27 @@ public class Admin extends Registro {
             for (int i = 0; i < notIncarrerasRelacionadas.size(); i++) {
                 System.out.printf("\t%d. %s\n", i + 1, notIncarrerasRelacionadas.get(i).getNombre());
             }
-            // El usuario elige alguna carrera o 0 para continuar con el siguiente apartado.
-            System.out.print("\tElige una carrera o 0 para continuar: ");
+
+            // Se crea la lista de opciones.
+            ArrayList<Integer> opciones = new ArrayList<Integer>();
+            for (int i = 0; i < notIncarrerasRelacionadas.size(); i++) {
+                opciones.add(i);
+            }
+            // El usuario elige alguna facultad o 0 para continuar con el siguiente apartado.
+            System.out.print("\tElige una facultad o 0 para continuar: ");
             int opcion = sc.nextInt();
-            if (opcion == 0 || opcion > notIncarrerasRelacionadas.size()) break;
+            // Se verifica la opcion ingresada.
+            if (!opciones.contains(opcion)) {
+                System.out.printf("Debe seleccionar un número entre el 0 y el %d\n", opciones.size());
+                continue;
+            } else if (opcion == 0) break;
 
             // Se agrega la carrera seleccionada como relacionada.
             carrerasRelacionadas.add(notIncarrerasRelacionadas.get(opcion - 1));
         }
         
-        ArrayList<Profesor> profesoresQueDictanElCurso = new ArrayList<Profesor>();
         /*
+        ArrayList<Profesor> profesoresQueDictanElCurso = new ArrayList<Profesor>();
         // PROFESORES
         // Se definen los profesores que dictan el curso.
         ArrayList<Profesor> profesoresQueDictanElCurso = new ArrayList<Profesor>();
@@ -157,24 +171,32 @@ public class Admin extends Registro {
             for (int i = 0; i < notInFacultades.size(); i++) {
                 System.out.printf("\t%d. %s\n", i + 1, notInFacultades.get(i).getNombre());
             }
+
+            // Se crea la lista de opciones.
+            ArrayList<Integer> opciones = new ArrayList<Integer>();
+            for (int i = 0; i < notInFacultades.size(); i++) {
+                opciones.add(i);
+            }
             // El usuario elige alguna facultad o 0 para continuar con el siguiente apartado.
             System.out.print("\tElige una facultad o 0 para continuar: ");
             int opcion = sc.nextInt();
-            if (opcion == 0 || opcion > notInFacultades.size()) break;
+            // Se verifica la opcion ingresada.
+            if (!opciones.contains(opcion)) {
+                System.out.printf("Debe seleccionar un número entre el 0 y el %d\n", opciones.size());
+                continue;
+            } else if (opcion == 0) break;
 
             // Se agrega la facultad seleccionada.
             facultades.add(notInFacultades.get(opcion - 1));
         }
 
-        Curso nuevoCurso = new Curso(nombre, (short)cupos, (short)creditos, numeroParciales, listaPorcentajes, preRequisitos, carrerasRelacionadas, profesoresQueDictanElCurso, facultades);
+        Curso nuevoCurso = new Curso(nombre, (short)creditos, numeroParciales, listaPorcentajes, preRequisitos, carrerasRelacionadas, facultades);
         System.out.printf("Curso %s (%d) agregado con exito.\n", nuevoCurso.getNombre(), nuevoCurso.getId());
         Registro.agregarCurso(nuevoCurso);
         return;
     }
 
-    public static void eliminarCurso() {
-        Scanner sc = new Scanner(System.in);
-
+    public static void eliminarCurso(Scanner sc) {
         // Cursos para eliminar.
         System.out.println("ELIMINAR CURSOS");
         while (true) {
@@ -186,12 +208,22 @@ public class Admin extends Registro {
 
             // Se imprimen los cursos existentes.
             for (int i = 0; i < Registro.getCursos().size(); i++) {
-                System.out.printf("\t%d. %s\n", i + 1, Registro.getCursos().get(i).getNombre());
+                System.out.printf("\t%d. %s\n", i + 1, Registro.getCursos().get(i));
+            }
+
+            // Se crea la lista de opciones.
+            ArrayList<Integer> opciones = new ArrayList<Integer>();
+            for (int i = 0; i < Registro.getCursos().size(); i++) {
+                opciones.add(i);
             }
             // El usuario elige algún curso o 0 para terminar el proceso.
             System.out.print("\tElige un curso o 0 para continuar: ");
             int opcion = sc.nextInt();
-            if (opcion == 0 || opcion > Registro.getCursos().size()) break;
+            // Se verifica la opcion ingresada.
+            if (!opciones.contains(opcion)) {
+                System.out.printf("Debe seleccionar un número entre el 0 y el %d\n", opciones.size());
+                continue;
+            } else if (opcion == 0) break;
             
             // Se elimina el curso del sistema.
             ArrayList<Curso> newList = Registro.getCursos();
@@ -201,12 +233,10 @@ public class Admin extends Registro {
         return;
     }
 
-    public static void verCursos() {
-        Scanner sc = new Scanner(System.in);
-
+    public static void verCursos(Scanner sc) {
         System.out.println("LISTA DE CURSOS");
 
-        // Si no hay cursos que eliminar, terminar el proceso.
+        // Si no hay cursos para ver, terminar el proceso.
         if (Registro.getCursos().isEmpty()) {
             System.out.println("\tNo hay cursos.");
             return;
@@ -214,7 +244,6 @@ public class Admin extends Registro {
         // Se imprimen los cursos.
         for (int i = 0; i < Registro.getCursos().size(); i++) {
             System.out.printf("\t%d. %s\n", i + 1, Registro.getCursos().get(i));
-            //System.out.printf("%d. %s\n", i + 1, Registro.getCursos().get(i).getNombre());
         }
         System.out.print("\tPresiona una tecla para continuar: ");
         sc.nextLine();

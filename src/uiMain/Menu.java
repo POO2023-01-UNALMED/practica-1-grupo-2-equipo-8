@@ -19,9 +19,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Menu {
-    static Scanner sc = new Scanner(System.in);
-    
     public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
         Registro registro = new Registro();
         int[] n1 = {1,33}; //La primera entrada corresponde al id del enum TipoNota 
         int[] n2 = {1,33}; //La primera entrada corresponde al id del enum TipoNota 
@@ -45,6 +44,7 @@ public class Menu {
         Registro.agregarCurso(c1);
         Registro.agregarCurso(c2);
         Login.login();
+        sc.close();
     }
     public static void sistema(Estudiante estudiante){
         System.out.println("Bienvenido "+estudiante.getNombre());
@@ -64,7 +64,7 @@ public class Menu {
                 continue;
             }
             switch(opcion){
-                case "1": UIRecomendarAsignaturas.recomendarAsignaturas(estudiante); continue; // Añadir llamada al método correspondiente
+                case "1": UIRecomendarAsignaturas.recomendarAsignaturas(estudiante, sc); continue;
                 case "2": ; break; // Añadir llamada al método correspondiente
                 case "3": ; break; // Añadir llamada al método correspondiente
                 case "4": ; break; // Añadir llamada al método correspondiente
@@ -112,9 +112,9 @@ public class Menu {
             }
             switch(opcion){
                 case "1": ; break; // Añadir llamada al método correspondiente
-                case "2": Admin.agregarCurso(); continue;
-                case "3": Admin.eliminarCurso(); continue;
-                case "4": Admin.verCursos(); continue;
+                case "2": Admin.agregarCurso(sc); continue;
+                case "3": Admin.eliminarCurso(sc); continue;
+                case "4": Admin.verCursos(sc); continue;
                 case "5": salir(); break;
             }
         }

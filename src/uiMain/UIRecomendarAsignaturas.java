@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
 import java.util.Collections;
-import java.util.Comparator;
 
 import gestorAplicacion.*;
 
@@ -12,9 +11,7 @@ import gestorAplicacion.Estudiante;
 import gestorAplicacion.Registro;
 
 public class UIRecomendarAsignaturas {
-    public static void recomendarAsignaturas(Estudiante estudiante) {
-        Scanner sc = new Scanner(System.in);
-
+    public static void recomendarAsignaturas(Estudiante estudiante, Scanner sc) {
         System.out.println("RECOMENDACION DE ASIGNATURAS");
         System.out.println("A continuación se muestran las asignaturas recomendadas para cursar el próximo semestre:");
         

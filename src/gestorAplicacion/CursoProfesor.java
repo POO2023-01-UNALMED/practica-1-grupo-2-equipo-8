@@ -8,6 +8,7 @@ public class CursoProfesor extends Curso {
     private String horario;
     private short cupos = 5;
 
+    /*
     public CursoProfesor(String nombre, short cupos, short creditos,
         int numeroParciales, ArrayList<int[]> listaPorcentajes, ArrayList<Curso> preRequisitos,
         ArrayList<Carreras> carrerasRelacionadas, ArrayList<Profesor> profesoresQueDictanElCurso,
@@ -16,6 +17,7 @@ public class CursoProfesor extends Curso {
           carrerasRelacionadas, profesoresQueDictanElCurso, facultad);
       this.horario = horario;
     }
+    */
 
     // Sobrecarga para agregarCurso() en clase Profesor
     public CursoProfesor(String nombre, int id, short creditos,
