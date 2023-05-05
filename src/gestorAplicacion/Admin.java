@@ -23,11 +23,19 @@ public class Admin extends Registro {
         // Se asigna un porcentaje a cada parcial según la cantidad indicada.
         System.out.println("Lista de porcentajes");
         ArrayList<int[]> listaPorcentajes = new ArrayList<int[]>();
-        for (int i = 0; i < numeroParciales; i++) {
-            System.out.printf("\tPorcentaje parcial %d: ", i + 1);
-            int porcentaje = sc.nextInt();
-            int[] nota = {i+1, porcentaje};
-            listaPorcentajes.add(nota);
+        while (true) {
+            int suma = 0;
+            for (int i = 0; i < numeroParciales; i++) {
+                System.out.printf("\tPorcentaje parcial %d: ", i + 1);
+                int porcentaje = sc.nextInt();
+                suma += porcentaje;
+                int[] nota = {i+1, porcentaje};
+                listaPorcentajes.add(nota);
+            }
+            if (suma == 100) break;
+            // Si los porcentajes no suman 100, volver a ingresar los porcentajes.
+            System.out.println("Los porcentajes ingresados deben sumar 100.");
+            listaPorcentajes = new ArrayList<int[]>();
         }
 
         // PREREQUISITOS
