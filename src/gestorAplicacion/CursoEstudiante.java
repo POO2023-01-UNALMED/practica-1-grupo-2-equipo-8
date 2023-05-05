@@ -68,7 +68,7 @@ public class CursoEstudiante extends Curso {
     }
     
     @Override
-    public int getCupos(){
+    public short getCupos(){
         return cupos;
     }
     

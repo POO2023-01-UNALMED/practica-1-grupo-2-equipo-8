@@ -62,7 +62,7 @@ public class Profesor extends Registro{
         for(int x = 0; x<listaCursos.size(); x++){
             Curso curso = listaCursos.get(x);
             String horario = listaHorarios.get(x);
-            CursoProfesor cp = new CursoProfesor(curso.getNombre(), curso.getId(), curso.getCreditos(), curso.getNumeroParciales(), curso.getListaPorcentajes(), curso.getFacultad(), horario);
+            CursoProfesor cp = new CursoProfesor(curso.getNombre(), curso.getId(), (short)curso.getCreditos(), curso.getNumeroParciales(), curso.getListaPorcentajes(), curso.getFacultad(), horario);
             this.listaCursos.add(cp);
             curso.agregarHorario(horario);
             curso.setCupos((short)(curso.getCupos()+5));

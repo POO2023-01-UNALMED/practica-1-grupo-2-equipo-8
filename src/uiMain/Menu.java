@@ -73,7 +73,6 @@ public class Menu {
                 case "7": salir(); break;
             }
         }
-        sc.close();
     }
     public static void sistema(Profesor profesor){
         System.out.println("Bienvenido "+profesor.getNombre());
@@ -94,7 +93,6 @@ public class Menu {
                 case "3": salir(); break;
             }
         }
-        sc.close();
     }
     public static void sistema(Admin admin){
         System.out.println("Bienvenido "+admin.getNombre());

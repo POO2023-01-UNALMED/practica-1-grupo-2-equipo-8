@@ -166,7 +166,7 @@ public class Admin extends Registro {
             facultades.add(notInFacultades.get(opcion - 1));
         }
 
-        Curso nuevoCurso = new Curso(nombre, cupos, creditos, numeroParciales, listaPorcentajes, preRequisitos, carrerasRelacionadas, profesoresQueDictanElCurso, facultades);
+        Curso nuevoCurso = new Curso(nombre, (short)cupos, (short)creditos, numeroParciales, listaPorcentajes, preRequisitos, carrerasRelacionadas, profesoresQueDictanElCurso, facultades);
         System.out.printf("Curso %s (%d) agregado con exito.\n", nuevoCurso.getNombre(), nuevoCurso.getId());
         Registro.agregarCurso(nuevoCurso);
         return;
