@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Menu {
+    
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         Registro registro = new Registro();
@@ -97,23 +98,21 @@ public class Menu {
         Scanner sc = new Scanner(System.in);
         while(true){
             System.out.println("Indique lo que quiere realizar:\n"
-                    + "1. Ver recomendación de asignaturas\n"
-                    + "2. Crear curso\n"
-                    + "3. Eliminar curso\n"
-                    + "4. Ver cursos\n"
-                    + "5. Salir");
+                    + "1. Crear curso\n"
+                    + "2. Eliminar curso\n"
+                    + "3. Ver cursos\n"
+                    + "4. Salir");
             String opcion = sc.nextLine();
-            ArrayList<String> opciones = new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5"));
+            ArrayList<String> opciones = new ArrayList<String>(Arrays.asList("1", "2", "3", "4"));
             if (!opciones.contains(opcion)) {
-                System.out.println("Debe seleccionar un número entre el 1 y el 5");
+                System.out.println("Debe seleccionar un número entre el 1 y el 4");
                 continue;
             }
             switch(opcion){
-                case "1": ; break; // Añadir llamada al método correspondiente
-                case "2": Admin.agregarCurso(sc); continue;
-                case "3": Admin.eliminarCurso(sc); continue;
-                case "4": Admin.verCursos(sc); continue;
-                case "5": salir(); break;
+                case "1": Admin.agregarCurso(sc); continue;
+                case "2": Admin.eliminarCurso(sc); continue;
+                case "3": Admin.verCursos(sc); continue;
+                case "4": salir(); break;
             }
         }
     }
