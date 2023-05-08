@@ -6,12 +6,21 @@ public class Profesor extends Registro{
     private static final long serialVersionUID = 2L;
     private ArrayList<CursoProfesor> listaCursos = new ArrayList<CursoProfesor>();
     private Facultades facultad;
+    private double calificacion;
 
     public Profesor(String nombre, String correo, String nombreUsuario, String clave, String documento, ArrayList<CursoProfesor> listaCursos, Facultades facultad) {
         super(nombre, correo, nombreUsuario, clave, documento);
         this.listaCursos = listaCursos;
         this.facultad = facultad;
-        
+        this.calificacion = -1;
+    }
+
+    public double getCalificacion() {
+      return calificacion;
+    }
+
+    public void setCalificacion(double calificacion) {
+      this.calificacion = calificacion;
     }
 
     public ArrayList<CursoProfesor> getListaCursos() {
@@ -53,7 +62,7 @@ public class Profesor extends Registro{
         for(int x = 0; x<listaCursos.size(); x++){
             Curso curso = listaCursos.get(x);
             String horario = listaHorarios.get(x);
-            CursoProfesor cp = new CursoProfesor(curso.getNombre(), curso.getId(), curso.getCreditos(), curso.getNumeroParciales(), curso.getListaPorcentajes(), curso.getFacultad(), horario);
+            CursoProfesor cp = new CursoProfesor(curso.getNombre(), curso.getId(), (short)curso.getCreditos(), curso.getNumeroParciales(), curso.getListaPorcentajes(), curso.getFacultad(), horario);
             this.listaCursos.add(cp);
             curso.agregarHorario(horario);
             curso.setCupos((short)(curso.getCupos()+5));
@@ -65,5 +74,9 @@ public class Profesor extends Registro{
         if(cursoActual.getId() == curso.getId()) return true;
       }
       return false;
+    }
+
+    public String toString() {
+      return this.getNombre() + " (" + this.getCalificacion() + ")";
     }
 }

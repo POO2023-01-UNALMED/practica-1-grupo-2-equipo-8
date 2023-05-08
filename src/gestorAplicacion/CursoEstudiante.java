@@ -74,7 +74,6 @@ public class CursoEstudiante extends Curso {
     
     
     
-    
     public int calcularPromedio(){
         ArrayList<Integer> quiz = new ArrayList();
         ArrayList<Integer> parcial = new ArrayList();

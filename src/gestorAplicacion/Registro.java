@@ -114,7 +114,7 @@ public class Registro implements Serializable{
         Registro.cursos = cursos;
     }
     
-    public static void agregarCurso(Curso curso){
+    public static void agregarCurso(Curso curso) {
         boolean comp = true;
         for(Curso c : cursos){
             if(c.getNombre().equals(curso.getNombre())){
@@ -123,10 +123,17 @@ public class Registro implements Serializable{
             }  
         }
         if(comp == true){
-            Registro.cursos.add(curso);
+            cursos.add(curso);
         }
     }
     
+    public static void eliminarCurso(Curso curso) {
+        cursos.remove(curso);
+    }
+
+    public static void eliminarCurso(int i) {
+        cursos.remove(i);
+    }
     
     public static ArrayList<Admin> getAdmins() {
         return admins;
