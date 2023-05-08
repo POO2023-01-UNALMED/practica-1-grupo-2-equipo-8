@@ -5,9 +5,10 @@ import java.util.Comparator;
 import java.util.Scanner;
 import java.util.Collections;
 
-import gestorAplicacion.*;
-
+import gestorAplicacion.Curso;
 import gestorAplicacion.Estudiante;
+import gestorAplicacion.Profesor;
+import gestorAplicacion.CursoEstudiante;
 import gestorAplicacion.Registro;
 
 public class UIRecomendarAsignaturas {
@@ -37,12 +38,12 @@ public class UIRecomendarAsignaturas {
             } else {
                 // La comparación se realiza entre los nombres, ya que son clases distintas,
                 // por lo que se obtiene la lista de nombres,
-                ArrayList<String> nombresCursosEstudiante = new ArrayList<String>();
+                ArrayList<String> nombresCursosVistos = new ArrayList<String>();
                 for (CursoEstudiante asignatura : estudiante.getCursosVistos()) {
-                    nombresCursosEstudiante.add(asignatura.getNombre());
+                    nombresCursosVistos.add(asignatura.getNombre());
                 }
                 // y se revisa si el nombre del curso está en los cursos vistos.
-                fueCursada = nombresCursosEstudiante.contains(curso.getNombre());
+                fueCursada = nombresCursosVistos.contains(curso.getNombre());
             }
             if (!esDeLaCarrera || fueCursada) continue;
             
@@ -60,12 +61,12 @@ public class UIRecomendarAsignaturas {
                     nombresCursosPreRequisitos.add(asignatura.getNombre());
                 }
                 // y la lista de nombres de los cursos vistos,
-                ArrayList<String> nombresCursosEstudiante = new ArrayList<String>();
+                ArrayList<String> nombresCursosVistos = new ArrayList<String>();
                 for (CursoEstudiante asignatura : estudiante.getCursosVistos()) {
-                    nombresCursosEstudiante.add(asignatura.getNombre());
+                    nombresCursosVistos.add(asignatura.getNombre());
                 }
                 // finalmente se verifica si el estudiante a cursado todos los preRequisitos.
-                vioPrerrequisitos = nombresCursosEstudiante.containsAll(nombresCursosPreRequisitos);
+                vioPrerrequisitos = nombresCursosVistos.containsAll(nombresCursosPreRequisitos);
             }
             if (vioPrerrequisitos) {
                 cursosParaRecomendar.add(curso);
@@ -87,9 +88,12 @@ public class UIRecomendarAsignaturas {
 
         while (true) {
             System.out.printf("Elija un curso para ver profesores recomendados o 0 para terminar: ");
-
             int opcion = sc.nextInt();
-            if (opcion <= 0 || opcion > cursosParaRecomendar.size()) break;
+            // Se verifica la opcion ingresada.
+            if (!Helpers.checkOpcion(opcion, cursosParaRecomendar.size())) {
+                System.out.printf("\t\tDebe seleccionar un número entre el 0 y el %d\n", cursosParaRecomendar.size());
+                continue;
+            } else if (opcion == 0) break;
 
             // Se obtiene el curso de interés y la lista de profesores que lo dictan.
             Curso curso = cursosParaRecomendar.get(opcion - 1);
