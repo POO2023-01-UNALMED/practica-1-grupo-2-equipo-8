@@ -15,10 +15,38 @@ public class Curso implements Serializable {
     private ArrayList<Curso> preRequisitos = new ArrayList<Curso>();
     private ArrayList<Carreras> carrerasRelacionadas = new ArrayList<Carreras>();
     private ArrayList<Profesor> profesoresQueDictanElCurso = new ArrayList<Profesor>();
-    private ArrayList<Facultades> facultad = new ArrayList<Facultades>();
-    private static int cont = 0;
+    private ArrayList<Facultades> facultades = new ArrayList<Facultades>();
 
+    // Sobrecarga que funciona en la clase Admin
+    /*
+    public Curso(String nombre, short cupos, short creditos,
+        int numeroParciales, ArrayList<int[]> listaPorcentajes, ArrayList<Curso> preRequisitos,
+        ArrayList<Carreras> carrerasRelacionadas, ArrayList<Profesor> profesoresQueDictanElCurso,
+        ArrayList<Facultades> facultades) {
+      this.nombre = nombre;
+      this.id = Registro.getCursos().size();
+      this.cupos = cupos;
+      this.creditos = creditos;
+      this.numeroParciales = numeroParciales;
+      this.listaPorcentajes = listaPorcentajes;
+      this.preRequisitos = preRequisitos;
+      this.carrerasRelacionadas = carrerasRelacionadas;
+      this.profesoresQueDictanElCurso = profesoresQueDictanElCurso;
+      this.facultades = facultades;
+    }
+    */
+    
+    public Curso(String nombre, int id, short creditos, int numeroParciales, ArrayList<int[]> listaPorcentajes, ArrayList<Facultades> facultades){
+        this.nombre = nombre;
+        this.creditos = creditos;
+        this.numeroParciales = numeroParciales;
+        this.listaPorcentajes = listaPorcentajes;
+        this.facultades = facultades;
+        this.id = id;
+        Registro.agregarCurso(this); // Se agrega el curso creado a la base de datos.
+    }
 
+    // Sobrecarga que funciona en la clase Menu, clase Admin
     public Curso(String nombre, short creditos, int numeroParciales, ArrayList<int[]> listaPorcentajes, ArrayList<Curso> preRequisitos, ArrayList<Carreras> carrerasRelacionadas, ArrayList<Facultades> facultad) {
         this.nombre = nombre;
         this.creditos = creditos;
@@ -26,21 +54,27 @@ public class Curso implements Serializable {
         this.listaPorcentajes = listaPorcentajes;
         this.preRequisitos = preRequisitos;
         this.carrerasRelacionadas = carrerasRelacionadas;
-        this.facultad = facultad;
-        Curso.cont++;
-        this.id = Curso.cont;
+        this.facultades = facultad;
+        this.id = 100000 + Registro.getCursos().size();
+        Registro.agregarCurso(this); // Se agrega el curso creado a la base de datos.
     }
-    
-    public Curso(String nombre, int id, short creditos, int numeroParciales, ArrayList<int[]> listaPorcentajes, ArrayList<Facultades> facultad){
-        this.nombre = nombre;
-        this.creditos = creditos;
-        this.numeroParciales = numeroParciales;
-        this.listaPorcentajes = listaPorcentajes;
-        this.facultad = facultad;
-        this.id = id;
+
+    // Methods
+    public void detalles() {
+      System.out.println("---------------------------------------------------------------");
+      System.out.println(this.toString() + "\n" +
+          "Creditos: " + this.getCreditos() + "\t" + "Cupos: " + getCupos() + "\n");
+      if (this.getPreRequisitos() == null || this.getPreRequisitos().isEmpty()) {
+        System.out.println("No hay prerrequisitos.");
+      } else {
+        System.out.println("Prerrequisitos:");
+        for (Curso curso : this.getPreRequisitos()) {
+          System.out.println(curso);
+        }
+      }
+
+      System.out.println("---------------------------------------------------------------");
     }
-    
-    
 
     // get y set
     public ArrayList<String> getHorariosClase() {
@@ -78,8 +112,6 @@ public class Curso implements Serializable {
     public void setCreditos(short creditos) {
       this.creditos = creditos;
     }
-    
-    
 
     public void setHorariosClase(ArrayList<String> horariosClase) {
         this.horariosClase = horariosClase;
@@ -135,10 +167,14 @@ public class Curso implements Serializable {
     }
 
     public ArrayList<Facultades> getFacultad() {
-      return facultad;
+      return facultades;
     }
 
-    public void setFacultad(ArrayList<Facultades> facultad) {
-      this.facultad = facultad;
+    public void setFacultad(ArrayList<Facultades> facultades) {
+      this.facultades = facultades;
+    }
+
+    public String toString() {
+      return this.nombre + " (" + this.id + ")";
     }
 }

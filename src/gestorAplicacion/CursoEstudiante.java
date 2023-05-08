@@ -74,7 +74,6 @@ public class CursoEstudiante extends Curso {
     
     
     
-    
     public int calcularPromedio(){
         if(semestre != estudiante.getSemestre() && listaNotas.isEmpty() != false){
             int sum = 0;
@@ -85,8 +84,7 @@ public class CursoEstudiante extends Curso {
         }
         return -1; //Hay que corregir la lógica en la capa de UI
     }
-    
-    
+
     
     public void mostrarNotas(){ //Falta complemento de la UI
         
