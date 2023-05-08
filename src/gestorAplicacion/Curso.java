@@ -141,4 +141,18 @@ public class Curso implements Serializable {
     public void setFacultad(ArrayList<Facultades> facultad) {
       this.facultad = facultad;
     }
+    
+    public ArrayList<CursoEstudiante> obtenerGrupos(Estudiante estudiante){
+        ArrayList<CursoEstudiante> listaCursos= new ArrayList<>();
+        for(Profesor profesor : Registro.getProfesores()){
+            for(CursoProfesor cp : profesor.getListaCursos()){
+                if(cp.getNombre().equals(getNombre())){
+                    listaCursos.add(new CursoEstudiante(cp.getNombre(), cp.getId(), cp.getCupos(), cp.getCreditos(),
+                    cp.getNumeroParciales(), cp.getListaPorcentajes(),
+                    cp.getFacultad(), new ArrayList(), estudiante.getSemestre()+1, estudiante, cp.getHorario(), profesor));
+                }
+            }
+        }
+        return listaCursos;
+    }
 }

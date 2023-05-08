@@ -63,8 +63,8 @@ public class Menu {
             switch(opcion){
                 case "1": ; break; // Añadir llamada al método correspondiente
                 case "2": BusquedaCursos.buscarCursos(estudiante); break;
-                case "3": Horario horario = new Horario(estudiante, new ArrayList<CursoEstudiante>()); estudiante.agregarHorario(horario); BusquedaCursos.buscarCursos(estudiante, horario); break;
-                case "4": ; break; // Añadir llamada al método correspondiente
+                case "3": Horario horario = estudiante.crearHorario(); BusquedaCursos.buscarCursos(estudiante, horario); break;
+                case "4": IncripcionMaterias.inscribirMaterias(estudiante); break; // Añadir llamada al método correspondiente
                 case "5": ; break; // Añadir llamada al método correspondiente
                 case "6": ; break; // Añadir llamada al método correspondiente
                 case "7": salir(); break;

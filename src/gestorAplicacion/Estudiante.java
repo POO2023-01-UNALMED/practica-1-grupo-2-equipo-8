@@ -1,6 +1,7 @@
 package gestorAplicacion; //Falta especificar en qué sub-paquéte estará
 
 import java.util.ArrayList;
+import uiMain.UIAsignarCita;
 
 
 public class Estudiante extends Registro{
@@ -13,12 +14,29 @@ public class Estudiante extends Registro{
     private int semestre;
     private ArrayList<Horario> horariosCreados = new ArrayList<Horario>();
     private ArrayList<Estimulo> Estimulos = new ArrayList<Estimulo>();
+    private String cita;
+    private Boolean inscribir = false;
 
     public Estudiante(String nombre, String correo, String nombreUsuario, String clave, String documento, Carreras carrera, Facultades facultad, int semestre) {
         super(nombre, correo, nombreUsuario, clave, documento);
         this.carrera = carrera;
         this.facultad = facultad;
         this.semestre = semestre;
+    }
+    
+    public Estudiante(String nombre, String correo, String nombreUsuario, String clave, String documento, Carreras carrera, Facultades facultad, int semestre, ArrayList<CursoEstudiante> cursosVistos, ArrayList<CursoEstudiante> listaCursos){
+        this(nombre, correo, nombreUsuario, clave, documento, carrera, facultad, semestre);
+        this.listaCursos = listaCursos;
+        this.cursosVistos = cursosVistos;
+        for(CursoEstudiante ce : listaCursos){
+            Profesor profesor = ce.getProfesor();
+            for(CursoProfesor cp : profesor.getListaCursos()){
+                if(ce.getNombre().equals(cp.getNombre())){
+                    cp.agregarEstudiante(this);
+                    cp.setCupos((short)(cp.getCupos()-1));
+                }
+            }
+        }
     }
     
     public ArrayList<CursoEstudiante> getListaCursos() {
@@ -81,6 +99,22 @@ public class Estudiante extends Registro{
         horariosCreados.add(horario);
     }
     
+    public String getCita() {
+        return cita;
+    }
+    public void setCita(String cita) {
+        this.cita = cita;
+    }
+    
+    public Boolean getInscribir() {
+        return inscribir;
+    }
+
+    public void setInscribir(Boolean inscribir) {
+        this.inscribir = inscribir;
+    }
+
+    
     public int calcularPAPI(int sem){ //Para el cálculo del PAPPI se pide el semestre al que corresponde el PAPPI que quiere ver
         if(sem<semestre && sem>0){
             int sum = 0;
@@ -108,9 +142,6 @@ public class Estudiante extends Registro{
         return sumc == 0 ? 0: sum/sumc;
     }
     
-    public void inscribirMateria(CursoEstudiante curso){
-        setListaCursos(curso);
-    }
     
     public void verMateriasDisponiblesParaInscripcion(){ //Falta complemento de la UI
         
@@ -124,9 +155,79 @@ public class Estudiante extends Registro{
         
     }
     
-    public void crearHorario(){
+    public Horario crearHorario(){
         Horario horario = new Horario(this, new ArrayList<CursoEstudiante>());
         horariosCreados.add(horario);
+        return horario;
     }
     
+    public void inscribirCursos(ArrayList<CursoEstudiante> cursos){
+        for(CursoEstudiante ce : listaCursos){
+            if(ce.calcularPromedio()>=3){
+                cursosVistos.add(ce);
+            }
+        }
+        listaCursos.clear();
+        for(CursoEstudiante ce : cursos){
+            listaCursos.add(ce);
+        }
+        for(CursoEstudiante ce : cursos){
+            Profesor profesor = ce.getProfesor();
+            for(CursoProfesor cp : profesor.getListaCursos()){
+                if(ce.getNombre().equals(cp.getNombre())){
+                    cp.agregarEstudiante(this);
+                    cp.setCupos((short)(cp.getCupos()-1));
+                    UIAsignarCita.getEstudiantesConCita().get(0).setInscribir(false);
+                    UIAsignarCita.getEstudiantesConCita().remove(0);
+                    UIAsignarCita.getEstudiantesConCita().get(0).setInscribir(true);
+                }
+            }
+        }
+    }
+    
+    public void inscribirCursos(Horario horario){
+        for(CursoEstudiante ce1 : cursosVistos){
+            for(CursoEstudiante ce2 : horario.getCursos()){
+                if(ce1.getNombre().equals(ce2.getNombre())){
+                    System.out.println("El horario seleccionado no es valido porque contiene un curso que ya aprobaste");
+                    return;
+                }
+            }
+        }
+        ArrayList<CursoEstudiante> cursosAprobados = (ArrayList<CursoEstudiante>) listaCursos.clone();
+        for(CursoEstudiante ce : cursosAprobados){
+            if(ce.calcularPromedio()<3){
+                cursosAprobados.remove(ce);
+            }
+        }
+        for(Curso c1 : cursosAprobados){
+            for(Curso c2 : horario.getCursos()){
+                if(c1.getNombre().equals(c2.getNombre())){
+                    System.out.println("El horario seleccionado no es valido porque contiene un curso que ya aprobaste");
+                    return;
+                }
+            }
+        }
+        for(CursoEstudiante ce : listaCursos){
+            if(ce.calcularPromedio()>=3){
+                cursosVistos.add(ce);
+            }
+        }
+        listaCursos.clear();
+        for(CursoEstudiante ce : horario.getCursos()){
+            listaCursos.add(ce);
+        }
+        for(CursoEstudiante ce : horario.getCursos()){
+            Profesor profesor = ce.getProfesor();
+            for(CursoProfesor cp : profesor.getListaCursos()){
+                if(ce.getNombre().equals(cp.getNombre())){
+                    cp.agregarEstudiante(this);
+                    cp.setCupos((short)(cp.getCupos()-1));
+                    UIAsignarCita.getEstudiantesConCita().get(0).setInscribir(false);
+                    UIAsignarCita.getEstudiantesConCita().remove(0);
+                    UIAsignarCita.getEstudiantesConCita().get(0).setInscribir(true);
+                }
+            }
+        }
+    }
 }

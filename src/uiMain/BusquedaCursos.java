@@ -62,20 +62,13 @@ public class BusquedaCursos {
         Scanner sc = new Scanner(System.in);
         
         while(true){
-            ArrayList<CursoEstudiante> listaCursos = new ArrayList<CursoEstudiante>();
+            ArrayList<CursoEstudiante> listaCursos = curso.obtenerGrupos(estudiante);
             System.out.println(curso.getNombre()+"("+curso.getId()+")\n"+curso.getCreditos()+"\n"+curso.getFacultad()+"\n"+curso.getCarrerasRelacionadas());
             int cont = 1;
-            for(Profesor profesor : Registro.getProfesores()){
-                for(CursoProfesor cp : profesor.getListaCursos()){
-                    if(cp.getNombre().equals(curso.getNombre())){
-                        listaCursos.add(new CursoEstudiante(cp.getNombre(), cp.getId(), cp.getCupos(), cp.getCreditos(),
-                        cp.getNumeroParciales(), cp.getListaPorcentajes(),
-                        cp.getFacultad(), new ArrayList(), estudiante.getSemestre()+1, estudiante, cp.getHorario(), profesor));
-                        System.out.println("Profesor: "+profesor.getNombre()+"\nHorario: "+cp.getHorario()+"\nCupos: "+cp.getCupos());
-                        System.out.println(cont+". Añadir a horario existente");
-                        cont++;
-                    }
-                }
+            for(CursoEstudiante ce : listaCursos){
+                System.out.println("Profesor: "+ce.getProfesor().getNombre()+"\nHorario: "+ce.getHorario()+"\nCupos: "+ce.getCupos());
+                System.out.println(cont+". Añadir a horario existente");
+                cont++;
             }
             System.out.println(cont+". volver");
             String opcion = sc.next();
@@ -153,20 +146,13 @@ public class BusquedaCursos {
         Scanner sc = new Scanner(System.in);
         
         while(true){
-            ArrayList<CursoEstudiante> listaCursos = new ArrayList<CursoEstudiante>();
+            ArrayList<CursoEstudiante> listaCursos = curso.obtenerGrupos(estudiante);
             System.out.println(curso.getNombre()+"("+curso.getId()+")\n"+curso.getCreditos()+"\n"+curso.getFacultad()+"\n"+curso.getCarrerasRelacionadas());
             int cont = 1;
-            for(Profesor profesor : Registro.getProfesores()){
-                for(CursoProfesor cp : profesor.getListaCursos()){
-                    if(cp.getNombre().equals(curso.getNombre())){
-                        listaCursos.add(new CursoEstudiante(cp.getNombre(), cp.getId(), cp.getCupos(), cp.getCreditos(),
-                        cp.getNumeroParciales(), cp.getListaPorcentajes(),
-                        cp.getFacultad(), new ArrayList(), estudiante.getSemestre()+1, estudiante, cp.getHorario(), profesor));
-                        System.out.println("Profesor: "+profesor.getNombre()+"\nHorario: "+cp.getHorario()+"\nCupos: "+cp.getCupos());
-                        System.out.println(cont+". Añadir a horario");
-                        cont++;
-                    }
-                }
+            for(CursoEstudiante ce : listaCursos){
+                System.out.println("Profesor: "+ce.getProfesor().getNombre()+"\nHorario: "+ce.getHorario()+"\nCupos: "+ce.getCupos());
+                System.out.println(cont+". Añadir a horario");
+                cont++;
             }
             System.out.println(cont+". volver");
             String opcion = sc.next();
