@@ -6,7 +6,7 @@ public class CursoProfesor extends Curso {
     private static final long serialVersionUID = 7L;
     private ArrayList<Estudiante> listaEstudiantes;
     private String horario;
-    private short cupos = 5;
+    private short cupos = 10;
 
     /*
     public CursoProfesor(String nombre, short cupos, short creditos,
