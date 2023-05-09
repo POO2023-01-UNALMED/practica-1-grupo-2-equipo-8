@@ -96,8 +96,19 @@ public class UIRecomendarAsignaturas {
             } else if (opcion == 0) break;
 
             // Se obtiene el curso de interés y la lista de profesores que lo dictan.
-            Curso curso = cursosParaRecomendar.get(opcion - 1);
-            ArrayList<Profesor> listaProfesores = curso.getProfesoresQueDictanElCurso();
+            Curso cursoDeInteres = cursosParaRecomendar.get(opcion - 1);
+
+            ArrayList<String> nombresProfesoresDelCurso = new ArrayList<String>();
+            for (Profesor profesor : cursoDeInteres.getProfesoresQueDictanElCurso()) {
+                nombresProfesoresDelCurso.add(profesor.getNombre());
+            }
+
+            ArrayList<Profesor> listaProfesores = new ArrayList<Profesor>();
+            for (Profesor profesor : Registro.getProfesores()) {
+                if (nombresProfesoresDelCurso.contains(profesor.getNombre())) {
+                    listaProfesores.add(profesor);
+                }
+            }
             // Si no hay profesores, volver a preguntar por otro curso.
             if (listaProfesores == null || listaProfesores.isEmpty()) {
                 System.out.println("\tNo hay profesores que dicten el curso.");
@@ -127,7 +138,7 @@ public class UIRecomendarAsignaturas {
 
             // Se imprimen los profesores y su respectiva calificación.
             for (int i = 0; i < listaProfesores.size(); i++) {
-                System.out.printf("\t%d. %s\n", i + 1, listaProfesores.get(i).toString());
+                System.out.printf("\t%d. %s\n", i + 1, listaProfesores.get(i));
             }
         }
 

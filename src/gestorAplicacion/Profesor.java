@@ -15,7 +15,8 @@ public class Profesor extends Registro{
         super(nombre, correo, nombreUsuario, clave, documento);
         this.listaCursos = listaCursos;
         this.facultad = facultad;
-        this.calificacion = -1;
+        //this.calificacion = -1;
+        Registro.agregarProfesor(this);
     }
 
     public double getCalificacion() {
@@ -81,7 +82,7 @@ public class Profesor extends Registro{
 
     public void calificar(double valoracion) {
       calificaciones.add(valoracion);
-      calificacion = Helpers.promedioLista(calificaciones);
+      setCalificacion(Helpers.promedioLista(calificaciones));
     }
     
     @Override

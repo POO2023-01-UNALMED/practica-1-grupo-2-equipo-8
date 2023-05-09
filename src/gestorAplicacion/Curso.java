@@ -146,7 +146,7 @@ public class Curso implements Serializable {
     }
     
     public void agregarProfesor(Profesor profesor){
-        this.profesoresQueDictanElCurso.add(profesor);
+      this.profesoresQueDictanElCurso.add(profesor);
     }
 
     public ArrayList<Facultades> getFacultad() {

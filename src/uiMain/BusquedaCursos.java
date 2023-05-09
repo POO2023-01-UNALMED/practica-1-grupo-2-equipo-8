@@ -76,7 +76,7 @@ public class BusquedaCursos {
             System.out.println(curso.getNombre()+"("+curso.getId()+")\n"+curso.getCreditos()+"\n"+curso.getFacultad()+"\n"+curso.getCarrerasRelacionadas());
             int cont = 0;
             for(CursoProfesor cp : listaCursos){
-                System.out.println("Profesor: "+profesores.get(cont).getNombre()+"\nHorario: "+cp.getHorario()+"\nCupos: "+cp.getCupos());
+                System.out.println("Profesor: "+profesores.get(cont)+"\nHorario: "+cp.getHorario()+"\nCupos: "+cp.getCupos());
                 cont++;
             }
             System.out.println("1. volver");

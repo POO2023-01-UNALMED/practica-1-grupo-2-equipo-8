@@ -23,6 +23,7 @@ public class Estudiante extends Registro{
         this.carrera = carrera;
         this.facultad = facultad;
         this.semestre = semestre;
+        Registro.agregarEstudiante(this);
     }
     
     public Estudiante(String nombre, String correo, String nombreUsuario, String clave, String documento, Carreras carrera, Facultades facultad, int semestre, ArrayList<CursoEstudiante> cursosVistos, ArrayList<CursoEstudiante> listaCursos){
@@ -38,6 +39,7 @@ public class Estudiante extends Registro{
                 }
             }
         }
+        Registro.agregarEstudiante(this);
     }
     
     public ArrayList<CursoEstudiante> getListaCursos() {
