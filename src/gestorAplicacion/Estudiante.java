@@ -236,4 +236,8 @@ public class Estudiante extends Registro{
             }
         }
     }
+    
+    public String toString() {
+        return getNombre() + " (" + calcularPAPA() + ")";
+    }
 }
