@@ -24,28 +24,10 @@ public class Menu {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         Deserializador.deserializador();
-        /* int[] n1 = {1,33}; //La primera entrada corresponde al id del enum TipoNota 
-        int[] n2 = {1,33}; //La primera entrada corresponde al id del enum TipoNota 
-        int[] n3 = {1,34}; //La primera entrada corresponde al id del enum TipoNota 
-        ArrayList<int[]> por = new ArrayList<int[]>();
-        por.add(n1);
-        por.add(n2);
-        por.add(n3);
-        ArrayList<Facultades> facultades1 = new ArrayList<Facultades>();
-        facultades1.add(Facultades.MINAS);
-        ArrayList<Facultades> facultades2 = new ArrayList<Facultades>();
-        facultades2.add(Facultades.MINAS);
-        facultades2.add(Facultades.CIENCIAS);
-        ArrayList<Curso> pre1 = new ArrayList<Curso>();
-        ArrayList<Carreras> carreras1 = new ArrayList<Carreras>();
-        Curso c1 = new Curso("Programación Orientada a Objetos", (short)3, 3, por,pre1,carreras1,facultades2);
-        ArrayList<Curso> pre2 = new ArrayList<Curso>();
-        pre2.add(c1);
-        Curso c2 = new Curso("Análisis de datos", (short)3, 3, por,pre1,carreras1,facultades2); */
-        //    public Curso(String nombre, short creditos, int numeroParciales, ArrayList<int[]> listaPorcentajes, ArrayList<Curso> preRequisitos, ArrayList<Carreras> carrerasRelacionadas, ArrayList<Facultades> facultad)
         Login.login();
         sc.close();
     }
+
     public static void sistema(Estudiante estudiante){
         System.out.println("Bienvenido "+estudiante.getNombre());
         Scanner sc = new Scanner(System.in);
@@ -75,6 +57,7 @@ public class Menu {
             }
         }
     }
+
     public static void sistema(Profesor profesor){
         System.out.println("Bienvenido "+profesor.getNombre());
         Scanner sc = new Scanner(System.in);
@@ -98,6 +81,7 @@ public class Menu {
             }
         }
     }
+    
     public static void sistema(Admin admin){
         System.out.println("Bienvenido "+admin.getNombre());
         Scanner sc = new Scanner(System.in);
