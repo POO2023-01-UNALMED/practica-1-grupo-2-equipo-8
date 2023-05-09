@@ -31,11 +31,11 @@ public class BusquedaCursos {
         else{
             while(true){
                 System.out.println("Los cursos disponibles son:\n"
-                + String.format("\t%s\t%-32s\t%s\t%-17s\t%s","ID","Nombre","Creditos","Facultad","Programas relacionados"));
+                + String.format("\t%s\t%-32s\t%s\t%-17s\t%s","ID","Nombre","Creditos","PreRequisitos","Facultad","Programas relacionados"));
                 System.out.println("----------------------------------------------------------------------------------------------------------------------");
                 int cont = 1;
                 for(Curso curso : Registro.getCursos()){
-                    System.out.println("\t"+curso.getId()+"\t"+String.format("%-32s",curso.getNombre())+"\t"+String.format("%-8s",curso.getCreditos())+"\t"+curso.getFacultad()+"\t"+curso.getCarrerasRelacionadas());
+                System.out.println("\t"+curso.getId()+"\t"+String.format("%-32s",curso.getNombre())+"\t"+String.format("%-8s",curso.getCreditos())+"\t"+"\t"+curso.getPreRequisitos()+"\t"+curso.getFacultad()+"\t"+curso.getCarrerasRelacionadas());
                     System.out.println(cont+". Ver detalles");
                     cont++;
                 }

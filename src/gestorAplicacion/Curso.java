@@ -59,23 +59,6 @@ public class Curso implements Serializable {
         Registro.agregarCurso(this); // Se agrega el curso creado a la base de datos.
     }
 
-    // Methods
-    public void detalles() {
-      System.out.println("---------------------------------------------------------------");
-      System.out.println(this.toString() + "\n" +
-          "Creditos: " + this.getCreditos() + "\t" + "Cupos: " + getCupos() + "\n");
-      if (this.getPreRequisitos() == null || this.getPreRequisitos().isEmpty()) {
-        System.out.println("No hay prerrequisitos.");
-      } else {
-        System.out.println("Prerrequisitos:");
-        for (Curso curso : this.getPreRequisitos()) {
-          System.out.println(curso);
-        }
-      }
-
-      System.out.println("---------------------------------------------------------------");
-    }
-
     // get y set
     public ArrayList<String> getHorariosClase() {
       return horariosClase;
@@ -178,6 +161,7 @@ public class Curso implements Serializable {
       return this.nombre + " (" + this.id + ")";
     }
     
+    // Methods
     public ArrayList<CursoEstudiante> obtenerGrupos(Estudiante estudiante){
         ArrayList<CursoEstudiante> listaCursos= new ArrayList<>();
         for(Profesor profesor : Registro.getProfesores()){

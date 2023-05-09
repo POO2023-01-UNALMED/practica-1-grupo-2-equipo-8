@@ -10,4 +10,12 @@ public class Helpers {
         }
         return opciones.contains(opcion);
     }
+
+    public static double promedioLista(ArrayList<Double> lista) {
+        double sum = 0;
+        for (double n : lista) {
+            sum += n;
+        }
+        return sum / lista.size();
+    }
 }

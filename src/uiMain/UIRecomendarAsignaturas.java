@@ -113,15 +113,17 @@ public class UIRecomendarAsignaturas {
             });
 
             // Si un profesor tiene calificación de -1, significa que no ha sido calificado.
-            for (Profesor profesor : listaProfesores) {
-                if (profesor.getCalificacion() == -1) {
-                    listaProfesores.remove(profesor);
+            /* ListIterator<Profesor> iter = listaProfesores.listIterator();
+            while (iter.hasNext()) {
+                if (iter.next().getCalificacion() == -1) {
+                    iter.remove();
                 }
             }
+
             if (listaProfesores.isEmpty()) {
                 System.out.println("\tNo hay profesores que hallan sido calificados.");
                 continue;
-            }
+            } */
 
             // Se imprimen los profesores y su respectiva calificación.
             for (int i = 0; i < listaProfesores.size(); i++) {

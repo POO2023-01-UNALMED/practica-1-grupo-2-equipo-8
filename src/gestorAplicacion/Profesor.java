@@ -2,11 +2,13 @@ package gestorAplicacion; //Falta especificar en qué sub-paquéte estará
 
 import java.util.ArrayList;
 import uiMain.BusquedaCursos;
+import uiMain.Helpers;
 
 public class Profesor extends Registro{
     private static final long serialVersionUID = 2L;
     private ArrayList<CursoProfesor> listaCursos = new ArrayList<CursoProfesor>();
     private Facultades facultad;
+    private ArrayList<Double> calificaciones = new ArrayList<Double>();
     private double calificacion;
 
     public Profesor(String nombre, String correo, String nombreUsuario, String clave, String documento, ArrayList<CursoProfesor> listaCursos, Facultades facultad) {
@@ -77,12 +79,17 @@ public class Profesor extends Registro{
       return false;
     }
 
-    public String toString() {
-      return this.getNombre() + " (" + this.getCalificacion() + ")";
+    public void calificar(double valoracion) {
+      calificaciones.add(valoracion);
+      calificacion = Helpers.promedioLista(calificaciones);
     }
     
     @Override
     public void buscarCursos(){
         BusquedaCursos.buscarCursos();
+    }
+
+    public String toString() {
+      return this.getNombre() + " (" + this.getCalificacion() + ")";
     }
 }
