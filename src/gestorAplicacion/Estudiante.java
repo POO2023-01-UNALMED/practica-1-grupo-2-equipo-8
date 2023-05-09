@@ -1,6 +1,7 @@
 package gestorAplicacion; //Falta especificar en qué sub-paquéte estará
 
 import java.util.ArrayList;
+import uiMain.BusquedaCursos;
 import uiMain.UIAsignarCita;
 
 
@@ -153,6 +154,11 @@ public class Estudiante extends Registro{
     
     public void consultarRecomendacionAsignaturas(){ //Falta complemento de la UI
         
+    }
+    
+    @Override
+    public void buscarCursos(){
+        BusquedaCursos.buscarCursos(this);
     }
     
     public Horario crearHorario(){

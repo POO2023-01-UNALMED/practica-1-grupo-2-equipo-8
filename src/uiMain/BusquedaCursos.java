@@ -11,6 +11,82 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BusquedaCursos {
+    public static void buscarCursos(){
+        Scanner sc = new Scanner(System.in);
+        if(Registro.getCursos().isEmpty()){
+            while(true){
+                System.out.println("No hay cursos disponibles");
+                System.out.println("1. volver");
+                String opcion = sc.next();
+                if(!(opcion.equals("1"))){
+                    System.out.println("Solo puede seleccionar la opción \"volver\"");
+                    continue;
+                }
+                switch(opcion){
+                    case "1": break;
+                }
+                break;
+            }
+        }
+        else{
+            while(true){
+                System.out.println("Los cursos disponibles son:\n"
+                + String.format("\t%s\t%-32s\t%s\t%-17s\t%s","ID","Nombre","Creditos","Facultad","Programas relacionados"));
+                System.out.println("----------------------------------------------------------------------------------------------------------------------");
+                int cont = 1;
+                for(Curso curso : Registro.getCursos()){
+                    System.out.println("\t"+curso.getId()+"\t"+String.format("%-32s",curso.getNombre())+"\t"+String.format("%-8s",curso.getCreditos())+"\t"+curso.getFacultad()+"\t"+curso.getCarrerasRelacionadas());
+                    System.out.println(cont+". Ver detalles");
+                    cont++;
+                }
+                System.out.println(cont+". Volver");
+                String opcion = sc.next();
+                if(opcion.equals(String.valueOf(cont))){
+                    break;
+                }
+                boolean comp = true;
+                for(int x = 1; x<=Registro.getCursos().size(); x++){
+                    if(opcion.equals(String.valueOf(x))){
+                        mostrarDetalles(Registro.getCursos().get(x-1));
+                        comp = false;
+                        break;
+                    }
+                }
+                if(comp == true){
+                    System.out.println("Debe seleccionar una opción entre el 1 y el "+Registro.getCursos().size()+1);
+                }
+            }
+        }
+    }
+    
+    public static void mostrarDetalles(Curso curso){
+        Scanner sc = new Scanner(System.in);
+        
+        while(true){
+            ArrayList<CursoProfesor> listaCursos= new ArrayList<>();
+            ArrayList<Profesor> profesores = new ArrayList<>();
+            for(Profesor profesor : Registro.getProfesores()){
+                for(CursoProfesor cp : profesor.getListaCursos()){
+                    if(cp.getNombre().equals(curso.getNombre())){
+                        listaCursos.add(cp);
+                        profesores.add(profesor);
+                    }
+                }
+            }
+            System.out.println(curso.getNombre()+"("+curso.getId()+")\n"+curso.getCreditos()+"\n"+curso.getFacultad()+"\n"+curso.getCarrerasRelacionadas());
+            int cont = 0;
+            for(CursoProfesor cp : listaCursos){
+                System.out.println("Profesor: "+profesores.get(cont).getNombre()+"\nHorario: "+cp.getHorario()+"\nCupos: "+cp.getCupos());
+                cont++;
+            }
+            System.out.println("1. volver");
+            String opcion = sc.next();
+            if(opcion.equals("1")){
+                break;
+            }
+        }
+    }
+    
     public static void buscarCursos(Estudiante estudiante){
         Scanner sc = new Scanner(System.in);
         if(Registro.getCursos().isEmpty()){

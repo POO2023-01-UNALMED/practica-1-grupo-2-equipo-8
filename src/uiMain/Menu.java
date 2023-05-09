@@ -1,5 +1,6 @@
 package uiMain;
 
+import baseDatos.Deserializador;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +23,7 @@ public class Menu {
     
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
-        Registro registro = new Registro();
+        Deserializador.deserializador();
         int[] n1 = {1,33}; //La primera entrada corresponde al id del enum TipoNota 
         int[] n2 = {1,33}; //La primera entrada corresponde al id del enum TipoNota 
         int[] n3 = {1,34}; //La primera entrada corresponde al id del enum TipoNota 
@@ -64,7 +65,7 @@ public class Menu {
             }
             switch(opcion){
                 case "1": UIRecomendarAsignaturas.recomendarAsignaturas(estudiante, sc); continue;
-                case "2": BusquedaCursos.buscarCursos(estudiante); break;
+                case "2": estudiante.buscarCursos(); break;
                 case "3": Horario horario = estudiante.crearHorario(); BusquedaCursos.buscarCursos(estudiante, horario); break;
                 case "4": IncripcionMaterias.inscribirMaterias(estudiante); break;
                 case "5": ; break; // Añadir llamada al método correspondiente
@@ -80,7 +81,8 @@ public class Menu {
             System.out.println("Indique lo que quiere realizar:\n"
                     + "1. Calificar\n"
                     + "2. Ver aplicabilidad a estimulos\n"
-                    + "3. Salir");
+                    + "3. Buscar asignatura\n"
+                    + "4. Salir");
             String opcion = sc.next();
             if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3"))){
                 System.out.println("Debe seleccionar un número entre el 1 y el 3");
@@ -89,7 +91,8 @@ public class Menu {
             switch(opcion){
                 case "1": ; break; // Añadir llamada al método correspondiente
                 case "2": ; break; // Añadir llamada al método correspondiente
-                case "3": salir(); break;
+                case "3": profesor.buscarCursos(); break;
+                case "4": salir(); break;
             }
         }
     }
@@ -100,7 +103,7 @@ public class Menu {
             System.out.println("Indique lo que quiere realizar:\n"
                     + "1. Crear curso\n"
                     + "2. Eliminar curso\n"
-                    + "3. Ver cursos\n"
+                    + "3. Buscar asignatura\n"
                     + "4. Salir");
             String opcion = sc.nextLine();
             ArrayList<String> opciones = new ArrayList<String>(Arrays.asList("1", "2", "3", "4"));
@@ -111,7 +114,7 @@ public class Menu {
             switch(opcion){
                 case "1": Admin.agregarCurso(sc); continue;
                 case "2": Admin.eliminarCurso(sc); continue;
-                case "3": Admin.verCursos(sc); continue;
+                case "3": admin.buscarCursos(); continue;
                 case "4": salir(); break;
             }
         }

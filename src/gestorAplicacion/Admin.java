@@ -2,6 +2,7 @@ package gestorAplicacion;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import uiMain.BusquedaCursos;
 
 import uiMain.Helpers;
 
@@ -220,34 +221,9 @@ public class Admin extends Registro {
         }
         return;
     }
-
-    public static void verCursos(Scanner sc) {
-        System.out.println("LISTA DE CURSOS");
-
-        // Si no hay cursos para ver, terminar el proceso.
-        if (Registro.getCursos().isEmpty()) {
-            System.out.println("\tNo hay cursos.");
-            return;
-        }
-
-        while(true) {
-            // Se imprimen los cursos.
-            for (int i = 0; i < Registro.getCursos().size(); i++) {
-                System.out.printf("\t%d. %s\n", i + 1, Registro.getCursos().get(i));
-            }
-
-            System.out.print("\tElija un curso para ver más detalles o 0 para continuar: ");
-            int opcion = sc.nextInt();
-            // Se verifica la opcion ingresada.
-            if (!Helpers.checkOpcion(opcion, Registro.getCursos().size())) {
-                System.out.printf("\t\tDebe seleccionar un número entre el 0 y el %d\n", Registro.getCursos().size());
-                continue;
-            } else if (opcion == 0) break;
-
-            Curso cursoDeInteres = Registro.getCursos().get(opcion - 1);
-            cursoDeInteres.detalles();
-        }
-
-        return;
+    
+    @Override
+    public void buscarCursos() {
+        BusquedaCursos.buscarCursos();
     }
 }

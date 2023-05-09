@@ -1,6 +1,7 @@
 package gestorAplicacion; //Falta especificar en qué sub-paquéte estará
 
 import java.util.ArrayList;
+import uiMain.BusquedaCursos;
 
 public class Profesor extends Registro{
     private static final long serialVersionUID = 2L;
@@ -78,5 +79,10 @@ public class Profesor extends Registro{
 
     public String toString() {
       return this.getNombre() + " (" + this.getCalificacion() + ")";
+    }
+    
+    @Override
+    public void buscarCursos(){
+        BusquedaCursos.buscarCursos();
     }
 }
