@@ -15,7 +15,7 @@ public class Profesor extends Registro{
         super(nombre, correo, nombreUsuario, clave, documento);
         this.listaCursos = listaCursos;
         this.facultad = facultad;
-        //this.calificacion = -1;
+        this.calificacion = -1;
         Registro.agregarProfesor(this);
     }
 
