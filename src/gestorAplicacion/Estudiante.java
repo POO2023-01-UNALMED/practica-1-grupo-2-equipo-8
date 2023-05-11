@@ -117,7 +117,7 @@ public class Estudiante extends Registro{
         this.inscribir = inscribir;
     }
 
-    
+    // METODOS
     public int calcularPAPI(int sem){ //Para el cálculo del PAPPI se pide el semestre al que corresponde el PAPPI que quiere ver
         if(sem<semestre && sem>0){
             int sum = 0;
@@ -133,7 +133,6 @@ public class Estudiante extends Registro{
         return -1; // Hay que corregir la lógica en la capa de UI
     }
     
-    // METODOS
     public int calcularPAPA(){
         int sum = 0;
         int sumc = 0;
@@ -236,6 +235,22 @@ public class Estudiante extends Registro{
                     UIAsignarCita.getEstudiantesConCita().get(0).setInscribir(true);
                 }
             }
+        }
+    }
+
+    public boolean vioCurso(Curso curso) {
+        // Si el estudiante es nuevo, no ha cursado ninguna materia
+        if (this.getCursosVistos() == null || this.getCursosVistos().isEmpty()) {
+            return false;
+        } else {
+            // La comparación se realiza entre los nombres, ya que son clases distintas,
+            // por lo que se obtiene la lista de nombres,
+            ArrayList<String> nombresCursosVistos = new ArrayList<String>();
+            for (CursoEstudiante asignatura : this.getCursosVistos()) {
+                nombresCursosVistos.add(asignatura.getNombre());
+            }
+            // y se revisa si el nombre del curso está en los cursos vistos.
+            return nombresCursosVistos.contains(curso.getNombre());
         }
     }
     

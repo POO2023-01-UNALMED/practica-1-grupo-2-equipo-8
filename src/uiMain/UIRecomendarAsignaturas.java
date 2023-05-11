@@ -9,7 +9,6 @@ import java.util.Collections;
 import gestorAplicacion.Curso;
 import gestorAplicacion.Estudiante;
 import gestorAplicacion.Profesor;
-import gestorAplicacion.CursoEstudiante;
 import gestorAplicacion.Registro;
 
 public class UIRecomendarAsignaturas {
@@ -32,47 +31,11 @@ public class UIRecomendarAsignaturas {
             // o el estudiante ya vio el curso, no se toma en cuenta
             boolean esDeLaCarrera = curso.getCarrerasRelacionadas().contains(estudiante.getCarrera());
 
-            boolean fueCursada;
-            // Si el estudiante es nuevo, no ha cursado ninguna materia
-            if (estudiante.getCursosVistos() == null) {
-                fueCursada = false;
-            } else {
-                // La comparación se realiza entre los nombres, ya que son clases distintas,
-                // por lo que se obtiene la lista de nombres,
-                ArrayList<String> nombresCursosVistos = new ArrayList<String>();
-                for (CursoEstudiante asignatura : estudiante.getCursosVistos()) {
-                    nombresCursosVistos.add(asignatura.getNombre());
-                }
-                // y se revisa si el nombre del curso está en los cursos vistos.
-                fueCursada = nombresCursosVistos.contains(curso.getNombre());
-            }
-            if (!esDeLaCarrera || fueCursada) continue;
-            
-            // Se recomienda un curso si
-            // el estudiante ya vio todos los prerrequisitos del curso
-            boolean vioPrerrequisitos;
-            // Si el estudiante es nuevo, no ha cursado niguna materia
-            if (estudiante.getCursosVistos() == null) {
-                vioPrerrequisitos = false;
-            } else {
-                // La comparación se realiza entre los nombres, ya que son clases distintas,
-                // por lo que se obtiene la lista de nombres de los preRequisitos,
-                ArrayList<String> nombresCursosPreRequisitos = new ArrayList<String>();
-                for (Curso asignatura : curso.getPreRequisitos()) {
-                    nombresCursosPreRequisitos.add(asignatura.getNombre());
-                }
-                // y la lista de nombres de los cursos vistos,
-                ArrayList<String> nombresCursosVistos = new ArrayList<String>();
-                for (CursoEstudiante asignatura : estudiante.getCursosVistos()) {
-                    nombresCursosVistos.add(asignatura.getNombre());
-                }
-                // finalmente se verifica si el estudiante a cursado todos los preRequisitos.
-                vioPrerrequisitos = nombresCursosVistos.containsAll(nombresCursosPreRequisitos);
-            }
+            boolean vioCurso = estudiante.vioCurso(curso);
+            if (!esDeLaCarrera || vioCurso) continue;
+
+            boolean vioPrerrequisitos = curso.vioPrerrequisitos(estudiante);
             if (vioPrerrequisitos) {
-                cursosParaRecomendar.add(curso);
-            // o si el curso no tiene prerrequisitos
-            } else if (curso.getPreRequisitos().isEmpty()) {
                 cursosParaRecomendar.add(curso);
             }
         }
@@ -127,7 +90,7 @@ public class UIRecomendarAsignaturas {
             // Si un profesor tiene calificación de -1, significa que no ha sido calificado.
             ListIterator<Profesor> iter = listaProfesores.listIterator();
             while (iter.hasNext()) {
-                if (iter.next().getCalificacion() == -1) {
+                if (!iter.next().fueCalificado()) {
                     iter.remove();
                 }
             }

@@ -90,6 +90,13 @@ public class Profesor extends Registro{
         BusquedaCursos.buscarCursos();
     }
 
+    public boolean fueCalificado() {
+      if (this.getCalificacion() == -1) {
+        return false;
+      }
+      return true;
+    }
+
     public String toString() {
       return this.getNombre() + " (" + this.getCalificacion() + ")";
     }
