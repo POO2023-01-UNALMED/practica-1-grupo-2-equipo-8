@@ -23,6 +23,7 @@ public class Estudiante extends Registro{
         this.carrera = carrera;
         this.facultad = facultad;
         this.semestre = semestre;
+        Registro.agregarEstudiante(this);
     }
     
     public Estudiante(String nombre, String correo, String nombreUsuario, String clave, String documento, Carreras carrera, Facultades facultad, int semestre, ArrayList<CursoEstudiante> cursosVistos, ArrayList<CursoEstudiante> listaCursos){
@@ -38,6 +39,7 @@ public class Estudiante extends Registro{
                 }
             }
         }
+        Registro.agregarEstudiante(this);
     }
     
     public ArrayList<CursoEstudiante> getListaCursos() {
@@ -131,7 +133,6 @@ public class Estudiante extends Registro{
         return -1; // Hay que corregir la lógica en la capa de UI
     }
     
-    
     public int calcularPAPA(){
         int sum = 0;
         int sumc = 0;
@@ -213,5 +214,25 @@ public class Estudiante extends Registro{
                 }
             }
         }
+    }
+
+    public boolean vioCurso(Curso curso) {
+        // Si el estudiante es nuevo, no ha cursado ninguna materia
+        if (this.getCursosVistos() == null || this.getCursosVistos().isEmpty()) {
+            return false;
+        } else {
+            // La comparación se realiza entre los nombres, ya que son clases distintas,
+            // por lo que se obtiene la lista de nombres,
+            ArrayList<String> nombresCursosVistos = new ArrayList<String>();
+            for (CursoEstudiante asignatura : this.getCursosVistos()) {
+                nombresCursosVistos.add(asignatura.getNombre());
+            }
+            // y se revisa si el nombre del curso está en los cursos vistos.
+            return nombresCursosVistos.contains(curso.getNombre());
+        }
+    }
+    
+    public String toString() {
+        return getNombre() + " (" + calcularPAPA() + ")";
     }
 }

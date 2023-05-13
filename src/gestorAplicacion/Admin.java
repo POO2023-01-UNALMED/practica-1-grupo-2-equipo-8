@@ -10,6 +10,7 @@ public class Admin extends Registro {
     private static final long serialVersionUID = 4L;
     public Admin(String nombre, String correo, String nombreUsuario, String clave, String documento){
         super(nombre, correo, nombreUsuario, clave, documento);
+        Registro.agregarAdmin(this);
     }
 
     // METHODS
@@ -225,5 +226,31 @@ public class Admin extends Registro {
     @Override
     public void buscarCursos() {
         BusquedaCursos.buscarCursos();
+    }
+
+    public static void verEstudiantes() {
+        System.out.println("LISTA DE ESTUDIANTES");
+
+        if (Registro.getEstudiantes() == null || Registro.getEstudiantes().isEmpty()) {
+            System.out.println("\tNo hay estudiantes.");
+            return;
+        }
+
+        for (int i = 0; i < Registro.getEstudiantes().size(); i++) {
+            System.out.printf("\t%d. %s\n", i+1, Registro.getEstudiantes().get(i));
+        }
+    }
+
+    public static void verProfesores() {
+        System.out.println("LISTA DE PROFESORES");
+
+        if (Registro.getProfesores() == null || Registro.getProfesores().isEmpty()) {
+            System.out.println("\tNo hay profesores.");
+            return;
+        }
+
+        for (int i = 0; i < Registro.getProfesores().size(); i++) {
+            System.out.printf("\t%d. %s\n", i+1, Registro.getProfesores().get(i));
+        }
     }
 }

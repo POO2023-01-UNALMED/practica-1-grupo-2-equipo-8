@@ -139,7 +139,6 @@ public class Register {
                 break;
             }
             Estudiante estudiante = new Estudiante(nombre, correo, nombreUsuario, clave, documento, carrera, facultad, semestre);
-            Registro.agregarEstudiante(estudiante);
             Menu.sistema(estudiante);
         }
         
@@ -220,7 +219,6 @@ public class Register {
                 break;
             }
             Profesor profesor = new Profesor(nombre, correo, nombreUsuario, clave, documento, listaCursos, facultad);
-            Registro.agregarProfesor(profesor);
             for(CursoProfesor cp : listaCursos){
                 for(Curso curso : Registro.getCursos()){
                     if(cp.getNombre().equals(curso.getNombre())){
@@ -233,7 +231,6 @@ public class Register {
         
         else if(tu.tipoUsuario().equals("Admin")){
             Admin admin = new Admin(nombre, correo, nombreUsuario, clave, documento);
-            Registro.agregarAdmin(admin);
             Menu.sistema(admin);
         }
     }
