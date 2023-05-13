@@ -82,7 +82,7 @@ public class Horario implements Serializable{
         return true;
     }
     
-    public boolean validarHorario() {
+    public boolean validarHorario(Estudiante estudiante) {
         for(int x = 0; x<cursos.size(); x++){
             CursoEstudiante curso1 = cursos.get(x);
             String[] datos1 = curso1.getHorario().split(" ");
@@ -93,7 +93,9 @@ public class Horario implements Serializable{
                 String[] datos2 = curso2.getHorario().split(" ");
                 String[] dias2 = {datos2[0],datos2[2]};
                 String[][] horas2 = {datos2[1].split("-"),datos2[3].split("-")};
-                
+                if(curso1.getNombre().equals(curso2.getNombre())){
+                    return false;
+                }
                 int cont1 = 1;
                 int cont2 = 1;
                     for(String dia1 : dias1){
@@ -115,9 +117,54 @@ public class Horario implements Serializable{
                 
             }
         }
+        for(CursoEstudiante ce1 : estudiante.getCursosVistos()){
+            for(CursoEstudiante ce2 : getCursos()){
+                if(ce1.getNombre().equals(ce2.getNombre())){
+                    return false;
+                }
+            }
+        }
+        ArrayList<CursoEstudiante> cursosAprobados = (ArrayList<CursoEstudiante>) estudiante.getListaCursos().clone();
+        for(CursoEstudiante ce : cursosAprobados){
+            if(ce.calcularPromedio()<3){
+                cursosAprobados.remove(ce);
+            }
+        }
+        for(Curso c1 : cursosAprobados){
+            for(Curso c2 : getCursos()){
+                if(c1.getNombre().equals(c2.getNombre())){
+                    return false;
+                }
+            }
+        }
+        int cont;
+        boolean comp;
+        for(CursoEstudiante ce : cursos){
+            cont = 0;
+            for(Curso pre : ce.getPreRequisitos()){
+                comp = false;
+                for(CursoEstudiante cv : estudiante.getCursosVistos()){
+                    if(cv.getNombre().equals(pre.getNombre())){
+                        cont++;
+                        comp = true;
+                    }
+                }
+                if(comp == false){
+                    for(CursoEstudiante capr : cursosAprobados){
+                       if(capr.getNombre().equals(pre.getNombre())){
+                            cont++;
+                        } 
+                    }
+                }
+            }
+            if(cont != ce.getPreRequisitos().size()){
+                return false;
+            }
+        }
         return true;
     }
-
+    
+    
     //Sets y Gets
     public int getId() {
         return id;

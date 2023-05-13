@@ -125,12 +125,12 @@ public class IncripcionMaterias {
             }
         }
         Horario horario = new Horario(listaCursos);
-        if(horario.validarHorario()){
+        if(horario.validarHorario(estudiante)){
             estudiante.inscribirCursos(listaCursos);
             System.out.println("La inscripción fue exitosa");
         }
         else{
-            System.out.println("Los horarios de los cursos seleccionados presentan una inconsistencia. Debes hacer el proceso de inscripción de nuevo");
+            System.out.println("Los cursos seleccionados presentan inconsistencias (hay horarios cruzados o no cumples con los requisitos de algún curso)");
             inscribirManualmente(estudiante);
         }
     }
@@ -161,7 +161,14 @@ public class IncripcionMaterias {
                 for(int x = 1; x<cont; x++){
                     if(opcion.equals(String.valueOf(x))){
                         Horario horario = estudiante.getHorariosCreados().get(x-1);
-                        estudiante.inscribirCursos(horario);
+                        if(horario.validarHorario(estudiante)){
+                            estudiante.inscribirCursos(horario.getCursos());
+                            System.out.println("La inscripción fue exitosa");
+                        }
+                        else{
+                            System.out.println("Los cursos seleccionados presentan inconsistencias (hay horarios cruzados, el horario contiene cursos que ya aprobaste o no cumples con los requisitos de algún curso)");
+                            inscribirManualmente(estudiante);
+                        }
                         comp = false;
                         break;
                     }

@@ -191,4 +191,49 @@ public class Curso implements Serializable {
         }
         return listaCursos;
     }
+    
+    public ArrayList<CursoProfesor> obtenerGrupos(){
+        ArrayList<CursoProfesor> listaCursos= new ArrayList<>();
+        for(Profesor profesor : Registro.getProfesores()){
+            for(CursoProfesor cp : profesor.getListaCursos()){
+                if(cp.getNombre().equals(getNombre())){
+                    listaCursos.add(cp);
+                }
+            }
+        }
+        return listaCursos;
+    }
+    
+    
+    public static ArrayList<Curso> filtrarPorFacultad(ArrayList<Curso> cursos, Facultades facultad){
+        for(Curso curso : cursos){
+            if(!curso.facultades.contains(facultad)){
+                cursos.remove(curso);
+            }
+        }
+        return cursos;
+    }
+    
+    public static ArrayList<Curso> filtrarPorCarrera(ArrayList<Curso> cursos, Carreras carrera){
+        for(Curso curso : cursos){
+            if(!curso.carrerasRelacionadas.contains(carrera)){
+                cursos.remove(curso);
+            }
+        }
+        return cursos;
+    }
+    
+    public static ArrayList<Curso> filtrarPorHorario(ArrayList<Curso> cursos, String horario){
+        ArrayList<Curso> listaCursos = new ArrayList();
+        for(Curso curso : cursos){
+            ArrayList<CursoProfesor> cursosProfesores = curso.obtenerGrupos();
+            for(CursoProfesor cp : cursosProfesores){
+                if(cp.getHorario().equals(horario)){
+                    listaCursos.add(curso);
+                    break;
+                }
+            }
+        }
+        return listaCursos;
+    }
 }

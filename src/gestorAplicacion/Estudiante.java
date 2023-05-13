@@ -115,7 +115,7 @@ public class Estudiante extends Registro{
         this.inscribir = inscribir;
     }
 
-    
+    // METODOS
     public int calcularPAPI(int sem){ //Para el cálculo del PAPPI se pide el semestre al que corresponde el PAPPI que quiere ver
         if(sem<semestre && sem>0){
             int sum = 0;
@@ -131,7 +131,7 @@ public class Estudiante extends Registro{
         return -1; // Hay que corregir la lógica en la capa de UI
     }
     
-    // METODOS
+    
     public int calcularPAPA(){
         int sum = 0;
         int sumc = 0;
@@ -192,28 +192,6 @@ public class Estudiante extends Registro{
     }
     
     public void inscribirCursos(Horario horario){
-        for(CursoEstudiante ce1 : cursosVistos){
-            for(CursoEstudiante ce2 : horario.getCursos()){
-                if(ce1.getNombre().equals(ce2.getNombre())){
-                    System.out.println("El horario seleccionado no es valido porque contiene un curso que ya aprobaste");
-                    return;
-                }
-            }
-        }
-        ArrayList<CursoEstudiante> cursosAprobados = (ArrayList<CursoEstudiante>) listaCursos.clone();
-        for(CursoEstudiante ce : cursosAprobados){
-            if(ce.calcularPromedio()<3){
-                cursosAprobados.remove(ce);
-            }
-        }
-        for(Curso c1 : cursosAprobados){
-            for(Curso c2 : horario.getCursos()){
-                if(c1.getNombre().equals(c2.getNombre())){
-                    System.out.println("El horario seleccionado no es valido porque contiene un curso que ya aprobaste");
-                    return;
-                }
-            }
-        }
         for(CursoEstudiante ce : listaCursos){
             if(ce.calcularPromedio()>=3){
                 cursosVistos.add(ce);
