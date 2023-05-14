@@ -166,7 +166,7 @@ public class IncripcionMaterias {
                             System.out.println("La inscripción fue exitosa");
                         }
                         else{
-                            System.out.println("Los cursos seleccionados presentan inconsistencias (hay horarios cruzados, el horario contiene cursos que ya aprobaste o no cumples con los requisitos de algún curso). Se le redigirá a hacer el proceso manualmente");
+                            System.out.println("Los cursos seleccionados presentan inconsistencias (hay horarios cruzados, el horario contiene cursos que ya aprobaste o no cumples con los requisitos de algún curso). Deberá hacer el proceso de nuevo.");
                             inscribirMaterias(estudiante);
                         }
                         comp = false;
