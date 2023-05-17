@@ -17,7 +17,7 @@ public class UIRecomendarAsignaturas {
         System.out.println("A continuación se muestran las asignaturas recomendadas para cursar el próximo semestre:");
         
         // Si no hay cursos en el sistema, terminar el proceso.
-        if (Registro.getCursos().isEmpty()) {
+        if (Registro.getCursos() == null || Registro.getCursos().isEmpty()) {
             System.out.println("\tNo hay cursos existentes.");
             return;
         }
@@ -30,7 +30,6 @@ public class UIRecomendarAsignaturas {
             // Si las carreras del curso no están relacionadas con la carrera del estudiante,
             // o el estudiante ya vio el curso, no se toma en cuenta
             boolean esDeLaCarrera = curso.getCarrerasRelacionadas().contains(estudiante.getCarrera());
-
             boolean vioCurso = estudiante.vioCurso(curso);
             if (!esDeLaCarrera || vioCurso) continue;
 
@@ -46,8 +45,11 @@ public class UIRecomendarAsignaturas {
         }
 
         // Se imprimen los cursos
+        System.out.println("------------------------------------------------------------------------");
+        System.out.println("\t\tLista de Cursos");
+        System.out.println("------------------------------------------------------------------------");
         for (int i = 0; i < cursosParaRecomendar.size(); i++) {
-            System.out.printf("\t%d. %s\n", i + 1, cursosParaRecomendar.get(i));
+            System.out.printf("\t%d\t%s\n", i + 1, cursosParaRecomendar.get(i));
         }
 
         while (true) {
@@ -78,14 +80,6 @@ public class UIRecomendarAsignaturas {
                 System.out.println("\tNo hay profesores que dicten el curso.");
                 continue;
             }
-            
-            // Se ordena la lista de forma descendente según las calificaciones de los profesores.
-            Collections.sort(listaProfesores, new Comparator<Profesor>() {
-                @Override
-                public int compare(Profesor p1, Profesor p2) {
-                    return Double.compare(p2.getCalificacion(), p1.getCalificacion());
-                }
-            });
 
             // Si un profesor tiene calificación de -1, significa que no ha sido calificado.
             ListIterator<Profesor> iter = listaProfesores.listIterator();
@@ -98,10 +92,21 @@ public class UIRecomendarAsignaturas {
                 System.out.println("\tNo hay profesores que hallan sido calificados.");
                 continue;
             }
+            
+            // Se ordena la lista de forma descendente según las calificaciones de los profesores.
+            Collections.sort(listaProfesores, new Comparator<Profesor>() {
+                @Override
+                public int compare(Profesor p1, Profesor p2) {
+                    return Double.compare(p2.getCalificacion(), p1.getCalificacion());
+                }
+            });
 
             // Se imprimen los profesores y su respectiva calificación.
+            System.out.println("------------------------------------------------------------------------");
+            System.out.println("\t\tProfesor\tCalificacion");
+            System.out.println("------------------------------------------------------------------------");
             for (int i = 0; i < listaProfesores.size(); i++) {
-                System.out.printf("\t%d. %s\n", i + 1, listaProfesores.get(i));
+                System.out.printf("\t%d\t%s\n", i + 1, listaProfesores.get(i));
             }
         }
 

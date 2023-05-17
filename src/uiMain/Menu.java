@@ -24,6 +24,9 @@ public class Menu {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         Deserializador.deserializador();
+
+        
+
         Login.login();
         sc.close();
     }

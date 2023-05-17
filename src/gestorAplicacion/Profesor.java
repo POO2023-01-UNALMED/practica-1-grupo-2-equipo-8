@@ -98,6 +98,6 @@ public class Profesor extends Registro{
     }
 
     public String toString() {
-      return this.getNombre() + " (" + this.getCalificacion() + ")";
+      return this.getNombre() + "\t" + this.getCalificacion();
     }
 }

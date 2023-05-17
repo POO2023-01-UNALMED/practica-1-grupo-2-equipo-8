@@ -158,7 +158,7 @@ public class Curso implements Serializable {
     }
 
     public String toString() {
-      return this.nombre + " (" + this.id + ")";
+      return this.getNombre()+ " (" + this.getId() + ")";
     }
     
     // Methods

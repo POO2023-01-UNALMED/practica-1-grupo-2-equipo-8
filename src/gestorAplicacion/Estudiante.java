@@ -220,16 +220,15 @@ public class Estudiante extends Registro{
         // Si el estudiante es nuevo, no ha cursado ninguna materia
         if (this.getCursosVistos() == null || this.getCursosVistos().isEmpty()) {
             return false;
-        } else {
-            // La comparación se realiza entre los nombres, ya que son clases distintas,
-            // por lo que se obtiene la lista de nombres,
-            ArrayList<String> nombresCursosVistos = new ArrayList<String>();
-            for (CursoEstudiante asignatura : this.getCursosVistos()) {
-                nombresCursosVistos.add(asignatura.getNombre());
-            }
-            // y se revisa si el nombre del curso está en los cursos vistos.
-            return nombresCursosVistos.contains(curso.getNombre());
         }
+        // La comparación se realiza entre los nombres, ya que son clases distintas,
+        // por lo que se obtiene la lista de nombres,
+        ArrayList<String> nombresCursosVistos = new ArrayList<String>();
+        for (CursoEstudiante asignatura : this.getCursosVistos()) {
+            nombresCursosVistos.add(asignatura.getNombre());
+        }
+        // y se revisa si el nombre del curso está en los cursos vistos.
+        return nombresCursosVistos.contains(curso.getNombre());
     }
     
     public String toString() {
