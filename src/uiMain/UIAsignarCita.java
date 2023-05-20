@@ -35,6 +35,10 @@ public class UIAsignarCita {
     public static void asignarCita(Registro admin,Estudiante estudiante){
         // Verificar que la persona que hizo la solicitud es un administrador
         if (admin instanceof Admin){
+            // Guardar los datos anteriores
+            ArrayList<String> copiaHorarios = UIAsignarCita.horariosDisponibles;
+            ArrayList<Estudiante> copiaEstudiantes = UIAsignarCita.estudiantesConCita;
+            String copiaCita = estudiante.getCita();
 
             // Insertar Cita del estudiante
             System.out.println("Escriba a continuación el Horario de la Cita en formato HH:MM"
@@ -44,6 +48,7 @@ public class UIAsignarCita {
             // Comprobar que la cita ingresada sea válida
             String verificado = UIAsignarCita.comprobarCita(cita);
             if (verificado != null){
+
                 // Comprobar que el estudiante no tenia una cita anterior
                 if (estudiante.getCita() != null){
                     UIAsignarCita.horariosDisponibles.add(estudiante.getCita());
@@ -54,39 +59,90 @@ public class UIAsignarCita {
                 estudiante.setCita(verificado);
                 UIAsignarCita.horariosDisponibles.remove(verificado);
                 UIAsignarCita.estudiantesConCita.add(estudiante);
+
+                // Preguntar si se quiere guardar los cambios
+                System.out.println("¿Confirmar los cambios?\n" 
+                + "1. Sí, confirmar\n"
+                + "2. No, cambiar la cita\n"
+                + "3. No, cancelar todo\n");
+
+                int opcion = sc.nextInt();
+                switch(opcion){
+                case 1:
+                // Continuar
+                break;
+
+                case 2:
+                    // Resetear todo
+                    UIAsignarCita.estudiantesConCita = copiaEstudiantes;
+                    UIAsignarCita.horariosDisponibles = copiaHorarios;
+                    estudiante.setCita(copiaCita);
+
+                    // Volver a iniciar el método
+                    UIAsignarCita.asignarCita(admin, estudiante);
+                case 3:
+                    // Resetar todo
+                    UIAsignarCita.estudiantesConCita = copiaEstudiantes;
+                    UIAsignarCita.horariosDisponibles = copiaHorarios;
+                    break;
+                }
             }
         }
         else{
             System.out.println("Usted debe ser un administrador para poder llevar a cabo este proceso");
         }
+
+
     }
 
-    public static void asignarCita(Registro admin, List<Estudiante> estudiantes){
+    public static void asignarCita(Registro admin, ArrayList<Estudiante> estudiantes){
         // Verificar que la solicitud la hizo un admin
         if (admin instanceof Admin){
+            // Guardar copia de las listas
+            ArrayList<Estudiante> copiaEstudiantesConCita = UIAsignarCita.estudiantesConCita;
+            ArrayList<String> copiaHorarios = UIAsignarCita.horariosDisponibles;
+            ArrayList<String> copiaHorarioEstudiante = new ArrayList<String>();
+            for (int i = 0; i < estudiantes.size(); i++){
+                copiaHorarioEstudiante.add(estudiantes.get(i).getCita());
+            }
+
+            // Ordenar a los estudiantes por PAPI
+            List<Estudiante> PAPIs = UIAsignarCita.ordenarEstudiantesPorPAPI(estudiantes);
+
+            // Asignarles las citas disponibles a cada estudiante
+            for (int i = 0; i < PAPIs.size(); i++) {
+                String horario = UIAsignarCita.horariosDisponibles.get(i);
+                Estudiante estudiante = PAPIs.get(i);
+                estudiante.setCita(horario);
+                UIAsignarCita.estudiantesConCita.add(estudiante);
+            }
+            
             // Verificar si se desea continuar
             System.out.println("¿Deseas continuar?");
-            System.out.println("1. Continuar");
-            System.out.println("2. Cancelar");
+            System.out.println("1. Continuar y guardar");
+            System.out.println("2. Mostrar la cita asignada a cada estudiante y continuar");
+            System.out.println("3. Cancelar proceso");
             int opcion = sc.nextInt();
 
             switch (opcion) {
                 case 1:
                     // Ordenar a los estudiantes por PAPI
-                    List<Estudiante> PAPIs = UIAsignarCita.ordenarEstudiantesPorPAPI(estudiantes);
-
-                    // Asignarles las citas disponibles a cada estudiante
-                    for (int i = 0; i < PAPIs.size(); i++) {
-                        String horario = UIAsignarCita.horariosDisponibles.get(i);
-                        Estudiante estudiante = PAPIs.get(i);
-                        estudiante.setCita(horario);
-                        UIAsignarCita.estudiantesConCita.add(estudiante);
-                    }
                     break;
 
                 case 2:
-                    System.out.println("Proceso cancelado.");
+                    for (Estudiante estudiante : UIAsignarCita.estudiantesConCita){
+                        System.out.println(estudiante.getNombre() + ": " + estudiante.getCita());
+                    }
                     break;
+                case 3:
+                    // Resetear todo
+                    UIAsignarCita.estudiantesConCita = copiaEstudiantesConCita;
+                    UIAsignarCita.horariosDisponibles = copiaHorarios;
+                    for (int i = 0; i < estudiantes.size(); i++){
+                        Estudiante estudiante = estudiantes.get(i);
+                        String cita = copiaHorarioEstudiante.get(i);
+                        estudiante.setCita(cita);
+                    }  
 
                 default:
                     System.out.println("Opción inválida. Por favor, selecciona una opción válida.");
