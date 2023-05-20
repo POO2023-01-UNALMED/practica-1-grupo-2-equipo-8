@@ -15,6 +15,7 @@ import gestorAplicacion.Facultades;
 import gestorAplicacion.Horario;
 import gestorAplicacion.Profesor;
 import gestorAplicacion.Registro;
+import uiMain.UIRecomendarAsignaturas;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

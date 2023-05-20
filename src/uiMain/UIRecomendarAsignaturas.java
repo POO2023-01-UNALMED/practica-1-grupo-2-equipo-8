@@ -11,7 +11,7 @@ import gestorAplicacion.Estudiante;
 import gestorAplicacion.Profesor;
 import gestorAplicacion.Registro;
 
-public class UIRecomendarAsignaturas {
+public class UIRecomendarAsignaturas{
     public static void recomendarAsignaturas(Estudiante estudiante, Scanner sc) {
         System.out.println("RECOMENDACION DE ASIGNATURAS");
         System.out.println("A continuación se muestran las asignaturas recomendadas para cursar el próximo semestre:");
