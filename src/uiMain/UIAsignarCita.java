@@ -57,17 +57,17 @@ public class UIAsignarCita {
             }
         }
         else{
-            System.out.println("Usted debe ser un administrador para poder llevar a cabo este proceso")
+            System.out.println("Usted debe ser un administrador para poder llevar a cabo este proceso");
         }
     }
 
-    public static void asignarCita(List<Estudiante> estudiantes){
+    public static void asignarCita(Registro admin, List<Estudiante> estudiantes){
         // Verificar que la solicitud la hizo un admin
         if (admin instanceof Admin){
             // Verificar si se desea continuar
-            System.out.println("¿Deseas continuar?")
-            System.out.println("1. Continuar")
-            System.out.println(+ "2. Cancelar");
+            System.out.println("¿Deseas continuar?");
+            System.out.println("1. Continuar");
+            System.out.println("2. Cancelar");
             int opcion = sc.nextInt();
 
             switch (opcion) {
@@ -85,15 +85,15 @@ public class UIAsignarCita {
                     break;
 
                 case 2:
-                    System.out.println("Proceso cancelado.")
-                    break
+                    System.out.println("Proceso cancelado.");
+                    break;
 
                 default:
                     System.out.println("Opción inválida. Por favor, selecciona una opción válida.");
                 }
         }
         else{
-            System.out.println("Usted debe ser un administrador para poder llevar a cabo este proceso")
+            System.out.println("Usted debe ser un administrador para poder llevar a cabo este proceso");
         }
     }
 
@@ -107,7 +107,7 @@ public class UIAsignarCita {
             primero.setInscribir(true);
         }
         else{
-            System.out.println("No hay más estudiantes en la lista")
+            System.out.println("No hay más estudiantes en la lista");
         }
     }
 
@@ -123,6 +123,7 @@ public class UIAsignarCita {
         } else {
             System.out.println("El horario \"" + cita + "\" no es válido o no está disponible.");
 
+            int opcion = 0;
             // Preguntar que se desea hacer ahora
             while (opcion < 1 || opcion > 3) {
                 System.out.println("¿Qué deseas hacer?");
@@ -130,12 +131,12 @@ public class UIAsignarCita {
                 System.out.println("2. Ver todos los horarios disponibles");
                 System.out.println("3. Cancelar el proceso");
                 try {
-                    int opcion = scanner.nextInt();
+                    opcion = sc.nextInt();
                     switch (opcion) {
                         case 1:
                             // Introducir nueva cita
                             System.out.println("Introduce la nueva cita: ");
-                            String nuevoString = scanner.next();
+                            String nuevoString = sc.next();
                             return comprobarCita(nuevoString);
                         case 2:
 
@@ -145,11 +146,11 @@ public class UIAsignarCita {
                                 System.out.println(s);
                             }
                             System.out.println("Introduce la nueva cita: ");
-                            String nuevo = scanner.next();
+                            String nuevo = sc.next();
                             return comprobarCita(nuevo);
                         case 3:
                             System.out.println("Operación cancelada.");
-                            scanner.close();
+                            sc.close();
                             return null;
                         default:
                             System.out.println("Opción no válida, por favor ingrese una opción válida.");
@@ -157,7 +158,7 @@ public class UIAsignarCita {
                     }
                 } catch (InputMismatchException e) {
                     System.out.println("Opción no válida, por favor ingrese una opción válida.");
-                    scanner.nextLine();
+                    sc.nextLine();
                 }
             }
         }
