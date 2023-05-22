@@ -187,41 +187,14 @@ public class FuncsAdmin {
 
     public static void verEstudiantes(Scanner sc) {
         System.out.println("LISTA DE ESTUDIANTES");
-        while(true) {
-            if (Registro.getEstudiantes() == null || Registro.getEstudiantes().isEmpty()) {
-                System.out.println("\tNo hay estudiantes.");
-                return;
-            }
+        
+        if (Registro.getEstudiantes() == null || Registro.getEstudiantes().isEmpty()) {
+            System.out.println("\tNo hay estudiantes.");
+            return;
+        }
 
-            for (int i = 0; i < Registro.getEstudiantes().size(); i++) {
-                System.out.printf("\t%d. %s\n", i+1, Registro.getEstudiantes().get(i));
-            }
-            // El usuario elige algún curso o 0 para terminar el proceso.
-            System.out.print("\tElige un estudiante o 0 para continuar: ");
-            int opcion = sc.nextInt();
-            // Se verifica la opcion ingresada.
-            if (!Helpers.checkOpcion(opcion, Registro.getEstudiantes().size())) {
-                System.out.printf("\t\tDebe seleccionar un número entre el 0 y el %d\n", Registro.getEstudiantes().size());
-                continue;
-            } else if (opcion == 0) break;
-
-            while(true) {
-                Estudiante estudianteDeInteres = Registro.getEstudiantes().get(opcion - 1);
-                for (int i = 0; i < Registro.getCursos().size(); i++) {
-                    if (!estudianteDeInteres.getCursosVistos().contains(Registro.getCursos().get(i))) {
-                        System.out.printf("\t%d. %s\n", i+1, Registro.getCursos().get(i));
-                    }                    
-                }
-                // El usuario elige algún curso o 0 para terminar el proceso.
-                System.out.print("\tElige un curso o 0 para continuar: ");
-                int opcion2 = sc.nextInt();
-                // Se verifica la opcion ingresada.
-                if (!Helpers.checkOpcion(opcion, estudianteDeInteres.getCursosVistos().size())) {
-                    System.out.printf("\t\tDebe seleccionar un número entre el 0 y el %d\n", estudianteDeInteres.getCursosVistos().size());
-                    continue;
-                } else if (opcion2 == 0) break;
-                //estudianteDeInteres.getCursosVistos().add(opcion2 - 1);
-            }
+        for (int i = 0; i < Registro.getEstudiantes().size(); i++) {
+            System.out.printf("\t%d. %s\n", i+1, Registro.getEstudiantes().get(i));
         }
     }
 

@@ -4,9 +4,6 @@ import gestorAplicacion.Admin;
 import gestorAplicacion.Estudiante;
 import gestorAplicacion.Profesor;
 import gestorAplicacion.Registro;
-import gestorAplicacion.TipoUsuarios;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Login {

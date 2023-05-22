@@ -12,6 +12,8 @@ public class Estudiante extends Registro{
     private ArrayList<Curso> listaCursosInscritos = new ArrayList<Curso>();
     private Carreras carrera;
     private Facultades facultad;
+    private double PAPA;
+    private double PAPI;
     private int semestre;
     private ArrayList<Horario> horariosCreados = new ArrayList<Horario>();
     private ArrayList<Estimulo> Estimulos = new ArrayList<Estimulo>();
