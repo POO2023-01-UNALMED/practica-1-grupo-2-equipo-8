@@ -155,36 +155,36 @@ public class Admin extends Registro {
         System.out.println("Facultades relacionadas");
         ArrayList<Facultades> facultades = new ArrayList<Facultades>();
         while (true) {
-            // Se construye la lista de facultades disponibles,
-            // esto para evitar repeticiones.
-            ArrayList<Facultades> notInFacultades = new ArrayList<Facultades>();
-            for (Facultades facultad : Facultades.values()) {
-                if (!facultades.contains(facultad)) {
-                    notInFacultades.add(facultad);
-                }
+        // Se construye la lista de facultades disponibles,
+        // esto para evitar repeticiones.
+        ArrayList<Facultades> notInFacultades = new ArrayList<Facultades>();
+        for (Facultades facultad : Facultades.values()) {
+            if (!facultades.contains(facultad)) {
+                notInFacultades.add(facultad);
             }
-            // Si no hay facultades disponibles, se continua al siguiente apartado.
-            if (notInFacultades.isEmpty()) {
-                System.out.println("\tNo hay facultades disponibles.");
-                break;
-            }
+        }
+        // Si no hay facultades disponibles, se continua al siguiente apartado.
+        if (notInFacultades.isEmpty()) {
+            System.out.println("\tNo hay facultades disponibles.");
+            break;
+        }
 
-            // Se imprimen las facultades disponibles.
-            for (int i = 0; i < notInFacultades.size(); i++) {
-                System.out.printf("\t%d. %s\n", i + 1, notInFacultades.get(i).getNombre());
-            }
+        // Se imprimen las facultades disponibles.
+        for (int i = 0; i < notInFacultades.size(); i++) {
+            System.out.printf("\t%d. %s\n", i + 1, notInFacultades.get(i).getNombre());
+        }
 
-            // El usuario elige alguna facultad o 0 para continuar con el siguiente apartado.
-            System.out.print("\tElige una facultad o 0 para continuar: ");
-            int opcion = sc.nextInt();
-            // Se verifica la opcion ingresada.
-            if (!Helpers.checkOpcion(opcion, notInFacultades.size())) {
-                System.out.printf("\t\tDebe seleccionar un número entre el 0 y el %d\n", notInFacultades.size());
-                continue;
-            } else if (opcion == 0) break;
+        // El usuario elige alguna facultad o 0 para continuar con el siguiente apartado.
+        System.out.print("\tElige una facultad o 0 para continuar: ");
+        int opcion = sc.nextInt();
+        // Se verifica la opcion ingresada.
+        if (!Helpers.checkOpcion(opcion, notInFacultades.size())) {
+            System.out.printf("\t\tDebe seleccionar un número entre el 0 y el %d\n", notInFacultades.size());
+            continue;
+        } else if (opcion == 0) break;
 
-            // Se agrega la facultad seleccionada.
-            facultades.add(notInFacultades.get(opcion - 1));
+        // Se agrega la facultad seleccionada.
+        facultades.add(notInFacultades.get(opcion - 1));
         }
 
         // Se crea el nuevo curso.
