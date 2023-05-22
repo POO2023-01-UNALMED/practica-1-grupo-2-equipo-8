@@ -104,11 +104,11 @@ public class Menu {
                 continue;
             }
             switch(opcion){
-                case "1": Admin.agregarCurso(sc); continue;
-                case "2": Admin.eliminarCurso(sc); continue;
+                case "1": FuncsAdmin.agregarCurso(sc); continue;
+                case "2": FuncsAdmin.eliminarCurso(sc); continue;
                 case "3": admin.buscarCursos(); continue;
-                case "4": Admin.verEstudiantes(); continue;
-                case "5": Admin.verProfesores(); continue;
+                case "4": FuncsAdmin.verEstudiantes(sc); continue;
+                case "5": FuncsAdmin.verProfesores(); continue;
                 case "6": salir(); break;
             }
         }

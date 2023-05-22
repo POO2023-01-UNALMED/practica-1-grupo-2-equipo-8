@@ -82,7 +82,7 @@ public class Profesor extends Registro{
 
     public void calificar(double valoracion) {
       calificaciones.add(valoracion);
-      setCalificacion(Helpers.promedioLista(calificaciones));
+      setCalificacion(Math.round(Helpers.promedioLista(calificaciones) * 10.0) / 10.0);
     }
     
     @Override

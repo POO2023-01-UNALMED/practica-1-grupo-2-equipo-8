@@ -17,7 +17,7 @@ public class Login {
         while(true){
             System.out.println("Indique lo que desea hacer:\n"
                     + "1. Iniciar sesión (ya tiene un usuario)\n"
-                    + "2. Registrase");
+                    + "2. Registrarse");
             opcion = sc.next();
             if(!(opcion.equals("1")) && !(opcion.equals("2"))){
                 System.out.println("Debe seleccionar un número entre el 1 y el 2");
