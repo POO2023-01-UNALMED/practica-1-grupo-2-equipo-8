@@ -183,11 +183,13 @@ public class AsignarCita {
             int indice = Integer.parseInt(numero.trim()) - 1;
 
             if (indice == -1) {
+                // Se ha seleccionado la opción de seleccionar todos los estudiantes
                 estudiantesSeleccionados.addAll(estudiantes);
                 return estudiantesSeleccionados;
             }
 
             if (indice >= 0 && indice < estudiantes.size()) {
+                // Se ha seleccionado un estudiante específico
                 estudiantesSeleccionados.add(estudiantes.get(indice));
             }
         }
@@ -206,21 +208,26 @@ public class AsignarCita {
             String opcion = sc.nextLine();
             ArrayList<String> opciones = new ArrayList<String>(Arrays.asList("1", "2", "3"));
             if (!opciones.contains(opcion)) {
+                // La opción ingresada no es válida
                 System.out.println("Debe seleccionar un número entre el 1 y el 3");
                 continue;
             }
             switch(opcion){
                 case "1":
+                    // Se confirma la selección de estudiantes
                     return estudiantesSeleccionados;
                 
                 case "2":
+                    // Se desea volver a seleccionar estudiantes
                     return AsignarCita.seleccionarEstudiantes(estudiantes);
                 
                 case "3":
+                    // Se cancela la asignación de citas
                     return null;
             }
         }
     }
+
 
     public static boolean resetearCursos(){
         while(true){
