@@ -68,7 +68,8 @@ public class AsignarCita {
                         estudiante.setCita(horario);
                         AsignarCita.estudiantesConCita.add(estudiante);
                     }
-                    while (true){
+                    boolean continuar = true;
+                    while (continuar){
                         // Asegurarse de la opción
                         System.out.println("¿ Desea guardar los cambios?\n"
                                             + "1. Sí\n"
@@ -82,12 +83,15 @@ public class AsignarCita {
                         }
                         switch(opcion){
                             case "1":
-                            break;
+                                continuar = false;
+                                break;
                             
                             case "2":
+                                System.out.println("Cita de cada estudiante en formato militar:");
                                 for (Estudiante estudiante : AsignarCita.estudiantesConCita){
                                     System.out.println(estudiante.getNombre() + ": " + estudiante.getCita());
                                 }
+                                continuar = false;
                                 break;
                             
                             case "3":
@@ -99,6 +103,7 @@ public class AsignarCita {
                                     int cita = copiaHorarioEstudiantes.get(i);
                                     estudiante.setCita(cita);
                                 }
+                                continuar = false;
                                 break;
                         }
                     }
