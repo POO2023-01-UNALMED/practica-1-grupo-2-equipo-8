@@ -10,4 +10,8 @@ public class Helpers {
         }
         return opciones.contains(opcion);
     }
+    
+    public static boolean esNumerico(String texto) {
+        return texto.matches("\\d+");
+    }
 }

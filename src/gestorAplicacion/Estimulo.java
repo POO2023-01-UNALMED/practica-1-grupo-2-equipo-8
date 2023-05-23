@@ -15,7 +15,7 @@ public class Estimulo implements Serializable {
         String nombre,
         String descripcion,
         TipoUsuarios aQuienAplica, 
-        List<Facultades> facultadesAplica,
+        ArrayList<Facultades> facultadesAplica,
         int cupos
     ) {
         this.nombre = nombre;
@@ -38,7 +38,7 @@ public class Estimulo implements Serializable {
         return descripcion;
     }
 
-    public List<Facultades> getFacultadesAplica() {
+    public ArrayList<Facultades> getFacultadesAplica() {
         return facultadesAplica;
     }
 
@@ -59,7 +59,7 @@ public class Estimulo implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public void setFacultadesAplica(List<Facultades> facultadesAplica) {
+    public void setFacultadesAplica(ArrayList<Facultades> facultadesAplica) {
         this.facultadesAplica = facultadesAplica;
     }
 

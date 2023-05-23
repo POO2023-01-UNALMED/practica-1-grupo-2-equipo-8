@@ -11,7 +11,7 @@ public class EstimuloEstudiante extends Estimulo {
     String nombre,
     String descripcion,
     TipoUsuarios aQuienAplica, 
-    List<Facultades> facultadesAplica,
+    ArrayList<Facultades> facultadesAplica,
     int cupos,
     int pbm,
     int papa
@@ -23,31 +23,45 @@ public class EstimuloEstudiante extends Estimulo {
 
   // metodos
   public ArrayList<String> obtenerCriterios() {
-    ArrayList<String> criterios;
+    ArrayList<String> criterios = new ArrayList<>();
 
-    criterio.add("Facultad: " + this.facultad);
-    criterio.add("PAPA: " + this.papa);
-    criterio.add("PBM: " + this.pbm);
-    criterio.add("Cupos: " + this.cupos);
-    criterio.add("Tipo usuario: Estudiante");
+    String facultades = "Facultad: [";
+    for(Facultades facultad: getFacultadesAplica()) {
+    	facultades += facultad.getNombre() + ", ";
+    }
+    facultades += "]";
+
+    criterios.add(facultades);
+    criterios.add("PAPA: " + this.papa);
+    criterios.add("PBM: " + this.pbm);
+    criterios.add("Cupos: " + this.getCupos());
+    criterios.add("Tipo usuario: Estudiante");
 
     return criterios;
   }
 
-  public void obtenerAplicantes() {
-    // buscar personas que cumplan los requisitos
+  public ArrayList<Estudiante> obtenerAplicantes() {
+	  ArrayList<Estudiante> estudiantes = new ArrayList<>();
+
+	  for(Estudiante estudiante: Registro.getEstudiantes()) {
+		  if(verificarRequisitos(estudiante)) {
+			  estudiantes.add(estudiante);
+		  }
+	  }
+
+	  return estudiantes;
   }
 
   public boolean verificarRequisitos(Estudiante estudiante) {
     ArrayList<String> razones = new ArrayList<>(); 
     boolean cumpleRequisitos = true; 
 
-    if (this.cupos <= 0) {
+    if (this.getCupos() <= 0) {
       razones.add("Ya no quedan cupos para este estímulo");
       cumpleRequisitos = false; 
     }
 
-    if (!this.facultadesAplica.contains(estudiante.getFacultad())) {
+    if (!this.getFacultadesAplica().contains(estudiante.getFacultad())) {
       razones.add("Este estímulo no aplica a tu facultad");
       cumpleRequisitos = false;
     }

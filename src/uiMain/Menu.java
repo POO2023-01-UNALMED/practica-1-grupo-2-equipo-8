@@ -105,20 +105,20 @@ public class Menu {
                     + "3. Ver estimulos [todos]\n"
                     + "4. Salir");
             String opcion = sc.next();
-            if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3")) && !(opcion.equals("4"))){
+            if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3")) && !(opcion.equals("4"))) {
                     + "1. Crear curso\n"
                     + "2. Eliminar curso\n"
                     + "3. Ver cursos\n"
                     + "4. Salir";
             }
-            String opcion = sc.nextLine();
+            
+            opcion = sc.nextLine();
             ArrayList<String> opciones = new ArrayList<String>(Arrays.asList("1", "2", "3", "4"));
             if (!opciones.contains(opcion)) {
                 System.out.println("Debe seleccionar un número entre el 1 y el 4");
                 continue;
             }
             switch(opcion){
-                case "1": ; break; // Añadir llamada al método correspondiente
                 case "2": BusquedaEstimulos.buscarEstimulosPorId();
                 case "3": BusquedaEstimulos.buscarEstimulos();
                 case "1": Admin.agregarCurso(sc); continue;

@@ -69,7 +69,7 @@ public class Profesor extends Registro{
         }
     }
 
-    private boolean validarExistenciaCurso(Curso curso) {
+    public boolean validarExistenciaCurso(Curso curso) {
       for(CursoProfesor cursoActual: listaCursos) {
         if(cursoActual.getId() == curso.getId()) return true;
       }
