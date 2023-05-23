@@ -41,15 +41,19 @@ public class AsignarCita {
         // Verificar que el usuario sea un Administrador
         if (usuario instanceof Admin){
             // Resetear los cursos
+            // Guardar Copias de Seguridad
+            ArrayList<Estudiante> copiaEstudiantesConCita = AsignarCita.estudiantesConCita;
+            ArrayList<Integer> copiaHorariosDisponibles = AsignarCita.horariosDisponibles;
+            ArrayList<Integer> copiaHorarioEstudiantes = new ArrayList<Integer>();
+            for (int i = 0; i < estudiantes.size(); i++){
+                copiaHorarioEstudiantes.add(estudiantes.get(i).getCita());
+            }
+            ArrayList<CursoProfesor> cursosProfesor = CursoProfesor.getCursosCreados();
+            ArrayList<ArrayList<Estudiante>> copiaListaEstudiantes = new ArrayList<>();
+            for (int i = 0; i < cursosProfesor.size(); i++){
+                copiaListaEstudiantes.add(cursosProfesor.get(i).getListaEstudiantes());
+            }
             if (AsignarCita.resetearCursos()){
-                // Guardar Copias de Seguridad
-                ArrayList<Estudiante> copiaEstudiantesConCita = AsignarCita.estudiantesConCita;
-                ArrayList<Integer> copiaHorariosDisponibles = AsignarCita.horariosDisponibles;
-                ArrayList<Integer> copiaHorarioEstudiantes = new ArrayList<Integer>();
-                for (int i = 0; i < estudiantes.size(); i++){
-                    copiaHorarioEstudiantes.add(estudiantes.get(i).getCita());
-                }
-
                 // Seleccionar estudiantes
                 ArrayList<Estudiante> estudiantesSeleccionados = AsignarCita.seleccionarEstudiantes(estudiantes);
                 if (estudiantesSeleccionados != null){
@@ -107,6 +111,11 @@ public class AsignarCita {
                                     int cita = copiaHorarioEstudiantes.get(i);
                                     estudiante.setCita(cita);
                                 }
+                                for (int i = 0; i < cursosProfesor.size(); i++){
+                                    CursoProfesor curso = cursosProfesor.get(i);
+                                    ArrayList<Estudiante> listaEstudiantes = copiaListaEstudiantes.get(i);
+                                    curso.setListaEstudiantes(listaEstudiantes);
+                                }
                                 continuar = false;
                                 break;
                         }
@@ -114,6 +123,11 @@ public class AsignarCita {
                 }
                 // Si el usuario cancelo el proceso en la etapa de seleccionar estudiantes
                 else{
+                    for (int i = 0; i < cursosProfesor.size(); i++){
+                        CursoProfesor curso = cursosProfesor.get(i);
+                        ArrayList<Estudiante> listaEstudiantes = copiaListaEstudiantes.get(i);
+                        curso.setListaEstudiantes(listaEstudiantes);
+                    }
                     System.out.println("Proceso Cancelado");
                 }
 
