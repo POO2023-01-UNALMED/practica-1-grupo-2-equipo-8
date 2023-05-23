@@ -69,6 +69,8 @@ public class AsignarCita {
                         Estudiante estudiante = PAPIs.get(i);
                         estudiante.setCita(horario);
                         AsignarCita.estudiantesConCita.add(estudiante);
+                        AsignarCita.horariosDisponibles.remove(horario);
+
                     }
                     boolean continuar = true;
                     while (continuar){
