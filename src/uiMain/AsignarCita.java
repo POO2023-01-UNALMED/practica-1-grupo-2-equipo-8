@@ -170,7 +170,8 @@ public class AsignarCita {
     public static ArrayList<Estudiante> seleccionarEstudiantes(ArrayList<Estudiante> estudiantes){
         // Mostrar todos los estudiantes
         System.out.println("Seleccione a los estudiantes a los que le quiera asignar una cita\n"
-                            + "Para seleccionarlos a todos elija 0");
+                            + "Para esto, solo escriba los números asociados separados por una coma\n"
+                            + "Para seleccionarlos a todos escriba 0");
         for (int i = 0; i < estudiantes.size(); i++){
             System.out.println((i + 1) + ": " + estudiantes.get(i));
         }
