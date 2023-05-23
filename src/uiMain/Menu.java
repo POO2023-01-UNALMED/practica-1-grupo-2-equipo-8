@@ -94,22 +94,24 @@ public class Menu {
                     + "1. Crear curso\n"
                     + "2. Eliminar curso\n"
                     + "3. Buscar asignatura\n"
-                    + "4. Ver estudiantes\n"
-                    + "5. Ver profesores\n"
-                    + "6. Salir");
+                    + "4. Asignar citas de inscripción\n"
+                    + "5. Ver estudiantes\n"
+                    + "6. Ver profesores\n"
+                    + "7. Salir");
             String opcion = sc.nextLine();
-            ArrayList<String> opciones = new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5", "6"));
+            ArrayList<String> opciones = new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5", "6", "7"));
             if (!opciones.contains(opcion)) {
-                System.out.println("Debe seleccionar un número entre el 1 y el 6");
+                System.out.println("Debe seleccionar un número entre el 1 y el 7");
                 continue;
             }
             switch(opcion){
                 case "1": FuncsAdmin.agregarCurso(sc); continue;
                 case "2": FuncsAdmin.eliminarCurso(sc); continue;
                 case "3": admin.buscarCursos(); continue;
-                case "4": FuncsAdmin.verEstudiantes(sc); continue;
-                case "5": FuncsAdmin.verProfesores(); continue;
-                case "6": salir(); break;
+                case "4": AsignarCita.asignarCita(admin, Registro.getEstudiantes()); continue;
+                case "5": FuncsAdmin.verEstudiantes(sc); continue;
+                case "6": FuncsAdmin.verProfesores(); continue;
+                case "7": salir(); break;
             }
         }
     }

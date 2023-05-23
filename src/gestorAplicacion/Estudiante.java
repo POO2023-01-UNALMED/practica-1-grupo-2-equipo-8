@@ -17,7 +17,7 @@ public class Estudiante extends Registro{
     private int semestre;
     private ArrayList<Horario> horariosCreados = new ArrayList<Horario>();
     private ArrayList<Estimulo> Estimulos = new ArrayList<Estimulo>();
-    private String cita;
+    private int cita;
     private Boolean inscribir = false;
 
     public Estudiante(String nombre, String correo, String nombreUsuario, String clave, String documento, Carreras carrera, Facultades facultad, int semestre) {
@@ -104,10 +104,10 @@ public class Estudiante extends Registro{
         horariosCreados.add(horario);
     }
     
-    public String getCita() {
+    public int getCita() {
         return cita;
     }
-    public void setCita(String cita) {
+    public void setCita(int cita) {
         this.cita = cita;
     }
     
