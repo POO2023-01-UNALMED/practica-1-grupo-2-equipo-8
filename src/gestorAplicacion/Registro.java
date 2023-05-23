@@ -4,7 +4,7 @@ import baseDatos.Deserializador;
 import java.util.ArrayList;
 import java.io.Serializable;
 
-public class Registro implements Serializable{
+public abstract class Registro implements Serializable{
     private static final long serialVersionUID = 1L;
     public static short cantidadUsuariosExistentes;
     private String nombre;
@@ -18,10 +18,6 @@ public class Registro implements Serializable{
     private static ArrayList<Admin> admins = new ArrayList<Admin>();
     private static ArrayList<Profesor> profesores = new ArrayList<Profesor>();
     private static ArrayList<Estimulo> estimulos = new ArrayList<Estimulo>();
-
-    public Registro(){
-        Deserializador.deserializador();
-    }
     
     public Registro(String nombre, String correo, String nombreUsuario, String clave, String documentoIdentificacion) {
         this.nombre = nombre;
@@ -172,7 +168,5 @@ public class Registro implements Serializable{
         Registro.estimulos.add(estimulos);
     }
     
-    public void buscarCursos() {
-        
-    }
+    public abstract void buscarCursos();
 }

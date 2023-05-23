@@ -1,9 +1,11 @@
 package uiMain;
 
+import gestorAplicacion.Carreras;
 import gestorAplicacion.Curso;
 import gestorAplicacion.CursoEstudiante;
 import gestorAplicacion.CursoProfesor;
 import gestorAplicacion.Estudiante;
+import gestorAplicacion.Facultades;
 import gestorAplicacion.Horario;
 import gestorAplicacion.Profesor;
 import gestorAplicacion.Registro;
@@ -11,7 +13,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BusquedaCursos {
-    public static void buscarCursos(Estudiante estudiante){
+    public static void buscarCursos(){
+        ArrayList<Curso> listaCursos = Registro.getCursos();
+        boolean compp = true;
         Scanner sc = new Scanner(System.in);
         if(Registro.getCursos().isEmpty()){
             while(true){
@@ -30,31 +34,245 @@ public class BusquedaCursos {
         }
         else{
             while(true){
-                System.out.println("Los cursos disponibles son:\n"
-                + String.format("\t%s\t%-32s\t%s\t%-17s\t%s","ID","Nombre","Creditos","Facultad","Programas relacionados"));
-                System.out.println("----------------------------------------------------------------------------------------------------------------------");
-                int cont = 1;
-                for(Curso curso : Registro.getCursos()){
-                    System.out.println("\t"+curso.getId()+"\t"+String.format("%-32s",curso.getNombre())+"\t"+String.format("%-8s",curso.getCreditos())+"\t"+curso.getFacultad()+"\t"+curso.getCarrerasRelacionadas());
-                    System.out.println(cont+". Ver detalles");
-                    cont++;
-                }
-                System.out.println(cont+". Volver");
+                System.out.println("Indique lo que quiere realizar:\n"
+                        + "1. Ver todos los cursos\n"
+                        + "2. Filtrar cursos por facultad\n"
+                        + "3. Filtrar cursos por carreras relacionadas\n"
+                        + "4. Filtrar cursos por horario\n"
+                        + "5. Salir");
                 String opcion = sc.next();
-                if(opcion.equals(String.valueOf(cont))){
-                    break;
+                //sc.next();
+                if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3")) && !(opcion.equals("4")) && !(opcion.equals("5"))){
+                    System.out.println("Debe seleccionar un número entre el 1 y el 5");
+                    continue;
                 }
-                boolean comp = true;
-                for(int x = 1; x<=Registro.getCursos().size(); x++){
-                    if(opcion.equals(String.valueOf(x))){
-                        mostrarDetalles(estudiante, Registro.getCursos().get(x-1));
-                        comp = false;
+                switch(opcion){
+                    case "1": break;
+                    case "2": 
+                        while(true){
+                            System.out.println("Indique la facultad:\n"
+                            + "1. Minas\n"
+                            + "2. Ciencias\n"
+                            + "5. Salir");
+                            opcion = sc.next();
+                            if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3"))){
+                                System.out.println("Debe seleccionar un número entre el 1 y el 3");
+                                continue;
+                            }
+                            switch(opcion){
+                                case "1": listaCursos = Curso.filtrarPorFacultad(listaCursos, Facultades.MINAS); break;
+                                case "2": listaCursos = Curso.filtrarPorFacultad(listaCursos, Facultades.CIENCIAS); break;
+                                case "3": break;
+                            }
+                            break;
+                        }
+                        break;
+                    case "3": 
+                        while(true){
+                            System.out.println("Indique la carrera:\n"
+                            + "1. Ingeniería de Sistemas\n"
+                            + "2. Ciencias de la Computación\n"
+                            + "5. Salir");
+                            opcion = sc.next();
+                            if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3"))){
+                                System.out.println("Debe seleccionar un número entre el 1 y el 3");
+                                continue;
+                            }
+                            switch(opcion){
+                                case "1": listaCursos = Curso.filtrarPorCarrera(listaCursos, Carreras.SISTEMAS); break;
+                                case "2": listaCursos = Curso.filtrarPorCarrera(listaCursos, Carreras.COMPUTACION); break;
+                                case "3": break;
+                            }
+                            break;
+                        }
+                        break;
+                    case "4": 
+                        System.out.println("Indique el horario (formato HH:MM) Ejemplo: Martes 12:00-14:00 Jueves 14:00-16:00");
+                        opcion = sc.nextLine();
+                        listaCursos = Curso.filtrarPorHorario(listaCursos, opcion);
+                        break;
+                    case "5": compp = false; break;
+                }
+                break;
+            }
+            if(compp == true && !listaCursos.isEmpty()){
+                while(true){
+                    System.out.println("Los cursos disponibles son:\n"
+                    + String.format("\t%s\t%-32s\t%s\t%-17s\t%s","ID","Nombre","Creditos","Facultad","Programas relacionados"));
+                    System.out.println("----------------------------------------------------------------------------------------------------------------------");
+                    int cont = 1;
+                    for(Curso curso : listaCursos){
+                        System.out.println("\t"+curso.getId()+"\t"+String.format("%-32s",curso.getNombre())+"\t"+String.format("%-8s",curso.getCreditos())+"\t"+curso.getFacultad()+"\t"+curso.getCarrerasRelacionadas());
+                        System.out.println(cont+". Ver detalles");
+                        cont++;
+                    }
+                    System.out.println(cont+". Volver");
+                    String opcion = sc.next();
+                    if(opcion.equals(String.valueOf(cont))){
                         break;
                     }
+                    boolean comp = true;
+                    for(int x = 1; x<=listaCursos.size(); x++){
+                        if(opcion.equals(String.valueOf(x))){
+                            mostrarDetalles(listaCursos.get(x-1));
+                            comp = false;
+                            break;
+                        }
+                    }
+                    if(comp == true){
+                        System.out.println("Debe seleccionar una opción entre el 1 y el "+listaCursos.size()+1);
+                    }
                 }
-                if(comp == true){
-                    System.out.println("Debe seleccionar una opción entre el 1 y el "+Registro.getCursos().size()+1);
+            }
+            else if(listaCursos.isEmpty()){
+                System.out.println("No hay cursos con las especificaciones dadas");
+            }
+        }
+    }
+    
+    
+    
+    public static void mostrarDetalles(Curso curso){
+        Scanner sc = new Scanner(System.in);
+        
+        while(true){
+            ArrayList<CursoProfesor> listaCursos= new ArrayList<>();
+            ArrayList<Profesor> profesores = new ArrayList<>();
+            for(Profesor profesor : Registro.getProfesores()){
+                for(CursoProfesor cp : profesor.getListaCursos()){
+                    if(cp.getNombre().equals(curso.getNombre())){
+                        listaCursos.add(cp);
+                        profesores.add(profesor);
+                    }
                 }
+            }
+            System.out.println(curso.getNombre()+"("+curso.getId()+")\n"+curso.getCreditos()+"\n"+curso.getFacultad()+"\n"+curso.getCarrerasRelacionadas());
+            int cont = 0;
+            for(CursoProfesor cp : listaCursos){
+                System.out.println("Profesor: "+profesores.get(cont)+"\nHorario: "+cp.getHorario()+"\nCupos: "+cp.getCupos());
+                cont++;
+            }
+            System.out.println("1. volver");
+            String opcion = sc.next();
+            if(opcion.equals("1")){
+                break;
+            }
+        }
+    }
+    
+    public static void buscarCursos(Estudiante estudiante){
+        ArrayList<Curso> listaCursos = Registro.getCursos();
+        boolean compp = true;
+        Scanner sc = new Scanner(System.in);
+        if(Registro.getCursos().isEmpty()){
+            while(true){
+                System.out.println("No hay cursos disponibles");
+                System.out.println("1. volver");
+                String opcion = sc.next();
+                if(!(opcion.equals("1"))){
+                    System.out.println("Solo puede seleccionar la opción \"volver\"");
+                    continue;
+                }
+                switch(opcion){
+                    case "1": break;
+                }
+                break;
+            }
+        }
+        else{
+            while(true){
+                System.out.println("Indique lo que quiere realizar:\n"
+                        + "1. Ver todos los cursos\n"
+                        + "2. Filtrar cursos por facultad\n"
+                        + "3. Filtrar cursos por carreras relacionadas\n"
+                        + "4. Filtrar cursos por horario\n"
+                        + "5. Salir");
+                String opcion = sc.next();
+                sc.next();
+                if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3")) && !(opcion.equals("4")) && !(opcion.equals("5"))){
+                    System.out.println("Debe seleccionar un número entre el 1 y el 5");
+                    continue;
+                }
+                switch(opcion){
+                    case "1": break;
+                    case "2": 
+                        while(true){
+                            System.out.println("Indique la facultad:\n"
+                            + "1. Minas\n"
+                            + "2. Ciencias\n"
+                            + "5. Salir");
+                            opcion = sc.next();
+                            if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3"))){
+                                System.out.println("Debe seleccionar un número entre el 1 y el 3");
+                                continue;
+                            }
+                            switch(opcion){
+                                case "1": listaCursos = Curso.filtrarPorFacultad(listaCursos, Facultades.MINAS); break;
+                                case "2": listaCursos = Curso.filtrarPorFacultad(listaCursos, Facultades.CIENCIAS); break;
+                                case "3": break;
+                            }
+                            break;
+                        }
+                        break;
+                    case "3": 
+                        while(true){
+                            System.out.println("Indique la carrera:\n"
+                            + "1. Ingeniería de Sistemas\n"
+                            + "2. Ciencias de la Computación\n"
+                            + "5. Salir");
+                            opcion = sc.next();
+                            if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3"))){
+                                System.out.println("Debe seleccionar un número entre el 1 y el 3");
+                                continue;
+                            }
+                            switch(opcion){
+                                case "1": listaCursos = Curso.filtrarPorCarrera(listaCursos, Carreras.SISTEMAS); break;
+                                case "2": listaCursos = Curso.filtrarPorCarrera(listaCursos, Carreras.COMPUTACION); break;
+                                case "3": break;
+                            }
+                            break;
+                        }
+                        break;
+                    case "4": 
+                        System.out.println("Indique el horario (formato HH:MM) Ejemplo: Martes 12:00-14:00 Jueves 14:00-16:00");
+                        opcion = sc.nextLine();
+                        listaCursos = Curso.filtrarPorHorario(listaCursos, opcion);
+                        break;
+                    case "5": compp = false; break;
+                }
+                break;
+            }
+            if(compp == true && !listaCursos.isEmpty()){
+                while(true){
+                    System.out.println("Los cursos disponibles son:\n"
+                    + String.format("\t%s\t%-32s\t%s\t%-17s\t%s","ID","Nombre","Creditos","Facultad","Programas relacionados"));
+                    System.out.println("----------------------------------------------------------------------------------------------------------------------");
+                    int cont = 1;
+                    for(Curso curso : listaCursos){
+                        System.out.println("\t"+curso.getId()+"\t"+String.format("%-32s",curso.getNombre())+"\t"+String.format("%-8s",curso.getCreditos())+"\t"+curso.getFacultad()+"\t"+curso.getCarrerasRelacionadas());
+                        System.out.println(cont+". Ver detalles");
+                        cont++;
+                    }
+                    System.out.println(cont+". Volver");
+                    String opcion = sc.next();
+                    if(opcion.equals(String.valueOf(cont))){
+                        break;
+                    }
+                    boolean comp = true;
+                    for(int x = 1; x<=listaCursos.size(); x++){
+                        if(opcion.equals(String.valueOf(x))){
+                            mostrarDetalles(estudiante, listaCursos.get(x-1));
+                            comp = false;
+                            break;
+                        }
+                    }
+                    if(comp == true){
+                        System.out.println("Debe seleccionar una opción entre el 1 y el "+listaCursos.size()+1);
+                    }
+                }
+            }
+            else if(listaCursos.isEmpty()){
+                System.out.println("No hay cursos con las especificaciones dadas");
             }
         }
     }
@@ -62,20 +280,13 @@ public class BusquedaCursos {
         Scanner sc = new Scanner(System.in);
         
         while(true){
-            ArrayList<CursoEstudiante> listaCursos = new ArrayList<CursoEstudiante>();
+            ArrayList<CursoEstudiante> listaCursos = curso.obtenerGrupos(estudiante);
             System.out.println(curso.getNombre()+"("+curso.getId()+")\n"+curso.getCreditos()+"\n"+curso.getFacultad()+"\n"+curso.getCarrerasRelacionadas());
             int cont = 1;
-            for(Profesor profesor : Registro.getProfesores()){
-                for(CursoProfesor cp : profesor.getListaCursos()){
-                    if(cp.getNombre().equals(curso.getNombre())){
-                        listaCursos.add(new CursoEstudiante(cp.getNombre(), cp.getId(), cp.getCupos(), cp.getCreditos(),
-                        cp.getNumeroParciales(), cp.getListaPorcentajes(),
-                        cp.getFacultad(), new ArrayList(), estudiante.getSemestre()+1, estudiante, cp.getHorario(), profesor));
-                        System.out.println("Profesor: "+profesor.getNombre()+"\nHorario: "+cp.getHorario()+"\nCupos: "+cp.getCupos());
-                        System.out.println(cont+". Añadir a horario existente");
-                        cont++;
-                    }
-                }
+            for(CursoEstudiante ce : listaCursos){
+                System.out.println("Profesor: "+ce.getProfesor().getNombre()+"\nHorario: "+ce.getHorario()+"\nCupos: "+ce.getCupos());
+                System.out.println(cont+". Añadir a horario existente");
+                cont++;
             }
             System.out.println(cont+". volver");
             String opcion = sc.next();
@@ -102,6 +313,8 @@ public class BusquedaCursos {
     }
     
     public static void buscarCursos(Estudiante estudiante, Horario horario){
+        ArrayList<Curso> listaCursos = Registro.getCursos();
+        boolean compp = true;
         Scanner sc = new Scanner(System.in);
         if(Registro.getCursos().isEmpty()){
             while(true){
@@ -120,31 +333,98 @@ public class BusquedaCursos {
         }
         else{
             while(true){
-                System.out.println("Los cursos disponibles son:\n"
-                + String.format("\t%s\t%-32s\t%s\t%-17s\t%s","ID","Nombre","Creditos","Facultad","Programas relacionados"));
-                System.out.println("----------------------------------------------------------------------------------------------------------------------");
-                int cont = 1;
-                for(Curso curso : Registro.getCursos()){
-                    System.out.println("\t"+curso.getId()+"\t"+String.format("%-32s",curso.getNombre())+"\t"+String.format("%-8s",curso.getCreditos())+"\t"+curso.getFacultad()+"\t"+curso.getCarrerasRelacionadas());
-                    System.out.println(cont+". Ver detalles");
-                    cont++;
-                }
-                System.out.println(cont+". Volver");
+                System.out.println("Indique lo que quiere realizar:\n"
+                        + "1. Ver todos los cursos\n"
+                        + "2. Filtrar cursos por facultad\n"
+                        + "3. Filtrar cursos por carreras relacionadas\n"
+                        + "4. Filtrar cursos por horario\n"
+                        + "5. Salir");
                 String opcion = sc.next();
-                if(opcion.equals(String.valueOf(cont))){
-                    break;
+                sc.next();
+                if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3")) && !(opcion.equals("4")) && !(opcion.equals("5"))){
+                    System.out.println("Debe seleccionar un número entre el 1 y el 5");
+                    continue;
                 }
-                boolean comp = true;
-                for(int x = 1; x<=Registro.getCursos().size(); x++){
-                    if(opcion.equals(String.valueOf(x))){
-                        mostrarDetalles(estudiante, Registro.getCursos().get(x-1), horario);
-                        comp = false;
+                switch(opcion){
+                    case "1": break;
+                    case "2": 
+                        while(true){
+                            System.out.println("Indique la facultad:\n"
+                            + "1. Minas\n"
+                            + "2. Ciencias\n"
+                            + "5. Salir");
+                            opcion = sc.next();
+                            if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3"))){
+                                System.out.println("Debe seleccionar un número entre el 1 y el 3");
+                                continue;
+                            }
+                            switch(opcion){
+                                case "1": listaCursos = Curso.filtrarPorFacultad(listaCursos, Facultades.MINAS); break;
+                                case "2": listaCursos = Curso.filtrarPorFacultad(listaCursos, Facultades.CIENCIAS); break;
+                                case "3": break;
+                            }
+                            break;
+                        }
+                        break;
+                    case "3": 
+                        while(true){
+                            System.out.println("Indique la carrera:\n"
+                            + "1. Ingeniería de Sistemas\n"
+                            + "2. Ciencias de la Computación\n"
+                            + "5. Salir");
+                            opcion = sc.next();
+                            if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3"))){
+                                System.out.println("Debe seleccionar un número entre el 1 y el 3");
+                                continue;
+                            }
+                            switch(opcion){
+                                case "1": listaCursos = Curso.filtrarPorCarrera(listaCursos, Carreras.SISTEMAS); break;
+                                case "2": listaCursos = Curso.filtrarPorCarrera(listaCursos, Carreras.COMPUTACION); break;
+                                case "3": break;
+                            }
+                            break;
+                        }
+                        break;
+                    case "4": 
+                        System.out.println("Indique el horario (formato HH:MM) Ejemplo: Martes 12:00-14:00 Jueves 14:00-16:00");
+                        opcion = sc.nextLine();
+                        listaCursos = Curso.filtrarPorHorario(listaCursos, opcion);
+                        break;
+                    case "5": compp = false; break;
+                }
+                break;
+            }
+            if(compp == true && !listaCursos.isEmpty()){
+                while(true){
+                    System.out.println("Los cursos disponibles son:\n"
+                    + String.format("\t%s\t%-32s\t%s\t%-17s\t%s","ID","Nombre","Creditos","Facultad","Programas relacionados"));
+                    System.out.println("----------------------------------------------------------------------------------------------------------------------");
+                    int cont = 1;
+                    for(Curso curso : listaCursos){
+                        System.out.println("\t"+curso.getId()+"\t"+String.format("%-32s",curso.getNombre())+"\t"+String.format("%-8s",curso.getCreditos())+"\t"+curso.getFacultad()+"\t"+curso.getCarrerasRelacionadas());
+                        System.out.println(cont+". Ver detalles");
+                        cont++;
+                    }
+                    System.out.println(cont+". Volver");
+                    String opcion = sc.next();
+                    if(opcion.equals(String.valueOf(cont))){
                         break;
                     }
+                    boolean comp = true;
+                    for(int x = 1; x<=listaCursos.size(); x++){
+                        if(opcion.equals(String.valueOf(x))){
+                            mostrarDetalles(estudiante, listaCursos.get(x-1), horario);
+                            comp = false;
+                            break;
+                        }
+                    }
+                    if(comp == true){
+                        System.out.println("Debe seleccionar una opción entre el 1 y el "+listaCursos.size()+1);
+                    }
                 }
-                if(comp == true){
-                    System.out.println("Debe seleccionar una opción entre el 1 y el "+Registro.getCursos().size()+1);
-                }
+            }
+            else if(listaCursos.isEmpty()){
+                System.out.println("No hay cursos con las especificaciones dadas");
             }
         }
     }
@@ -153,20 +433,13 @@ public class BusquedaCursos {
         Scanner sc = new Scanner(System.in);
         
         while(true){
-            ArrayList<CursoEstudiante> listaCursos = new ArrayList<CursoEstudiante>();
+            ArrayList<CursoEstudiante> listaCursos = curso.obtenerGrupos(estudiante);
             System.out.println(curso.getNombre()+"("+curso.getId()+")\n"+curso.getCreditos()+"\n"+curso.getFacultad()+"\n"+curso.getCarrerasRelacionadas());
             int cont = 1;
-            for(Profesor profesor : Registro.getProfesores()){
-                for(CursoProfesor cp : profesor.getListaCursos()){
-                    if(cp.getNombre().equals(curso.getNombre())){
-                        listaCursos.add(new CursoEstudiante(cp.getNombre(), cp.getId(), cp.getCupos(), cp.getCreditos(),
-                        cp.getNumeroParciales(), cp.getListaPorcentajes(),
-                        cp.getFacultad(), new ArrayList(), estudiante.getSemestre()+1, estudiante, cp.getHorario(), profesor));
-                        System.out.println("Profesor: "+profesor.getNombre()+"\nHorario: "+cp.getHorario()+"\nCupos: "+cp.getCupos());
-                        System.out.println(cont+". Añadir a horario");
-                        cont++;
-                    }
-                }
+            for(CursoEstudiante ce : listaCursos){
+                System.out.println("Profesor: "+ce.getProfesor().getNombre()+"\nHorario: "+ce.getHorario()+"\nCupos: "+ce.getCupos());
+                System.out.println(cont+". Añadir a horario");
+                cont++;
             }
             System.out.println(cont+". volver");
             String opcion = sc.next();

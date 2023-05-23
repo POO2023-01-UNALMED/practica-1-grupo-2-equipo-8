@@ -10,8 +10,16 @@ public class Helpers {
         }
         return opciones.contains(opcion);
     }
-    
+
     public static boolean esNumerico(String texto) {
         return texto.matches("\\d+");
+    }
+
+    public static double promedioLista(ArrayList<Double> lista) {
+        double sum = 0;
+        for (double n : lista) {
+            sum += n;
+        }
+        return sum / lista.size();
     }
 }

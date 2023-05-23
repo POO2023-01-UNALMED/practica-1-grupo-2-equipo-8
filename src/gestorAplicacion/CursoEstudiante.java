@@ -75,22 +75,61 @@ public class CursoEstudiante extends Curso {
     
     
     public int calcularPromedio(){
-        if(semestre != estudiante.getSemestre() && listaNotas.isEmpty() != false){
-            int sum = 0;
-            for(int[] l: listaNotas){
-                sum+=l[3];
+        ArrayList<Integer> quiz = new ArrayList();
+        ArrayList<Integer> parcial = new ArrayList();
+        ArrayList<Integer> seguimiento = new ArrayList();
+        for(int[] nota : listaNotas){
+            if(nota[0]==1){
+                parcial.add(nota[1]);
             }
-            return sum/listaNotas.size();
+            else if(nota[0]==2){
+                seguimiento.add(nota[1]);
+            }
+            else{
+                quiz.add(nota[1]);
+            }
         }
-        return -1; //Hay que corregir la lógica en la capa de UI
-    }
-
-    
-    public void mostrarNotas(){ //Falta complemento de la UI
-        
-    }
-    
-    public void mostrarHorario(){ //Falta complemento de la UI
-        
+        int pquiz = 0;
+        ArrayList<Integer> pparcial = new ArrayList();
+        int pseguimiento = 0;
+        for(int[] porcentaje : getListaPorcentajes()){
+            if(porcentaje[0]==1){
+                pparcial.add(porcentaje[1]);
+            }
+            else if(porcentaje[0]==2){
+                pseguimiento = porcentaje[1];
+            }
+            else{
+                pquiz = porcentaje[1];
+            }
+        }
+        int sum = 0;
+        int seg = 0;
+        int qui = 0;
+        int par = 0;
+        if(!seguimiento.isEmpty()){
+            for(int x : seguimiento){
+                sum+=x;
+            }
+            seg = sum*pseguimiento/(seguimiento.size());
+        }
+        sum = 0;
+        if(!quiz.isEmpty()){
+            for(int x : quiz){
+                sum+=x;
+            }
+            qui = sum*pquiz/(quiz.size());
+        }
+        sum = 0;
+        int cont = 0;
+        if(!parcial.isEmpty()){
+            for(int x : parcial){
+                sum+=x*pparcial.get(cont);
+                cont++;
+            }
+            par = sum;
+        }
+        int total = seg+qui+par;
+        return total;
     }
 }

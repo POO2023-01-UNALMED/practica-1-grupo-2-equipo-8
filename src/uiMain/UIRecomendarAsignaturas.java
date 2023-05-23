@@ -2,22 +2,22 @@ package uiMain;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.ListIterator;
 import java.util.Scanner;
 import java.util.Collections;
 
 import gestorAplicacion.Curso;
 import gestorAplicacion.Estudiante;
 import gestorAplicacion.Profesor;
-import gestorAplicacion.CursoEstudiante;
 import gestorAplicacion.Registro;
 
-public class UIRecomendarAsignaturas {
+public class UIRecomendarAsignaturas{
     public static void recomendarAsignaturas(Estudiante estudiante, Scanner sc) {
         System.out.println("RECOMENDACION DE ASIGNATURAS");
         System.out.println("A continuación se muestran las asignaturas recomendadas para cursar el próximo semestre:");
         
         // Si no hay cursos en el sistema, terminar el proceso.
-        if (Registro.getCursos().isEmpty()) {
+        if (Registro.getCursos() == null || Registro.getCursos().isEmpty()) {
             System.out.println("\tNo hay cursos existentes.");
             return;
         }
@@ -30,48 +30,11 @@ public class UIRecomendarAsignaturas {
             // Si las carreras del curso no están relacionadas con la carrera del estudiante,
             // o el estudiante ya vio el curso, no se toma en cuenta
             boolean esDeLaCarrera = curso.getCarrerasRelacionadas().contains(estudiante.getCarrera());
+            boolean vioCurso = estudiante.vioCurso(curso);
+            if (!esDeLaCarrera || vioCurso) continue;
 
-            boolean fueCursada;
-            // Si el estudiante es nuevo, no ha cursado ninguna materia
-            if (estudiante.getCursosVistos() == null) {
-                fueCursada = false;
-            } else {
-                // La comparación se realiza entre los nombres, ya que son clases distintas,
-                // por lo que se obtiene la lista de nombres,
-                ArrayList<String> nombresCursosVistos = new ArrayList<String>();
-                for (CursoEstudiante asignatura : estudiante.getCursosVistos()) {
-                    nombresCursosVistos.add(asignatura.getNombre());
-                }
-                // y se revisa si el nombre del curso está en los cursos vistos.
-                fueCursada = nombresCursosVistos.contains(curso.getNombre());
-            }
-            if (!esDeLaCarrera || fueCursada) continue;
-            
-            // Se recomienda un curso si
-            // el estudiante ya vio todos los prerrequisitos del curso
-            boolean vioPrerrequisitos;
-            // Si el estudiante es nuevo, no ha cursado niguna materia
-            if (estudiante.getCursosVistos() == null) {
-                vioPrerrequisitos = false;
-            } else {
-                // La comparación se realiza entre los nombres, ya que son clases distintas,
-                // por lo que se obtiene la lista de nombres de los preRequisitos,
-                ArrayList<String> nombresCursosPreRequisitos = new ArrayList<String>();
-                for (Curso asignatura : curso.getPreRequisitos()) {
-                    nombresCursosPreRequisitos.add(asignatura.getNombre());
-                }
-                // y la lista de nombres de los cursos vistos,
-                ArrayList<String> nombresCursosVistos = new ArrayList<String>();
-                for (CursoEstudiante asignatura : estudiante.getCursosVistos()) {
-                    nombresCursosVistos.add(asignatura.getNombre());
-                }
-                // finalmente se verifica si el estudiante a cursado todos los preRequisitos.
-                vioPrerrequisitos = nombresCursosVistos.containsAll(nombresCursosPreRequisitos);
-            }
+            boolean vioPrerrequisitos = curso.vioPrerrequisitos(estudiante);
             if (vioPrerrequisitos) {
-                cursosParaRecomendar.add(curso);
-            // o si el curso no tiene prerrequisitos
-            } else if (curso.getPreRequisitos().isEmpty()) {
                 cursosParaRecomendar.add(curso);
             }
         }
@@ -82,8 +45,11 @@ public class UIRecomendarAsignaturas {
         }
 
         // Se imprimen los cursos
+        System.out.println("------------------------------------------------------------------------");
+        System.out.println("\t\tLista de Cursos");
+        System.out.println("------------------------------------------------------------------------");
         for (int i = 0; i < cursosParaRecomendar.size(); i++) {
-            System.out.printf("\t%d. %s\n", i + 1, cursosParaRecomendar.get(i));
+            System.out.printf("\t%d\t%s\n", i + 1, cursosParaRecomendar.get(i));
         }
 
         while (true) {
@@ -96,11 +62,34 @@ public class UIRecomendarAsignaturas {
             } else if (opcion == 0) break;
 
             // Se obtiene el curso de interés y la lista de profesores que lo dictan.
-            Curso curso = cursosParaRecomendar.get(opcion - 1);
-            ArrayList<Profesor> listaProfesores = curso.getProfesoresQueDictanElCurso();
+            Curso cursoDeInteres = cursosParaRecomendar.get(opcion - 1);
+
+            ArrayList<String> nombresProfesoresDelCurso = new ArrayList<String>();
+            for (Profesor profesor : cursoDeInteres.getProfesoresQueDictanElCurso()) {
+                nombresProfesoresDelCurso.add(profesor.getNombre());
+            }
+
+            ArrayList<Profesor> listaProfesores = new ArrayList<Profesor>();
+            for (Profesor profesor : Registro.getProfesores()) {
+                if (nombresProfesoresDelCurso.contains(profesor.getNombre())) {
+                    listaProfesores.add(profesor);
+                }
+            }
             // Si no hay profesores, volver a preguntar por otro curso.
             if (listaProfesores == null || listaProfesores.isEmpty()) {
                 System.out.println("\tNo hay profesores que dicten el curso.");
+                continue;
+            }
+
+            // Si un profesor tiene calificación de -1, significa que no ha sido calificado.
+            ListIterator<Profesor> iter = listaProfesores.listIterator();
+            while (iter.hasNext()) {
+                if (!iter.next().fueCalificado()) {
+                    iter.remove();
+                }
+            }
+            if (listaProfesores.isEmpty()) {
+                System.out.println("\tNo hay profesores que hallan sido calificados.");
                 continue;
             }
             
@@ -112,20 +101,12 @@ public class UIRecomendarAsignaturas {
                 }
             });
 
-            // Si un profesor tiene calificación de -1, significa que no ha sido calificado.
-            for (Profesor profesor : listaProfesores) {
-                if (profesor.getCalificacion() == -1) {
-                    listaProfesores.remove(profesor);
-                }
-            }
-            if (listaProfesores.isEmpty()) {
-                System.out.println("\tNo hay profesores que hallan sido calificados.");
-                continue;
-            }
-
             // Se imprimen los profesores y su respectiva calificación.
+            System.out.println("------------------------------------------------------------------------");
+            System.out.println("\t\tProfesor\tCalificacion");
+            System.out.println("------------------------------------------------------------------------");
             for (int i = 0; i < listaProfesores.size(); i++) {
-                System.out.printf("\t%d. %s\n", i + 1, listaProfesores.get(i).toString());
+                System.out.printf("\t%d\t%s\n", i + 1, listaProfesores.get(i));
             }
         }
 

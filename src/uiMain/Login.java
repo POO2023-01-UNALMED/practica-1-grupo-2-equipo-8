@@ -4,9 +4,6 @@ import gestorAplicacion.Admin;
 import gestorAplicacion.Estudiante;
 import gestorAplicacion.Profesor;
 import gestorAplicacion.Registro;
-import gestorAplicacion.TipoUsuarios;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Login {
@@ -17,7 +14,7 @@ public class Login {
         while(true){
             System.out.println("Indique lo que desea hacer:\n"
                     + "1. Iniciar sesión (ya tiene un usuario)\n"
-                    + "2. Registrase");
+                    + "2. Registrarse");
             opcion = sc.next();
             if(!(opcion.equals("1")) && !(opcion.equals("2"))){
                 System.out.println("Debe seleccionar un número entre el 1 y el 2");

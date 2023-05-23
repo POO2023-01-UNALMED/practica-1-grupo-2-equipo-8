@@ -59,23 +59,6 @@ public class Curso implements Serializable {
         Registro.agregarCurso(this); // Se agrega el curso creado a la base de datos.
     }
 
-    // Methods
-    public void detalles() {
-      System.out.println("---------------------------------------------------------------");
-      System.out.println(this.toString() + "\n" +
-          "Creditos: " + this.getCreditos() + "\t" + "Cupos: " + getCupos() + "\n");
-      if (this.getPreRequisitos() == null || this.getPreRequisitos().isEmpty()) {
-        System.out.println("No hay prerrequisitos.");
-      } else {
-        System.out.println("Prerrequisitos:");
-        for (Curso curso : this.getPreRequisitos()) {
-          System.out.println(curso);
-        }
-      }
-
-      System.out.println("---------------------------------------------------------------");
-    }
-
     // get y set
     public ArrayList<String> getHorariosClase() {
       return horariosClase;
@@ -163,7 +146,7 @@ public class Curso implements Serializable {
     }
     
     public void agregarProfesor(Profesor profesor){
-        this.profesoresQueDictanElCurso.add(profesor);
+      this.profesoresQueDictanElCurso.add(profesor);
     }
 
     public ArrayList<Facultades> getFacultad() {
@@ -175,6 +158,91 @@ public class Curso implements Serializable {
     }
 
     public String toString() {
-      return this.nombre + " (" + this.id + ")";
+      return this.getNombre()+ " (" + this.getId() + ")";
+    }
+    
+    // Methods
+    public ArrayList<CursoEstudiante> obtenerGrupos(Estudiante estudiante){
+        ArrayList<CursoEstudiante> listaCursos= new ArrayList<>();
+        for(Profesor profesor : Registro.getProfesores()){
+            for(CursoProfesor cp : profesor.getListaCursos()){
+                if(cp.getNombre().equals(getNombre())){
+                    listaCursos.add(new CursoEstudiante(cp.getNombre(), cp.getId(), cp.getCupos(), cp.getCreditos(),
+                    cp.getNumeroParciales(), cp.getListaPorcentajes(),
+                    cp.getFacultad(), new ArrayList(), estudiante.getSemestre()+1, estudiante, cp.getHorario(), profesor));
+                }
+            }
+        }
+        return listaCursos;
+    }
+
+    
+    public ArrayList<CursoProfesor> obtenerGrupos(){
+        ArrayList<CursoProfesor> listaCursos= new ArrayList<>();
+        for(Profesor profesor : Registro.getProfesores()){
+            for(CursoProfesor cp : profesor.getListaCursos()){
+                if(cp.getNombre().equals(getNombre())){
+                    listaCursos.add(cp);
+                }
+            }
+        }
+        return listaCursos;
+    }
+    
+    
+    public static ArrayList<Curso> filtrarPorFacultad(ArrayList<Curso> cursos, Facultades facultad){
+        for(Curso curso : cursos){
+            if(!curso.facultades.contains(facultad)){
+                cursos.remove(curso);
+            }
+        }
+        return cursos;
+    }
+    
+    public static ArrayList<Curso> filtrarPorCarrera(ArrayList<Curso> cursos, Carreras carrera){
+        for(Curso curso : cursos){
+            if(!curso.carrerasRelacionadas.contains(carrera)){
+                cursos.remove(curso);
+            }
+        }
+        return cursos;
+    }
+    
+    public static ArrayList<Curso> filtrarPorHorario(ArrayList<Curso> cursos, String horario){
+        ArrayList<Curso> listaCursos = new ArrayList();
+        for(Curso curso : cursos){
+            ArrayList<CursoProfesor> cursosProfesores = curso.obtenerGrupos();
+            for(CursoProfesor cp : cursosProfesores){
+                if(cp.getHorario().equals(horario)){
+                    listaCursos.add(curso);
+                    break;
+                }
+            }
+        }
+        return listaCursos;
+    }
+
+    public boolean vioPrerrequisitos(Estudiante estudiante) {
+      // Si el curso no tiene prerrequisitos, sí vio los prerrequisitos.
+      if (this.getPreRequisitos() == null || this.getPreRequisitos().isEmpty()) {
+        return true;
+      }
+      // Si el estudiante es nuevo, no vio los prerrequisitos.
+      if (estudiante.getCursosVistos() == null || estudiante.getCursosVistos().isEmpty()) {
+        return false;
+      }
+      // La comparación se realiza entre los nombres, ya que son clases distintas,
+      // por lo que se obtiene la lista de nombres de los preRequisitos,
+      ArrayList<String> nombresCursosPreRequisitos = new ArrayList<String>();
+      for (Curso asignatura : this.getPreRequisitos()) {
+          nombresCursosPreRequisitos.add(asignatura.getNombre());
+      }
+      // y la lista de nombres de los cursos vistos,
+      ArrayList<String> nombresCursosVistos = new ArrayList<String>();
+      for (CursoEstudiante asignatura : estudiante.getCursosVistos()) {
+          nombresCursosVistos.add(asignatura.getNombre());
+      }
+      // finalmente se verifica si el estudiante a cursado todos los preRequisitos.
+      return nombresCursosVistos.containsAll(nombresCursosPreRequisitos);
     }
 }
