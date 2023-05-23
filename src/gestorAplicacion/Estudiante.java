@@ -2,7 +2,7 @@ package gestorAplicacion; //Falta especificar en qué sub-paquéte estará
 
 import java.util.ArrayList;
 import uiMain.BusquedaCursos;
-import uiMain.UIAsignarCita;
+import uiMain.AsignarCita;
 
 
 public class Estudiante extends Registro{
@@ -186,9 +186,9 @@ public class Estudiante extends Registro{
                 if(ce.getNombre().equals(cp.getNombre())){
                     cp.agregarEstudiante(this);
                     cp.setCupos((short)(cp.getCupos()-1));
-                    UIAsignarCita.getEstudiantesConCita().get(0).setInscribir(false);
-                    UIAsignarCita.getEstudiantesConCita().remove(0);
-                    UIAsignarCita.getEstudiantesConCita().get(0).setInscribir(true);
+                    AsignarCita.getEstudiantesConCita().get(0).setInscribir(false);
+                    AsignarCita.getEstudiantesConCita().remove(0);
+                    AsignarCita.getEstudiantesConCita().get(0).setInscribir(true);
                 }
             }
         }
@@ -210,9 +210,9 @@ public class Estudiante extends Registro{
                 if(ce.getNombre().equals(cp.getNombre())){
                     cp.agregarEstudiante(this);
                     cp.setCupos((short)(cp.getCupos()-1));
-                    UIAsignarCita.getEstudiantesConCita().get(0).setInscribir(false);
-                    UIAsignarCita.getEstudiantesConCita().remove(0);
-                    UIAsignarCita.getEstudiantesConCita().get(0).setInscribir(true);
+                    AsignarCita.getEstudiantesConCita().get(0).setInscribir(false);
+                    AsignarCita.getEstudiantesConCita().remove(0);
+                    AsignarCita.getEstudiantesConCita().get(0).setInscribir(true);
                 }
             }
         }
