@@ -55,8 +55,10 @@ public class AsignarCita {
                 if (estudiantesSeleccionados != null){
                     // Eliminar citas de inscripción antiguas
                     for (Estudiante estudiante : estudiantesSeleccionados){
+                        AsignarCita.horariosDisponibles.add(estudiante.getCita());
                         estudiante.setCita(0);
                     }
+                    Collections.sort(AsignarCita.horariosDisponibles);
 
                     // Ordenar por PAPI
                     ArrayList<Estudiante> PAPIs = AsignarCita.ordenarEstudiantesPorPAPI(estudiantes);
