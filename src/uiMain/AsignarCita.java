@@ -82,7 +82,7 @@ public class AsignarCita {
                         }
                         switch(opcion){
                             case "1":
-                                break;
+                            break;
                             
                             case "2":
                                 for (Estudiante estudiante : AsignarCita.estudiantesConCita){
@@ -98,7 +98,8 @@ public class AsignarCita {
                                     Estudiante estudiante = estudiantes.get(i);
                                     int cita = copiaHorarioEstudiantes.get(i);
                                     estudiante.setCita(cita);
-                                } 
+                                }
+                                break;
                         }
                     }
                 }
@@ -177,8 +178,8 @@ public class AsignarCita {
             int indice = Integer.parseInt(numero.trim()) - 1;
 
             if (indice == -1) {
-                estudiantesSeleccionados.addAll(estudiantes); // Agregar todas las frutas
-                break;
+                estudiantesSeleccionados.addAll(estudiantes);
+                return estudiantesSeleccionados;
             }
 
             if (indice >= 0 && indice < estudiantes.size()) {
