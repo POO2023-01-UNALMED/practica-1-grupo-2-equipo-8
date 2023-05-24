@@ -41,22 +41,28 @@ public class AsignarCita {
         // Verificar que el usuario sea un Administrador
         if (usuario instanceof Admin){
             // Resetear los cursos
+            // Guardar Copias de Seguridad
+            ArrayList<Estudiante> copiaEstudiantesConCita = AsignarCita.estudiantesConCita;
+            ArrayList<Integer> copiaHorariosDisponibles = AsignarCita.horariosDisponibles;
+            ArrayList<Integer> copiaHorarioEstudiantes = new ArrayList<Integer>();
+            for (int i = 0; i < estudiantes.size(); i++){
+                copiaHorarioEstudiantes.add(estudiantes.get(i).getCita());
+            }
+            ArrayList<CursoProfesor> cursosProfesor = CursoProfesor.getCursosCreados();
+            ArrayList<ArrayList<Estudiante>> copiaListaEstudiantes = new ArrayList<>();
+            for (int i = 0; i < cursosProfesor.size(); i++){
+                copiaListaEstudiantes.add(cursosProfesor.get(i).getListaEstudiantes());
+            }
             if (AsignarCita.resetearCursos()){
-                // Guardar Copias de Seguridad
-                ArrayList<Estudiante> copiaEstudiantesConCita = AsignarCita.estudiantesConCita;
-                ArrayList<Integer> copiaHorariosDisponibles = AsignarCita.horariosDisponibles;
-                ArrayList<Integer> copiaHorarioEstudiantes = new ArrayList<Integer>();
-                for (int i = 0; i < estudiantes.size(); i++){
-                    copiaHorarioEstudiantes.add(estudiantes.get(i).getCita());
-                }
-
                 // Seleccionar estudiantes
                 ArrayList<Estudiante> estudiantesSeleccionados = AsignarCita.seleccionarEstudiantes(estudiantes);
                 if (estudiantesSeleccionados != null){
                     // Eliminar citas de inscripción antiguas
                     for (Estudiante estudiante : estudiantesSeleccionados){
+                        AsignarCita.horariosDisponibles.add(estudiante.getCita());
                         estudiante.setCita(0);
                     }
+                    Collections.sort(AsignarCita.horariosDisponibles);
 
                     // Ordenar por PAPI
                     ArrayList<Estudiante> PAPIs = AsignarCita.ordenarEstudiantesPorPAPI(estudiantes);
@@ -67,6 +73,8 @@ public class AsignarCita {
                         Estudiante estudiante = PAPIs.get(i);
                         estudiante.setCita(horario);
                         AsignarCita.estudiantesConCita.add(estudiante);
+                        AsignarCita.horariosDisponibles.remove(horario);
+
                     }
                     boolean continuar = true;
                     while (continuar){
@@ -103,6 +111,11 @@ public class AsignarCita {
                                     int cita = copiaHorarioEstudiantes.get(i);
                                     estudiante.setCita(cita);
                                 }
+                                for (int i = 0; i < cursosProfesor.size(); i++){
+                                    CursoProfesor curso = cursosProfesor.get(i);
+                                    ArrayList<Estudiante> listaEstudiantes = copiaListaEstudiantes.get(i);
+                                    curso.setListaEstudiantes(listaEstudiantes);
+                                }
                                 continuar = false;
                                 break;
                         }
@@ -110,6 +123,11 @@ public class AsignarCita {
                 }
                 // Si el usuario cancelo el proceso en la etapa de seleccionar estudiantes
                 else{
+                    for (int i = 0; i < cursosProfesor.size(); i++){
+                        CursoProfesor curso = cursosProfesor.get(i);
+                        ArrayList<Estudiante> listaEstudiantes = copiaListaEstudiantes.get(i);
+                        curso.setListaEstudiantes(listaEstudiantes);
+                    }
                     System.out.println("Proceso Cancelado");
                 }
 
@@ -170,7 +188,8 @@ public class AsignarCita {
     public static ArrayList<Estudiante> seleccionarEstudiantes(ArrayList<Estudiante> estudiantes){
         // Mostrar todos los estudiantes
         System.out.println("Seleccione a los estudiantes a los que le quiera asignar una cita\n"
-                            + "Para seleccionarlos a todos elija 0");
+                            + "Para esto, solo escriba los números asociados separados por una coma\n"
+                            + "Para seleccionarlos a todos escriba 0");
         for (int i = 0; i < estudiantes.size(); i++){
             System.out.println((i + 1) + ": " + estudiantes.get(i));
         }
@@ -183,11 +202,13 @@ public class AsignarCita {
             int indice = Integer.parseInt(numero.trim()) - 1;
 
             if (indice == -1) {
+                // Se ha seleccionado la opción de seleccionar todos los estudiantes
                 estudiantesSeleccionados.addAll(estudiantes);
                 return estudiantesSeleccionados;
             }
 
             if (indice >= 0 && indice < estudiantes.size()) {
+                // Se ha seleccionado un estudiante específico
                 estudiantesSeleccionados.add(estudiantes.get(indice));
             }
         }
@@ -206,21 +227,26 @@ public class AsignarCita {
             String opcion = sc.nextLine();
             ArrayList<String> opciones = new ArrayList<String>(Arrays.asList("1", "2", "3"));
             if (!opciones.contains(opcion)) {
+                // La opción ingresada no es válida
                 System.out.println("Debe seleccionar un número entre el 1 y el 3");
                 continue;
             }
             switch(opcion){
                 case "1":
+                    // Se confirma la selección de estudiantes
                     return estudiantesSeleccionados;
                 
                 case "2":
+                    // Se desea volver a seleccionar estudiantes
                     return AsignarCita.seleccionarEstudiantes(estudiantes);
                 
                 case "3":
+                    // Se cancela la asignación de citas
                     return null;
             }
         }
     }
+
 
     public static boolean resetearCursos(){
         while(true){
