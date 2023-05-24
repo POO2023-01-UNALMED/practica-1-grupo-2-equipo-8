@@ -93,19 +93,32 @@ public class Serializador {
                     e.printStackTrace();
                 }
             }
-            // else if(f.getAbsolutePath().contains("estimulos")){
-            //     try{
-            //         fos = new FileOutputStream(f);
-            //         oos = new ObjectOutputStream(fos);
-            //         oos.writeObject(Registro.getEstimulos());
-            //     }
-            //     catch (FileNotFoundException e){
-            //         e.printStackTrace();
-            //     }
-            //     catch (IOException e){
-            //         e.printStackTrace();
-            //     }
-            // }
+            else if(f.getAbsolutePath().contains("estimulosEstudiantes")){
+                try{
+                    fos = new FileOutputStream(f);
+                    oos = new ObjectOutputStream(fos);
+                    oos.writeObject(Registro.getEstimulosEstudiantes());
+                }
+                catch (FileNotFoundException e){
+                    e.printStackTrace();
+                }
+                catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+            else if(f.getAbsolutePath().contains("estimulosProfesores")){
+                try{
+                    fos = new FileOutputStream(f);
+                    oos = new ObjectOutputStream(fos);
+                    oos.writeObject(Registro.getEstimulosProfesores());
+                }
+                catch (FileNotFoundException e){
+                    e.printStackTrace();
+                }
+                catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

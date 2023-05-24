@@ -11,6 +11,8 @@ import gestorAplicacion.Estudiante;
 import gestorAplicacion.Admin;
 import gestorAplicacion.Curso;
 import gestorAplicacion.Estimulo;
+import gestorAplicacion.EstimuloEstudiante;
+import gestorAplicacion.EstimuloProfesor;
 import java.util.ArrayList;
 
 public class Deserializador {
@@ -89,23 +91,40 @@ public class Deserializador {
                     e.printStackTrace();
                 }
             }
-            // else if(f.getAbsolutePath().contains("estimulos")){
-            //     try{
-            //         fis = new FileInputStream(f);
-            //         ois = new ObjectInputStream(fis);
+            else if(f.getAbsolutePath().contains("estimulosEstudiantes")){
+                try{
+                    fis = new FileInputStream(f);
+                    ois = new ObjectInputStream(fis);
                     
-            //         Registro.setEstimulos((ArrayList<Estimulo>) ois.readObject());
-            //     }
-            //     catch (FileNotFoundException e){
-            //         e.printStackTrace();
-            //     }
-            //     catch (IOException e){
-            //         e.printStackTrace();
-            //     }
-            //     catch (ClassNotFoundException e) {
-            //         e.printStackTrace();
-            //     }
-            // }
+                    Registro.setEstimulosEstudiantes((ArrayList<EstimuloEstudiante>) ois.readObject());
+                }
+                catch (FileNotFoundException e){
+                    e.printStackTrace();
+                }
+                catch (IOException e){
+                    e.printStackTrace();
+                }
+                catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+            else if(f.getAbsolutePath().contains("estimulosProfesores")){
+                try{
+                    fis = new FileInputStream(f);
+                    ois = new ObjectInputStream(fis);
+                    
+                    Registro.setEstimulosProfesores((ArrayList<EstimuloProfesor>) ois.readObject());
+                }
+                catch (FileNotFoundException e){
+                    e.printStackTrace();
+                }
+                catch (IOException e){
+                    e.printStackTrace();
+                }
+                catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }
