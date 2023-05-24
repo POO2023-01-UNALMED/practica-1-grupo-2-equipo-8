@@ -185,7 +185,7 @@ public class BusquedaEstimulos {
   public static ArrayList<EstimuloEstudiante> obtenerEstimulosEstudiante() {
 	  ArrayList<EstimuloEstudiante> estimulos = new ArrayList<>();
 
-	  for(Estimulo e: Registro.getEstimulos()) {
+	  for(Estimulo e: Registro.getEstimulosEstudiantes()) {
 		  if(e.getAQuienAplica() == TipoUsuarios.ESTUDIANTE) {
 			  estimulos.add((EstimuloEstudiante) e);
 		  }
@@ -197,7 +197,7 @@ public class BusquedaEstimulos {
   public static ArrayList<EstimuloProfesor> obtenerEstimulosProfesor() {
 	  ArrayList<EstimuloProfesor> estimulos = new ArrayList<>();
 
-	  for(Estimulo e: Registro.getEstimulos()) {
+	  for(Estimulo e: Registro.getEstimulosProfesores()) {
 		  if(e.getAQuienAplica() == TipoUsuarios.PROFESOR) {
 			  estimulos.add((EstimuloProfesor) e);
 		  }

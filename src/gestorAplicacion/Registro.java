@@ -17,8 +17,9 @@ public abstract class Registro implements Serializable{
     private static ArrayList<Curso> cursos = new ArrayList<Curso>();
     private static ArrayList<Admin> admins = new ArrayList<Admin>();
     private static ArrayList<Profesor> profesores = new ArrayList<Profesor>();
-    private static ArrayList<Estimulo> estimulos = new ArrayList<Estimulo>();
-    
+    private static ArrayList<EstimuloEstudiante> estimulosEstudiantes = new ArrayList<EstimuloEstudiante>();
+    private static ArrayList<EstimuloProfesor> estimulosProfesores = new ArrayList<EstimuloProfesor>();
+
     public Registro(String nombre, String correo, String nombreUsuario, String clave, String documentoIdentificacion) {
         this.nombre = nombre;
         this.correo = correo;
@@ -156,16 +157,28 @@ public abstract class Registro implements Serializable{
         Registro.profesores.add(profesor);
     }
 
-    public static ArrayList<Estimulo> getEstimulos() {
-        return estimulos;
+    public static ArrayList<EstimuloEstudiante> getEstimulosEstudiantes() {
+        return estimulosEstudiantes;
     }
 
-    public static void setEstimulos(ArrayList<Estimulo> estimulos) {
-        Registro.estimulos = estimulos;
+    public static void setEstimulosEstudiantes(ArrayList<EstimuloEstudiante> estimulos) {
+        Registro.estimulosEstudiantes = estimulos;
     }
     
-    public static void agregarEstimulos(Estimulo estimulos){
-        Registro.estimulos.add(estimulos);
+    public static void agregarEstimulosEstudiantes(EstimuloEstudiante estimulos){
+        Registro.estimulosEstudiantes.add(estimulos);
+    }
+
+    public static ArrayList<EstimuloProfesor> getEstimulosProfesores() {
+        return estimulosProfesores;
+    }
+
+    public static void setEstimulosProfesores(ArrayList<EstimuloProfesor> estimulos) {
+        Registro.estimulosProfesores = estimulos;
+    }
+    
+    public static void agregarEstimulosProfesores(EstimuloProfesor estimulos){
+        Registro.estimulosProfesores.add(estimulos);
     }
     
     public abstract void buscarCursos();

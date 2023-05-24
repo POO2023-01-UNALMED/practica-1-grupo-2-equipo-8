@@ -89,23 +89,23 @@ public class Deserializador {
                     e.printStackTrace();
                 }
             }
-            else if(f.getAbsolutePath().contains("estimulos")){
-                try{
-                    fis = new FileInputStream(f);
-                    ois = new ObjectInputStream(fis);
+            // else if(f.getAbsolutePath().contains("estimulos")){
+            //     try{
+            //         fis = new FileInputStream(f);
+            //         ois = new ObjectInputStream(fis);
                     
-                    Registro.setEstimulos((ArrayList<Estimulo>) ois.readObject());
-                }
-                catch (FileNotFoundException e){
-                    e.printStackTrace();
-                }
-                catch (IOException e){
-                    e.printStackTrace();
-                }
-                catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
+            //         Registro.setEstimulos((ArrayList<Estimulo>) ois.readObject());
+            //     }
+            //     catch (FileNotFoundException e){
+            //         e.printStackTrace();
+            //     }
+            //     catch (IOException e){
+            //         e.printStackTrace();
+            //     }
+            //     catch (ClassNotFoundException e) {
+            //         e.printStackTrace();
+            //     }
+            // }
         }
     }
 }
