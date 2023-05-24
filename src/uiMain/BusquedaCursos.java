@@ -102,7 +102,7 @@ public class BusquedaCursos {
                     System.out.println("----------------------------------------------------------------------------------------------------------------------");
                     int cont = 1;
                     for(Curso curso : listaCursos){
-                        System.out.println("\t"+curso.getId()+"\t"+String.format("%-32s",curso.getNombre())+"\t"+String.format("%-8s",curso.getCreditos())+"\t"+curso.getFacultad()+"\t"+curso.getCarrerasRelacionadas());
+                        System.out.println("\t"+curso.getId()+"\t"+String.format("%-32s",curso.getNombre())+"\t"+String.format("%-8s",curso.getCreditos())+"\t"+String.format("%-16s",curso.getFacultad())+"\t"+curso.getCarrerasRelacionadas());
                         System.out.println(cont+". Ver detalles");
                         cont++;
                     }
@@ -249,7 +249,7 @@ public class BusquedaCursos {
                     System.out.println("----------------------------------------------------------------------------------------------------------------------");
                     int cont = 1;
                     for(Curso curso : listaCursos){
-                        System.out.println("\t"+curso.getId()+"\t"+String.format("%-32s",curso.getNombre())+"\t"+String.format("%-8s",curso.getCreditos())+"\t"+curso.getFacultad()+"\t"+curso.getCarrerasRelacionadas());
+                        System.out.println("\t"+curso.getId()+"\t"+String.format("%-32s",curso.getNombre())+"\t"+String.format("%-8s",curso.getCreditos())+"\t"+String.format("%-16s",curso.getFacultad())+"\t"+curso.getCarrerasRelacionadas());
                         System.out.println(cont+". Ver detalles");
                         cont++;
                     }
@@ -401,7 +401,7 @@ public class BusquedaCursos {
                     System.out.println("----------------------------------------------------------------------------------------------------------------------");
                     int cont = 1;
                     for(Curso curso : listaCursos){
-                        System.out.println("\t"+curso.getId()+"\t"+String.format("%-32s",curso.getNombre())+"\t"+String.format("%-8s",curso.getCreditos())+"\t"+curso.getFacultad()+"\t"+curso.getCarrerasRelacionadas());
+                        System.out.println("\t"+curso.getId()+"\t"+String.format("%-32s",curso.getNombre())+"\t"+String.format("%-8s",curso.getCreditos())+"\t"+String.format("%-16s",curso.getFacultad())+"\t"+curso.getCarrerasRelacionadas());
                         System.out.println(cont+". Ver detalles");
                         cont++;
                     }
@@ -505,14 +505,20 @@ public class BusquedaCursos {
     }
     
     public static void reportarFallo(String nombre){
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("Ya tienes el curso "+nombre);
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------");
     }
     public static void reportarFallo(CursoEstudiante curso1, CursoEstudiante curso2){
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("Hay un problema entre el horario del curso "+curso1.getNombre()+" y el curso "+curso2.getNombre()+
                 "\nHorario de "+curso1.getNombre()+":"+curso1.getHorario()+"\tHorario"+curso2.getNombre()+":"+curso1.getHorario());
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------");
     }
     
     public static void aceptar(){
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("El curso se agregó correctamente");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------");
     }
 }

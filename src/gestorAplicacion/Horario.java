@@ -12,7 +12,7 @@ public class Horario implements Serializable{
     private ArrayList<CursoEstudiante> cursos = new ArrayList<>();
 
     //Constructores
-    public Horario(){
+    public Horario(Estudiante estudiante){
         if(estudiante.getHorariosCreados().isEmpty()){
             this.id = 1;
         }
@@ -22,7 +22,7 @@ public class Horario implements Serializable{
     }
     
     public Horario(Estudiante estudiante, ArrayList<CursoEstudiante> cursos){
-        this();
+        this(estudiante);
         this.estudiante = estudiante;
         this.cursos = cursos;
     }
