@@ -191,21 +191,23 @@ public class Curso implements Serializable {
     
     
     public static ArrayList<Curso> filtrarPorFacultad(ArrayList<Curso> cursos, Facultades facultad){
+        ArrayList<Curso> cursosFiltrados = new ArrayList<>();
         for(Curso curso : cursos){
-            if(!curso.facultades.contains(facultad)){
-                cursos.remove(curso);
+            if(curso.facultades.contains(facultad)){
+              cursosFiltrados.add(curso);
             }
         }
-        return cursos;
+        return cursosFiltrados;
     }
     
     public static ArrayList<Curso> filtrarPorCarrera(ArrayList<Curso> cursos, Carreras carrera){
+      ArrayList<Curso> cursosFiltrados = new ArrayList<>();
         for(Curso curso : cursos){
-            if(!curso.carrerasRelacionadas.contains(carrera)){
-                cursos.remove(curso);
+            if(curso.carrerasRelacionadas.contains(carrera)){
+              cursosFiltrados.add(curso);
             }
         }
-        return cursos;
+        return cursosFiltrados;
     }
     
     public static ArrayList<Curso> filtrarPorHorario(ArrayList<Curso> cursos, String horario){

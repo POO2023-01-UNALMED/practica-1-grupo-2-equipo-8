@@ -41,7 +41,7 @@ public class BusquedaCursos {
                         + "4. Filtrar cursos por horario\n"
                         + "5. Salir");
                 String opcion = sc.next();
-                //sc.next();
+                sc.nextLine();
                 if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3")) && !(opcion.equals("4")) && !(opcion.equals("5"))){
                     System.out.println("Debe seleccionar un número entre el 1 y el 5");
                     continue;
@@ -53,7 +53,7 @@ public class BusquedaCursos {
                             System.out.println("Indique la facultad:\n"
                             + "1. Minas\n"
                             + "2. Ciencias\n"
-                            + "5. Salir");
+                            + "3. Salir");
                             opcion = sc.next();
                             if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3"))){
                                 System.out.println("Debe seleccionar un número entre el 1 y el 3");
@@ -72,7 +72,7 @@ public class BusquedaCursos {
                             System.out.println("Indique la carrera:\n"
                             + "1. Ingeniería de Sistemas\n"
                             + "2. Ciencias de la Computación\n"
-                            + "5. Salir");
+                            + "3. Salir");
                             opcion = sc.next();
                             if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3"))){
                                 System.out.println("Debe seleccionar un número entre el 1 y el 3");
@@ -188,7 +188,7 @@ public class BusquedaCursos {
                         + "4. Filtrar cursos por horario\n"
                         + "5. Salir");
                 String opcion = sc.next();
-                sc.next();
+                sc.nextLine();
                 if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3")) && !(opcion.equals("4")) && !(opcion.equals("5"))){
                     System.out.println("Debe seleccionar un número entre el 1 y el 5");
                     continue;
@@ -200,7 +200,7 @@ public class BusquedaCursos {
                             System.out.println("Indique la facultad:\n"
                             + "1. Minas\n"
                             + "2. Ciencias\n"
-                            + "5. Salir");
+                            + "3. Salir");
                             opcion = sc.next();
                             if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3"))){
                                 System.out.println("Debe seleccionar un número entre el 1 y el 3");
@@ -219,7 +219,7 @@ public class BusquedaCursos {
                             System.out.println("Indique la carrera:\n"
                             + "1. Ingeniería de Sistemas\n"
                             + "2. Ciencias de la Computación\n"
-                            + "5. Salir");
+                            + "3. Salir");
                             opcion = sc.next();
                             if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3"))){
                                 System.out.println("Debe seleccionar un número entre el 1 y el 3");
@@ -340,7 +340,7 @@ public class BusquedaCursos {
                         + "4. Filtrar cursos por horario\n"
                         + "5. Salir");
                 String opcion = sc.next();
-                sc.next();
+                sc.nextLine();
                 if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3")) && !(opcion.equals("4")) && !(opcion.equals("5"))){
                     System.out.println("Debe seleccionar un número entre el 1 y el 5");
                     continue;
@@ -352,7 +352,7 @@ public class BusquedaCursos {
                             System.out.println("Indique la facultad:\n"
                             + "1. Minas\n"
                             + "2. Ciencias\n"
-                            + "5. Salir");
+                            + "3. Salir");
                             opcion = sc.next();
                             if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3"))){
                                 System.out.println("Debe seleccionar un número entre el 1 y el 3");
@@ -371,7 +371,7 @@ public class BusquedaCursos {
                             System.out.println("Indique la carrera:\n"
                             + "1. Ingeniería de Sistemas\n"
                             + "2. Ciencias de la Computación\n"
-                            + "5. Salir");
+                            + "3. Salir");
                             opcion = sc.next();
                             if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3"))){
                                 System.out.println("Debe seleccionar un número entre el 1 y el 3");
