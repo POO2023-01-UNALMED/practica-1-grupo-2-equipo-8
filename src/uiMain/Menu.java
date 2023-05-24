@@ -176,20 +176,19 @@ public class Menu {
                     + "1. Calificar\n"
                     + "2. Ver aplicabilidad a estimulos\n"
                     + "3. Buscar asignatura\n"
-                    + "4. Ver estimulos a los que aplica\n"
-                    + "5. Salir");
+                    + "4. Salir");
             String opcion = sc.nextLine();
-            ArrayList<String> opciones = new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5"));
+            ArrayList<String> opciones = new ArrayList<String>(Arrays.asList("1", "2", "3", "4"));
 
             if (!opciones.contains(opcion)) {
-                System.out.println("Debe seleccionar un número entre el 1 y el 5");
+                System.out.println("Debe seleccionar un número entre el 1 y el 4");
                 continue;
             }
 
             switch (opcion) {
                 case "1":
-                    ;
-                    break; // Añadir llamada al método correspondiente
+                    FuncsProfesor.calificar(profesor, sc);
+                    continue; // Añadir llamada al método correspondiente
                 case "2":
                     BusquedaEstimulos.buscarEstimulos(profesor);
                 case "3":
