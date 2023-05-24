@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Scanner;
 
 import gestorAplicacion.Estudiante;
@@ -59,23 +60,34 @@ public class AsignarCita {
                 if (estudiantesSeleccionados != null){
                     // Eliminar citas de inscripción antiguas
                     for (Estudiante estudiante : estudiantesSeleccionados){
-                        AsignarCita.horariosDisponibles.add(estudiante.getCita());
+                        if (estudiante.getCita() != 0) {
+                            AsignarCita.horariosDisponibles.add(estudiante.getCita());
+                        }
                         estudiante.setCita(0);
                     }
                     Collections.sort(AsignarCita.horariosDisponibles);
 
                     // Ordenar por PAPI
                     ArrayList<Estudiante> PAPIs = AsignarCita.ordenarEstudiantesPorPAPI(estudiantes);
+                    
+                    // Borrar citas
+                    for (Estudiante estudiante : estudiantes) {
+                        if (horariosDisponibles.contains(estudiante.getCita())) {
+                            horariosDisponibles.remove(estudiante.getCita());
+                        }
+                    }
 
                     // Asignarles las citas disponibles a cada estudiante
+                    ArrayList<Integer> citasTomadas = new ArrayList<Integer>();
                     for (int i = 0; i < PAPIs.size(); i++) {
                         int horario = AsignarCita.horariosDisponibles.get(i);
                         Estudiante estudiante = PAPIs.get(i);
                         estudiante.setCita(horario);
                         AsignarCita.estudiantesConCita.add(estudiante);
-                        AsignarCita.horariosDisponibles.remove(horario);
-
+                        citasTomadas.add(horario);
                     }
+                    horariosDisponibles.removeAll(citasTomadas);
+
                     boolean continuar = true;
                     while (continuar){
                         // Asegurarse de la opción
