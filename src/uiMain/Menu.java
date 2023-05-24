@@ -10,11 +10,14 @@ import gestorAplicacion.Admin;
 import gestorAplicacion.Carreras;
 import gestorAplicacion.Curso;
 import gestorAplicacion.CursoEstudiante;
+import gestorAplicacion.EstimuloEstudiante;
+import gestorAplicacion.EstimuloProfesor;
 import gestorAplicacion.Estudiante;
 import gestorAplicacion.Facultades;
 import gestorAplicacion.Horario;
 import gestorAplicacion.Profesor;
 import gestorAplicacion.Registro;
+import gestorAplicacion.TipoUsuarios;
 import uiMain.UIRecomendarAsignaturas;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,6 +28,58 @@ public class Menu {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         Deserializador.deserializador();
+
+        ArrayList<Facultades> A = new ArrayList<Facultades>();
+        A.add(Facultades.MINAS);
+
+        Registro.agregarEstimulosEstudiantes(new EstimuloEstudiante(
+            "Estimulo 1",
+            "Estimulo para irse de vacaciones y sacar 5 en todos los parciales de POO",
+            TipoUsuarios.ESTUDIANTE,
+            A,
+            10,
+            21,
+            3
+        ));
+         Registro.agregarEstimulosEstudiantes(new EstimuloEstudiante(
+            "Estimulo 2",
+            "Estimulo para irse de vacaciones y sacar 5 en todos los parciales de Integrales",
+            TipoUsuarios.ESTUDIANTE,
+            A,
+            10,
+            21,
+            3.5
+        ));
+         Registro.agregarEstimulosEstudiantes(new EstimuloEstudiante(
+            "Estimulo 3",
+            "Estimulo para irse de vacaciones y sacar 5 en todos los parciales de Algoritmos",
+            TipoUsuarios.ESTUDIANTE,
+            A,
+            10,
+            21,
+            4
+        ));
+        Registro.agregarEstimulosEstudiantes(new EstimuloEstudiante(
+            "Estimulo 4",
+            "Estimulo ultra poderoso, ganas todas las materias con 5 durante 2 semestres",
+            TipoUsuarios.ESTUDIANTE,
+            A,
+            2,
+            10,
+            4.6
+        ));
+
+        ArrayList<Curso> B1 = new ArrayList<Curso>();
+        
+
+        Registro.agregarEstimulosProfesores(new EstimuloProfesor(
+            "Estimulo 1",
+            "Nivel platino: 2x de salario x/2 de horas",
+            TipoUsuarios.PROFESOR,
+            A,
+            10,
+            B1
+        ));
 
         Login.login();
         sc.close();
@@ -54,7 +109,7 @@ public class Menu {
                 case "2": estudiante.buscarCursos(); break;
                 case "3": Horario horario = estudiante.crearHorario(); BusquedaCursos.buscarCursos(estudiante, horario); break;
                 case "4": IncripcionMaterias.inscribirMaterias(estudiante); break;
-                case "5": BusquedaEstimulos.buscarEstimulos(estudiante);
+                case "5": BusquedaEstimulos.buscarEstimulos(estudiante); break;
                 case "6": CalificacionProfesores.calificarProfesor(sc); continue; // Añadir llamada al método correspondiente
                 case "7": salir(); break;
             }
