@@ -25,7 +25,7 @@ import java.util.List;
 
 public class Menu {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Deserializador.deserializador();
 
@@ -33,109 +33,99 @@ public class Menu {
         A.add(Facultades.MINAS);
 
         Registro.agregarEstimulosEstudiantes(new EstimuloEstudiante(
-            "Estimulo 1",
-            "Estimulo para irse de vacaciones y sacar 5 en todos los parciales de POO",
-            TipoUsuarios.ESTUDIANTE,
-            A,
-            10,
-            21,
-            3
-        ));
-         Registro.agregarEstimulosEstudiantes(new EstimuloEstudiante(
-            "Estimulo 2",
-            "Estimulo para irse de vacaciones y sacar 5 en todos los parciales de Integrales",
-            TipoUsuarios.ESTUDIANTE,
-            A,
-            10,
-            21,
-            3.5
-        ));
-         Registro.agregarEstimulosEstudiantes(new EstimuloEstudiante(
-            "Estimulo 3",
-            "Estimulo para irse de vacaciones y sacar 5 en todos los parciales de Algoritmos",
-            TipoUsuarios.ESTUDIANTE,
-            A,
-            0,
-            21,
-            4
-        ));
+                "Estimulo 1",
+                "Estimulo para irse de vacaciones y sacar 5 en todos los parciales de POO",
+                TipoUsuarios.ESTUDIANTE,
+                A,
+                10,
+                21,
+                3));
         Registro.agregarEstimulosEstudiantes(new EstimuloEstudiante(
-            "Estimulo 4",
-            "Estimulo ultra poderoso, ganas todas las materias con 5 durante 2 semestres",
-            TipoUsuarios.ESTUDIANTE,
-            A,
-            2,
-            10,
-            4.6
-        ));
+                "Estimulo 2",
+                "Estimulo para irse de vacaciones y sacar 5 en todos los parciales de Integrales",
+                TipoUsuarios.ESTUDIANTE,
+                A,
+                10,
+                21,
+                3.5));
+        Registro.agregarEstimulosEstudiantes(new EstimuloEstudiante(
+                "Estimulo 3",
+                "Estimulo para irse de vacaciones y sacar 5 en todos los parciales de Algoritmos",
+                TipoUsuarios.ESTUDIANTE,
+                A,
+                0,
+                21,
+                4));
+        Registro.agregarEstimulosEstudiantes(new EstimuloEstudiante(
+                "Estimulo 4",
+                "Estimulo ultra poderoso, ganas todas las materias con 5 durante 2 semestres",
+                TipoUsuarios.ESTUDIANTE,
+                A,
+                2,
+                10,
+                4.6));
 
-        ArrayList<Curso> B1 = new ArrayList<Curso>();
-        ArrayList<Curso> B2 = new ArrayList<Curso>();
-        ArrayList<Curso> B3 = new ArrayList<Curso>();
+        ArrayList<Integer> B1 = new ArrayList<Integer>();
+        ArrayList<Integer> B2 = new ArrayList<Integer>();
+        ArrayList<Integer> B3 = new ArrayList<Integer>();
 
-        short r = 2;
-        B1.add(new Curso("1", 100000, r,3, new ArrayList<int[]>(), new ArrayList<Facultades>()));
-        B1.add(new Curso("1", 100002, r,3, new ArrayList<int[]>(), new ArrayList<Facultades>()));
-        
-        B2.add(new Curso("1", 3, r,3, new ArrayList<int[]>(), new ArrayList<Facultades>()));
-        
-        B3.add(new Curso("1", 100005, r,3, new ArrayList<int[]>(), new ArrayList<Facultades>()));
-        B3.add(new Curso("1", 1000011, r,3, new ArrayList<int[]>(), new ArrayList<Facultades>()));
-        B3.add(new Curso("1", 100000, r,3, new ArrayList<int[]>(), new ArrayList<Facultades>()));
+        B1.add(100000);
+        B1.add(100002);
 
-        Registro.agregarEstimulosProfesores(new EstimuloProfesor(
-            "Estimulo 1",
-            "Nivel platino: 2x de salario x/2 de horas",
-            TipoUsuarios.PROFESOR,
-            A,
-            10,
-            B1
-        ));
+        B2.add(3);
 
-        Registro.agregarEstimulosProfesores(new EstimuloProfesor(
-            "Estimulo 2",
-            "Nivel platino: 2x de salario x/2 de horas",
-            TipoUsuarios.PROFESOR,
-            A,
-            10,
-            B2
-        ));
+        B3.add(100005);
+        B3.add(1000011);
+        B3.add(100000);
 
         Registro.agregarEstimulosProfesores(new EstimuloProfesor(
-            "Estimulo 3",
-            "Nivel platino: 2x de salario x/2 de horas",
-            TipoUsuarios.PROFESOR,
-            A,
-            10,
-            B3
-        ));
-    
-        Registro.agregarEstimulosProfesores(new EstimuloProfesor(
-            "Estimulo 4",
-            "Nivel platino: 2x de salario x/2 de horas",
-            TipoUsuarios.PROFESOR,
-            A,
-            10,
-            B3
-        ));
+                "Estimulo 1",
+                "Nivel platino: 2x de salario x/2 de horas",
+                TipoUsuarios.PROFESOR,
+                A,
+                10,
+                B1));
 
         Registro.agregarEstimulosProfesores(new EstimuloProfesor(
-            "Estimulo 5",
-            "Nivel platino: 2x de salario x/2 de horas",
-            TipoUsuarios.PROFESOR,
-            A,
-            10,
-            B2
-        ));
+                "Estimulo 2",
+                "Nivel platino: 2x de salario x/2 de horas",
+                TipoUsuarios.PROFESOR,
+                A,
+                10,
+                B2));
+
+        Registro.agregarEstimulosProfesores(new EstimuloProfesor(
+                "Estimulo 3",
+                "Nivel platino: 2x de salario x/2 de horas",
+                TipoUsuarios.PROFESOR,
+                A,
+                10,
+                B3));
+
+        Registro.agregarEstimulosProfesores(new EstimuloProfesor(
+                "Estimulo 4",
+                "Nivel platino: 2x de salario x/2 de horas",
+                TipoUsuarios.PROFESOR,
+                A,
+                10,
+                B3));
+
+        Registro.agregarEstimulosProfesores(new EstimuloProfesor(
+                "Estimulo 5",
+                "Nivel platino: 2x de salario x/2 de horas",
+                TipoUsuarios.PROFESOR,
+                A,
+                10,
+                B2));
 
         Login.login();
         sc.close();
     }
 
     public static void sistema(Estudiante estudiante) {
-        System.out.println("Bienvenido "+estudiante.getNombre());
+        System.out.println("Bienvenido " + estudiante.getNombre());
         Scanner sc = new Scanner(System.in);
-        while(true){
+        while (true) {
             System.out.println("Indique lo que quiere realizar:\n"
                     + "1. Ver recomendación de asignaturas\n"
                     + "2. Buscar asignatura\n"
@@ -151,22 +141,37 @@ public class Menu {
                 continue;
             }
 
-            switch(opcion) {
-                case "1": UIRecomendarAsignaturas.recomendarAsignaturas(estudiante, sc); continue;
-                case "2": estudiante.buscarCursos(); break;
-                case "3": Horario horario = estudiante.crearHorario(); BusquedaCursos.buscarCursos(estudiante, horario); break;
-                case "4": IncripcionMaterias.inscribirMaterias(estudiante); break;
-                case "5": BusquedaEstimulos.buscarEstimulos(estudiante); break;
-                case "6": CalificacionProfesores.calificarProfesor(sc); continue; // Añadir llamada al método correspondiente
-                case "7": salir(); break;
+            switch (opcion) {
+                case "1":
+                    UIRecomendarAsignaturas.recomendarAsignaturas(estudiante, sc);
+                    continue;
+                case "2":
+                    estudiante.buscarCursos();
+                    break;
+                case "3":
+                    Horario horario = estudiante.crearHorario();
+                    BusquedaCursos.buscarCursos(estudiante, horario);
+                    break;
+                case "4":
+                    IncripcionMaterias.inscribirMaterias(estudiante);
+                    break;
+                case "5":
+                    BusquedaEstimulos.buscarEstimulos(estudiante);
+                    break;
+                case "6":
+                    CalificacionProfesores.calificarProfesor(sc);
+                    continue; // Añadir llamada al método correspondiente
+                case "7":
+                    salir();
+                    break;
             }
         }
     }
 
     public static void sistema(Profesor profesor) {
-        System.out.println("Bienvenido "+profesor.getNombre());
+        System.out.println("Bienvenido " + profesor.getNombre());
         Scanner sc = new Scanner(System.in);
-        while(true){
+        while (true) {
             System.out.println("Indique lo que quiere realizar:\n"
                     + "1. Calificar\n"
                     + "2. Ver aplicabilidad a estimulos\n"
@@ -181,19 +186,26 @@ public class Menu {
                 continue;
             }
 
-            switch(opcion) {
-                case "1": ; break; // Añadir llamada al método correspondiente
-                case "2": BusquedaEstimulos.buscarEstimulos(profesor);
-                case "3": profesor.buscarCursos(); break;
-                case "4": salir(); break;
+            switch (opcion) {
+                case "1":
+                    ;
+                    break; // Añadir llamada al método correspondiente
+                case "2":
+                    BusquedaEstimulos.buscarEstimulos(profesor);
+                case "3":
+                    profesor.buscarCursos();
+                    break;
+                case "4":
+                    salir();
+                    break;
             }
         }
     }
 
-    public static void sistema(Admin admin){
-        System.out.println("Bienvenido "+admin.getNombre());
+    public static void sistema(Admin admin) {
+        System.out.println("Bienvenido " + admin.getNombre());
         Scanner sc = new Scanner(System.in);
-        while(true){
+        while (true) {
             System.out.println("Indique lo que quiere realizar:\n"
                     + "1. Crear curso\n"
                     + "2. Eliminar curso\n"
@@ -205,26 +217,45 @@ public class Menu {
                     + "8. Ver estimulos [todos]\n"
                     + "9. Salir");
             String opcion = sc.nextLine();
-            ArrayList<String> opciones = new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9"));
+            ArrayList<String> opciones = new ArrayList<String>(
+                    Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9"));
             if (!opciones.contains(opcion)) {
                 System.out.println("Debe seleccionar un número entre el 1 y el 9");
                 continue;
             }
-            switch(opcion){
-                case "1": FuncsAdmin.agregarCurso(sc); continue;
-                case "2": FuncsAdmin.eliminarCurso(sc); continue;
-                case "3": admin.buscarCursos(); continue;
-                case "4": AsignarCita.asignarCita(admin, Registro.getEstudiantes()); continue;
-                case "5": FuncsAdmin.verEstudiantes(sc); continue;
-                case "6": FuncsAdmin.verProfesores(); continue;
-                case "7":  BusquedaEstimulos.buscarEstimulosPorId(); continue;
-                case "8":  BusquedaEstimulos.buscarEstimulos(); continue;
-                case "9": salir(); break;
+            switch (opcion) {
+                case "1":
+                    FuncsAdmin.agregarCurso(sc);
+                    break;
+                case "2":
+                    FuncsAdmin.eliminarCurso(sc);
+                    break;
+                case "3":
+                    admin.buscarCursos();
+                    break;
+                case "4":
+                    AsignarCita.asignarCita(admin, Registro.getEstudiantes());
+                    break;
+                case "5":
+                    FuncsAdmin.verEstudiantes(sc);
+                    break;
+                case "6":
+                    FuncsAdmin.verProfesores();
+                    break;
+                case "7":
+                    BusquedaEstimulos.buscarEstimulosPorId();
+                    break;
+                case "8":
+                    BusquedaEstimulos.buscarEstimulos();
+                    break;
+                case "9":
+                    salir();
+                    break;
             }
         }
     }
 
-    public static void salir(){
+    public static void salir() {
         System.out.println("Hasta pronto");
         Serializador.serializador();
         System.exit(0);

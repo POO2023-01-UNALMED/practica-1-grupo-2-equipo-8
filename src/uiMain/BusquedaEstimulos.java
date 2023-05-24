@@ -20,12 +20,16 @@ public class BusquedaEstimulos {
     ArrayList<ArrayList<Estudiante>> estudiantesQueAplican = new ArrayList<ArrayList<Estudiante>>(estimulosEstudiante.size());
     ArrayList<ArrayList<Profesor>> profesoresQueAplican = new ArrayList<ArrayList<Profesor>>(estimulosProfesor.size());
 
+    System.out.println("Size de arreglo > 0 ?" + estimulosEstudiante.size() + " === "  + estudiantesQueAplican.size());
+    System.out.println("Size de arreglo > 0 ?" + estimulosProfesor.size() + " === "  + profesoresQueAplican.size());
+
+
     for(int i=0; i<estimulosEstudiante.size(); ++i) {
-      estudiantesQueAplican.set(i, estimulosEstudiante.get(i).obtenerAplicantes());
+      estudiantesQueAplican.add(estimulosEstudiante.get(i).obtenerAplicantes());
     }
 
     for(int i=0; i<estimulosProfesor.size(); ++i) {
-      profesoresQueAplican.set(i, estimulosProfesor.get(i).obtenerAplicantes());
+      profesoresQueAplican.add(estimulosProfesor.get(i).obtenerAplicantes());
     }
 
     System.out.println("Hay " + Integer.toString(estimulosEstudiante.size() + estimulosProfesor.size()) + "estimulos");

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class EstimuloProfesor extends Estimulo implements Serializable {
   private static final long serialVersionUID = 11L;
-  private ArrayList<Curso> materiasImpartidas;
+  private ArrayList<Integer> materiasImpartidas;
 
   public EstimuloProfesor(
     String nombre,
@@ -13,7 +13,7 @@ public class EstimuloProfesor extends Estimulo implements Serializable {
     TipoUsuarios aQuienAplica, 
     ArrayList<Facultades> facultadesAplica,
     int cupos,
-    ArrayList<Curso> materiasImpartidas
+    ArrayList<Integer> materiasImpartidas
   ) {
     super(nombre, descripcion, aQuienAplica, facultadesAplica, cupos);
     this.materiasImpartidas = materiasImpartidas;
@@ -24,8 +24,12 @@ public class EstimuloProfesor extends Estimulo implements Serializable {
     ArrayList<String> criterios = new ArrayList<>();
 
     String materias = "Materias: [";    
-    for(Curso curso: materiasImpartidas) {
-    	materias += curso.getNombre() + ", ";
+    for(Integer cursoId: materiasImpartidas) {
+      for(Curso curso: Registro.getCursos()) {
+        if(curso.getId() == cursoId) {
+          materias += curso.getNombre() + ", ";
+        }
+      }
     }
     materias += "]";
     
@@ -69,12 +73,14 @@ public class EstimuloProfesor extends Estimulo implements Serializable {
       cumpleRequisitos = false;
     }
     
-    
-    for(Curso curso: materiasImpartidas) {
-    	if(!profesor.validarExistenciaCurso(curso)) {
-    		razones.add("No ha impartido el curso: " + curso.getNombre());
-	      cumpleRequisitos = false;
-    	}
+    for(Integer cursoId: materiasImpartidas) {
+      for(Curso curso: Registro.getCursos()) {
+        if(curso.getId() != cursoId) continue;
+        if(!profesor.validarExistenciaCurso(curso)) {
+          razones.add("No ha impartido el curso: " + curso.getNombre());
+          cumpleRequisitos = false;
+        }
+      }
     }
 
     if (cumpleRequisitos) {
@@ -90,12 +96,12 @@ public class EstimuloProfesor extends Estimulo implements Serializable {
   }
 
   // getters
-  public ArrayList<Curso> getMateriasImpartidas() {
+  public ArrayList<Integer> getMateriasImpartidas() {
     return materiasImpartidas;
   }
   
   // setters
-  public void setMateriasImpartidas(ArrayList<Curso> materiasImpartidas) {
+  public void setMateriasImpartidas(ArrayList<Integer> materiasImpartidas) {
     this.materiasImpartidas = materiasImpartidas;
   }
 }
