@@ -174,22 +174,21 @@ public class Menu {
         while (true) {
             System.out.println("Indique lo que quiere realizar:\n"
                     + "1. Calificar\n"
-                    + "2. Ver aplicabilidad a estimulos\n"
+                    + "2. Ver estimulos a los que aplica\n"
                     + "3. Buscar asignatura\n"
-                    + "4. Ver estimulos a los que aplica\n"
-                    + "5. Salir");
+                    + "4. Salir");
             String opcion = sc.nextLine();
-            ArrayList<String> opciones = new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5"));
+            ArrayList<String> opciones = new ArrayList<String>(Arrays.asList("1", "2", "3", "4"));
 
             if (!opciones.contains(opcion)) {
-                System.out.println("Debe seleccionar un número entre el 1 y el 5");
+                System.out.println("Debe seleccionar un número entre el 1 y el 4");
                 continue;
             }
 
             switch (opcion) {
                 case "1":
-                    ;
-                    break; // Añadir llamada al método correspondiente
+                    FuncsProfesor.calificar(profesor, sc);
+                    continue; // Añadir llamada al método correspondiente
                 case "2":
                     BusquedaEstimulos.buscarEstimulos(profesor);
                 case "3":
@@ -255,9 +254,27 @@ public class Menu {
         }
     }
 
-    public static void salir() {
-        System.out.println("Hasta pronto");
-        Serializador.serializador();
-        System.exit(0);
-    }
+    public static void salir(){
+        Scanner sc = new Scanner(System.in);
+        while(true){
+            System.out.println("¿Desea cerrar salir del programa o solo cerrar sesión?\n"
+                    + "1. Cerrar sesión\n"
+                    + "2. Salir completamente del programa\n");
+            String opcion = sc.nextLine();
+            ArrayList<String> opciones = new ArrayList<String>(Arrays.asList("1", "2"));
+            if (!opciones.contains(opcion)) {
+                System.out.println("Debe seleccionar un número entre el 1 y el 2");
+                continue;
+            }
+            switch(opcion){
+                case "1":
+                    Serializador.serializador();
+                    Login.login();
+                case "2":
+                    System.out.println("Hasta pronto");
+                    Serializador.serializador();
+                    System.exit(0);
+            }
+        }
+    }      
 }
