@@ -115,8 +115,8 @@ public class Menu {
                 case "4": AsignarCita.asignarCita(admin, Registro.getEstudiantes()); continue;
                 case "5": FuncsAdmin.verEstudiantes(sc); continue;
                 case "6": FuncsAdmin.verProfesores(); continue;
-                case "7":  BusquedaEstimulos.buscarEstimulosPorId();
-                case "8":  BusquedaEstimulos.buscarEstimulos();
+                case "7":  BusquedaEstimulos.buscarEstimulosPorId(); continue;
+                case "8":  BusquedaEstimulos.buscarEstimulos(); continue;
                 case "9": salir(); break;
             }
         }
