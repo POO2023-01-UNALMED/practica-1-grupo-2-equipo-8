@@ -55,7 +55,7 @@ public class Menu {
             "Estimulo para irse de vacaciones y sacar 5 en todos los parciales de Algoritmos",
             TipoUsuarios.ESTUDIANTE,
             A,
-            10,
+            0,
             21,
             4
         ));
@@ -70,7 +70,18 @@ public class Menu {
         ));
 
         ArrayList<Curso> B1 = new ArrayList<Curso>();
+        ArrayList<Curso> B2 = new ArrayList<Curso>();
+        ArrayList<Curso> B3 = new ArrayList<Curso>();
+
+        short r = 2;
+        B1.add(new Curso("1", 100000, r,3, new ArrayList<int[]>(), new ArrayList<Facultades>()));
+        B1.add(new Curso("1", 100002, r,3, new ArrayList<int[]>(), new ArrayList<Facultades>()));
         
+        B2.add(new Curso("1", 3, r,3, new ArrayList<int[]>(), new ArrayList<Facultades>()));
+        
+        B3.add(new Curso("1", 100005, r,3, new ArrayList<int[]>(), new ArrayList<Facultades>()));
+        B3.add(new Curso("1", 1000011, r,3, new ArrayList<int[]>(), new ArrayList<Facultades>()));
+        B3.add(new Curso("1", 100000, r,3, new ArrayList<int[]>(), new ArrayList<Facultades>()));
 
         Registro.agregarEstimulosProfesores(new EstimuloProfesor(
             "Estimulo 1",
@@ -79,6 +90,42 @@ public class Menu {
             A,
             10,
             B1
+        ));
+
+        Registro.agregarEstimulosProfesores(new EstimuloProfesor(
+            "Estimulo 2",
+            "Nivel platino: 2x de salario x/2 de horas",
+            TipoUsuarios.PROFESOR,
+            A,
+            10,
+            B2
+        ));
+
+        Registro.agregarEstimulosProfesores(new EstimuloProfesor(
+            "Estimulo 3",
+            "Nivel platino: 2x de salario x/2 de horas",
+            TipoUsuarios.PROFESOR,
+            A,
+            10,
+            B3
+        ));
+    
+        Registro.agregarEstimulosProfesores(new EstimuloProfesor(
+            "Estimulo 4",
+            "Nivel platino: 2x de salario x/2 de horas",
+            TipoUsuarios.PROFESOR,
+            A,
+            10,
+            B3
+        ));
+
+        Registro.agregarEstimulosProfesores(new EstimuloProfesor(
+            "Estimulo 5",
+            "Nivel platino: 2x de salario x/2 de horas",
+            TipoUsuarios.PROFESOR,
+            A,
+            10,
+            B2
         ));
 
         Login.login();
