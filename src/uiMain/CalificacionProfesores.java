@@ -24,8 +24,11 @@ public class CalificacionProfesores {
 
             Profesor profesorACalificar = Registro.getProfesores().get(opcion - 1);
 
-            System.out.print("\t¿Que calificación le da al docente?: ");
-            double valoracion = sc.nextDouble();
+            double valoracion = 0;
+            do {
+                System.out.print("\t¿Que calificación le da al docente? (Número entre 0 y 5): ");
+                valoracion = sc.nextDouble();
+            } while (valoracion < 0 || valoracion > 5);
             profesorACalificar.calificar(valoracion);
         }
     }
