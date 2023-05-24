@@ -3,7 +3,8 @@ package gestorAplicacion;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EstimuloProfesor extends Estimulo {
+public class EstimuloProfesor extends Estimulo implements Serializable {
+  private static final long serialVersionUID = 11L;
   private ArrayList<Curso> materiasImpartidas;
 
   public EstimuloProfesor(
