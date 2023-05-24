@@ -162,12 +162,12 @@ public class BusquedaEstimulos {
 				  estimulos.get(i).obtenerCriterios()
 				  );
 	        j++;
-          }
+        }
       }
     } else if(profesorPorId != null) {
-    	 ArrayList<EstimuloProfesor> estimulos = obtenerEstimulosProfesor();
+    	ArrayList<EstimuloProfesor> estimulos = obtenerEstimulosProfesor();
          
-         for(int i=0, j=1; i<estimulos.size(); ++i) {
+        for(int i=0, j=1; i<estimulos.size(); ++i) {
        	  if(estimulos.get(i).verificarRequisitos(profesorPorId)) {
        		  imprimirEstimulo(
        			  Integer.toString(j) + ".",
@@ -175,8 +175,8 @@ public class BusquedaEstimulos {
    				  estimulos.get(i).obtenerCriterios()
    				  );
    	        j++;
-             }
-         }
+          }
+        }
     }
 
     return false;
