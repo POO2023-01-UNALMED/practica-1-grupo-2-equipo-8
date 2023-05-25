@@ -19,6 +19,7 @@ public abstract class Registro implements Serializable{
     private static ArrayList<Profesor> profesores = new ArrayList<Profesor>();
     private static ArrayList<EstimuloEstudiante> estimulosEstudiantes = new ArrayList<EstimuloEstudiante>();
     private static ArrayList<EstimuloProfesor> estimulosProfesores = new ArrayList<EstimuloProfesor>();
+    private static ArrayList<Estudiante> estudiantesConCita = new ArrayList<Estudiante>();
 
     public Registro(String nombre, String correo, String nombreUsuario, String clave, String documentoIdentificacion) {
         this.nombre = nombre;
@@ -26,6 +27,14 @@ public abstract class Registro implements Serializable{
         this.nombreUsuario = nombreUsuario;
         this.clave = clave;
         this.documentoIdentificacion = documentoIdentificacion;
+    }
+
+    public static ArrayList<Estudiante> getEstudiantesConCita() {
+        return estudiantesConCita;
+    }
+
+    public static void setEstudiantesConCita(ArrayList<Estudiante> estudiantesConCita) {
+        Registro.estudiantesConCita = estudiantesConCita;
     }
 
     public static short getCantidadUsuariosExistentes() {

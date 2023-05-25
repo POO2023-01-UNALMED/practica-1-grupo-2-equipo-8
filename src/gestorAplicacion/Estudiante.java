@@ -188,6 +188,7 @@ public class Estudiante extends Registro{
                 if(ce.getNombre().equals(cp.getNombre())){
                     cp.agregarEstudiante(this);
                     cp.setCupos((short)(cp.getCupos()-1));
+                    ArrayList<Estudiante> A = AsignarCita.getEstudiantesConCita();
                     AsignarCita.getEstudiantesConCita().get(0).setInscribir(false);
                     AsignarCita.getEstudiantesConCita().remove(0);
                     AsignarCita.getEstudiantesConCita().get(0).setInscribir(true);

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class CursoProfesor extends Curso {
     private static final long serialVersionUID = 7L;
-    private ArrayList<Estudiante> listaEstudiantes;
+    private ArrayList<Estudiante> listaEstudiantes = new ArrayList<Estudiante>();
     private String horario;
     private short cupos = 10;
     private static ArrayList<CursoProfesor> cursosCreados = new ArrayList<CursoProfesor>();

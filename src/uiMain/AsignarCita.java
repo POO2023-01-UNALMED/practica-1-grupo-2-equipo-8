@@ -105,15 +105,19 @@ public class AsignarCita {
                         switch(opcion){
                             case "1":
                                 continuar = false;
+                                Registro.setEstudiantesConCita(AsignarCita.estudiantesConCita);
                                 break;
                             
                             case "2":
                                 System.out.println("Cita de cada estudiante en formato militar:");
+                                int cont = 1;
                                 for (Estudiante estudiante : AsignarCita.estudiantesConCita){
-                                    System.out.println(estudiante + ": " + estudiante.getCita());
+                                    System.out.println(cont + ". " + estudiante);
+                                    cont++;
                                 }
                                 AsignarCita.estudiantesConCita.get(0).setInscribir(true);
                                 continuar = false;
+                                Registro.setEstudiantesConCita(AsignarCita.estudiantesConCita);
                                 break;
                             
                             case "3":

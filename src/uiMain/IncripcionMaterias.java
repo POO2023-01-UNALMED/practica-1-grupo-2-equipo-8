@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class IncripcionMaterias {
     public static void inscribirMaterias(Estudiante estudiante){
         Scanner sc = new Scanner(System.in);
+        boolean comp = false;
         if(estudiante.getInscribir()){
             while(true){
                 System.out.println("Indique lo que desea hacer:\n"
@@ -20,14 +21,14 @@ public class IncripcionMaterias {
                     + "2. Incribir materias a partir de un horario creado\n"
                     + "3. Volver");
                 String opcion = sc.next();
-                if(!(opcion.equals("1")) && !(opcion.equals("2"))){
+                if(!(opcion.equals("1")) && !(opcion.equals("2")) && !(opcion.equals("3"))){
                     System.out.println("Debe seleccionar una opción entre el 1 y el 3");
                     continue;
                 }
                 switch(opcion){
                     case "1": inscribirManualmente(estudiante); break;
                     case "2": inscribirConHorario(estudiante);break;
-                    case "3": break;
+                    case "3": return;
                 }
                 break;
             }
@@ -51,21 +52,28 @@ public class IncripcionMaterias {
                 cursosAprobados.remove(ce);
             }
         }
+
+        ArrayList<Curso> cursosABorrar = new ArrayList<Curso>();
         for(Curso c1 : cursosPosibles){
             for(Curso c2 : cursosAprobados){
                 if(c1.getNombre().equals(c2.getNombre())){
-                    cursosPosibles.remove(c1);
+                    cursosABorrar.add(c1);
+                    //cursosPosibles.remove(c1);
                 }
             }
         }
+        cursosPosibles.removeAll(cursosABorrar);
+
+        cursosABorrar = new ArrayList<Curso>();
         for(Curso c1 : cursosPosibles){
             for(Curso c2 : estudiante.getCursosVistos()){
                 if(c1.getNombre().equals(c2.getNombre())){
-                    cursosPosibles.remove(c1);
+                    cursosABorrar.add(c1);
+                    //cursosPosibles.remove(c1);
                 }
             }
         }
-        
+        cursosPosibles.removeAll(cursosABorrar);
         
         while(true){
             boolean comp = false;
@@ -89,6 +97,7 @@ public class IncripcionMaterias {
             System.out.println("----------------------------------------------------------------------------------------------------------------------");
             for(Curso curso : cursosres){
                 System.out.println("\t"+curso.getId()+"\t"+String.format("%-32s",curso.getNombre())+"\t"+String.format("%-8s",curso.getCreditos())+"\t"+curso.getFacultad()+"\t"+curso.getCarrerasRelacionadas());
+                System.out.println(cont + ". Inscribir");
                 cont++;
             }
             System.out.println(cont+". No agregar más cursos");
@@ -191,19 +200,22 @@ public class IncripcionMaterias {
             System.out.println(curso.getNombre()+"("+curso.getId()+")\n"+curso.getCreditos()+"\n"+curso.getFacultad()+"\n"+curso.getCarrerasRelacionadas());
             int cont = 1;
             for(CursoEstudiante ce : listaCursos){
-                System.out.println("Profesor: "+ce.getProfesor().getNombre()+"\nHorario: "+ce.getHorario()+"\nCupos: "+ce.getCupos());
+                System.out.println("Profesor: "+ce.getProfesor()+"\nHorario: "+ce.getHorario()+"\nCupos: "+ce.getCupos());
                 System.out.println(cont+". Inscribir");
                 cont++;
             }
             System.out.println(cont+". volver");
             String opcion = sc.next();
             if(opcion.equals(String.valueOf(cont))){
-                break;
+                inscribirManualmente(estudiante);
             }
             boolean comp = true;
             for(int x = 1; x<=cont; x++){
                 if(opcion.equals(String.valueOf(x))){
-                    if(!curso.obtenerGrupos().isEmpty() && curso.getCupos()>0){
+                    if(!(curso.obtenerGrupos().isEmpty()) && listaCursos.get(x-1).getCupos()>0){
+                        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------");
+                        System.out.println("El curso se agregó correctamente");
+                        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------");
                         return listaCursos.get(x-1);
                     }
                     else{
@@ -217,6 +229,5 @@ public class IncripcionMaterias {
                 System.out.println("Debe seleccionar una opción entre el 1 y el "+cont);
             }
         }
-        return null;
     }
 }
