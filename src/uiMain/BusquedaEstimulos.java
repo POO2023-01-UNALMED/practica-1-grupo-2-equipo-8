@@ -10,6 +10,7 @@ import uiMain.Helpers;
 import gestorAplicacion.TipoUsuarios;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class BusquedaEstimulos {
@@ -99,7 +100,7 @@ public class BusquedaEstimulos {
 
     for(int i=0; i<estimulosProfesor.size(); ++i) {
       if(estimulosProfesor.get(i).verificarRequisitos(profesor)) {
-        estimulosALosQueAplica.set(i,  false);
+        estimulosALosQueAplica.set(i,  true);
         totalAplicables += 1;
       }
     }
@@ -129,61 +130,93 @@ public class BusquedaEstimulos {
     }    
   }
 
-  public static boolean buscarEstimulosPorId() {
+  public static void buscarEstimulosPorId() {
     Scanner sc = new Scanner(System.in);
     
-    System.out.println("Digite el id del usuario a consultar");
-    String id = sc.nextLine();
-    
-    if(id.length() == 0 || !Helpers.esNumerico(id)) {
-      System.out.println("Digite un id válido (solo números)");
-      return false;
-    }
-
-    Estudiante estudiantePorId = null;
-    Profesor profesorPorId = null;
-
-    for(Estudiante estudiante: Registro.getEstudiantes()) {
-      if(estudiante.getDocumentoIdentificacion() == id) {
-        estudiantePorId = estudiante;
-      }
-    }
-    
-    for(Profesor profesor: Registro.getProfesores()) {
-      if(profesor.getDocumentoIdentificacion() == id) {
-        profesorPorId = profesor;
-      }
-    }
-    
-    if(estudiantePorId != null) {
-      ArrayList<EstimuloEstudiante> estimulos = obtenerEstimulosEstudiante();
+    while (true) {
+      System.out.println("Digite el id del usuario a consultar: ");
+      String id = sc.nextLine();
       
-      for(int i=0, j=1; i<estimulos.size(); ++i){
-    	  if(estimulos.get(i).verificarRequisitos(estudiantePorId)) {
-    		  imprimirEstimulo(
-    			  Integer.toString(j) + ".",
-				  estimulos.get(i),
-				  estimulos.get(i).obtenerCriterios()
-				  );
-	        j++;
+      if(id.length() == 0 || !Helpers.esNumerico(id)) {
+        System.out.println("Digite un id válido (solo números)");
+        continue;
+      }
+
+      Estudiante estudiantePorId = null;
+      Profesor profesorPorId = null;
+
+      for(Estudiante estudiante: Registro.getEstudiantes()) {
+        if(estudiante.getDocumentoIdentificacion() == id) {
+          estudiantePorId = estudiante;
         }
       }
-    } else if(profesorPorId != null) {
-    	ArrayList<EstimuloProfesor> estimulos = obtenerEstimulosProfesor();
-         
-        for(int i=0, j=1; i<estimulos.size(); ++i) {
-       	  if(estimulos.get(i).verificarRequisitos(profesorPorId)) {
-       		  imprimirEstimulo(
-       			  Integer.toString(j) + ".",
-   				  estimulos.get(i),
-   				  estimulos.get(i).obtenerCriterios()
-   				  );
-   	        j++;
+      
+      for(Profesor profesor: Registro.getProfesores()) {
+        if(profesor.getDocumentoIdentificacion() == id) {
+          profesorPorId = profesor;
+        }
+      }
+      
+      if(estudiantePorId != null) {
+        ArrayList<EstimuloEstudiante> estimulos = obtenerEstimulosEstudiante();
+        
+        for(int i=0, j=1; i<estimulos.size(); ++i){
+          if(estimulos.get(i).verificarRequisitos(estudiantePorId)) {
+            imprimirEstimulo(
+              Integer.toString(j) + ".",
+            estimulos.get(i),
+            estimulos.get(i).obtenerCriterios()
+            );
+            j++;
           }
         }
-    }
+      } else if(profesorPorId != null) {
+        ArrayList<EstimuloProfesor> estimulos = obtenerEstimulosProfesor();
+          
+          for(int i=0, j=1; i<estimulos.size(); ++i) {
+            if(estimulos.get(i).verificarRequisitos(profesorPorId)) {
+              imprimirEstimulo(
+                Integer.toString(j) + ".",
+              estimulos.get(i),
+              estimulos.get(i).obtenerCriterios()
+              );
+              j++;
+            }
+          }
+      } else {
+        System.out.println("No hay un Estudiante o Profesor con id: " + id);
+      }
 
-    return false;
+      Boolean continuarPrograma = false;
+
+      while (true) { 
+        System.out.println("1. Consultar otro usuario por id\n" + "2. Salir\n");
+        String opcion = sc.nextLine();
+        ArrayList<String> opciones = new ArrayList<String>(Arrays.asList("1", "2"));
+
+        if (!opciones.contains(opcion)) {
+          System.out.println("Debe seleccionar un número entre el 1 y el 2");
+          continue;
+        }
+        
+        switch (opcion) {
+          case "1":
+            continuarPrograma = true;          
+            break;
+          case "2":
+            continuarPrograma = false;
+            break;
+          default:
+            break;
+        }
+
+        break;
+      }
+
+      if(!continuarPrograma) {
+        break;
+      }
+    }
   }
 
   public static ArrayList<EstimuloEstudiante> obtenerEstimulosEstudiante() {
@@ -241,10 +274,12 @@ public class BusquedaEstimulos {
     System.out.println("\tCupos: " + estimulo.getCupos());
     
     if(aplicantes.size() > 0) {
-      System.out.println("\tAplican:");
+      System.out.println("\tAplican [" + aplicantes.size() + "]:");
       for(Registro aplicante: aplicantes) {
         System.out.println("\t\t-" + aplicante.getNombre());
       }
+    } else {
+      System.out.println("\tAplican [0]: No aplica ningun usuario");
     }
 
     System.out.println("\tCriterios:");

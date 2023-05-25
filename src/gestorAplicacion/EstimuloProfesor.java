@@ -84,14 +84,14 @@ public class EstimuloProfesor extends Estimulo implements Serializable {
     }
 
     if (cumpleRequisitos) {
-      System.out.println("Cumples con todos los requisitos para inscribirte");
+      // System.out.println("Cumples con todos los requisitos para inscribirte");
       return true;
     }
 
-    System.out.println("No puedes aplicar a este estímulo por las siguientes razones:");
-    for (String razon : razones) {
-      System.out.println(razon);
-    }
+    // System.out.println("No puedes aplicar a este estímulo por las siguientes razones:");
+    // for (String razon : razones) {
+    //   System.out.println(razon);
+    // }
     return false;
   }
 

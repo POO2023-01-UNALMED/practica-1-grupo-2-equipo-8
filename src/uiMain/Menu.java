@@ -30,9 +30,10 @@ public class Menu {
         Deserializador.deserializador();
 
         ArrayList<Facultades> A = new ArrayList<Facultades>();
+        ArrayList<EstimuloEstudiante> kx = new ArrayList<>();
         A.add(Facultades.MINAS);
 
-        Registro.agregarEstimulosEstudiantes(new EstimuloEstudiante(
+        kx.add(new EstimuloEstudiante(
                 "Estimulo 1",
                 "Estimulo para irse de vacaciones y sacar 5 en todos los parciales de POO",
                 TipoUsuarios.ESTUDIANTE,
@@ -40,7 +41,7 @@ public class Menu {
                 10,
                 21,
                 3));
-        Registro.agregarEstimulosEstudiantes(new EstimuloEstudiante(
+        kx.add(new EstimuloEstudiante(
                 "Estimulo 2",
                 "Estimulo para irse de vacaciones y sacar 5 en todos los parciales de Integrales",
                 TipoUsuarios.ESTUDIANTE,
@@ -48,7 +49,7 @@ public class Menu {
                 10,
                 21,
                 3.5));
-        Registro.agregarEstimulosEstudiantes(new EstimuloEstudiante(
+        kx.add(new EstimuloEstudiante(
                 "Estimulo 3",
                 "Estimulo para irse de vacaciones y sacar 5 en todos los parciales de Algoritmos",
                 TipoUsuarios.ESTUDIANTE,
@@ -56,7 +57,7 @@ public class Menu {
                 0,
                 21,
                 4));
-        Registro.agregarEstimulosEstudiantes(new EstimuloEstudiante(
+        kx.add(new EstimuloEstudiante(
                 "Estimulo 4",
                 "Estimulo ultra poderoso, ganas todas las materias con 5 durante 2 semestres",
                 TipoUsuarios.ESTUDIANTE,
@@ -65,6 +66,8 @@ public class Menu {
                 10,
                 4.6));
 
+        Registro.setEstimulosEstudiantes(kx);
+
         ArrayList<Integer> B1 = new ArrayList<Integer>();
         ArrayList<Integer> B2 = new ArrayList<Integer>();
         ArrayList<Integer> B3 = new ArrayList<Integer>();
@@ -72,13 +75,15 @@ public class Menu {
         B1.add(100000);
         B1.add(100002);
 
-        B2.add(3);
+        B2.add(100003);
 
         B3.add(100005);
         B3.add(1000011);
         B3.add(100000);
 
-        Registro.agregarEstimulosProfesores(new EstimuloProfesor(
+        ArrayList<EstimuloProfesor> KR = new ArrayList<>();
+
+        KR.add(new EstimuloProfesor(
                 "Estimulo 1",
                 "Nivel platino: 2x de salario x/2 de horas",
                 TipoUsuarios.PROFESOR,
@@ -86,7 +91,7 @@ public class Menu {
                 10,
                 B1));
 
-        Registro.agregarEstimulosProfesores(new EstimuloProfesor(
+        KR.add(new EstimuloProfesor(
                 "Estimulo 2",
                 "Nivel platino: 2x de salario x/2 de horas",
                 TipoUsuarios.PROFESOR,
@@ -94,7 +99,7 @@ public class Menu {
                 10,
                 B2));
 
-        Registro.agregarEstimulosProfesores(new EstimuloProfesor(
+        KR.add(new EstimuloProfesor(
                 "Estimulo 3",
                 "Nivel platino: 2x de salario x/2 de horas",
                 TipoUsuarios.PROFESOR,
@@ -102,7 +107,7 @@ public class Menu {
                 10,
                 B3));
 
-        Registro.agregarEstimulosProfesores(new EstimuloProfesor(
+        KR.add(new EstimuloProfesor(
                 "Estimulo 4",
                 "Nivel platino: 2x de salario x/2 de horas",
                 TipoUsuarios.PROFESOR,
@@ -110,13 +115,15 @@ public class Menu {
                 10,
                 B3));
 
-        Registro.agregarEstimulosProfesores(new EstimuloProfesor(
+        KR.add(new EstimuloProfesor(
                 "Estimulo 5",
                 "Nivel platino: 2x de salario x/2 de horas",
                 TipoUsuarios.PROFESOR,
                 A,
                 10,
                 B2));
+
+        Registro.setEstimulosProfesores(KR);
 
         Login.login();
         sc.close();
