@@ -54,6 +54,10 @@ public class Estudiante extends Registro{
         return cursosVistos;
     }
 
+    public void agregarCursoVisto(CursoEstudiante cursoVisto) {
+        cursosVistos.add(cursoVisto);
+    }
+
     public void setCursosVistos(CursoEstudiante curso) {
         cursosVistos.add(curso);
     }

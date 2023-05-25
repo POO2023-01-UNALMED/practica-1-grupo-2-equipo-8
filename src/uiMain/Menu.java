@@ -221,7 +221,8 @@ public class Menu {
                     + "6. Ver profesores\n"
                     + "7. Ver estimulos [por id]\n"
                     + "8. Ver estimulos [todos]\n"
-                    + "9. Salir");
+                    + "9. Modificar estudiante con cursos\n"
+                    + "10. Salir");
             String opcion = sc.nextLine();
             ArrayList<String> opciones = new ArrayList<String>(
                     Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9"));
@@ -255,6 +256,9 @@ public class Menu {
                     BusquedaEstimulos.buscarEstimulos();
                     break;
                 case "9":
+                    CrearEstudianteConCursos.ModificarEstudiante(sc);
+                    break;
+                case "10":
                     salir();
                     break;
             }

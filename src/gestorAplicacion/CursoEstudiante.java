@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class CursoEstudiante extends Curso {
     private static final long serialVersionUID = 6L;
-    private ArrayList<int[]> listaNotas;
+    private ArrayList<double[]> listaNotas;
     private int semestre;
     private Estudiante estudiante;
     private String horario;
@@ -13,7 +13,7 @@ public class CursoEstudiante extends Curso {
 
     public CursoEstudiante(String nombre, int id, short cupos, short creditos,
             int numeroParciales, ArrayList<int[]> listaPorcentajes,
-            ArrayList<Facultades> facultad, ArrayList<int[]> listaNotas, int semestre, Estudiante estudiante, String horario, Profesor profesor) {
+            ArrayList<Facultades> facultad, ArrayList<double[]> listaNotas, int semestre, Estudiante estudiante, String horario, Profesor profesor) {
         super(nombre, id, creditos, numeroParciales, listaPorcentajes, facultad);
         this.listaNotas = listaNotas;
         this.semestre = semestre;
@@ -23,15 +23,15 @@ public class CursoEstudiante extends Curso {
         this.cupos = cupos;
     }
 
-    public ArrayList<int[]> getListaNotas() {
+    public ArrayList<double[]> getListaNotas() {
         return listaNotas;
     }
 
-    public void setListaNotas(ArrayList<int[]> listaNotas) {
+    public void setListaNotas(ArrayList<double[]> listaNotas) {
         this.listaNotas = listaNotas;
     }
 
-    public void añadirNota(int[] nota) {
+    public void añadirNota(double[] nota) {
         listaNotas.add(nota);
     }
 
@@ -75,10 +75,10 @@ public class CursoEstudiante extends Curso {
     
     
     public int calcularPromedio(){
-        ArrayList<Integer> quiz = new ArrayList();
-        ArrayList<Integer> parcial = new ArrayList();
-        ArrayList<Integer> seguimiento = new ArrayList();
-        for(int[] nota : listaNotas){
+        ArrayList<Double> quiz = new ArrayList();
+        ArrayList<Double> parcial = new ArrayList();
+        ArrayList<Double> seguimiento = new ArrayList();
+        for(double[] nota : listaNotas){
             if(nota[0]==1){
                 parcial.add(nota[1]);
             }
@@ -108,14 +108,14 @@ public class CursoEstudiante extends Curso {
         int qui = 0;
         int par = 0;
         if(!seguimiento.isEmpty()){
-            for(int x : seguimiento){
+            for(double x : seguimiento){
                 sum+=x;
             }
             seg = sum*pseguimiento/(seguimiento.size());
         }
         sum = 0;
         if(!quiz.isEmpty()){
-            for(int x : quiz){
+            for(double x : quiz){
                 sum+=x;
             }
             qui = sum*pquiz/(quiz.size());
@@ -123,7 +123,7 @@ public class CursoEstudiante extends Curso {
         sum = 0;
         int cont = 0;
         if(!parcial.isEmpty()){
-            for(int x : parcial){
+            for(double x : parcial){
                 sum+=x*pparcial.get(cont);
                 cont++;
             }
