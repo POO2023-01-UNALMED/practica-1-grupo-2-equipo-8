@@ -109,10 +109,10 @@ public class AsignarCita {
                                 break;
                             
                             case "2":
-                                System.out.println("Cita de cada estudiante en formato militar:");
+                                System.out.println("Orden de inscripción:");
                                 int cont = 1;
                                 for (Estudiante estudiante : AsignarCita.estudiantesConCita){
-                                    System.out.println(cont + ". " + estudiante);
+                                    System.out.println(cont + ": " + estudiante);
                                     cont++;
                                 }
                                 for (Estudiante estudiante : Registro.getEstudiantes()) {
@@ -233,7 +233,6 @@ public class AsignarCita {
             if (indice == -1) {
                 // Se ha seleccionado la opción de seleccionar todos los estudiantes
                 estudiantesSeleccionados.addAll(estudiantes);
-                return estudiantesSeleccionados;
             }
 
             if (indice >= 0 && indice < estudiantes.size()) {
@@ -244,7 +243,7 @@ public class AsignarCita {
         // Mostrar Estudiantes Seleccionados
         System.out.println("Haz elegido a los siguientes estudiantes: ");
         for (Estudiante estudiante : estudiantesSeleccionados){
-            System.out.println(estudiante.getNombre());
+            System.out.println("-" + estudiante.getNombre());
         }
 
         while (true){
