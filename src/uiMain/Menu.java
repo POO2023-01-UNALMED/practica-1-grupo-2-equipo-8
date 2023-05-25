@@ -139,6 +139,9 @@ public class Menu {
 
         Registro.setEstimulosProfesores(KR);
 
+        // System.out.println(Registro.getCursos().get(0).getProfesoresQueDictanElCurso());
+        // System.out.println(Registro.getCursos().get(2).getProfesoresQueDictanElCurso());
+        // System.out.println(Registro.getCursos().get(10).getProfesoresQueDictanElCurso());
 
         Login.login();
         sc.close();

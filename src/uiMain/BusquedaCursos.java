@@ -296,7 +296,7 @@ public class BusquedaCursos {
             boolean comp = true;
             for(int x = 1; x<=cont; x++){
                 if(opcion.equals(String.valueOf(x))){
-                    if(!curso.getProfesoresQueDictanElCurso().isEmpty()){
+                    if(!curso.obtenerGrupos().isEmpty()){
                         agregarCurso(estudiante, listaCursos.get(x-1));
                     }
                     else{
@@ -449,7 +449,7 @@ public class BusquedaCursos {
             boolean comp = true;
             for(int x = 1; x<cont; x++){
                 if(opcion.equals(String.valueOf(x))){
-                    if(!curso.getProfesoresQueDictanElCurso().isEmpty()){
+                    if(!curso.obtenerGrupos().isEmpty()){
                         horario.agregarCurso(listaCursos.get(x-1));
                     }
                     else{
