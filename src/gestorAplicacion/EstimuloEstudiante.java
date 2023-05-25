@@ -3,20 +3,19 @@ package gestorAplicacion;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EstimuloEstudiante extends Estimulo implements Serializable {
+public class EstimuloEstudiante extends Estimulo implements Serializable, EstimuloEstudianteInterfaz {
   private static final long serialVersionUID = 10L;
   private int pbm;
   private double papa;
 
   public EstimuloEstudiante(
-    String nombre,
-    String descripcion,
-    TipoUsuarios aQuienAplica, 
-    ArrayList<Facultades> facultadesAplica,
-    int cupos,
-    int pbm,
-    double papa
-  ) {
+      String nombre,
+      String descripcion,
+      TipoUsuarios aQuienAplica,
+      ArrayList<Facultades> facultadesAplica,
+      int cupos,
+      int pbm,
+      double papa) {
     super(nombre, descripcion, aQuienAplica, facultadesAplica, cupos);
     this.pbm = pbm;
     this.papa = papa;
@@ -27,8 +26,8 @@ public class EstimuloEstudiante extends Estimulo implements Serializable {
     ArrayList<String> criterios = new ArrayList<>();
 
     String facultades = "Facultad: [";
-    for(Facultades facultad: getFacultadesAplica()) {
-    	facultades += facultad.getNombre() + ", ";
+    for (Facultades facultad : getFacultadesAplica()) {
+      facultades += facultad.getNombre() + ", ";
     }
     facultades += "]";
 
@@ -42,22 +41,22 @@ public class EstimuloEstudiante extends Estimulo implements Serializable {
   }
 
   public ArrayList<Estudiante> obtenerAplicantes() {
-	  ArrayList<Estudiante> estudiantes = new ArrayList<>();
+    ArrayList<Estudiante> estudiantes = new ArrayList<>();
 
-	  for(Estudiante estudiante: Registro.getEstudiantes()) {
-		  if(verificarRequisitos(estudiante)) {
-			  estudiantes.add(estudiante);
-		  }
-	  }
+    for (Estudiante estudiante : Registro.getEstudiantes()) {
+      if (verificarRequisitos(estudiante)) {
+        estudiantes.add(estudiante);
+      }
+    }
 
-	  return estudiantes;
+    return estudiantes;
   }
 
   public boolean verificarRequisitos(Estudiante estudiante) {
-    boolean cumpleRequisitos = true; 
+    boolean cumpleRequisitos = true;
 
     if (this.getCupos() <= 0) {
-      cumpleRequisitos = false; 
+      cumpleRequisitos = false;
     }
 
     if (!this.getFacultadesAplica().contains(estudiante.getFacultad())) {
@@ -65,7 +64,7 @@ public class EstimuloEstudiante extends Estimulo implements Serializable {
     }
 
     if (estudiante.calcularPAPA() < this.papa) {
-      cumpleRequisitos = false; 
+      cumpleRequisitos = false;
     }
 
     return cumpleRequisitos;

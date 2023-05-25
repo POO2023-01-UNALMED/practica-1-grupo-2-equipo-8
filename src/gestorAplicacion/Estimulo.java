@@ -1,10 +1,8 @@
 package gestorAplicacion;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Estimulo implements Serializable {
-    private static final long serialVersionUID = 9L;
+public abstract class Estimulo {
     private String nombre;
     private String descripcion;
     private TipoUsuarios aQuienAplica;

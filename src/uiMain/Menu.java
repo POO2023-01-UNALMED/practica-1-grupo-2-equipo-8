@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Menu {
+    static Registro registro;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -146,6 +147,8 @@ public class Menu {
     }
 
     public static void sistema(Estudiante estudiante) {
+        registro = estudiante;
+
         System.out.println("Bienvenido " + estudiante.getNombre());
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -169,7 +172,7 @@ public class Menu {
                     UIRecomendarAsignaturas.recomendarAsignaturas(estudiante, sc);
                     continue;
                 case "2":
-                    estudiante.buscarCursos();
+                    registro.buscarCursos();
                     break;
                 case "3":
                     Horario horario = estudiante.crearHorario();
@@ -192,6 +195,8 @@ public class Menu {
     }
 
     public static void sistema(Profesor profesor) {
+        registro = profesor;
+
         System.out.println("Bienvenido " + profesor.getNombre());
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -215,7 +220,7 @@ public class Menu {
                 case "2":
                     BusquedaEstimulos.buscarEstimulos(profesor);
                 case "3":
-                    profesor.buscarCursos();
+                    registro.buscarCursos();
                     break;
                 case "4":
                     salir();
@@ -225,6 +230,8 @@ public class Menu {
     }
 
     public static void sistema(Admin admin) {
+        registro = admin;
+
         System.out.println("Bienvenido " + admin.getNombre());
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -254,7 +261,7 @@ public class Menu {
                     FuncsAdmin.eliminarCurso(sc);
                     break;
                 case "3":
-                    admin.buscarCursos();
+                    registro.buscarCursos();
                     break;
                 case "4":
                     AsignarCita.asignarCita(admin, Registro.getEstudiantes());
