@@ -16,7 +16,7 @@ import gestorAplicacion.EstimuloProfesor;
 import java.util.ArrayList;
 
 public class Deserializador {
-    private static File temp = new File("src\\baseDatos\\temp");
+    private static File temp = new File("baseDatos\\temp");
     public static void deserializador(){
         File[] docs = temp.listFiles();
         FileInputStream fis;

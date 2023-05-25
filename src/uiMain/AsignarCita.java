@@ -306,8 +306,9 @@ public class AsignarCita {
                                 + "1. Sí, resetear y continuar\n"
                                 + "2. No, continuar sin resetear\n"
                                 + "3. Cancelar la Asignación de Citas de Inscripción"
-                                + "\n----------------------------------------------------------------------------\n");
+                                + "\n----------------------------------------------------------------------------");
             String opcion = sc.nextLine();
+            //sc.nextLine();
             ArrayList<String> opciones = new ArrayList<String>(Arrays.asList("1", "2", "3"));
             if (!opciones.contains(opcion)) {
                 System.out.println("----------------------------------------------------------------------------\n"

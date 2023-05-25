@@ -219,6 +219,7 @@ public class Menu {
                     break; // Añadir llamada al método correspondiente
                 case "2":
                     BusquedaEstimulos.buscarEstimulos(profesor);
+                    break;
                 case "3":
                     registro.buscarCursos();
                     break;
@@ -242,7 +243,7 @@ public class Menu {
                     + "4. Asignar citas de inscripción\n"
                     + "5. Ver estudiantes\n"
                     + "6. Ver profesores\n"
-                    + "7. Ver estimulos [por id]\n"
+                    + "7. Ver estimulos [por nombre]\n"
                     + "8. Ver estimulos [todos]\n"
                     + "9. Modificar estudiante con cursos\n"
                     + "10. Salir");

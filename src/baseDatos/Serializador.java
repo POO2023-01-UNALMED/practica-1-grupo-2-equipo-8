@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 import gestorAplicacion.Registro;
 
 public class Serializador {
-    private static File temp = new File("src\\baseDatos\\temp");
+    private static File temp = new File("baseDatos\\temp");
     
     public static void serializador(){
         FileOutputStream fos;
