@@ -3,7 +3,7 @@ package gestorAplicacion;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EstimuloProfesor extends Estimulo implements Serializable {
+public class EstimuloProfesor extends Estimulo implements Serializable, EstimuloProfesorInterfaz {
   private static final long serialVersionUID = 11L;
   private ArrayList<Integer> materiasImpartidas;
 
@@ -60,16 +60,13 @@ public class EstimuloProfesor extends Estimulo implements Serializable {
   }
 
   public boolean verificarRequisitos(Profesor profesor) {
-    ArrayList<String> razones = new ArrayList<>(); 
     boolean cumpleRequisitos = true; 
 
     if (this.getCupos() <= 0) {
-      razones.add("Ya no quedan cupos para este estímulo");
       cumpleRequisitos = false;
     }
 
     if (!this.getFacultadesAplica().contains(profesor.getFacultad())) {
-      razones.add("Este estímulo no aplica a tu facultad");
       cumpleRequisitos = false;
     }
     
@@ -77,22 +74,12 @@ public class EstimuloProfesor extends Estimulo implements Serializable {
       for(Curso curso: Registro.getCursos()) {
         if(curso.getId() != cursoId) continue;
         if(!profesor.validarExistenciaCurso(curso)) {
-          razones.add("No ha impartido el curso: " + curso.getNombre());
           cumpleRequisitos = false;
         }
       }
     }
 
-    if (cumpleRequisitos) {
-      // System.out.println("Cumples con todos los requisitos para inscribirte");
-      return true;
-    }
-
-    // System.out.println("No puedes aplicar a este estímulo por las siguientes razones:");
-    // for (String razon : razones) {
-    //   System.out.println(razon);
-    // }
-    return false;
+    return cumpleRequisitos;
   }
 
   // getters

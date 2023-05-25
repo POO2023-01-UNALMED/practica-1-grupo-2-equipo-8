@@ -3,20 +3,19 @@ package gestorAplicacion;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EstimuloEstudiante extends Estimulo implements Serializable {
+public class EstimuloEstudiante extends Estimulo implements Serializable, EstimuloEstudianteInterfaz {
   private static final long serialVersionUID = 10L;
   private int pbm;
   private double papa;
 
   public EstimuloEstudiante(
-    String nombre,
-    String descripcion,
-    TipoUsuarios aQuienAplica, 
-    ArrayList<Facultades> facultadesAplica,
-    int cupos,
-    int pbm,
-    double papa
-  ) {
+      String nombre,
+      String descripcion,
+      TipoUsuarios aQuienAplica,
+      ArrayList<Facultades> facultadesAplica,
+      int cupos,
+      int pbm,
+      double papa) {
     super(nombre, descripcion, aQuienAplica, facultadesAplica, cupos);
     this.pbm = pbm;
     this.papa = papa;
@@ -27,8 +26,8 @@ public class EstimuloEstudiante extends Estimulo implements Serializable {
     ArrayList<String> criterios = new ArrayList<>();
 
     String facultades = "Facultad: [";
-    for(Facultades facultad: getFacultadesAplica()) {
-    	facultades += facultad.getNombre() + ", ";
+    for (Facultades facultad : getFacultadesAplica()) {
+      facultades += facultad.getNombre() + ", ";
     }
     facultades += "]";
 
@@ -42,46 +41,33 @@ public class EstimuloEstudiante extends Estimulo implements Serializable {
   }
 
   public ArrayList<Estudiante> obtenerAplicantes() {
-	  ArrayList<Estudiante> estudiantes = new ArrayList<>();
+    ArrayList<Estudiante> estudiantes = new ArrayList<>();
 
-	  for(Estudiante estudiante: Registro.getEstudiantes()) {
-		  if(verificarRequisitos(estudiante)) {
-			  estudiantes.add(estudiante);
-		  }
-	  }
+    for (Estudiante estudiante : Registro.getEstudiantes()) {
+      if (verificarRequisitos(estudiante)) {
+        estudiantes.add(estudiante);
+      }
+    }
 
-	  return estudiantes;
+    return estudiantes;
   }
 
   public boolean verificarRequisitos(Estudiante estudiante) {
-    ArrayList<String> razones = new ArrayList<>(); 
-    boolean cumpleRequisitos = true; 
+    boolean cumpleRequisitos = true;
 
     if (this.getCupos() <= 0) {
-      razones.add("Ya no quedan cupos para este estímulo");
-      cumpleRequisitos = false; 
+      cumpleRequisitos = false;
     }
 
     if (!this.getFacultadesAplica().contains(estudiante.getFacultad())) {
-      razones.add("Este estímulo no aplica a tu facultad");
       cumpleRequisitos = false;
     }
 
     if (estudiante.calcularPAPA() < this.papa) {
-      razones.add("Tu PAPA es inferior al requerido");
-      cumpleRequisitos = false; 
+      cumpleRequisitos = false;
     }
 
-    if (cumpleRequisitos) {
-      // System.out.println("Cumples con todos los requisitos para inscribirte");
-      return true;
-    }
-
-    // System.out.println("No puedes aplicar a este estímulo por las siguientes razones:");
-    // for (String razon : razones) {
-    //   System.out.println(razon);
-    // }
-    return false;
+    return cumpleRequisitos;
   }
 
   // getters
