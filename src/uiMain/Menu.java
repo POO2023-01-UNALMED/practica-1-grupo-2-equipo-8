@@ -140,8 +140,6 @@ public class Menu {
         Registro.setEstimulosProfesores(KR);
 
 
-
-
         Login.login();
         sc.close();
     }

@@ -3,7 +3,7 @@ package gestorAplicacion;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EstimuloEstudiante extends Estimulo implements Serializable, EstimuloEstudianteInterfaz {
+public class EstimuloEstudiante extends Estimulo implements EstimuloEstudianteInterfaz {
   private static final long serialVersionUID = 10L;
   private int pbm;
   private double papa;
@@ -15,7 +15,8 @@ public class EstimuloEstudiante extends Estimulo implements Serializable, Estimu
       ArrayList<Facultades> facultadesAplica,
       int cupos,
       int pbm,
-      double papa) {
+      double papa
+  ) {
     super(nombre, descripcion, aQuienAplica, facultadesAplica, cupos);
     this.pbm = pbm;
     this.papa = papa;

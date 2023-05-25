@@ -3,7 +3,7 @@ package gestorAplicacion;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EstimuloProfesor extends Estimulo implements Serializable, EstimuloProfesorInterfaz {
+public class EstimuloProfesor extends Estimulo implements EstimuloProfesorInterfaz {
   private static final long serialVersionUID = 11L;
   private ArrayList<Integer> materiasImpartidas;
 
@@ -32,7 +32,7 @@ public class EstimuloProfesor extends Estimulo implements Serializable, Estimulo
       }
     }
     materias += "]";
-    
+
     String facultades = "Facultad: [";
     for(Facultades facultad: getFacultadesAplica()) {
     	facultades += facultad.getNombre() + ", ";
