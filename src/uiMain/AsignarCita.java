@@ -176,8 +176,8 @@ public class AsignarCita {
                 Estudiante estudianteMax = estudiantes.get(maxIndex);
 
                 // Calcular el valor de PAPI para cada estudiante
-                int papiJ = estudianteJ.calcularPAPI(estudianteJ.getSemestre());
-                int papiMax = estudianteMax.calcularPAPI(estudianteMax.getSemestre());
+                double papiJ = estudianteJ.calcularPAPI(estudianteJ.getSemestre());
+                double papiMax = estudianteMax.calcularPAPI(estudianteMax.getSemestre());
 
                 // Si el valor de PAPI del estudiante J es mayor, actualizar el índice del máximo
                 if (papiJ > papiMax) {

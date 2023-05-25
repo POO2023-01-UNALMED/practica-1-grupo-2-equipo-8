@@ -74,8 +74,18 @@ public class CursoEstudiante extends Curso {
     
     
     
-    public int calcularPromedio(){
-        ArrayList<Double> quiz = new ArrayList();
+    public double calcularPromedio(){
+        ArrayList<int[]> listaPorcentajes = getListaPorcentajes();
+        double total = 0;
+        for (int i = 0; i < listaNotas.size(); i++) {
+            double a = listaNotas.get(i)[1];
+            double b = listaPorcentajes.get(i)[1] / 100.0;
+            total += a * (b);
+        }
+        total = Math.round(total * 10.0) / 10.0;
+        return total;
+
+        /* ArrayList<Double> quiz = new ArrayList();
         ArrayList<Double> parcial = new ArrayList();
         ArrayList<Double> seguimiento = new ArrayList();
         for(double[] nota : listaNotas){
@@ -129,7 +139,7 @@ public class CursoEstudiante extends Curso {
             }
             par = sum;
         }
-        int total = seg+qui+par;
-        return total;
+        double total = Math.round((seg+qui+par/100) * 10.0) / 10.0;
+        return total; */
     }
 }

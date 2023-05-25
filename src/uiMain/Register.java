@@ -164,7 +164,7 @@ public class Register {
 
                 int cont = 1;
                 for(Curso curso : cursosres){
-                    System.out.println(cont+". "+curso.getNombre());
+                    System.out.println(cont+". "+curso);
                     cont++;
                 }
                 System.out.println(cont+". No agregar más cursos");

@@ -122,10 +122,10 @@ public class Estudiante extends Registro{
     }
 
     // METODOS
-    public int calcularPAPI(int sem){ //Para el cálculo del PAPPI se pide el semestre al que corresponde el PAPPI que quiere ver
+    public double calcularPAPI(int sem){ //Para el cálculo del PAPPI se pide el semestre al que corresponde el PAPPI que quiere ver
         if(sem<semestre && sem>0){
-            int sum = 0;
-            int sumc = 0;
+            double sum = 0;
+            double sumc = 0;
             for(CursoEstudiante c:cursosVistos){
                 if(c.getSemestre() == sem){
                     sum+=c.calcularPromedio()*c.getCreditos();
@@ -137,9 +137,9 @@ public class Estudiante extends Registro{
         return -1; // Hay que corregir la lógica en la capa de UI
     }
     
-    public int calcularPAPA(){
-        int sum = 0;
-        int sumc = 0;
+    public double calcularPAPA(){
+        double sum = 0;
+        double sumc = 0;
         for(CursoEstudiante c:cursosVistos){
             sum+=c.calcularPromedio()*c.getCreditos();
             sumc+=c.getCreditos();

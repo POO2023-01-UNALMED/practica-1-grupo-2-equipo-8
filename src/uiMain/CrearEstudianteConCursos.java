@@ -18,11 +18,11 @@ public class CrearEstudianteConCursos {
 
         while(true) {
             System.out.println("Estudiantes:\n" +
-            String.format("%s\t%-32s\t%s\t%s","#","Nombre","Carrera","Semestre"));
+            String.format("%s\t%-32s\t%s\t%s\t%s","#","Nombre","Carrera","Semestre","PAPA"));
             System.out.println("----------------------------------------------------------------------------------------------------------------------");
             int cont = 1;
             for (Estudiante estudiante : listaEstudiantes) {
-                System.out.println(cont+"\t"+String.format("%-32s",estudiante.getNombre())+"\t"+estudiante.getCarrera()+"\t"+estudiante.getSemestre());
+                System.out.println(cont+"\t"+String.format("%-32s",estudiante.getNombre())+"\t"+estudiante.getCarrera()+"\t"+estudiante.getSemestre()+"\t"+estudiante.calcularPAPA());
                 cont++;
             }
             System.out.printf("Elija un estudiante o 0 para terminar: ");
