@@ -146,7 +146,6 @@ public class Menu {
 
     public static void sistema(Estudiante estudiante) {
         registro = estudiante;
-
         System.out.println("Bienvenido " + estudiante.getNombre());
         Scanner sc = new Scanner(System.in);
         while (true) {

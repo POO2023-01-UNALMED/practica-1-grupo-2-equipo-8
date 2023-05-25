@@ -9,6 +9,9 @@ import java.util.Scanner;
 public class Login {
     static Scanner sc = new Scanner(System.in);
     static void login(){
+        System.out.println("----------------------------------------------------------------------");
+        System.out.println("| MI GESTION ACADEMICA                                               |");
+        System.out.println("----------------------------------------------------------------------");
         System.out.println("Bienvenido, para continuar debe identificarse");
         String opcion;
         while(true){

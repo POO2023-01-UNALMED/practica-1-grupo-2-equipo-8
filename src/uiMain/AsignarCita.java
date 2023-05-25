@@ -3,6 +3,7 @@ package uiMain;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.ListIterator;
@@ -67,8 +68,8 @@ public class AsignarCita {
                     }
                     Collections.sort(AsignarCita.horariosDisponibles);
 
-                    // Ordenar por PAPI
-                    ArrayList<Estudiante> PAPIs = AsignarCita.ordenarEstudiantesPorPAPI(estudiantes);
+                    // Ordenar por PAPA
+                    ArrayList<Estudiante> PAPAs = AsignarCita.ordenarEstudiantesPorPAPA(estudiantesSeleccionados);
                     
                     // Borrar citas
                     for (Estudiante estudiante : estudiantes) {
@@ -79,9 +80,9 @@ public class AsignarCita {
 
                     // Asignarles las citas disponibles a cada estudiante
                     ArrayList<Integer> citasTomadas = new ArrayList<Integer>();
-                    for (int i = 0; i < PAPIs.size(); i++) {
+                    for (int i = 0; i < PAPAs.size(); i++) {
                         int horario = AsignarCita.horariosDisponibles.get(i);
-                        Estudiante estudiante = PAPIs.get(i);
+                        Estudiante estudiante = PAPAs.get(i);
                         estudiante.setCita(horario);
                         AsignarCita.estudiantesConCita.add(estudiante);
                         citasTomadas.add(horario);
@@ -109,8 +110,9 @@ public class AsignarCita {
                             case "2":
                                 System.out.println("Cita de cada estudiante en formato militar:");
                                 for (Estudiante estudiante : AsignarCita.estudiantesConCita){
-                                    System.out.println(estudiante.getNombre() + ": " + estudiante.getCita());
+                                    System.out.println(estudiante + ": " + estudiante.getCita());
                                 }
+                                AsignarCita.estudiantesConCita.get(0).setInscribir(true);
                                 continuar = false;
                                 break;
                             
@@ -156,13 +158,21 @@ public class AsignarCita {
     }
 
     // Metodos Auxiliares
-    public static ArrayList<Estudiante> ordenarEstudiantesPorPAPI(ArrayList<Estudiante> estudiantes) {
+    public static ArrayList<Estudiante> ordenarEstudiantesPorPAPA(ArrayList<Estudiante> estudiantes) {
         // Verificar que la lista de estudiantes no esté vacía
         if (estudiantes.isEmpty()) {
             return estudiantes;
         }
+
+        // Se ordena la lista de forma descendente según los PAPAs de los estudiantes.
+        Collections.sort(estudiantes, new Comparator<Estudiante>() {
+            @Override
+            public int compare(Estudiante e1, Estudiante e2) {
+                return Double.compare(e2.calcularPAPA(), e1.calcularPAPA());
+            }
+        });
     
-        // Obtener el tamaño de la lista de estudiantes
+        /* // Obtener el tamaño de la lista de estudiantes
         int n = estudiantes.size();
     
         // Recorrer la lista de estudiantes para ordenarla por PAPI
@@ -191,7 +201,7 @@ public class AsignarCita {
                 estudiantes.set(i, estudiantes.get(maxIndex));
                 estudiantes.set(maxIndex, tempEstudiante);
             }
-        }
+        } */
         
         // Retornar la lista de estudiantes ordenada por PAPI de mayor a menor
         return estudiantes;

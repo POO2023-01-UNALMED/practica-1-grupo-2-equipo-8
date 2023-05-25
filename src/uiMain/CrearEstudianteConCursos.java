@@ -80,6 +80,8 @@ public class CrearEstudianteConCursos {
                     double[] nota = {i+1, cal};
                     listaNotas.add(nota);
                 }
+
+                
                 
                 CursoEstudiante cursoVisto = new CursoEstudiante(
                     cursoATransformar.getNombre(), 
