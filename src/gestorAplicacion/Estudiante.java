@@ -145,7 +145,7 @@ public class Estudiante extends Registro{
             sumc+=c.getCreditos();
         }
 
-        return sumc == 0 ? 0: sum/sumc;
+        return sumc == 0 ? 0: Math.round(sum/sumc * 10.0) / 10.0;
     }
     
     
