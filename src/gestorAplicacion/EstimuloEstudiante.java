@@ -54,34 +54,21 @@ public class EstimuloEstudiante extends Estimulo implements Serializable {
   }
 
   public boolean verificarRequisitos(Estudiante estudiante) {
-    ArrayList<String> razones = new ArrayList<>(); 
     boolean cumpleRequisitos = true; 
 
     if (this.getCupos() <= 0) {
-      razones.add("Ya no quedan cupos para este estímulo");
       cumpleRequisitos = false; 
     }
 
     if (!this.getFacultadesAplica().contains(estudiante.getFacultad())) {
-      razones.add("Este estímulo no aplica a tu facultad");
       cumpleRequisitos = false;
     }
 
     if (estudiante.calcularPAPA() < this.papa) {
-      razones.add("Tu PAPA es inferior al requerido");
       cumpleRequisitos = false; 
     }
 
-    if (cumpleRequisitos) {
-      // System.out.println("Cumples con todos los requisitos para inscribirte");
-      return true;
-    }
-
-    // System.out.println("No puedes aplicar a este estímulo por las siguientes razones:");
-    // for (String razon : razones) {
-    //   System.out.println(razon);
-    // }
-    return false;
+    return cumpleRequisitos;
   }
 
   // getters

@@ -21,10 +21,6 @@ public class BusquedaEstimulos {
     ArrayList<ArrayList<Estudiante>> estudiantesQueAplican = new ArrayList<ArrayList<Estudiante>>(estimulosEstudiante.size());
     ArrayList<ArrayList<Profesor>> profesoresQueAplican = new ArrayList<ArrayList<Profesor>>(estimulosProfesor.size());
 
-    System.out.println("Size de arreglo > 0 ?" + estimulosEstudiante.size() + " === "  + estudiantesQueAplican.size());
-    System.out.println("Size de arreglo > 0 ?" + estimulosProfesor.size() + " === "  + profesoresQueAplican.size());
-
-
     for(int i=0; i<estimulosEstudiante.size(); ++i) {
       estudiantesQueAplican.add(estimulosEstudiante.get(i).obtenerAplicantes());
     }
@@ -32,8 +28,6 @@ public class BusquedaEstimulos {
     for(int i=0; i<estimulosProfesor.size(); ++i) {
       profesoresQueAplican.add(estimulosProfesor.get(i).obtenerAplicantes());
     }
-
-    System.out.println("Hay " + Integer.toString(estimulosEstudiante.size() + estimulosProfesor.size()) + "estimulos");
 
     System.out.println("\nEstimulos para estudiantes:");
     for(int i=0; i<estimulosEstudiante.size(); ++i) {
@@ -159,30 +153,74 @@ public class BusquedaEstimulos {
       
       if(estudiantePorId != null) {
         ArrayList<EstimuloEstudiante> estimulos = obtenerEstimulosEstudiante();
-        
-        for(int i=0, j=1; i<estimulos.size(); ++i){
+        ArrayList<Boolean> estimulosALosQueAplica = new ArrayList<>(Collections.nCopies(estimulos.size(), false));
+        int totalAplicables = 0;
+    
+        for(int i=0; i<estimulos.size(); ++i) {
           if(estimulos.get(i).verificarRequisitos(estudiantePorId)) {
+            estimulosALosQueAplica.set(i,  true);
+            totalAplicables += 1;
+          }
+        }
+        System.out.println("Hay [" + totalAplicables + "] estímulos a los que aplica el Estudiante " + estudiantePorId.getNombre());
+   
+        for(int i=0, j=1; i<estimulos.size(); ++i){
+          if(estimulosALosQueAplica.get(i)) {
             imprimirEstimulo(
               Integer.toString(j) + ".",
-            estimulos.get(i),
-            estimulos.get(i).obtenerCriterios()
+              estimulos.get(i),
+              estimulos.get(i).obtenerCriterios()
             );
             j++;
           }
         }
-      } else if(profesorPorId != null) {
-        ArrayList<EstimuloProfesor> estimulos = obtenerEstimulosProfesor();
-          
-          for(int i=0, j=1; i<estimulos.size(); ++i) {
-            if(estimulos.get(i).verificarRequisitos(profesorPorId)) {
-              imprimirEstimulo(
-                Integer.toString(j) + ".",
+
+        System.out.println("Otros estimulos para estudiantes: ");
+        for(int i=0, j=1; i<estimulos.size(); ++i) {
+          if(!estimulosALosQueAplica.get(i)) {
+            imprimirEstimulo(
+              Integer.toString(j) + ".",
               estimulos.get(i),
               estimulos.get(i).obtenerCriterios()
-              );
-              j++;
-            }
+            );
+            j++;
           }
+        }   
+      } else if(profesorPorId != null) {
+        ArrayList<EstimuloProfesor> estimulos = obtenerEstimulosProfesor();
+        ArrayList<Boolean> estimulosALosQueAplica = new ArrayList<>(Collections.nCopies(estimulos.size(), false));
+        int totalAplicables = 0;
+    
+        for(int i=0; i<estimulos.size(); ++i) {
+          if(estimulos.get(i).verificarRequisitos(profesorPorId)) {
+            estimulosALosQueAplica.set(i,  true);
+            totalAplicables += 1;
+          }
+        }
+        System.out.println("Hay [" + totalAplicables + "] estímulos a los que aplica el Profesor " + profesorPorId.getNombre());
+   
+        for(int i=0, j=1; i<estimulos.size(); ++i){
+          if(estimulosALosQueAplica.get(i)) {
+            imprimirEstimulo(
+              Integer.toString(j) + ".",
+              estimulos.get(i),
+              estimulos.get(i).obtenerCriterios()
+            );
+            j++;
+          }
+        }
+
+        System.out.println("Otros estimulos para profesores: ");
+        for(int i=0, j=1; i<estimulos.size(); ++i) {
+          if(!estimulosALosQueAplica.get(i)) {
+            imprimirEstimulo(
+              Integer.toString(j) + ".",
+              estimulos.get(i),
+              estimulos.get(i).obtenerCriterios()
+            );
+            j++;
+          }
+        }
       } else {
         System.out.println("No hay un Estudiante o Profesor con id: " + id);
       }

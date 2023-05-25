@@ -30,14 +30,19 @@ public class Menu {
         Deserializador.deserializador();
 
         ArrayList<Facultades> A = new ArrayList<Facultades>();
+        ArrayList<Facultades> A2 = new ArrayList<Facultades>();
+        ArrayList<Facultades> A3 = new ArrayList<Facultades>();
         ArrayList<EstimuloEstudiante> kx = new ArrayList<>();
         A.add(Facultades.MINAS);
+        A2.add(Facultades.CIENCIAS);
+        A3.add(Facultades.CIENCIAS);
+        A3.add(Facultades.MINAS);
 
         kx.add(new EstimuloEstudiante(
                 "Estimulo 1",
                 "Estimulo para irse de vacaciones y sacar 5 en todos los parciales de POO",
                 TipoUsuarios.ESTUDIANTE,
-                A,
+                A3,
                 10,
                 21,
                 3));
@@ -53,7 +58,7 @@ public class Menu {
                 "Estimulo 3",
                 "Estimulo para irse de vacaciones y sacar 5 en todos los parciales de Algoritmos",
                 TipoUsuarios.ESTUDIANTE,
-                A,
+                A3,
                 0,
                 21,
                 4));
@@ -65,6 +70,14 @@ public class Menu {
                 2,
                 10,
                 4.6));
+        kx.add(new EstimuloEstudiante(
+                "Estimulo 5",
+                "Carrera paga + 10k para almuerzo",
+                TipoUsuarios.ESTUDIANTE,
+                A2,
+                2,
+                10,
+                4.4));
 
         Registro.setEstimulosEstudiantes(kx);
 
@@ -95,7 +108,7 @@ public class Menu {
                 "Estimulo 2",
                 "Nivel platino: 2x de salario x/2 de horas",
                 TipoUsuarios.PROFESOR,
-                A,
+                A3,
                 10,
                 B2));
 
@@ -103,7 +116,7 @@ public class Menu {
                 "Estimulo 3",
                 "Nivel platino: 2x de salario x/2 de horas",
                 TipoUsuarios.PROFESOR,
-                A,
+                A2,
                 10,
                 B3));
 
@@ -111,7 +124,7 @@ public class Menu {
                 "Estimulo 4",
                 "Nivel platino: 2x de salario x/2 de horas",
                 TipoUsuarios.PROFESOR,
-                A,
+                A3,
                 10,
                 B3));
 
@@ -124,6 +137,9 @@ public class Menu {
                 B2));
 
         Registro.setEstimulosProfesores(KR);
+
+
+
 
         Login.login();
         sc.close();
@@ -195,7 +211,7 @@ public class Menu {
             switch (opcion) {
                 case "1":
                     FuncsProfesor.calificar(profesor, sc);
-                    continue; // Añadir llamada al método correspondiente
+                    break; // Añadir llamada al método correspondiente
                 case "2":
                     BusquedaEstimulos.buscarEstimulos(profesor);
                 case "3":
@@ -225,9 +241,9 @@ public class Menu {
                     + "10. Salir");
             String opcion = sc.nextLine();
             ArrayList<String> opciones = new ArrayList<String>(
-                    Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9"));
+                    Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"));
             if (!opciones.contains(opcion)) {
-                System.out.println("Debe seleccionar un número entre el 1 y el 9");
+                System.out.println("Debe seleccionar un número entre el 1 y el 10");
                 continue;
             }
             switch (opcion) {
