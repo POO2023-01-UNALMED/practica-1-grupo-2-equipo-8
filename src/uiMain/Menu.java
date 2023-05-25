@@ -247,6 +247,7 @@ public class Menu {
                     + "9. Modificar estudiante con cursos\n"
                     + "10. Salir");
             String opcion = sc.nextLine();
+            //sc.nextLine();
             ArrayList<String> opciones = new ArrayList<String>(
                     Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9","10"));
             if (!opciones.contains(opcion)) {

@@ -44,15 +44,14 @@ public class UIRecomendarAsignaturas{
             return;
         }
 
-        // Se imprimen los cursos
-        System.out.println("------------------------------------------------------------------------");
-        System.out.println("\t\tLista de Cursos");
-        System.out.println("------------------------------------------------------------------------");
-        for (int i = 0; i < cursosParaRecomendar.size(); i++) {
-            System.out.printf("\t%d\t%s\n", i + 1, cursosParaRecomendar.get(i));
-        }
-
         while (true) {
+            // Se imprimen los cursos
+            System.out.println("------------------------------------------------------------------------");
+            System.out.println("\t\tLista de Cursos");
+            System.out.println("------------------------------------------------------------------------");
+            for (int i = 0; i < cursosParaRecomendar.size(); i++) {
+                System.out.printf("\t%d\t%s\n", i + 1, cursosParaRecomendar.get(i));
+            }
             System.out.printf("Elija un curso para ver profesores recomendados o 0 para terminar: ");
             int opcion = sc.nextInt();
             // Se verifica la opcion ingresada.
@@ -103,10 +102,11 @@ public class UIRecomendarAsignaturas{
 
             // Se imprimen los profesores y su respectiva calificación.
             System.out.println("------------------------------------------------------------------------");
-            System.out.println("\t\tProfesor\tCalificacion");
+            System.out.println("Profesores que dictan el curso:\n" +
+                String.format("\t%s\t%-32s\t%s", "#","Nombre","Calificacion"));
             System.out.println("------------------------------------------------------------------------");
             for (int i = 0; i < listaProfesores.size(); i++) {
-                System.out.printf("\t%d\t%s\n", i + 1, listaProfesores.get(i));
+                System.out.println("\t"+(int) (i+1)+"\t"+String.format("%-32s",listaProfesores.get(i).getNombre())+"\t"+listaProfesores.get(i).getCalificacion());
             }
         }
 

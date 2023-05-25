@@ -284,8 +284,10 @@ public class BusquedaCursos {
             System.out.println(curso.getNombre()+"("+curso.getId()+")\n"+curso.getCreditos()+"\n"+curso.getFacultad()+"\n"+curso.getCarrerasRelacionadas());
             int cont = 1;
             for(CursoEstudiante ce : listaCursos){
-                System.out.println("Profesor: "+ce.getProfesor().getNombre()+"\nHorario: "+ce.getHorario()+"\nCupos: "+ce.getCupos());
+                System.out.println("-------------------------------------------------------------------------------");
+                System.out.println("Profesor: "+ce.getProfesor()+"\nHorario: "+ce.getHorario()+"\nCupos: "+ce.getCupos());
                 System.out.println(cont+". Añadir a horario existente");
+                System.out.println("-------------------------------------------------------------------------------");
                 cont++;
             }
             System.out.println(cont+". volver");
@@ -437,9 +439,11 @@ public class BusquedaCursos {
             System.out.println(curso.getNombre()+"("+curso.getId()+")\n"+curso.getCreditos()+"\n"+curso.getFacultad()+"\n"+curso.getCarrerasRelacionadas());
             int cont = 1;
             for(CursoEstudiante ce : listaCursos){
-                System.out.println("Profesor: "+ce.getProfesor().getNombre()+"\nHorario: "+ce.getHorario()+"\nCupos: "+ce.getCupos());
+                System.out.println("-------------------------------------------------------------------------------");
+                System.out.println("Profesor: "+ce.getProfesor()+"\nHorario: "+ce.getHorario()+"\nCupos: "+ce.getCupos());
                 System.out.println(cont+". Añadir a horario");
                 cont++;
+                System.out.println("-------------------------------------------------------------------------------");
             }
             System.out.println(cont+". volver");
             String opcion = sc.next();
