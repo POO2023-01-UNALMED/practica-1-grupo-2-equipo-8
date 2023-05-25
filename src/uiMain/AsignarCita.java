@@ -4,15 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.Scanner;
 
 import gestorAplicacion.Estudiante;
-import gestorAplicacion.Horario;
 import gestorAplicacion.Registro;
-import gestorAplicacion.TipoUsuarios;
 import gestorAplicacion.Admin;
 import gestorAplicacion.CursoProfesor;
 

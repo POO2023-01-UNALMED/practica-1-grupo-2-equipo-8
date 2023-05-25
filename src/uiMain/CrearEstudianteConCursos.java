@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import gestorAplicacion.Curso;
 import gestorAplicacion.CursoEstudiante;
-import gestorAplicacion.CursoProfesor;
 import gestorAplicacion.Estudiante;
 import gestorAplicacion.Profesor;
 import gestorAplicacion.Registro;

@@ -6,7 +6,6 @@ import gestorAplicacion.Estudiante;
 import gestorAplicacion.Profesor;
 import gestorAplicacion.Estimulo;
 import gestorAplicacion.Registro;
-import uiMain.Helpers;
 import gestorAplicacion.TipoUsuarios;
 import java.util.ArrayList;
 import java.util.Scanner;

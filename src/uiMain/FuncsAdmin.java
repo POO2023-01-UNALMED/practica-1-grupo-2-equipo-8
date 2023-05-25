@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import gestorAplicacion.Carreras;
 import gestorAplicacion.Curso;
-import gestorAplicacion.Estudiante;
 import gestorAplicacion.Facultades;
 import gestorAplicacion.Registro;
 

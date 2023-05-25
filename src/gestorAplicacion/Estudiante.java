@@ -122,7 +122,7 @@ public class Estudiante extends Registro{
     }
 
     // METODOS
-    public double calcularPAPI(int sem){ //Para el cálculo del PAPPI se pide el semestre al que corresponde el PAPPI que quiere ver
+    public double calcularPAPI(int sem){
         if(sem<semestre && sem>0){
             double sum = 0;
             double sumc = 0;
@@ -134,7 +134,7 @@ public class Estudiante extends Registro{
             }
             return sumc == 0 ? 0: sum/sumc;
         }
-        return -1; // Hay que corregir la lógica en la capa de UI
+        return -1;
     }
     
     public double calcularPAPA(){
@@ -146,19 +146,6 @@ public class Estudiante extends Registro{
         }
 
         return sumc == 0 ? 0: Math.round(sum/sumc * 10.0) / 10.0;
-    }
-    
-    
-    public void verMateriasDisponiblesParaInscripcion(){ //Falta complemento de la UI
-        
-    }
-
-    public void consultarHorarioGeneral(){ //Falta complemento de la UI
-        
-    }
-    
-    public void consultarRecomendacionAsignaturas(){ //Falta complemento de la UI
-        
     }
     
     @Override

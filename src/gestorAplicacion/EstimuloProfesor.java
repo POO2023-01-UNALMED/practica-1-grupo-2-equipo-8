@@ -1,6 +1,5 @@
 package gestorAplicacion;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class EstimuloProfesor extends Estimulo implements EstimuloProfesorInterfaz {

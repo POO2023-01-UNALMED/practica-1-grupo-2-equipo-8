@@ -1,27 +1,15 @@
 package uiMain;
 
 import baseDatos.Deserializador;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import baseDatos.Serializador;
 import gestorAplicacion.Admin;
-import gestorAplicacion.Carreras;
-import gestorAplicacion.Curso;
-import gestorAplicacion.CursoEstudiante;
-import gestorAplicacion.EstimuloEstudiante;
-import gestorAplicacion.EstimuloProfesor;
 import gestorAplicacion.Estudiante;
-import gestorAplicacion.Facultades;
 import gestorAplicacion.Horario;
 import gestorAplicacion.Profesor;
 import gestorAplicacion.Registro;
-import gestorAplicacion.TipoUsuarios;
-import uiMain.UIRecomendarAsignaturas;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Menu {
     static Registro registro;
@@ -29,119 +17,6 @@ public class Menu {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Deserializador.deserializador();
-
-        ArrayList<Facultades> A = new ArrayList<Facultades>();
-        ArrayList<Facultades> A2 = new ArrayList<Facultades>();
-        ArrayList<Facultades> A3 = new ArrayList<Facultades>();
-        ArrayList<EstimuloEstudiante> kx = new ArrayList<>();
-        A.add(Facultades.MINAS);
-        A2.add(Facultades.CIENCIAS);
-        A3.add(Facultades.CIENCIAS);
-        A3.add(Facultades.MINAS);
-
-        kx.add(new EstimuloEstudiante(
-                "Estimulo 1",
-                "Estimulo para irse de vacaciones y sacar 5 en todos los parciales de POO",
-                TipoUsuarios.ESTUDIANTE,
-                A3,
-                10,
-                21,
-                3));
-        kx.add(new EstimuloEstudiante(
-                "Estimulo 2",
-                "Estimulo para irse de vacaciones y sacar 5 en todos los parciales de Integrales",
-                TipoUsuarios.ESTUDIANTE,
-                A,
-                10,
-                21,
-                3.5));
-        kx.add(new EstimuloEstudiante(
-                "Estimulo 3",
-                "Estimulo para irse de vacaciones y sacar 5 en todos los parciales de Algoritmos",
-                TipoUsuarios.ESTUDIANTE,
-                A3,
-                0,
-                21,
-                4));
-        kx.add(new EstimuloEstudiante(
-                "Estimulo 4",
-                "Estimulo ultra poderoso, ganas todas las materias con 5 durante 2 semestres",
-                TipoUsuarios.ESTUDIANTE,
-                A,
-                2,
-                10,
-                4.6));
-        kx.add(new EstimuloEstudiante(
-                "Estimulo 5",
-                "Carrera paga + 10k para almuerzo",
-                TipoUsuarios.ESTUDIANTE,
-                A2,
-                2,
-                10,
-                4.4));
-
-        Registro.setEstimulosEstudiantes(kx);
-
-        ArrayList<Integer> B1 = new ArrayList<Integer>();
-        ArrayList<Integer> B2 = new ArrayList<Integer>();
-        ArrayList<Integer> B3 = new ArrayList<Integer>();
-
-        B1.add(100000);
-        B1.add(100002);
-
-        B2.add(100003);
-
-        B3.add(100005);
-        B3.add(1000011);
-        B3.add(100000);
-
-        ArrayList<EstimuloProfesor> KR = new ArrayList<>();
-
-        KR.add(new EstimuloProfesor(
-                "Estimulo 1",
-                "Nivel platino: 2x de salario x/2 de horas",
-                TipoUsuarios.PROFESOR,
-                A,
-                10,
-                B1));
-
-        KR.add(new EstimuloProfesor(
-                "Estimulo 2",
-                "Nivel platino: 2x de salario x/2 de horas",
-                TipoUsuarios.PROFESOR,
-                A3,
-                10,
-                B2));
-
-        KR.add(new EstimuloProfesor(
-                "Estimulo 3",
-                "Nivel platino: 2x de salario x/2 de horas",
-                TipoUsuarios.PROFESOR,
-                A2,
-                10,
-                B3));
-
-        KR.add(new EstimuloProfesor(
-                "Estimulo 4",
-                "Nivel platino: 2x de salario x/2 de horas",
-                TipoUsuarios.PROFESOR,
-                A3,
-                10,
-                B3));
-
-        KR.add(new EstimuloProfesor(
-                "Estimulo 5",
-                "Nivel platino: 2x de salario x/2 de horas",
-                TipoUsuarios.PROFESOR,
-                A,
-                10,
-                B2));
-
-        Registro.setEstimulosProfesores(KR);
-
-        // System.out.println(Registro.getCursos().get(0).getProfesoresQueDictanElCurso());
-        // System.out.println(Registro.getCursos().get(2).getProfesoresQueDictanElCurso());
-        // System.out.println(Registro.getCursos().get(10).getProfesoresQueDictanElCurso());
 
         Login.login();
         sc.close();
@@ -186,7 +61,7 @@ public class Menu {
                     break;
                 case "6":
                     CalificacionProfesores.calificarProfesor(sc);
-                    continue; // Añadir llamada al método correspondiente
+                    continue;
                 case "7":
                     salir();
                     break;
@@ -216,7 +91,7 @@ public class Menu {
             switch (opcion) {
                 case "1":
                     FuncsProfesor.calificar(profesor, sc);
-                    break; // Añadir llamada al método correspondiente
+                    break;
                 case "2":
                     BusquedaEstimulos.buscarEstimulos(profesor);
                     break;

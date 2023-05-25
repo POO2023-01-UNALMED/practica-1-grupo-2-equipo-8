@@ -2,7 +2,6 @@ package gestorAplicacion;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import uiMain.BusquedaCursos;
 
 public class Horario implements Serializable{

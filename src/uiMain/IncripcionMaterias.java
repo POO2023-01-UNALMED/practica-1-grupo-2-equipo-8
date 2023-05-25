@@ -2,10 +2,8 @@ package uiMain;
 
 import gestorAplicacion.Curso;
 import gestorAplicacion.CursoEstudiante;
-import gestorAplicacion.CursoProfesor;
 import gestorAplicacion.Estudiante;
 import gestorAplicacion.Horario;
-import gestorAplicacion.Profesor;
 import gestorAplicacion.Registro;
 import java.util.ArrayList;
 import java.util.Scanner;

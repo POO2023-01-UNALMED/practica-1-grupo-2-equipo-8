@@ -1,6 +1,5 @@
 package gestorAplicacion;
 
-import baseDatos.Deserializador;
 import java.util.ArrayList;
 import java.io.Serializable;
 
