@@ -92,14 +92,18 @@ public class AsignarCita {
                     boolean continuar = true;
                     while (continuar){
                         // Asegurarse de la opción
-                        System.out.println("¿ Desea guardar los cambios?\n"
+                        System.out.println("---------------------------------------------------------------------------------------------------\n"
+                                            + "¿ Desea guardar los cambios?\n"
                                             + "1. Sí\n"
                                             + "2. Sí, Mostrar citas asignadas\n"
-                                            + "3. Cancelar la Asignación de Citas de Inscripción");
+                                            + "3. Cancelar la Asignación de Citas de Inscripción"
+                                            + "\n----------------------------------------------------------------------------\n");
                         String opcion = sc.nextLine();
                         ArrayList<String> opciones = new ArrayList<String>(Arrays.asList("1", "2", "3"));
                         if (!opciones.contains(opcion)) {
-                            System.out.println("Debe seleccionar un número entre el 1 y el 3");
+                            System.out.println("---------------------------------------------------------------------------------------------------\n"
+                                                + "Debe seleccionar un número entre el 1 y el 3"
+                                                + "\n----------------------------------------------------------------------------\n");
                             continue;
                         }
                         switch(opcion){
@@ -109,12 +113,14 @@ public class AsignarCita {
                                 break;
                             
                             case "2":
-                                System.out.println("Orden de inscripción:");
+                                System.out.println("----------------------------------------------------------------------------\n"
+                                + "Orden de inscripción");
                                 int cont = 1;
                                 for (Estudiante estudiante : AsignarCita.estudiantesConCita){
                                     System.out.println(cont + ": " + estudiante);
                                     cont++;
                                 }
+                                System.out.println("----------------------------------------------------------------------------");
                                 for (Estudiante estudiante : Registro.getEstudiantes()) {
                                     estudiante.setInscribir(false);
                                 }
@@ -149,18 +155,24 @@ public class AsignarCita {
                         ArrayList<Estudiante> listaEstudiantes = copiaListaEstudiantes.get(i);
                         curso.setListaEstudiantes(listaEstudiantes);
                     }
-                    System.out.println("Proceso Cancelado");
+                    System.out.println("----------------------------------------------------------------------------\n"
+                                        + "Proceso Cancelado"
+                                        + "\n----------------------------------------------------------------------------\n");
                 }
 
             }
             // Si el usuario cancela el proceso en la etapa de reseteo
             else{
-                System.out.println("Proceso Cancelado");
+                System.out.println("----------------------------------------------------------------------------\n"
+                                    + "Proceso Cancelado"
+                                    + "\n----------------------------------------------------------------------------\n");
             }
         }
         // Si el usuario no era un admin
         else{
-            System.out.println("Debe tener el rol de Administrador para llevar a cabo este proceso");
+            System.out.println("----------------------------------------------------------------------------\n"
+                                + "Debe tener el rol de Administrador para llevar a cabo este proceso"
+                                + "\n----------------------------------------------------------------------------\n");
         }
     }
 
@@ -216,12 +228,15 @@ public class AsignarCita {
 
     public static ArrayList<Estudiante> seleccionarEstudiantes(ArrayList<Estudiante> estudiantes){
         // Mostrar todos los estudiantes
-        System.out.println("Seleccione a los estudiantes a los que le quiera asignar una cita\n"
+        System.out.println("----------------------------------------------------------------------------\n"
+                            + "Seleccione a los estudiantes a los que le quiera asignar una cita\n"
                             + "Para esto, solo escriba los números asociados separados por una coma\n"
                             + "Para seleccionarlos a todos escriba 0");
         for (int i = 0; i < estudiantes.size(); i++){
             System.out.println((i + 1) + ": " + estudiantes.get(i));
+            ;
         }
+        System.out.println("----------------------------------------------------------------------------");
         String seleccion = sc.nextLine();
 
         String[] numerosSeleccionados = seleccion.split(",");
@@ -241,22 +256,28 @@ public class AsignarCita {
             }
         }
         // Mostrar Estudiantes Seleccionados
-        System.out.println("Haz elegido a los siguientes estudiantes: ");
+        System.out.println("----------------------------------------------------------------------------\n"
+                            + "Haz elegido a los siguientes estudiantes: ");
         for (Estudiante estudiante : estudiantesSeleccionados){
             System.out.println("-" + estudiante.getNombre());
         }
-
+        System.out.println("----------------------------------------------------------------------------");
         while (true){
             // Asegurarse de la opción
-            System.out.println("Confirmar\n"
+            System.out.println("----------------------------------------------------------------------------\n"
+                                + "Confirmar\n"
                                 + "1. Continuar\n"
                                 + "2. No, volver a seleccionar\n"
-                                + "3. Cancelar la Asignación de Citas de Inscripción");
+                                + "3. Cancelar la Asignación de Citas de Inscripción"
+                                
+                                + "\n----------------------------------------------------------------------------\n");
             String opcion = sc.nextLine();
             ArrayList<String> opciones = new ArrayList<String>(Arrays.asList("1", "2", "3"));
             if (!opciones.contains(opcion)) {
                 // La opción ingresada no es válida
-                System.out.println("Debe seleccionar un número entre el 1 y el 3");
+                System.out.println("----------------------------------------------------------------------------\n"
+                                    + "Debe seleccionar un número entre el 1 y el 3"
+                                    + "\n----------------------------------------------------------------------------\n");
                 continue;
             }
             switch(opcion){
@@ -279,29 +300,37 @@ public class AsignarCita {
     public static boolean resetearCursos(){
         while(true){
             // Asegurarse de la opción
-            System.out.println("¿Antes de continuar, desea resetear las listas de estudiantes de los cursos?\n"
+            System.out.println("----------------------------------------------------------------------------\n"
+                                + "¿Antes de continuar, desea resetear las listas de estudiantes de los cursos?\n"
                                 + "Recuerda que si ya llevaste a cabo este proceso una vez no debería ser necesario llevarlo a cabo de nuevo\n"
                                 + "1. Sí, resetear y continuar\n"
                                 + "2. No, continuar sin resetear\n"
-                                + "3. Cancelar la Asignación de Citas de Inscripción");
+                                + "3. Cancelar la Asignación de Citas de Inscripción"
+                                + "\n----------------------------------------------------------------------------\n");
             String opcion = sc.nextLine();
             ArrayList<String> opciones = new ArrayList<String>(Arrays.asList("1", "2", "3"));
             if (!opciones.contains(opcion)) {
-                System.out.println("Debe seleccionar un número entre el 1 y el 3");
+                System.out.println("----------------------------------------------------------------------------\n"
+                                    + "Debe seleccionar un número entre el 1 y el 3"
+                                    + "\n----------------------------------------------------------------------------\n");
                 continue;
             }
             switch(opcion){
                 case "1":
                 // Confirmar elección
                 while (true){
-                    System.out.println("¿Estás seguro? Recuerda que esta acción es irreversible\n"
+                    System.out.println("----------------------------------------------------------------------------\n"
+                                        + "¿Estás seguro?\n"
                                         + "1. Sí, resetear y continuar\n"
                                         + "2. No, continuar sin resetear\n"
-                                        + "3. Cancelar la Asignación de Citas de Inscripción");
+                                        + "3. Cancelar la Asignación de Citas de Inscripción"
+                                        + "\n----------------------------------------------------------------------------\n");
                     String confirmacion = sc.nextLine();
                     ArrayList<String> confirmaciones = new ArrayList<String>(Arrays.asList("1", "2", "3"));
                     if (!confirmaciones.contains(confirmacion)) {
-                        System.out.println("Debe seleccionar un número entre el 1 y el 3");
+                        System.out.println("----------------------------------------------------------------------------\n"
+                                            + "Debe seleccionar un número entre el 1 y el 3"
+                                            + "\n----------------------------------------------------------------------------\n");
                         continue;
                     }
                     switch(confirmacion){
