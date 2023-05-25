@@ -15,6 +15,23 @@ public class Helpers {
         return texto.matches("\\d+");
     }
 
+    public static boolean esAlfa(String str) {
+        str = str.trim();
+        if (str == null || str.isEmpty()) {
+            return false;
+        }
+
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+
+            if (!Character.isLetter(c) && c != ' ') {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public static double promedioLista(ArrayList<Double> lista) {
         double sum = 0;
         for (double n : lista) {

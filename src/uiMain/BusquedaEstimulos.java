@@ -128,11 +128,11 @@ public class BusquedaEstimulos {
     Scanner sc = new Scanner(System.in);
     
     while (true) {
-      System.out.println("Digite el id del usuario a consultar: ");
+      System.out.println("Digite el nombre del usuario a consultar: ");
       String id = sc.nextLine();
       
-      if(id.length() == 0 || !Helpers.esNumerico(id)) {
-        System.out.println("Digite un id válido (solo números)");
+      if(id.length() == 0 || !Helpers.esAlfa(id)) {
+        System.out.println("Digite un nombre válido (solo a-z A-Z)");
         continue;
       }
 
@@ -140,13 +140,13 @@ public class BusquedaEstimulos {
       Profesor profesorPorId = null;
 
       for(Estudiante estudiante: Registro.getEstudiantes()) {
-        if(estudiante.getDocumentoIdentificacion() == id) {
+        if(estudiante.getNombre().equals(id)) {
           estudiantePorId = estudiante;
         }
       }
       
       for(Profesor profesor: Registro.getProfesores()) {
-        if(profesor.getDocumentoIdentificacion() == id) {
+        if(profesor.getNombre().equals(id)) {
           profesorPorId = profesor;
         }
       }
@@ -288,7 +288,7 @@ public class BusquedaEstimulos {
     ArrayList<Registro> aplicantes,
     ArrayList<String> criterios
   ) {
-    imprimirEstimulo(sep, "\n", estimulo, aplicantes, criterios);
+    imprimirEstimulo(sep, "\n", estimulo, aplicantes, true, criterios);
   }
 
   public static void imprimirEstimulo(
@@ -296,7 +296,7 @@ public class BusquedaEstimulos {
     Estimulo estimulo,
     ArrayList<String> criterios
   ) {
-    imprimirEstimulo(sep, "\n", estimulo, new ArrayList<Registro>(), criterios);
+    imprimirEstimulo(sep, "\n", estimulo, new ArrayList<Registro>(), false, criterios);
   }
 
   public static void imprimirEstimulo(
@@ -304,6 +304,7 @@ public class BusquedaEstimulos {
     String end,
     Estimulo estimulo,
     ArrayList<Registro> aplicantes,
+    Boolean withAplicantes,
     ArrayList<String> criterios
   ) {
     System.out.println(sep);
@@ -311,12 +312,12 @@ public class BusquedaEstimulos {
     System.out.println("\tDescripcion: " + estimulo.getDescripcion());
     System.out.println("\tCupos: " + estimulo.getCupos());
     
-    if(aplicantes.size() > 0) {
+    if(aplicantes.size() > 0 && withAplicantes) {
       System.out.println("\tAplican [" + aplicantes.size() + "]:");
       for(Registro aplicante: aplicantes) {
         System.out.println("\t\t-" + aplicante.getNombre());
       }
-    } else {
+    } else if(withAplicantes) {
       System.out.println("\tAplican [0]: No aplica ningun usuario");
     }
 
