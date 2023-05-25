@@ -115,6 +115,9 @@ public class AsignarCita {
                                     System.out.println(cont + ". " + estudiante);
                                     cont++;
                                 }
+                                for (Estudiante estudiante : Registro.getEstudiantes()) {
+                                    estudiante.setInscribir(false);
+                                }
                                 AsignarCita.estudiantesConCita.get(0).setInscribir(true);
                                 continuar = false;
                                 Registro.setEstudiantesConCita(AsignarCita.estudiantesConCita);

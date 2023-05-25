@@ -125,11 +125,14 @@ public class Horario implements Serializable{
             }
         }
         ArrayList<CursoEstudiante> cursosAprobados = (ArrayList<CursoEstudiante>) estudiante.getListaCursos().clone();
+        ArrayList<CursoEstudiante> cursosABorrar = new ArrayList<CursoEstudiante>();
         for(CursoEstudiante ce : cursosAprobados){
             if(ce.calcularPromedio()<3){
-                cursosAprobados.remove(ce);
+                cursosABorrar.add(ce);
+                //cursosAprobados.remove(ce);
             }
         }
+        cursosAprobados.removeAll(cursosABorrar);
         for(Curso c1 : cursosAprobados){
             for(Curso c2 : getCursos()){
                 if(c1.getNombre().equals(c2.getNombre())){

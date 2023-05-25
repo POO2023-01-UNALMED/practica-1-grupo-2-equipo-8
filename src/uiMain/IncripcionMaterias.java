@@ -47,11 +47,15 @@ public class IncripcionMaterias {
         ArrayList<CursoEstudiante> listaCursos = new ArrayList();
         ArrayList<Curso> cursosPosibles = (ArrayList<Curso>) Registro.getCursos().clone();
         ArrayList<CursoEstudiante> cursosAprobados = (ArrayList<CursoEstudiante>) estudiante.getListaCursos().clone();
+        
+        ArrayList<CursoEstudiante> cursosBorrar = new ArrayList<CursoEstudiante>();
         for(CursoEstudiante ce : cursosAprobados){
             if(ce.calcularPromedio()<3){
-                cursosAprobados.remove(ce);
+                cursosBorrar.add(ce);
+                //cursosAprobados.remove(ce);
             }
         }
+        cursosAprobados.removeAll(cursosBorrar);
 
         ArrayList<Curso> cursosABorrar = new ArrayList<Curso>();
         for(Curso c1 : cursosPosibles){
