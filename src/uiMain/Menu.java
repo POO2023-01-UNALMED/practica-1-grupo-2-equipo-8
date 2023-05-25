@@ -248,7 +248,7 @@ public class Menu {
                     + "10. Salir");
             String opcion = sc.nextLine();
             ArrayList<String> opciones = new ArrayList<String>(
-                    Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"));
+                    Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9","10"));
             if (!opciones.contains(opcion)) {
                 System.out.println("Debe seleccionar un número entre el 1 y el 10");
                 continue;
