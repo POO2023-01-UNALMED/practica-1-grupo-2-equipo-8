@@ -203,7 +203,7 @@ public class IncripcionMaterias {
             boolean comp = true;
             for(int x = 1; x<=cont; x++){
                 if(opcion.equals(String.valueOf(x))){
-                    if(!curso.getProfesoresQueDictanElCurso().isEmpty() && curso.getCupos()>0){
+                    if(!curso.obtenerGrupos().isEmpty() && curso.getCupos()>0){
                         return listaCursos.get(x-1);
                     }
                     else{
