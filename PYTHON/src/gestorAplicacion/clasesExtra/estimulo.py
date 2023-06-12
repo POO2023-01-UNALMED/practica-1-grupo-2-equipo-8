@@ -39,12 +39,12 @@ class Estimulo:
         self.nombre = nombre
 
 # Serialización
-def serializar(objeto, archivo):
-    with open(archivo, 'wb') as file:
-        pickle.dump(objeto, file)
+# def serializar(objeto, archivo):
+#     with open(archivo, 'wb') as file:
+#         pickle.dump(objeto, file)
 
 # Deserialización
-def deserializar(archivo):
-    with open(archivo, 'rb') as file:
-        objeto = pickle.load(file)
-    return objeto
+# def deserializar(archivo):
+#     with open(archivo, 'rb') as file:
+#         objeto = pickle.load(file)
+#     return objeto
