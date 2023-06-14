@@ -1,7 +1,4 @@
 from clasesDeUsuario import Registro
-import java.util.ArrayList
-import uiMain.BusquedaCursos
-import uiMain.AsignarCita
 
 class Estudiante(Registro):
     def __init__(self, nombre, correo, nombreUsuario, clave, documento, carrera, facultad, semestre, cursosVistos = None, listaCursos = None):
@@ -110,7 +107,7 @@ class Estudiante(Registro):
         self._inscribir = inscribir
     
 
-    // METODOS
+    #METODOS
     def calcularPAPA(self):
         sum = 0
         sumc = 0
@@ -135,7 +132,7 @@ class Estudiante(Registro):
     def inscribirCursos(self, cursos = None, horario = None):
         if cursos != None:
             for ce in self._listaCursos:
-                if(ce.calcularPromedio()>=3)
+                if(ce.calcularPromedio()>=3):
                     self._cursosVistos.add(ce)
             self._listaCursos.clear()
             for ce in cursos:
