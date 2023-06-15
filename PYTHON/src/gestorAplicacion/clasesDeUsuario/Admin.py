@@ -1,4 +1,4 @@
-from Registro import Registro
+from .Registro import Registro
 
 class Admin(Registro) :
     def __init__(self, nombre, correo, nombreUsuario, clave, documentoIdentificacion) -> None:

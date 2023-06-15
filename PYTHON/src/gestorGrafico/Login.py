@@ -1,4 +1,4 @@
-from .. gestorAplicacion.clasesDeUsuario.Registro import Registro
+from ..gestorAplicacion.clasesDeUsuario.Registro import Registro
 from tkinter import Button, Entry, Frame, Label, StringVar, Tk, ttk
 
 
