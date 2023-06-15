@@ -4,7 +4,11 @@ from tkinter import Button, Entry, Frame, Label, StringVar, Tk, ttk, Menu
 
 
 class Login:
-    def __init__(self):
+    @classmethod
+    def iniciar(cls):
+        def salir():
+            pass
+        
         root = Tk()
         root.state("zoomed")
         root.title("Registro")
