@@ -57,7 +57,6 @@ class Login:
                 clav = entry2.get()
                 comp = False
                 if(tu == ("Estudiante")):
-                    print(Registro.getEstudiantes())
                     for us in Registro.getEstudiantes():
                         if(us.getNombreUsuario()==nom and us.getClave()==clav):
                             comp = True
