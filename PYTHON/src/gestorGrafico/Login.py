@@ -1,11 +1,10 @@
-from ..gestorAplicacion.clasesDeUsuario.Registro import Registro
+from gestorAplicacion.clasesDeUsuario.Registro import Registro
 from tkinter import Button, Entry, Frame, Label, StringVar, Tk, ttk
 
 
 
 class Login:
-    @classmethod
-    def iniciar(cls):
+    def __init__(self):
         root = Tk()
         root.state("zoomed")
         root.title("Registro")
@@ -87,10 +86,4 @@ class Login:
         boton1.bind("<Button-1>",handle)
         boton2.bind("<Button-1>",handle)
         root.mainloop()
-        
-if __name__ == "__main__":
-    Login.iniciar()       
-            
-        
-        
-    
+ 
