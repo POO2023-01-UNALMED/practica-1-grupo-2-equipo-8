@@ -1,5 +1,5 @@
 from gestorAplicacion.clasesDeUsuario.Registro import Registro
-from tkinter import Button, Entry, Frame, Label, StringVar, Tk, ttk
+from tkinter import Button, Entry, Frame, Label, StringVar, Tk, ttk, Menu
 
 
 
@@ -9,6 +9,11 @@ class Login:
         root.state("zoomed")
         root.title("Registro")
         
+        menuBar = Menu(root)
+        root.config(menu=menuBar)
+        archivo = Menu(menuBar, tearoff=False)
+        menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Salir", command=salir)
         frame1 = Frame(root, width=400, height=400)
         frame1.pack(expand=True)
         frame11 = Frame(frame1)
@@ -18,7 +23,7 @@ class Login:
         frame13 = Frame(frame1)
         frame13.pack(anchor="s")
         res = Label(frame1) 
-        res.pack(anchor="s")
+        res.pack(anchor="s", pady=10)
         titulo = Label(frame11, text="Login", font=("Arial", 20))
         titulo.pack()
         label1 = Label(frame12, text="Tipo de usuario:")
@@ -48,40 +53,54 @@ class Login:
                 clav = entry2.get()
                 comp = False
                 if(tu == ("Estudiante")):
+                    print(Registro.getEstudiantes())
                     for us in Registro.getEstudiantes():
                         if(us.getNombreUsuario()==nom and us.getClave()==clav):
                             comp = True
                             #Menu.sistema(us) #Falta ver a qué se va a redireccionar
                             break
-                    if comp == True:
-                        res.setvar("El Nombre o la clave no coincide")
-                        handle(Login)
+                    if comp == False:
+                        res.configure(text="El Nombre o la clave no coincide")
+                        combobox.set("Usuarios")
+                        entry1.delete(0,"end")
+                        entry2.delete(0,"end")    
                 
             
-                elif(tu.equals("Profesor")):
+                elif(tu == ("Profesor")):
                     for us in Registro.getProfesores():
                         if(us.getNombreUsuario()==nom and us.getClave()==clav):
                             comp = True
                             #Menu.sistema(us) #Falta ver a qué se va a redireccionar
                             break
-                    if comp == True:
-                        res.setvar("El Nombre o la clave no coincide")
-                        handle(Login)
+                    if comp == False:
+                        res.configure(text="El Nombre o la clave no coincide")
+                        combobox.set("Usuarios")
+                        entry1.delete(0,"end")
+                        entry2.delete(0,"end")    
                     
                 
-                elif(tu.equals("Admin")):
+                elif(tu == ("Admin")):
                     for us in Registro.getAdmins():
                         if(us.getNombreUsuario()==nom and us.getClave()==clav):
                             comp = True
                             #Menu.sistema(us) #Falta ver a qué se va a redireccionar
                             break
-                    if comp == True:
-                        res.setvar("El Nombre o la clave no coincide")
-                        handle(Login)
+                    if comp == False:
+                        res.configure(text="El Nombre o la clave no coincide")
+                        combobox.set("Usuarios")
+                        entry1.delete(0,"end")
+                        entry2.delete(0,"end")    
+                else:
+                    res.configure(text="Debe seleccionar un tipo de usuario")
+                    combobox.set("Usuarios")
+                    entry1.delete(0,"end")
+                    entry2.delete(0,"end")
+                
             else:
                 combobox.set("Usuarios")
                 entry1.delete(0,"end")
                 entry2.delete(0,"end")
+                res.configure(text="")
         
         boton1.bind("<Button-1>",handle)
         boton2.bind("<Button-1>",handle)
