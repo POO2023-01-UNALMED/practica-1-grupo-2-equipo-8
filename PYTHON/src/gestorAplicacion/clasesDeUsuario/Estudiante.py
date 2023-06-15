@@ -1,4 +1,4 @@
-from clasesDeUsuario import Registro
+from .Registro import Registro
 
 class Estudiante(Registro):
     def __init__(self, nombre, correo, nombreUsuario, clave, documento, carrera, facultad, semestre, cursosVistos = None, listaCursos = None):

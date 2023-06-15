@@ -1,5 +1,5 @@
 from tkinter import Button, Entry, Frame, Label, Menu, StringVar, Tk, ttk
-from Registro import Registro
+from ..gestorAplicacion.clasesDeUsuario.Registro import Registro
 
 
 class Login:

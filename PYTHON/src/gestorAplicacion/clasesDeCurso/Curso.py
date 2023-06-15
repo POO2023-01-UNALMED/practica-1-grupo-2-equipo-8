@@ -1,4 +1,4 @@
-from PYTHON.src.gestorAplicacion.clasesDeCurso import CursoEstudiante
+from .CursoEstudiante import CursoEstudiante
 from ..clasesDeUsuario.Registro import Registro
 
 class Curso:

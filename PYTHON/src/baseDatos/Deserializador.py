@@ -1,5 +1,5 @@
 import pickle
-from ..gestorAplicacion.clasesDeUsuario.Registro import Registro
+from ..uiMain.Registro import Registro
 
 class Deserializador:
     @classmethod
