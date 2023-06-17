@@ -1,9 +1,12 @@
+from tkinter import Tk
 from gestorGrafico.UserWindow import UserWindow
 from gestorGrafico.Login import Login
 from gestorAplicacion.clasesDeUsuario.Admin import Admin
 from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 
 if __name__ == '__main__' :
+    root = Tk()
     A = Admin()
     #Login().iniciar()
-    UserWindow(A)
+    UserWindow(root, A)
+    root.mainloop()

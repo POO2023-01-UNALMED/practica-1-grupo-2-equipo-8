@@ -1,14 +1,12 @@
 import tkinter as tk
 
 class FieldFrame(tk.Frame):
-    def __init__(self, root, tituloProceso=None, descripcionProceso=None, titulosCriterios=None, criterios=None, titulosValores=None, valores = None) :
+    def __init__(self, root, tituloProceso=None, descripcionProceso=None, criterios=None, valores = None) :
         super().__init__(root)
 
         self._tituloProceso = tituloProceso
         self._descripcionProceso = descripcionProceso
-        self._titulosCriterios = titulosCriterios
         self._criterios = criterios
-        self._titulosValores = titulosValores
         self._valores = valores
         
         # Titulo proceso
@@ -25,4 +23,11 @@ class FieldFrame(tk.Frame):
 
         # Valores
         frameValores = tk.Frame(root)
-        
+        for i in range(len(criterios)) :
+            criterio = tk.Label(frameValores, text=criterios[i])
+            criterio.grid(row=i, column=0)
+
+            valor = tk.Entry(frameValores)
+            valor.grid(row=i, column=1)
+            valor.insert(0, valores[i])
+        frameValores.pack()

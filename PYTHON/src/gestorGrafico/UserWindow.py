@@ -5,17 +5,16 @@ from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 #from ..gestorAplicacion.clasesDeUsuario.Profesor import Profesor
 
 class UserWindow :
-    def __init__(self, user) -> None:
-        window = Tk()
-        window.title('Mi Gestor Académico')
-        window.state("zoomed")
+    def __init__(self, root, user) -> None:
+        root.title('Mi Gestor Académico')
+        root.state("zoomed")
 
         # 1) MENU SUPERIOR
         barra_menus = Menu()
         # Botón archivo
         archivo = Menu(barra_menus, tearoff=False)
         archivo.add_command(label="Aplicación")
-        archivo.add_command(label="Salir", command=window.destroy)
+        archivo.add_command(label="Salir", command=root.destroy)
 
         # Botón procesos y consultas
         procesosYConsultas = Menu(barra_menus, tearoff=False)
@@ -58,14 +57,12 @@ class UserWindow :
         barra_menus.add_cascade(menu=archivo, label="Archivo")
         barra_menus.add_cascade(menu=procesosYConsultas, label="Procesos y Consultas")
         barra_menus.add_cascade(menu=ayuda, label="Ayuda")
-        window.config(menu=barra_menus)
+        root.config(menu=barra_menus)
 
         # 2) INTERACCIÓN USUARIO
         # Interaccion Usuario
-        frameInteraccion = FieldFrame(window, 'A', 'B')
+        frameInteraccion = FieldFrame(root, 'A', 'B', ['A', 'B'], ['a', 'b'])
         frameInteraccion.pack()
-
-        window.mainloop()
 
     @classmethod
     def handleArchivo() :
