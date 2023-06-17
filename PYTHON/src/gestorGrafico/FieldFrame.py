@@ -41,7 +41,7 @@ class FieldFrame(tk.Frame):
         frameValores.anchor(tk.CENTER)
         frameValores.pack()
 
-        # Bo
+        # Botones
         frameBotones = tk.Frame(root)
         aceptar = tk.Button(frameBotones, text='Aceptar')
         aceptar.grid(row=0, column=0)

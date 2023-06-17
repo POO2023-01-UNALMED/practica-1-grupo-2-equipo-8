@@ -3,9 +3,14 @@ from .FieldFrame import FieldFrame
 from gestorAplicacion.clasesDeUsuario.Admin import Admin
 from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 #from ..gestorAplicacion.clasesDeUsuario.Profesor import Profesor
+from .ProcesosEstudiante import RecomendarAsignaturas
 
 class UserWindow :
     def __init__(self, root, user) -> None:
+
+        def recomendarAsignaturas() :
+            RecomendarAsignaturas(root)
+
         root.title('Mi Gestor Académico')
         root.state("zoomed")
 
@@ -20,34 +25,34 @@ class UserWindow :
         procesosYConsultas = Menu(barra_menus, tearoff=False)
         if isinstance(user, Admin) :
             lista_procesos = [
-                'Crear curso',
-                'Eliminar curso',
-                'Buscar asignatura',
-                'Asignar citas de inscripción',
-                'Ver estudiantes',
-                'Ver profesores',
-                'Ver estimulos [por nombre]',
-                'Ver estimulos [todos]',
-                'Modificar estudiante con cursos'
+                ('Crear curso', None),
+                ('Eliminar curso', None),
+                ('Buscar asignatura', None),
+                ('Asignar citas de inscripción', None),
+                ('Ver estudiantes', None),
+                ('Ver profesores', None),
+                ('Ver estimulos [por nombre]', None),
+                ('Ver estimulos [todos]', None),
+                ('Modificar estudiante con cursos', None)
             ]
         elif isinstance(user, Estudiante) :
             lista_procesos = [
-                'Ver recomendación de asignaturas',
-                'Buscar asignatura',
-                'Crear horario',
-                'Inscribir materias',
-                'Ver estímulos a los que aplica',
-                'Calificar a un profesor'
+                ('Ver recomendación de asignaturas', recomendarAsignaturas),
+                ('Buscar asignatura', None),
+                ('Crear horario', None),
+                ('Inscribir materias', None),
+                ('Ver estímulos a los que aplica', None),
+                ('Calificar a un profesor', None)
             ]
         else :
             lista_procesos = [
-                'Calificar',
-                'Ver estímulos a los que aplica',
-                'Buscar asignatura'
+                ('Calificar', None),
+                ('Ver estímulos a los que aplica', None),
+                ('Buscar asignatura', None)
             ]
 
         for proceso in lista_procesos :
-            procesosYConsultas.add_command(label=proceso)
+            procesosYConsultas.add_command(label=proceso[0], command=proceso[1])
         
         # Botón ayuda
         ayuda = Menu(barra_menus, tearoff=False)
@@ -61,6 +66,6 @@ class UserWindow :
 
         # 2) INTERACCIÓN USUARIO
         # Interaccion Usuario
-        frameInteraccion = FieldFrame(root, 'A', 'B', ['A', 'B'], ['a', 'b'])
+        frameInteraccion = FieldFrame(root)
+        #frameInteraccion = FieldFrame(root, 'A', 'B', ['A', 'B'], ['a', 'b'])
         frameInteraccion.pack()
-
