@@ -10,7 +10,7 @@ class UserWindow :
         window.title('Mi Gestor Académico')
         window.state("zoomed")
 
-        # MENU SUPERIOR
+        # 1) MENU SUPERIOR
         barra_menus = Menu()
         # Botón archivo
         archivo = Menu(barra_menus, tearoff=False)
@@ -60,35 +60,10 @@ class UserWindow :
         barra_menus.add_cascade(menu=ayuda, label="Ayuda")
         window.config(menu=barra_menus)
 
-        # Menu Superior
-        frameBotones = Frame(window)
-        frameBotones.grid(row=0, column=0, sticky='ew')
-
-        frameBotones.columnconfigure(0, weight=1)
-        frameBotones.columnconfigure(1, weight=1)
-        frameBotones.columnconfigure(2, weight=1)
-
-        bar = Menu(window)
-
-        botonArchivo = Menu(bar)
-        botonArchivo.add_cascade(label='Aplicacion')
-        botonArchivo.add_cascade(label='Salir')
-
-        botonProcesos = Button(frameBotones, text="Procesos y Consultas", font=("Arial", 18))
-        botonProcesos.grid(row=1, column=1)
-
-        botonAyuda = Button(frameBotones, text="Ayuda", font=("Arial", 18))
-        botonAyuda.grid(row=1, column=2)
-
+        # 2) INTERACCIÓN USUARIO
         # Interaccion Usuario
-        frameInteraccion = FieldFrame(window, 'A')
-        frameInteraccion.grid(row=1, column=0, sticky='nsew')
-
-        
-        # Configure grid weights to allow frames to expand
-        window.grid_rowconfigure(0, weight=1)
-        window.grid_rowconfigure(1, weight=1)
-        window.grid_columnconfigure(0, weight=1)
+        frameInteraccion = FieldFrame(window, 'A', 'B')
+        frameInteraccion.pack()
 
         window.mainloop()
 
