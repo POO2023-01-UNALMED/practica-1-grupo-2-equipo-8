@@ -6,7 +6,7 @@ from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 
 if __name__ == '__main__' :
     root = Tk()
-    A = Admin()
+    A = Estudiante()
     #Login().iniciar()
     UserWindow(root, A)
     root.mainloop()

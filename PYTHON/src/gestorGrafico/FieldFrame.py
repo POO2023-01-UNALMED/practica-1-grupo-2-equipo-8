@@ -9,6 +9,13 @@ class FieldFrame(tk.Frame):
         self._criterios = criterios
         self._valores = valores
         
+        if tituloProceso == None :
+            frame = tk.Frame(root)
+            tk.Label(root, text='ELIJA UN PROCESO').pack()
+            frame.anchor(tk.CENTER)
+            frame.pack()
+            return
+        
         # Titulo proceso
         frameTituloProceso = tk.Frame(root)
         tk.Label(frameTituloProceso, text=self._tituloProceso).pack()
@@ -30,4 +37,5 @@ class FieldFrame(tk.Frame):
             valor = tk.Entry(frameValores)
             valor.grid(row=i, column=1)
             valor.insert(0, valores[i])
+        frameValores.anchor(tk.CENTER)
         frameValores.pack()

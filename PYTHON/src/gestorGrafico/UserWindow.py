@@ -64,9 +64,3 @@ class UserWindow :
         frameInteraccion = FieldFrame(root, 'A', 'B', ['A', 'B'], ['a', 'b'])
         frameInteraccion.pack()
 
-    @classmethod
-    def handleArchivo() :
-        pass
-
-    def handleProcesos() :
-        pass
