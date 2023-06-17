@@ -1,8 +1,8 @@
 from .Registro import Registro
 
 class Estudiante(Registro):
-    def __init__(self, nombre, correo, nombreUsuario, clave, documento, carrera, facultad, semestre, cursosVistos = None, listaCursos = None):
-        super().__init__(self, nombre, correo, nombreUsuario, clave, documento)
+    def __init__(self, nombre=None, correo=None, nombreUsuario=None, clave=None, documento=None, carrera=None, facultad=None, semestre=None, cursosVistos = None, listaCursos = None):
+        super().__init__(nombre, correo, nombreUsuario, clave, documento)
         self._carrera = carrera
         self._facultad = facultad
         self._semestre = semestre
@@ -17,12 +17,12 @@ class Estudiante(Registro):
         else:
             self._cursosVistos = cursosVistos
         self._listaCursosInscritos = set()
-        for ce in listaCursos:
+        """ for ce in listaCursos:
             profesor = ce.getProfesor()
             for cp in profesor.getListaCursos():
                 if ce.getNombre() == cp.getNombre():
                     cp.agregarEstudiante(self)
-                    cp.setCupos(cp.getCupos()-1)
+                    cp.setCupos(cp.getCupos()-1) """
         self._cita = 0
         self._inscribir = False
         Registro.agregarEstudiante(self)
