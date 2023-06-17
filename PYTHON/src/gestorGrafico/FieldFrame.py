@@ -9,6 +9,7 @@ class FieldFrame(tk.Frame):
         self._criterios = criterios
         self._valores = valores
         
+        # Si se habré la ventana por primera vez
         if tituloProceso == None :
             frame = tk.Frame(root)
             tk.Label(root, text='ELIJA UN PROCESO').pack()
@@ -39,3 +40,12 @@ class FieldFrame(tk.Frame):
             valor.insert(0, valores[i])
         frameValores.anchor(tk.CENTER)
         frameValores.pack()
+
+        # Bo
+        frameBotones = tk.Frame(root)
+        aceptar = tk.Button(frameBotones, text='Aceptar')
+        aceptar.grid(row=0, column=0)
+
+        borrar = tk.Button(frameBotones, text='Borrar')
+        borrar.grid(row=0, column=1)
+        frameBotones.pack()
