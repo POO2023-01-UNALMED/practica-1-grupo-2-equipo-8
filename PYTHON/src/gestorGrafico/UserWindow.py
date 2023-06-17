@@ -10,6 +10,7 @@ class UserWindow :
         window.title('Mi Gestor Académico')
         window.state("zoomed")
 
+        # MENU SUPERIOR
         barra_menus = Menu()
         # Botón archivo
         archivo = Menu(barra_menus, tearoff=False)
@@ -48,9 +49,15 @@ class UserWindow :
 
         for proceso in lista_procesos :
             procesosYConsultas.add_command(label=proceso)
+        
+        # Botón ayuda
+        ayuda = Menu(barra_menus, tearoff=False)
+        ayuda.add_command(label="Acerca de")
 
+        # Se agregan los botones
         barra_menus.add_cascade(menu=archivo, label="Archivo")
         barra_menus.add_cascade(menu=procesosYConsultas, label="Procesos y Consultas")
+        barra_menus.add_cascade(menu=ayuda, label="Ayuda")
         window.config(menu=barra_menus)
 
         # Menu Superior
