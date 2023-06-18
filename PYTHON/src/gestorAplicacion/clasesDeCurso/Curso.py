@@ -1,9 +1,7 @@
-
-
-
 class Curso:
-  def __init__(self, nombre, creditos, numeroParciales, listaPorcentajes, facultades, id = 0, preRequisitos = None, carrerasRelacionadas = None):
+  def __init__(self, nombre, creditos, numeroParciales, listaPorcentajes, facultades, id = 0, preRequisitos = None, carrerasRelacionadas = None, esLibreEleccion = False):
     from ..clasesDeUsuario.Registro import Registro
+
     self._nombre = nombre
     self._creditos = creditos
     self._numeroParciales = numeroParciales
@@ -24,6 +22,7 @@ class Curso:
     else:
       self._carrerasRelacionadas = carrerasRelacionadas
     self._profesoresQueDictanElCurso = set()
+    self._esLibreEleccion = esLibreEleccion
     Registro.agregarCurso(self) # Se agrega el curso creado a la base de datos.
 
   # get y set
@@ -130,8 +129,9 @@ class Curso:
   
   #Methods
   def obtenerGrupos(self, estudiante = None):
+    from .CursoEstudiante import CursoEstudiante
     from ..clasesDeUsuario.Registro import Registro
-    from gestorAplicacion.clasesDeCurso.CursoEstudiante import CursoEstudiante
+
     if(estudiante != None):
       listaCursos = []
       for profesor in Registro.getProfesores():

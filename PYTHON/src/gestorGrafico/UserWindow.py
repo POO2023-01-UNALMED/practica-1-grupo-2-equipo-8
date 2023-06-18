@@ -3,18 +3,14 @@ from .FieldFrame import FieldFrame
 from gestorAplicacion.clasesDeUsuario.Admin import Admin
 from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 #from ..gestorAplicacion.clasesDeUsuario.Profesor import Profesor
-from .ProcesosEstudiante import RecomendarAsignaturas
+from .RecomendarAsignaturas import RecomendarAsignaturas
 
-class UserWindow() :
+class UserWindow :
     def __init__(self, root, user) -> None:
         self._user = user
 
-        def cleanRoot() :
-            for w in root.winfo_children() :
-                w.destroy()
-
         def recomendarAsignaturas() :
-            cleanRoot()
+            root.cleanRoot()
             RecomendarAsignaturas(root, self._user)
 
         root.title('Mi Gestor Académico')
