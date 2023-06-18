@@ -3,7 +3,7 @@ class Registro(ABC):
     _cantidadUsuariosExistentes = 0
     _estudiantes = set()
     _estudiantesMatriculados = set()
-    _cursos = set()
+    _cursos = []
     _admins = set()
     _profesores = set()
     _estimulosEstudiantes = set()

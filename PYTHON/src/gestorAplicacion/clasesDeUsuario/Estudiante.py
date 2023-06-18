@@ -1,3 +1,4 @@
+from ..clasesExtra.Horario import Horario
 from .Registro import Registro
 
 class Estudiante(Registro):

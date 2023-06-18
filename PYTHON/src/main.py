@@ -1,6 +1,7 @@
+from gestorGrafico.Register import Register
 from gestorGrafico.UserWindow import UserWindow
 from gestorGrafico.Login import Login
 
-if __name__ == '__main__' :
-    Login().iniciar()
+if __name__ == "__main__":
+    Register.register() 
     #UserWindow()
