@@ -1,8 +1,9 @@
-from .CursoEstudiante import CursoEstudiante
-from ..clasesDeUsuario.Registro import Registro
+
+
 
 class Curso:
   def __init__(self, nombre, creditos, numeroParciales, listaPorcentajes, facultades, id = 0, preRequisitos = None, carrerasRelacionadas = None):
+    from ..clasesDeUsuario.Registro import Registro
     self._nombre = nombre
     self._creditos = creditos
     self._numeroParciales = numeroParciales
@@ -129,6 +130,8 @@ class Curso:
   
   #Methods
   def obtenerGrupos(self, estudiante = None):
+    from ..clasesDeUsuario.Registro import Registro
+    from gestorAplicacion.clasesDeCurso.CursoEstudiante import CursoEstudiante
     if(estudiante != None):
       listaCursos = []
       for profesor in Registro.getProfesores():
