@@ -5,11 +5,17 @@ from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 #from ..gestorAplicacion.clasesDeUsuario.Profesor import Profesor
 from .ProcesosEstudiante import RecomendarAsignaturas
 
-class UserWindow :
+class UserWindow() :
     def __init__(self, root, user) -> None:
+        self._user = user
+
+        def cleanRoot() :
+            for w in root.winfo_children() :
+                w.destroy()
 
         def recomendarAsignaturas() :
-            RecomendarAsignaturas(root)
+            cleanRoot()
+            RecomendarAsignaturas(root, self._user)
 
         root.title('Mi Gestor Académico')
         root.state("zoomed")
@@ -23,7 +29,7 @@ class UserWindow :
 
         # Botón procesos y consultas
         procesosYConsultas = Menu(barra_menus, tearoff=False)
-        if isinstance(user, Admin) :
+        if isinstance(self._user, Admin) :
             lista_procesos = [
                 ('Crear curso', None),
                 ('Eliminar curso', None),
@@ -35,7 +41,7 @@ class UserWindow :
                 ('Ver estimulos [todos]', None),
                 ('Modificar estudiante con cursos', None)
             ]
-        elif isinstance(user, Estudiante) :
+        elif isinstance(self._user, Estudiante) :
             lista_procesos = [
                 ('Ver recomendación de asignaturas', recomendarAsignaturas),
                 ('Buscar asignatura', None),

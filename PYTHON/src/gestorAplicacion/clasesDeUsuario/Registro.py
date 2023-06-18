@@ -1,4 +1,5 @@
 from abc import ABC, abstractclassmethod
+from gestorAplicacion.clasesDeCurso.Curso import Curso
 class Registro(ABC):
     _cantidadUsuariosExistentes = 0
     _estudiantes = set()
@@ -106,7 +107,7 @@ class Registro(ABC):
         Registro._estudiantesMatriculados.add(estudiante)
     
     @classmethod
-    def getCursos(cls): 
+    def getCursos(cls) -> list[Curso] : 
         return Registro._cursos
     
     @classmethod
