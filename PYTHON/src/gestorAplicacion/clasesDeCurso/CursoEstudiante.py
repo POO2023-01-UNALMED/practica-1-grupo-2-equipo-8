@@ -1,4 +1,4 @@
-from clasesDeCurso import Curso
+from .Curso import Curso
 
 class CursoEstudiante(Curso):
     def __init__(self, nombre, id, cupos, creditos, numeroParciales, listaPorcentajes, facultad, listaNotas, semestre, estudiante, horario, profesor):
