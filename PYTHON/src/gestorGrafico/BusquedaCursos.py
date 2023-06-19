@@ -161,12 +161,12 @@ class BusquedaCursos(Frame):
                                 listaCursos = Curso.filtrarPorFacultad(Registro.getCursos(), Facultades.MINAS)
                             else:
                                 listaCursos = Curso.filtrarPorFacultad(Registro.getCursos(), Facultades.CIENCIAS)
-                        scrollbar = ttk.Scrollbar(valoresFrame, orient="vertical")
-                        items = listaCursos
-                        listbox = Listbox(valoresFrame, yscrollcommand=scrollbar.set)
-                        listbox.insert(0, items)
-                        scrollbar.config(command=listbox.yview)
-                        listbox.grid(row=3, column=0, columnspan=2)
+                            scrollbar = ttk.Scrollbar(valoresFrame, orient="vertical")
+                            items = listaCursos
+                            listbox = Listbox(valoresFrame, yscrollcommand=scrollbar.set)
+                            listbox.insert(0, *items)
+                            scrollbar.config(command=listbox.yview)
+                            listbox.grid(row=3, column=0, columnspan=2)
                     def borr(e):
                         pass    
                     continuar.bind("<Button-1>",cont)
