@@ -57,9 +57,9 @@ class Inicio:
         self.P4 = tk.Frame(self.P1)
         self.P4.pack(side="bottom")
 
-        self.botonventanaprincipal = tk.Button(self.P4, text="Ventana principal")
-        self.botonventanaprincipal.pack(side="bottom")
-        self.botonventanaprincipal.bind("<Button-1>", self.iniciar)
+        self.boton = tk.Button(self.P4, text="Ventana principal")
+        self.boton.pack(side="bottom")
+        self.boton.bind("<Button-1>", self.iniciar)
 
         self.imagenes = tk.Label(self.P4)
         self.imagenes.bind("<Button-1>", self.cambiarImagen)
