@@ -121,7 +121,7 @@ class Estudiante(Registro):
     
     def crearHorario(self):
         horario = Horario(self, [])
-        self._horariosCreados.append(horario)
+        self._horariosCreados.add(horario)
         return horario
     
     

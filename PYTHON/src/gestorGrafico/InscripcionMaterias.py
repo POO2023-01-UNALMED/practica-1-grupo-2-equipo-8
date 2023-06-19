@@ -1,12 +1,27 @@
-from gestorGrafico.BusquedaCursos import BusquedaCursos
+from tkinter import Frame, Label, Menu, Button, CENTER
+
+from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 from gestorAplicacion.clasesDeUsuario.Registro import Registro
 from gestorAplicacion.clasesExtra.Horario import Horario
+from gestorGrafico.BusquedaCursos import BusquedaCursos
+from gestorGrafico.Root import Root
 
 class IncripcionMaterias:
     @staticmethod
-    def inscribirMaterias(estudiante):
+    def inscribirMaterias(root:Root, estudiante:Estudiante):
+        menuBar = Menu(root)
+        root.config(menu=menuBar)
+        archivo = Menu(menuBar, tearoff=False)
+        menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Salir", command=root.salir)
+
         comp = False
         if estudiante.getInscribir():
+            Label(root, text="INSCRIPCIÓN DE MATERIAS", anchor=CENTER).pack()
+            Label(root, text="¿Qué desea hacer?", anchor=CENTER).pack()
+            frameFormulario = Frame(root)
+            
+            
             while True:
                 print("Indique lo que desea hacer:\n"
                       + "1. Incribir materias manualmente\n"
@@ -26,10 +41,23 @@ class IncripcionMaterias:
                     return
 
         else:
-            print("Usted no puede inscribir cursos en este momento, pero te redirigiremos a crear un horario\n"
-                  + "Este horario te servirá para inscribir (en el momento en el que puedas inscribir) automáticamente las materias que guardaste en dicho horario")
-            horario = estudiante.crearHorario()
-            BusquedaCursos.buscarCursos(estudiante, horario)
+            Label(text="Usted no puede inscribir cursos en este momento, pero si gustas te redirigiremos a crear un horario\n"
+                  + "Este horario te servirá para inscribir (en el momento en el que puedas inscribir) automáticamente las materias que guardaste en dicho horario").pack()
+
+            def handleVolver() :
+                from gestorGrafico.UserWindow import UserWindow
+                root.cleanRoot()
+                UserWindow(root, estudiante)
+
+            def handleCrearHorario() :
+                horario = estudiante.crearHorario()
+                root.cleanRoot()
+                BusquedaCursos.buscarCursos(estudiante, horario)
+
+            frameBotones = Frame(root)
+            Button(frameBotones, text="Volver", command=handleVolver).grid(row=0, column=0)
+            Button(frameBotones, text="Crear Horario", command=handleCrearHorario).grid(row=0, column=1)
+            frameBotones.pack()
 
     @staticmethod
     def inscribirManualmente(estudiante):
