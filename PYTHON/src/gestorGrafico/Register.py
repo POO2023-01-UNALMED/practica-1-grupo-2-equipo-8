@@ -3,10 +3,12 @@ from Errores.HorarioException import HorarioException
 from Errores.CampoErroneoException import CampoErroneoException
 from gestorGrafico.UserWindow import UserWindow
 from gestorGrafico.Root import Root
-from gestorAplicacion.clasesDeUsuario.Admin import Admin
 from gestorAplicacion.clasesExtra.Carreras import Carreras
+from gestorAplicacion.clasesDeUsuario.Admin import Admin
 from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 from gestorAplicacion.clasesDeUsuario.Registro import Registro
+from gestorAplicacion.clasesDeUsuario.Profesor import Profesor
+from gestorAplicacion.clasesDeCurso.CursoProfesor import CursoProfesor
 
 class Register:
     @classmethod
@@ -334,7 +336,7 @@ class Register:
                             ej.grid(row=4, column=0, columnspan=4, pady=10)
                             label6 = Label(frame13, text="Seleccione un curso:")
                             label6.grid(row=5, column=0)
-                            val1 = ["Curso God"]
+                            val1 = []
                             for x in Registro.getCursos():
                                 val1.append(x.getNombre())
                             combobox1 = ttk.Combobox(frame13, values=val1, state="readonly")
@@ -366,16 +368,18 @@ class Register:
                                     horario = entry6.get()
                                     try:
                                         Register.errorHorario(horario)
-                                        #cp = CursoProfesor(curso.getNombre(), curso.getId(), curso.getCreditos(), curso.getNumeroParciales(), curso.getListaPorcentajes(), curso.getFacultad(), horario)
+                                        cp = CursoProfesor(curso.getNombre(), curso.getId(), curso.getCreditos(), curso.getNumeroParciales(), curso.getListaPorcentajes(), curso.getFacultad(), horario)
                                         cursos.append(cp)
                                         val1.pop(val1.index(opcion))
                                     except HorarioException as he:
                                         messagebox.showerror("Error", he.mostrarMensaje())
+                                        combobox1.set("Cursos")
+                                        entry6.delete(0, "end")
+                                        entry6.configure(state="disabled")
                                     combobox1.set("Cursos")
+                                    combobox1.configure(values=val1)
                                     entry6.delete(0, "end")
                                     entry6.configure(state="disabled")
-                                    anadir.after(2000, anadir.config(state="normal"))
-                                    anadir.after(2000, anadir.invoke)
                             def borrarf(e):
                                 res.configure(text="")
                                 lis = []
@@ -392,7 +396,7 @@ class Register:
                                         if type(x) is Entry:
                                             lis.append(x)
                                     for x in frame13.children.values():
-                                        if type(x) is Entry:
+                                        if type(x) is Entry and x != entry6:
                                             lis.append(x)
                                     Register.errorEntradas(lis, entry5)
                                     for x in frame13.children.values():
@@ -420,7 +424,7 @@ class Register:
                                                 if type(x) is Entry:
                                                     lis.append(x)
                                             for x in frame13.children.values():
-                                                if type(x) is Entry:
+                                                if type(x) is Entry and x != entry6:
                                                     lis.append(x)
                                             Register.errorEntradas(lis)
                                             if combobox2.get() == "Facultades":
