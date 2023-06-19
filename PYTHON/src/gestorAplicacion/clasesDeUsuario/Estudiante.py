@@ -25,7 +25,7 @@ class Estudiante(Registro):
                 if ce.getNombre() == cp.getNombre():
                     cp.agregarEstudiante(self)
                     cp.setCupos(cp.getCupos()-1) """
-        self._cita = 0
+        self._cita = None
         self._inscribir = False
         Registro.agregarEstudiante(self)
         
@@ -183,5 +183,5 @@ class Estudiante(Registro):
     
     
     def __str__(self):
-        return self.getNombre() + " (" + self.calcularPAPA() + ")"
+        return self.getNombre() + " (" + str(self.calcularPAPA()) + ")"
     

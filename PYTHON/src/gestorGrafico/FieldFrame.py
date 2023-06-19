@@ -5,6 +5,14 @@ class FieldFrame(tk.Frame):
     def __init__(self, root, tituloProceso=None, descripcionProceso=None, criterios=None, valores = None, valoresCombo = None) :
         super().__init__(root)
 
+        # Si se abre la ventana por primera vez
+        if tituloProceso == None :
+            frame = tk.Frame(root)
+            tk.Label(root, text='ELIJA UN PROCESO').pack()
+            frame.anchor(tk.CENTER)
+            frame.pack()
+            return
+
         self._root = root
         self._tituloProceso = tituloProceso
         self._descripcionProceso = descripcionProceso
@@ -16,14 +24,6 @@ class FieldFrame(tk.Frame):
             self._valoresCombo = []
         else:
             self._valoresCombo = valoresCombo
-
-        # Si se abre la ventana por primera vez
-        if tituloProceso == None :
-            frame = tk.Frame(root)
-            tk.Label(root, text='ELIJA UN PROCESO').pack()
-            frame.anchor(tk.CENTER)
-            frame.pack()
-            return
         
         # Titulo proceso
         frameTituloProceso = tk.Frame(root)
@@ -44,7 +44,7 @@ class FieldFrame(tk.Frame):
         frameValores = tk.Frame(root, name="valores")
         cont = 1
         for i in range(len(criterios)) :
-            criterio = tk.Label(frameValores, text=criterios[i])
+            criterio = tk.Label(frameValores, text=self._criterios[i])
             criterio.grid(row=i, column=0)
 
             if valores[i] == "combobox":
@@ -63,10 +63,17 @@ class FieldFrame(tk.Frame):
                 valor = tk.Entry(frameValores, state="disabled")
                 valor.grid(row=i, column=1)
                 self._entrys.append(valor)
-            else:
+            elif valores[i] == 'radio' :
+                frameRadios = tk.Frame(frameValores)
+                radio = tk.IntVar()
+                tk.Radiobutton(frameRadios, text='Sí', variable=radio, value=1).grid(row=0, column=0)
+                tk.Radiobutton(frameRadios, text='No', variable=radio, value=0).grid(row=0, column=1)
+                self._entrys.append(radio)
+                frameRadios.grid(row=i, column=1)
+            else :
                 valor = tk.Entry(frameValores)
                 valor.grid(row=i, column=1)
-                valor.insert(0, valores[i])
+                valor.insert(0, self._valores[i])
                 self._entrys.append(valor)
         frameValores.anchor(tk.CENTER)
         frameValores.pack()
@@ -81,8 +88,10 @@ class FieldFrame(tk.Frame):
         frameBotones.pack() """
 
     def handleAceptar(self) :
-        self.getEntradasUsuario()
-        self._root.cleanRoot()
+            self.getEntradasUsuario()
+            self._entradas = self._entradasUsuario
+            self._root.cleanRoot()
+            self.recomendar()
 
     def getEntradasUsuario(self) :
         for entrada in self._entrys :

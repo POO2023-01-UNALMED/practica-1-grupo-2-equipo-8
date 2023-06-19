@@ -9,7 +9,6 @@ class Login:
     @classmethod
     def iniciar(cls, root:Root):
 
-        root.state("zoomed")
         root.title("Registro")
         
         menuBar = Menu(root)

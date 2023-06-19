@@ -19,7 +19,6 @@ class UserWindow :
             self._user.buscarCursos(root)
 
         root.title('Mi Gestor Académico')
-        root.state("zoomed")
 
         # 1) MENU SUPERIOR
         barra_menus = Menu()
