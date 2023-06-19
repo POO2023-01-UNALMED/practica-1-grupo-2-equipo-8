@@ -58,7 +58,7 @@ class Curso:
     
     
     def agregarHorario(self, horario):
-        self._horariosClase.add(horario)
+        self._horariosClase.append(horario)
     
     
 
@@ -103,7 +103,7 @@ class Curso:
     
     
     def agregarProfesor(self, profesor):
-        self._profesoresQueDictanElCurso.add(profesor)
+        self._profesoresQueDictanElCurso.append(profesor)
     
 
     def getFacultad(self): 

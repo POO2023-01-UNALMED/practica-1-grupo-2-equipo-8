@@ -2,7 +2,7 @@ from gestorAplicacion.clasesDeCurso import Curso
 
 class CursoEstudiante(Curso.Curso):
     def __init__(self, nombre, id, cupos, creditos, numeroParciales, listaPorcentajes, facultad, listaNotas, semestre, estudiante, horario, profesor):
-        super().__init__(nombre, id, creditos, numeroParciales, listaPorcentajes, facultad)
+        super().__init__(nombre, creditos, numeroParciales, listaPorcentajes, facultad, id)
         self._listaNotas = listaNotas
         self._semestre = semestre
         self._estudiante = estudiante

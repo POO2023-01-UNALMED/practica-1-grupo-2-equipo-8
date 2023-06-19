@@ -93,7 +93,87 @@ class RecomendarAsignaturas(Frame) :
         tabla.pack()
         frameTabla.pack()
 
+        def handleAceptar() :
+            curItem = tabla.focus()
+            nombreCurso = tabla.item(curItem)['values'][1]
+            self._entradas = [nombreCurso]
+            self._root.cleanRoot()
+            self.recomendar3()
+
         frameBotones = Frame(self._root)
-        Button(frameBotones, text="Aceptar", command=handleAceptar).grid(row=0, column=0)
-        Button(frameBotones, text="Borrar").grid(row=0, column=1)        
+        Button(frameBotones, text="Aceptar", command=handleAceptar).pack()      
+        frameBotones.pack()
+
+    def recomendar3(self) :
+        menuBar = Menu(self._root)
+        self._root.config(menu=menuBar)
+        archivo = Menu(menuBar, tearoff=False)
+        menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Salir", command=self._root.salir)
+
+        # Encontrar curso
+        for curso in Registro.getCursos() :
+            if curso.getNombre() == self._entradas[0] :
+                cursoDeInteres = curso
+                break
+        
+        nombresProfesoresDelCurso = []
+        for profesor in cursoDeInteres.getProfesoresQueDictanElCurso() :
+            nombresProfesoresDelCurso.append(profesor.getNombre())
+
+        self.listaProfesores = []
+        for profesor in Registro.getProfesores() :
+            if profesor.getNombre() in nombresProfesoresDelCurso :
+                self.listaProfesores.append(profesor)
+
+        if len(self.listaProfesores) == 0 :
+            def handleVolver() :
+                self._root.cleanRoot()
+                RecomendarAsignaturas(self._root, self._estudiante)
+
+            frameResultado = Frame(self._root)
+            Label(frameResultado, text="No hay profesores que dicten el curso.").pack()
+            Button(frameResultado, text="Volver", command=handleVolver).pack()
+            frameResultado.pack()
+        else :
+            self.recomendar4()
+
+    def recomendar4(self) :
+        # Get profesores no calificados
+        profesoresNoCalificados = []
+        for profesor in self.listaProfesores :
+            if not profesor.fueCalificado() : profesoresNoCalificados.append(profesor)
+
+        self.listaProfesores = [p for p in self.listaProfesores if p not in profesoresNoCalificados]
+        self.listaProfesores = sorted(self.listaProfesores, key=lambda x : x.getCalificacion(), reverse=True)
+
+        Label(self._root, text="PROFESORES QUE DICTAN EL CURSO DE INTERÉS").pack()
+
+        # Treeview
+        frameTabla = Frame(self._root)
+        tabla = Treeview(frameTabla, column=("c1", "c2", "c3"), show='headings', height=len(self.cursosParaRecomendar))
+
+        i = 0
+        for e in ['NOMBRE', 'CALIFICACION', 'FACULTAD'] :
+            tabla.column(f"#{i+1}", anchor=CENTER)
+            tabla.heading(f"#{i+1}", text=e)
+            i += 1
+
+        for profesor in self.listaProfesores :
+            tabla.insert('', 'end', text="1", values=(profesor.getNombre(), profesor.getCalificacion(), profesor.getFacultad().value[1]))
+        tabla.pack()
+        frameTabla.pack()
+
+        def handleOtroCurso() :
+            self._root.cleanRoot()
+            RecomendarAsignaturas(self._root, self._estudiante)
+
+        def handleMenuPrincipal() :
+            from gestorGrafico.UserWindow import UserWindow
+            self._root.cleanRoot()
+            UserWindow(self._root, self._estudiante)
+
+        frameBotones = Frame(self._root)
+        Button(frameBotones, text="Ver Otro Curso", command=handleOtroCurso).grid(row=0, column=0)
+        Button(frameBotones, text="Menú Principal", command=handleMenuPrincipal).grid(row=0, column=1)        
         frameBotones.pack()

@@ -4,7 +4,7 @@ class CursoProfesor(Curso):
     cursosCreados = []
 
     def __init__(self, nombre, id, creditos, numeroParciales, listaPorcentajes, facultad, horario):
-        super().__init__(nombre, id, creditos, numeroParciales, listaPorcentajes, facultad)
+        super().__init__(nombre, creditos, numeroParciales, listaPorcentajes, facultad, id)
         self._listaEstudiantes = []
         self._horario = horario
         self._cupos = 10
