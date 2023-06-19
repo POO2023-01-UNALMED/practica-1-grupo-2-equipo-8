@@ -9,9 +9,10 @@ from gestorAplicacion.clasesDeUsuario.Admin import Admin
 from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 
 if __name__ == '__main__' :
-    Register.register()
-    """root = Tk()
+    root = Root()
+    Register.register(root)
+    root.mainloop()
+    """ root = Root()
     A = Estudiante()
     #Login().iniciar()
-    UserWindow(root, A)
-    root.mainloop()"""
+    UserWindow(root, A) """

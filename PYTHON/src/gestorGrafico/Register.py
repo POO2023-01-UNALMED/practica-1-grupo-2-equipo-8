@@ -2,6 +2,7 @@ from tkinter import Button, Entry, Frame, Label, Menu, StringVar, Tk, Toplevel, 
 from Errores.HorarioException import HorarioException
 from Errores.CampoErroneoException import CampoErroneoException
 from gestorGrafico.UserWindow import UserWindow
+from gestorGrafico.Root import Root
 from gestorAplicacion.clasesDeUsuario.Admin import Admin
 from gestorAplicacion.clasesExtra.Carreras import Carreras
 from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
@@ -127,10 +128,9 @@ class Register:
                     raise CampoErroneoException(con)
             con+=1
     @classmethod
-    def register(cls):
+    def register(cls, root:Root):
         def salir():
             pass
-        root = Tk()
         root.state("zoomed")
         root.title("Registro")
         
@@ -295,8 +295,8 @@ class Register:
                                                 facultad = carr.value[2]
                                                 break
                                         estudiante = Estudiante(nombre, correo, nombreUsuario, clave, documento, carrera, facultad, semestre)
-                                        UserWindow(Toplevel(), estudiante)
-                                        root.withdraw()
+                                        root.cleanRoot()
+                                        UserWindow(root, estudiante)
                                 except CampoErroneoException as ce:
                                     messagebox.showerror("Error", ce.mostrarMensaje())
                                     res.configure(text="")
@@ -435,8 +435,8 @@ class Register:
                                                     for curso in Registro.getCursos():
                                                         if(cp.getNombre() == curso.getNombre()):
                                                             curso.agregarProfesor(profesor)
-                                                UserWindow(Toplevel(), profesor)
-                                                root.withdraw()
+                                                root.cleanRoot()
+                                                UserWindow(root, profesor)
                                         except CampoErroneoException as ce:
                                             messagebox.showerror("Error", ce.mostrarMensaje())
                                             combobox2.set("Facultades")
@@ -477,8 +477,8 @@ class Register:
                                     correo = entry4.get()
                                     documento = entry5.get()
                                     admin = Admin(nombre, correo, nombreUsuario, clave, documento)
-                                    UserWindow(Toplevel(), admin)
-                                    root.withdraw()
+                                    root.cleanRoot()
+                                    UserWindow(root, admin)
                                 except CampoErroneoException as ce:
                                     messagebox.showerror("Error", ce.mostrarMensaje())
                                     for x in frame13.children.values():
