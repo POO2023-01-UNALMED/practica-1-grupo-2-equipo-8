@@ -26,7 +26,7 @@ class Inicio:
                             path+"\\imagenes\\samuel3.png", path+"\\imagenes\\samuel4.png"])
 
         pablo = Programador("Juan Pablo Robledo Meza",
-                            "Estudia Ciencias de la Computación.\nNació en algún lugar de la Mancha el ?? de ?? de ??\nSus gustos son ??",
+                            "Estudia Ciencias de la Computación.\nNació en Manizales el 1 de febrero de 2002\nLe gusta jugar fútbol, nadar y tocar el piano. Además odia Tkinter.",
                             [path+"\\imagenes\\pablo1.png", path+"\\imagenes\\pablo2.png", 
                             path+"\\imagenes\\pablo3.png", path+"\\imagenes\\pablo4.png"])
 
