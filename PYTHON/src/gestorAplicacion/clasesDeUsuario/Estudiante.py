@@ -1,6 +1,5 @@
 from gestorAplicacion.clasesExtra.Horario import Horario
 from gestorAplicacion.clasesDeUsuario.Registro import Registro
-from gestorGrafico.AsignarCita import AsignarCita
 
 class Estudiante(Registro):
     def __init__(self, nombre=None, correo=None, nombreUsuario=None, clave=None, documento=None, carrera=None, facultad=None, semestre=None, cursosVistos = [], listaCursos = []):
@@ -127,6 +126,7 @@ class Estudiante(Registro):
     
     
     def inscribirCursos(self, cursos = None, horario = None):
+        from gestorGrafico.AsignarCita import AsignarCita
         if cursos != None:
             for ce in self._listaCursos:
                 if(ce.calcularPromedio()>=3):
