@@ -129,12 +129,7 @@ class Register:
             con+=1
     @classmethod
     def register(cls, root:Root):
-        def salir():
-            from gestorGrafico.Inicio import Inicio
-            
-            root.cleanRoot()
-            Inicio(root)
-
+        
         root.state("zoomed")
         root.title("Registro")
         
@@ -142,7 +137,7 @@ class Register:
         root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
-        archivo.add_command(label="Salir", command=salir)
+        archivo.add_command(label="Salir", command=root.salir)
         frame1 = Frame(root, width=400, height=400)
         frame1.pack(expand=True)
         frame11 = Frame(frame1)

@@ -119,7 +119,6 @@ class Inicio:
     def registrar(self, event):
         self.ventana.cleanRoot()
         Register.register(self.ventana)
-        
 
     def cambiarImagen(self, event):
         self.contI = (self.contI + 1) % 5

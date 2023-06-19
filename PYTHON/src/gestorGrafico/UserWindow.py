@@ -10,12 +10,6 @@ class UserWindow :
     def __init__(self, root, user) -> None:
         self._user = user
 
-        def handleSalir() :
-            from gestorGrafico.Inicio import Inicio
-            
-            root.cleanRoot()
-            Inicio(root)
-
         def recomendarAsignaturas() :
             root.cleanRoot()
             RecomendarAsignaturas(root, self._user)
@@ -28,7 +22,7 @@ class UserWindow :
         # Botón archivo
         archivo = Menu(barra_menus, tearoff=False)
         archivo.add_command(label="Aplicación")
-        archivo.add_command(label="Salir", command=handleSalir)
+        archivo.add_command(label="Salir", command=root.salir)
 
         # Botón procesos y consultas
         procesosYConsultas = Menu(barra_menus, tearoff=False)
