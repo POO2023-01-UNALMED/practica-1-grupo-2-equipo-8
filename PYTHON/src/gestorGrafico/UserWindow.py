@@ -11,8 +11,10 @@ class UserWindow :
         self._user = user
 
         def handleSalir() :
-            Serializador.serializador()
-            root.destroy()
+            from gestorGrafico.Inicio import Inicio
+            
+            root.cleanRoot()
+            Inicio(root)
 
         def recomendarAsignaturas() :
             root.cleanRoot()

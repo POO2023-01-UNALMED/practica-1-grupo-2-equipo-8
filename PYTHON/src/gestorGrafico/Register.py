@@ -130,7 +130,11 @@ class Register:
     @classmethod
     def register(cls, root:Root):
         def salir():
-            pass
+            from gestorGrafico.Inicio import Inicio
+            
+            root.cleanRoot()
+            Inicio(root)
+
         root.state("zoomed")
         root.title("Registro")
         
