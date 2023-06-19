@@ -5,6 +5,7 @@ import os
 import pathlib
 from .programador import Programador
 from gestorGrafico.Register import Register
+from gestorGrafico.Login import Login
 
 path = os.path.join(pathlib.Path(__file__).parent.absolute())
 
@@ -59,9 +60,13 @@ class Inicio:
         self.P4 = tk.Frame(self.P1)
         self.P4.pack(side="bottom")
 
-        self.boton = tk.Button(self.P4, text="Ventana principal")
+        self.boton = tk.Button(self.P4, text="Iniciar Sesión")
         self.boton.pack(side="bottom")
         self.boton.bind("<Button-1>", self.iniciar)
+
+        self.boton = tk.Button(self.P4, text="Registrarse")
+        self.boton.pack(side="bottom")
+        self.boton.bind("<Button-1>", self.registrar)
 
         self.imagenes = tk.Label(self.P4)
         self.imagenes.bind("<Button-1>", self.cambiarImagen)
@@ -105,13 +110,16 @@ class Inicio:
         self.imagen4.image = imagen4  # Guardar una referencia para evitar que se elimine la imagen
         self.imagen4.grid(row=1, column=1)
 
+        self.ventana.mainloop()
+
     def iniciar(self, event):
         self.ventana.cleanRoot()
+        Login.iniciar(self.ventana)
+
+    def registrar(self, event):
+        self.ventana.cleanRoot()
         Register.register(self.ventana)
-        """ self.ventana.destroy()
-        Register.register() """
-
-
+        
 
     def cambiarImagen(self, event):
         self.contI = (self.contI + 1) % 5
