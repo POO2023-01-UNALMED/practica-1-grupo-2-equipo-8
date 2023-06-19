@@ -1,4 +1,5 @@
-from tkinter import Frame, Label, Menu, Button, Radiobutton, IntVar, CENTER
+from tkinter.ttk import Treeview
+from tkinter import Frame, Label, Menu, Button, Scrollbar, Listbox, CENTER
 from gestorGrafico.Root import Root
 from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 from gestorAplicacion.clasesDeUsuario.Registro import Registro
@@ -76,13 +77,23 @@ class RecomendarAsignaturas(Frame) :
         Label(frameTitulo, text="A continuación se muestran las asignaturas recomendadas para cursar el próximo semestre:").pack()
         frameTitulo.anchor(CENTER)
         frameTitulo.pack()
-        
+
+        # Treeview
         frameTabla = Frame(self._root)
+        tabla = Treeview(frameTabla, column=("c1", "c2", "c3", "c4"), show='headings', height=len(self.cursosParaRecomendar))
+
         i = 0
-        for curso in self.cursosParaRecomendar :
-            radio = IntVar()
-            Radiobutton(frameTabla, variable=radio, value=i).grid(row=i, column=0)
-            Label(frameTabla, text=curso.getNombre()).grid(row=i, column=1)
-            Label(frameTabla, text=curso.getId()).grid(row=i, column=2)
+        for e in ['ID', 'NOMBRE', 'CREDITOS', 'FACULTAD'] :
+            tabla.column(f"#{i+1}", anchor=CENTER)
+            tabla.heading(f"#{i+1}", text=e)
             i += 1
+
+        for curso in self.cursosParaRecomendar :
+            tabla.insert('', 'end', text="1", values=(curso.getId(), curso.getNombre(), curso.getCreditos(), curso.getFacultad()[0].value[1]))
+        tabla.pack()
         frameTabla.pack()
+
+        frameBotones = Frame(self._root)
+        Button(frameBotones, text="Aceptar", command=handleAceptar).grid(row=0, column=0)
+        Button(frameBotones, text="Borrar").grid(row=0, column=1)        
+        frameBotones.pack()
