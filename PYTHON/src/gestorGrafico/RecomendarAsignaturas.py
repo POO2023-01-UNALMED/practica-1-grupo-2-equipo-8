@@ -1,4 +1,4 @@
-from tkinter import Frame, Label, Menu, Button, CENTER
+from tkinter import Frame, Label, Menu, Button, Radiobutton, IntVar, CENTER
 from gestorGrafico.Root import Root
 from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 from gestorAplicacion.clasesDeUsuario.Registro import Registro
@@ -86,7 +86,9 @@ class RecomendarAsignaturas(Frame) :
         frameTabla = Frame(self._root)
         i = 0
         for curso in self.cursosParaRecomendar :
-            Label(frameTabla, text=curso.getNombre()).grid(row=i, column=0)
-            Label(frameTabla, text=curso.getId()).grid(row=i, column=1)
+            radio = IntVar()
+            Radiobutton(frameTabla, variable=radio, value=i).grid(row=i, column=0)
+            Label(frameTabla, text=curso.getNombre()).grid(row=i, column=1)
+            Label(frameTabla, text=curso.getId()).grid(row=i, column=2)
             i += 1
         frameTabla.pack()
