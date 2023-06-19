@@ -1,7 +1,8 @@
-from tkinter import Frame, Label, Menu, CENTER
+from tkinter import Frame, Label, Menu, Button, Radiobutton, IntVar, CENTER
 from gestorGrafico.Root import Root
 from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 from gestorAplicacion.clasesDeUsuario.Registro import Registro
+from gestorAplicacion.clasesDeCurso.Curso import Curso
 from gestorGrafico.FieldFrame import FieldFrame
 
 class RecomendarAsignaturas(Frame) :
@@ -37,33 +38,51 @@ class RecomendarAsignaturas(Frame) :
         menuBar.add_cascade(label="Archivo", menu=archivo)
         archivo.add_command(label="Salir", command=self._root.salir)
 
+        # Obtener valor ingresado por el usuario
+        incluyeLibreElección = True if self._entradas[0] == 1 else False
+
+        self.cursosParaRecomendar = []
+
+        for curso in Registro.getCursos() :
+            vioCurso = self._estudiante.vioCurso(curso)
+            if vioCurso : continue
+
+            if incluyeLibreElección and curso.getEsLibreEleccion() :
+                self.cursosParaRecomendar.append(curso)
+                continue
+            elif not incluyeLibreElección and curso.getEsLibreEleccion() : continue
+
+            esDeLaCarrera = self._estudiante.getCarrera() in curso.getCarrerasRelacionadas()
+            if not esDeLaCarrera : continue
+
+            vioPrerrequisitos = curso.vioPrerrequisitos(self._estudiante)
+            if vioPrerrequisitos : self.cursosParaRecomendar.append(curso)
+
+        if len(self.cursosParaRecomendar) == 0 :
+            def handleVolver() :
+                from gestorGrafico.UserWindow import UserWindow
+                self._root.cleanRoot()
+                UserWindow(self._root, self._estudiante)
+
+            frameResultado = Frame(self._root)
+            Label(frameResultado, text="No hay cursos para recomendar.").pack()
+            Button(frameResultado, text="Volver", command=handleVolver).pack()
+            frameResultado.pack()
+        else :
+            self.recomendar2()
+
+    def recomendar2(self) :
         frameTitulo = Frame(self._root)
         Label(frameTitulo, text="A continuación se muestran las asignaturas recomendadas para cursar el próximo semestre:").pack()
         frameTitulo.anchor(CENTER)
         frameTitulo.pack()
-
-        print(self._entradas)
-
-        # Obtener valor ingresado por el usuario
-        #incluyeLibreElección = True if self._entradas[0] == 'S' else False
-
-        """ frameTitulo = Frame(root)
-        Label(frameTitulo, text="RECOMENDACION DE ASIGNATURAS").pack()
-        Label(frameTitulo, text="A continuación se muestran las asignaturas recomendadas para cursar el próximo semestre:").pack()
-        frameTitulo.anchor(CENTER)
-        frameTitulo.pack() """
-
-        cursosParaRecomendar = []
-
-        for curso in Registro.getCursos() :
-            esDeLaCarrera = self._estudiante.getCarrera in curso.getCarrerasRelacionadas()
-            vioCurso = self._estudiante.vioCurso(curso)
-            if vioCurso or not esDeLaCarrera : continue
-
-            if not incluyeLibreElección and curso._esLibreEleccion : continue
-
-            vioPrerrequisitos = curso.vioPrerrequisitos(self._estudiante)
-            if vioPrerrequisitos : cursosParaRecomendar.append(curso)
-
         
-        
+        frameTabla = Frame(self._root)
+        i = 0
+        for curso in self.cursosParaRecomendar :
+            radio = IntVar()
+            Radiobutton(frameTabla, variable=radio, value=i).grid(row=i, column=0)
+            Label(frameTabla, text=curso.getNombre()).grid(row=i, column=1)
+            Label(frameTabla, text=curso.getId()).grid(row=i, column=2)
+            i += 1
+        frameTabla.pack()
