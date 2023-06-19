@@ -14,7 +14,9 @@ class UserWindow :
         self._user = user
 
         def recomendarAsignaturas() :
+            root.cleanRoot()
             RecomendarAsignaturas(root, self._user)
+            
         def buscarCursos():
             root.cleanRoot()
             self._user.buscarCursos(root)

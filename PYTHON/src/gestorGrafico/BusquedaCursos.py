@@ -164,10 +164,10 @@ class BusquedaCursos(Frame):
                             titl = Label(valoresFrame, text="Los cursos disponibles son los siguientes: ")
                             titl.grid(row=3, column=0, columnspan=2)
                             items = []
-                            items.append("{:10s}    {:32s}    {}       {:17s}    {}".format("ID", "Nombre", "Creditos", "Facultad", "Programas relacionados"))
+                            items.append("{:10s}    {:32s}    {}    {:17s}    {:<30}".format("ID", "Nombre", "Creditos", "Facultad", "Programas relacionados"))
                             items.append("----------------------------------------------------------------------------------------------------------------------")
                             for curso in listaCursos:
-                                items.append(str(curso.getId())+"    "+"{:25s}".format("curso.getNombre()")+"    "+"{:12s}".format(str(curso.getCreditos()))+"       "+"{:18s}".format(curso.getFacultad()[0].value[1])+"    "+str(curso.getCarrerasRelacionadas())+" Click para ver detalles")
+                                items.append("{:<10}    {:<32}    {}   {:<17}    {:<30}".format(curso.getId(), curso.getNombre()[:32], curso.getCreditos(), curso.getFacultad()[0].value[1], ', '.join([i.value[1] for i in curso.getCarrerasRelacionadas()])))
                             scrollbar = ttk.Scrollbar(valoresFrame, orient="vertical")
                             listbox = Listbox(valoresFrame, yscrollcommand=scrollbar.set, width=200)
                             listbox.insert(0, *items)
