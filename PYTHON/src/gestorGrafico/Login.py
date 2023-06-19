@@ -113,5 +113,4 @@ class Login:
         
         boton1.bind("<Button-1>",handle)
         boton2.bind("<Button-1>",handle)
-        root.mainloop()
  

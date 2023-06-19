@@ -16,11 +16,5 @@ if __name__ == '__main__' :
 
     root = Root()
     Inicio(root)
-    #Login.iniciar(root)
-    #Register.register(root)
     root.mainloop()
-    """ root = Root()
-    A = Estudiante()
-    #Login().iniciar()
-    UserWindow(root, A) """
     Serializador.serializador()

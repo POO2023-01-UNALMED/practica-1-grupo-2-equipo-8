@@ -105,8 +105,6 @@ class Inicio:
         self.imagen4.image = imagen4  # Guardar una referencia para evitar que se elimine la imagen
         self.imagen4.grid(row=1, column=1)
 
-        self.ventana.mainloop()
-
     def iniciar(self, event):
         self.ventana.cleanRoot()
         Register.register(self.ventana)

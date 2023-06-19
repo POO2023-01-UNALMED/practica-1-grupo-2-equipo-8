@@ -497,4 +497,3 @@ class Register:
                     combobox.set("Usuarios")
         boton2.bind("<Button-1>",handle)
         boton1.bind("<Button-1>",handle)
-        root.mainloop()
