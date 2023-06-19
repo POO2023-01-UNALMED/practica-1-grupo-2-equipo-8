@@ -2,6 +2,7 @@ from tkinter import Frame, Label, Menu, Button, CENTER
 from gestorGrafico.Root import Root
 from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 from gestorAplicacion.clasesDeUsuario.Registro import Registro
+from gestorAplicacion.clasesDeCurso.Curso import Curso
 from gestorGrafico.FieldFrame import FieldFrame
 
 class RecomendarAsignaturas(Frame) :
@@ -46,11 +47,11 @@ class RecomendarAsignaturas(Frame) :
         frameTitulo.anchor(CENTER)
         frameTitulo.pack() """
 
-        cursosParaRecomendar = []
+        self.cursosParaRecomendar = []
 
         for curso in Registro.getCursos() :
             if incluyeLibreElección and curso.getEsLibreEleccion() :
-                cursosParaRecomendar.append(curso)
+                self.cursosParaRecomendar.append(curso)
                 continue
 
             esDeLaCarrera = self._estudiante.getCarrera in curso.getCarrerasRelacionadas()
@@ -58,9 +59,9 @@ class RecomendarAsignaturas(Frame) :
             if vioCurso or not esDeLaCarrera : continue
 
             vioPrerrequisitos = curso.vioPrerrequisitos(self._estudiante)
-            if vioPrerrequisitos : cursosParaRecomendar.append(curso)
+            if vioPrerrequisitos : self.cursosParaRecomendar.append(curso)
 
-        if len(cursosParaRecomendar) == 0 :
+        if len(self.cursosParaRecomendar) == 0 :
             def handleVolver() :
                 from gestorGrafico.UserWindow import UserWindow
                 self._root.cleanRoot()
@@ -79,3 +80,11 @@ class RecomendarAsignaturas(Frame) :
         frameTitulo.anchor(CENTER)
         frameTitulo.pack()
         
+        frameTabla = Frame(self._root)
+        rows = []
+        i = 0
+        for curso in self.cursosParaRecomendar :
+            Label(frameTabla, text=curso.getNombre()).grid(row=i, column=0)
+            Label(frameTabla, text=curso.getId()).grid(row=i, column=1)
+            i += 1
+        frameTabla.pack()

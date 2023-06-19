@@ -1,6 +1,6 @@
-from gestorAplicacion.clasesDeCurso import Curso
+from gestorAplicacion.clasesDeCurso.Curso import Curso
 
-class CursoEstudiante(Curso.Curso):
+class CursoEstudiante(Curso):
     def __init__(self, nombre, id, cupos, creditos, numeroParciales, listaPorcentajes, facultad, listaNotas, semestre, estudiante, horario, profesor):
         super().__init__(nombre, id, creditos, numeroParciales, listaPorcentajes, facultad)
         self._listaNotas = listaNotas
