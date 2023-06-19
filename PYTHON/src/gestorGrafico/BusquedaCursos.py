@@ -1,6 +1,7 @@
 from tkinter import Button, Entry, Frame, Label, Listbox, Menu, StringVar, Tk, Toplevel, messagebox, ttk
 from Errores.HorarioException import HorarioException
 from gestorAplicacion.clasesDeCurso.Curso import Curso
+from gestorAplicacion.clasesExtra.Facultades import Facultades
 from gestorGrafico.FieldFrame import FieldFrame
 
 from gestorAplicacion.clasesDeUsuario.Registro import Registro
@@ -141,7 +142,7 @@ class BusquedaCursos(Frame):
             for x in frameInteraccion.children.values():
                 x.configure(state="disabled")
             def activar(e):
-                
+                e.widget.configure(state="disabled")
                 continuar = Button(valoresFrame, text="Continuar")
                 continuar.grid(row=2, column=0, padx=10)
                 borrar = Button(valoresFrame, text="Borrar")
@@ -155,16 +156,17 @@ class BusquedaCursos(Frame):
                     facCombo = ttk.Combobox(valoresFrame, values=valores)
                     facCombo.grid(row=1, column=1)
                     def cont(e):
-                        if facCombo.get() == "Minas":
-                            listaCursos = Curso.filtrarPorFacultad(Registro.getCursos(), "Minas")
-                        else:
-                            listaCursos = Curso.filtrarPorFacultad(Registro.getCursos(), "Ciencias")
+                        if facCombo.get() != "":
+                            if facCombo.get() == "Minas":
+                                listaCursos = Curso.filtrarPorFacultad(Registro.getCursos(), Facultades.MINAS)
+                            else:
+                                listaCursos = Curso.filtrarPorFacultad(Registro.getCursos(), Facultades.CIENCIAS)
                         scrollbar = ttk.Scrollbar(valoresFrame, orient="vertical")
-                        items = StringVar()
-                        items.set(listaCursos)
+                        items = listaCursos
                         listbox = Listbox(valoresFrame, yscrollcommand=scrollbar.set)
+                        listbox.insert(0, items)
                         scrollbar.config(command=listbox.yview)
-                        listbox.grid(row=3, column=0)
+                        listbox.grid(row=3, column=0, columnspan=2)
                     def borr(e):
                         pass    
                     continuar.bind("<Button-1>",cont)

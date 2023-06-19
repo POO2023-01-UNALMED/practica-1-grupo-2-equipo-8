@@ -1,4 +1,6 @@
 from tkinter import Tk, Frame, Button, Menu, LEFT
+
+from gestorGrafico.Root import Root
 from .FieldFrame import FieldFrame
 from gestorAplicacion.clasesDeUsuario.Admin import Admin
 from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
@@ -7,12 +9,13 @@ from .RecomendarAsignaturas import RecomendarAsignaturas
 from baseDatos.Serializador import Serializador
 
 class UserWindow :
-    def __init__(self, root, user) -> None:
+    def __init__(self, root:Root, user) -> None:
         self._user = user
 
         def recomendarAsignaturas() :
             RecomendarAsignaturas(root, self._user)
         def buscarCursos():
+            root.cleanRoot()
             self._user.buscarCursos(root)
 
         root.title('Mi Gestor Académico')

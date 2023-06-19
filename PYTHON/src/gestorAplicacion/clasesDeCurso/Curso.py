@@ -152,23 +152,24 @@ class Curso:
                   listaCursos.append(cp)
       return listaCursos
   
-  def filtrarPorFacultad(self, cursos, facultad):
+  @classmethod
+  def filtrarPorFacultad(cls, cursos, facultad):
       cursosFiltrados = []
       for curso in cursos:
           if(facultad in curso._facultades):
             cursosFiltrados.append(curso)
       return cursosFiltrados
   
-  
-  def filtrarPorCarrera(self, cursos, carrera):
+  @classmethod
+  def filtrarPorCarrera(cls, cursos, carrera):
       cursosFiltrados = []
       for curso in cursos:
           if(carrera in curso._carrerasRelacionadas):
             cursosFiltrados.append(curso)
       return cursosFiltrados
   
-  
-  def filtrarPorHorario(self, cursos, horario):
+  @classmethod
+  def filtrarPorHorario(cls, cursos, horario):
       listaCursos = []
       for curso in cursos:
           cursosProfesores = curso.obtenerGrupos()
