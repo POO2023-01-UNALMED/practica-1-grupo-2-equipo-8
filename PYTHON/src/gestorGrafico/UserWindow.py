@@ -4,10 +4,15 @@ from gestorAplicacion.clasesDeUsuario.Admin import Admin
 from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 #from ..gestorAplicacion.clasesDeUsuario.Profesor import Profesor
 from .RecomendarAsignaturas import RecomendarAsignaturas
+from baseDatos.Serializador import Serializador
 
 class UserWindow :
     def __init__(self, root, user) -> None:
         self._user = user
+
+        def handleSalir() :
+            Serializador.serializador()
+            root.destroy()
 
         def recomendarAsignaturas() :
             root.cleanRoot()
@@ -21,7 +26,7 @@ class UserWindow :
         # Botón archivo
         archivo = Menu(barra_menus, tearoff=False)
         archivo.add_command(label="Aplicación")
-        archivo.add_command(label="Salir", command=root.destroy)
+        archivo.add_command(label="Salir", command=handleSalir)
 
         # Botón procesos y consultas
         procesosYConsultas = Menu(barra_menus, tearoff=False)

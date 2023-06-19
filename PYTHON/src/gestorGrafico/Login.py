@@ -1,15 +1,15 @@
 from gestorAplicacion.clasesDeUsuario.Registro import Registro
+from gestorGrafico.UserWindow import UserWindow
+from gestorGrafico.Root import Root
 from tkinter import Button, Entry, Frame, Label, StringVar, Tk, ttk, Menu
 
 
 
 class Login:
     @classmethod
-    def iniciar(cls):
+    def iniciar(cls, root:Root):
         def salir():
             pass
-        
-        root = Tk()
         root.state("zoomed")
         root.title("Registro")
         
@@ -61,6 +61,8 @@ class Login:
                         if(us.getNombreUsuario()==nom and us.getClave()==clav):
                             comp = True
                             #Menu.sistema(us) #Falta ver a qué se va a redireccionar
+                            root.cleanRoot()
+                            UserWindow(root, us)
                             break
                     if comp == False:
                         res.configure(text="El Nombre o la clave no coincide")
@@ -73,6 +75,8 @@ class Login:
                     for us in Registro.getProfesores():
                         if(us.getNombreUsuario()==nom and us.getClave()==clav):
                             comp = True
+                            root.cleanRoot()
+                            UserWindow(root, us)
                             #Menu.sistema(us) #Falta ver a qué se va a redireccionar
                             break
                     if comp == False:
@@ -86,6 +90,8 @@ class Login:
                     for us in Registro.getAdmins():
                         if(us.getNombreUsuario()==nom and us.getClave()==clav):
                             comp = True
+                            root.cleanRoot()
+                            UserWindow(root, us)
                             #Menu.sistema(us) #Falta ver a qué se va a redireccionar
                             break
                     if comp == False:
