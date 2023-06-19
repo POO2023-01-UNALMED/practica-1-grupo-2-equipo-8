@@ -122,6 +122,11 @@ class Curso:
   def setFacultad(self, facultades): 
     self._facultades = facultades
   
+  def getEsLibreEleccion(self) :
+    return self._esLibreEleccion
+  
+  def setEsLibreEleccion(self, esLibreEleccion) :
+    self._esLibreEleccion = esLibreEleccion
 
   def __str__(self):
     return self.getNombre()+ " (" + self.getId() + ")"
