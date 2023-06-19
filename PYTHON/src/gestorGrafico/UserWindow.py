@@ -2,15 +2,18 @@ from tkinter import Tk, Frame, Button, Menu, LEFT
 from .FieldFrame import FieldFrame
 from gestorAplicacion.clasesDeUsuario.Admin import Admin
 from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
+from gestorGrafico.Root import Root
 #from ..gestorAplicacion.clasesDeUsuario.Profesor import Profesor
 from .RecomendarAsignaturas import RecomendarAsignaturas
 from baseDatos.Serializador import Serializador
 
 class UserWindow :
-    def __init__(self, root, user) -> None:
+    def __init__(self, root:Root, user) -> None:
+        self._root = root
         self._user = user
 
         def recomendarAsignaturas() :
+            root.cleanRoot()
             RecomendarAsignaturas(root, self._user)
         def buscarCursos():
             self._user.buscarCursos(root)
