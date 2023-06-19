@@ -50,13 +50,16 @@ class RecomendarAsignaturas(Frame) :
         self.cursosParaRecomendar = []
 
         for curso in Registro.getCursos() :
+            vioCurso = self._estudiante.vioCurso(curso)
+            if vioCurso : continue
+
             if incluyeLibreElección and curso.getEsLibreEleccion() :
                 self.cursosParaRecomendar.append(curso)
                 continue
+            elif not incluyeLibreElección and curso.getEsLibreEleccion() : continue
 
-            esDeLaCarrera = self._estudiante.getCarrera in curso.getCarrerasRelacionadas()
-            vioCurso = self._estudiante.vioCurso(curso)
-            if vioCurso or not esDeLaCarrera : continue
+            esDeLaCarrera = self._estudiante.getCarrera() in curso.getCarrerasRelacionadas()
+            if not esDeLaCarrera : continue
 
             vioPrerrequisitos = curso.vioPrerrequisitos(self._estudiante)
             if vioPrerrequisitos : self.cursosParaRecomendar.append(curso)
@@ -81,7 +84,6 @@ class RecomendarAsignaturas(Frame) :
         frameTitulo.pack()
         
         frameTabla = Frame(self._root)
-        rows = []
         i = 0
         for curso in self.cursosParaRecomendar :
             Label(frameTabla, text=curso.getNombre()).grid(row=i, column=0)
