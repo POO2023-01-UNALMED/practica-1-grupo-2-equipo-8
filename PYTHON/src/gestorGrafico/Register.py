@@ -292,6 +292,7 @@ class Register:
                                         semestre = int(combobox2.get())
                                         for carr in Carreras:
                                             if carr.value[1] == carrera:
+                                                carrera = carr
                                                 facultad = carr.value[2]
                                                 break
                                         estudiante = Estudiante(nombre, correo, nombreUsuario, clave, documento, carrera, facultad, semestre)
