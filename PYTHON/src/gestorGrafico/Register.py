@@ -368,6 +368,7 @@ class Register:
                                     horario = entry6.get()
                                     try:
                                         Register.errorHorario(horario)
+                                        a = curso.getId()
                                         cp = CursoProfesor(curso.getNombre(), curso.getId(), curso.getCreditos(), curso.getNumeroParciales(), curso.getListaPorcentajes(), curso.getFacultad(), horario)
                                         cursos.append(cp)
                                         val1.pop(val1.index(opcion))

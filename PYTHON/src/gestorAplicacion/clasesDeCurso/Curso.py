@@ -1,6 +1,6 @@
 class Curso:
     def __init__(self, nombre, creditos, numeroParciales, listaPorcentajes, facultades, id = 0, preRequisitos = [], carrerasRelacionadas = [], esLibreEleccion = False):
-        from ..clasesDeUsuario.Registro import Registro
+        from gestorAplicacion.clasesDeUsuario.Registro import Registro
 
         self._nombre = nombre
         self._creditos = creditos
@@ -58,7 +58,7 @@ class Curso:
     
     
     def agregarHorario(self, horario):
-        self._horariosClase.add(horario)
+        self._horariosClase.append(horario)
     
     
 
@@ -103,7 +103,7 @@ class Curso:
     
     
     def agregarProfesor(self, profesor):
-        self._profesoresQueDictanElCurso.add(profesor)
+        self._profesoresQueDictanElCurso.append(profesor)
     
 
     def getFacultad(self): 

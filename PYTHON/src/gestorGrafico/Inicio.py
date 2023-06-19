@@ -16,7 +16,7 @@ class Inicio:
         # La biografía debe ser corta y decir dónde y cuándo naciste y qué te gusta
         # // Borrar este comentario antes de enviar el proyecto XD
         jesus = Programador("Jesús Miguel Porto López",
-                            "Estudia Ingenieria de Sistemas.\nNació en Necoclí Antioquia el 24 de septiembre de 2003.\nSus gustos son el Fútbol, los videojuegos y odiar a java",
+                            "Estudia Ingenieria de Sistemas.\nNació en Necoclí Antioquia el 24 de septiembre de 2003.\nSus gustos son el Fútbol y los videojuegos. Odia a java",
                             [path+"\\imagenes\\jesus1.png", path+"\\imagenes\\jesus2.png", 
                             path+"\\imagenes\\jesus3.png", path+"\\imagenes\\jesus4.png"])
 
@@ -26,7 +26,7 @@ class Inicio:
                             path+"\\imagenes\\samuel3.png", path+"\\imagenes\\samuel4.png"])
 
         pablo = Programador("Juan Pablo Robledo Meza",
-                            "Estudia Ciencias de la Computación.\nNació en algún lugar de la Mancha el ?? de ?? de ??\nSus gustos son ??",
+                            "Estudia Ciencias de la Computación.\nNació en Manizales el 1 de febrero de 2002\nLe gusta jugar fútbol, nadar y tocar el piano. Además odia Tkinter.",
                             [path+"\\imagenes\\pablo1.png", path+"\\imagenes\\pablo2.png", 
                             path+"\\imagenes\\pablo3.png", path+"\\imagenes\\pablo4.png"])
 
@@ -36,11 +36,12 @@ class Inicio:
                             path+"\\imagenes\\jhon3.png", path+"\\imagenes\\jhon4.png"])
 
         self.programadores = [jesus, samuel, pablo, jhon]
-        self.imagenesMGA = [Image.open(path+"\\imagenes\\MGA5.png").resize((400, 600)),
-                    Image.open(path+"\\imagenes\\MGA2.png").resize((400, 600)),
-                    Image.open(path+"\\imagenes\\MGA3.png").resize((400, 600)),
-                    Image.open(path+"\\imagenes\\MGA4.png").resize((400, 600)),
-                    Image.open(path+"\\imagenes\\MGA1.png").resize((400, 600))]
+        self.imagenesMGA = [
+                    Image.open(path+"\\imagenes\\MGA1.png").resize((600, 600)),
+                    Image.open(path+"\\imagenes\\MGA2.png").resize((600, 600)),
+                    Image.open(path+"\\imagenes\\MGA3.png").resize((600, 600)),
+                    Image.open(path+"\\imagenes\\MGA4.png").resize((600, 600)),
+                    Image.open(path+"\\imagenes\\MGA5.png").resize((600, 600))]
 
         self.contP = 0
         self.contI = 0
@@ -52,20 +53,24 @@ class Inicio:
         self.P1.pack(side="left", padx=10, pady=5, fill="both", expand=True)
 
         self.P3 = tk.Frame(self.P1)
-        self.P3.pack(side="top")
+        self.P3.pack(side="top", fill="both")
         self.saludo = tk.Label(self.P3, text="Bienvenido a\nMi Gestor Académico", font=("arial", 30))
         self.saludo.pack(padx=5, pady=5, anchor="center")
 
         self.P4 = tk.Frame(self.P1)
-        self.P4.pack(side="bottom")
+        self.P4.pack(side="bottom", fill="both")
 
-        self.boton = tk.Button(self.P4, text="Iniciar Sesión")
-        self.boton.pack(side="bottom")
-        self.boton.bind("<Button-1>", self.iniciar)
+        self.botones = tk.Frame(self.P4)
+        self.botones.pack(side="bottom")
 
-        self.boton = tk.Button(self.P4, text="Registrarse")
-        self.boton.pack(side="bottom")
-        self.boton.bind("<Button-1>", self.registrar)
+
+        self.boton1 = tk.Button(self.botones, text="Iniciar Sesión")
+        self.boton1.pack(side="left", padx=7, pady=2)
+        self.boton1.bind("<Button-1>", self.iniciar)
+
+        self.boton2 = tk.Button(self.botones, text="Registrarse")
+        self.boton2.pack(side="right", padx=7, pady=2)
+        self.boton2.bind("<Button-1>", self.registrar)
 
         self.imagenes = tk.Label(self.P4)
         self.imagenes.bind("<Button-1>", self.cambiarImagen)
@@ -78,7 +83,7 @@ class Inicio:
         self.P2.pack(side="right", padx=10, pady=5, fill="both", expand=True)
 
         self.P5 = tk.Frame(self.P2)
-        self.P5.pack(side="top")
+        self.P5.pack(side="top", fill="x")
 
         self.bio = tk.Button(self.P5, text=f"{self.p.nombre}\nBiografia: {self.p.biografia}",
                              font=("arial", 15))
@@ -87,7 +92,7 @@ class Inicio:
         self.bio.config(relief="flat")
 
         self.P6 = tk.Frame(self.P2)
-        self.P6.pack(side="bottom")
+        self.P6.pack(side="bottom", fill="both")
 
         imagen1 = ImageTk.PhotoImage(Image.open(self.p.fotos[0]).resize((300, 300)))
         self.imagen1 = tk.Label(self.P6, image=imagen1)
