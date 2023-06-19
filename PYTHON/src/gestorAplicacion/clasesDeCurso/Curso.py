@@ -1,5 +1,5 @@
 class Curso:
-    def __init__(self, nombre, creditos, numeroParciales, listaPorcentajes, facultades, id = 0, preRequisitos = [], carrerasRelacionadas = [], esLibreEleccion = False):
+    def __init__(self, nombre, creditos, numeroParciales, listaPorcentajes, facultades, id = 0, preRequisitos = None, carrerasRelacionadas = None, esLibreEleccion = False):
         from ..clasesDeUsuario.Registro import Registro
 
         self._nombre = nombre
@@ -7,12 +7,21 @@ class Curso:
         self._numeroParciales = numeroParciales
         self._listaPorcentajes = listaPorcentajes
         self._facultades = facultades
-        self._id = 100000 + len(Registro.getCursos()) if id == 0 else id
+        if id == 0:
+            self._id = 100000 + len(Registro.getCursos())
+        else:
+            self._id = id
         self._cupos = 0
-        self._horariosClase = []
-        self._preRequisitos = preRequisitos
-        self._carrerasRelacionadas = carrerasRelacionadas
-        self._profesoresQueDictanElCurso = []
+        self._horariosClase = set()
+        if preRequisitos == None:
+            self._preRequisitos = set()
+        else:
+            self._preRequisitos = preRequisitos
+        if carrerasRelacionadas == None:
+            self._carrerasRelacionadas = set()
+        else:
+            self._carrerasRelacionadas = carrerasRelacionadas
+        self._profesoresQueDictanElCurso = set()
         self._esLibreEleccion = esLibreEleccion
         Registro.agregarCurso(self) # Se agrega el curso creado a la base de datos.
 

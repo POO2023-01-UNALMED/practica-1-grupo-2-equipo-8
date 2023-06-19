@@ -1,6 +1,7 @@
 from tkinter import Button, Entry, Frame, Label, Listbox, Menu, StringVar, Tk, Toplevel, messagebox, ttk
 from Errores.HorarioException import HorarioException
 from gestorAplicacion.clasesDeCurso.Curso import Curso
+from gestorAplicacion.clasesExtra.Carreras import Carreras
 from gestorAplicacion.clasesExtra.Facultades import Facultades
 from gestorGrafico.FieldFrame import FieldFrame
 
@@ -120,17 +121,16 @@ class BusquedaCursos(Frame):
                 raise HorarioException(horario)   
         
     def buscarCursos(self, estudiante = None, horario = None):
+        menuBar = Menu(self._root)
+        self._root.config(menu=menuBar)
+        archivo = Menu(menuBar, tearoff=False)
+        menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Salir", command=self._root.salir)
         if estudiante == None and horario == None:
             titulo = "Busqueda de Cursos"
             descripcion = "Aquí podrás buscar las asignaturas disponibles en el sistema y ver sus detalles"
-            def handleAceptar(e):
-                pass
-            def handleBorrar(e):
-                pass
             val = ["Ver todos los cursos","Filtrar cursos por facultad","Filtrar cursos por carreras relacionadas","Filtrar cursos por horario"]
             frameInteraccion = FieldFrame(self._root, titulo, descripcion, ["Indique lo que quiere realizar"], ["combobox"], [val])
-            frameInteraccion.crearBoton("Aceptar", handleAceptar).grid(row=0, column=0)
-            frameInteraccion.crearBoton("Borrar", handleBorrar).grid(row=0, column=1)
             frameInteraccion.pack()
             valoresFrame = None
             for x in self._root.children.values():
@@ -144,12 +144,9 @@ class BusquedaCursos(Frame):
             def activar(e):
                 e.widget.configure(state="disabled")
                 continuar = Button(valoresFrame, text="Continuar")
-                continuar.grid(row=2, column=0, padx=10)
-                borrar = Button(valoresFrame, text="Borrar")
-                borrar.grid(row=2, column=1)
+                continuar.grid(row=2, column=0, columnspan=2)
+                
                 if e.widget.get() == "Filtrar cursos por facultad":
-                    for x in frameInteraccion.children.values():
-                        x.configure(state="normal")
                     facLabel = Label(valoresFrame, text="Facultad: ")
                     facLabel.grid(row=1, column=0)
                     valores = ["Minas","Ciencias"]
@@ -167,41 +164,104 @@ class BusquedaCursos(Frame):
                             items.append("{:10s}    {:32s}    {}       {:17s}    {}".format("ID", "Nombre", "Creditos", "Facultad", "Programas relacionados"))
                             items.append("----------------------------------------------------------------------------------------------------------------------")
                             for curso in listaCursos:
-                                items.append(str(curso.getId())+"    "+"{:25s}".format("curso.getNombre()")+"    "+"{:12s}".format(str(curso.getCreditos()))+"       "+"{:18s}".format(curso.getFacultad()[0].value[1])+"    "+str(curso.getCarrerasRelacionadas())+" Click para ver detalles")
+                                items.append(str(curso.getId())+"    "+"{:25s}".format(curso.getNombre())+"    "+"{:12s}".format(str(curso.getCreditos()))+"       "+"{:18s}".format(curso.getFacultad()[0].value[1])+"    "+"".join(curso.getCarrerasRelacionadas())+" Click para ver detalles")
                             scrollbar = ttk.Scrollbar(valoresFrame, orient="vertical")
                             listbox = Listbox(valoresFrame, yscrollcommand=scrollbar.set, width=200)
                             listbox.insert(0, *items)
                             scrollbar.config(command=listbox.yview)
                             listbox.grid(row=4, column=0, columnspan=2)
-                            
+                        
+                        def handleAceptar(e):
+                            print("ncskc")
+                        def handleBorrar(e):
+                            print("ncskc")
+                        Aceptar = frameInteraccion.crearBoton("Aceptar")
+                        Aceptar.grid(row=0, column=0)
+                        Aceptar.bind("<Button-1>", handleAceptar)
+                        Borr = frameInteraccion.crearBoton("Borrar")
+                        Borr.grid(row=0, column=1)
+                        Borr.bind("<Button-1>", handleBorrar)    
                     continuar.bind("<Button-1>",cont)
+                    
                 elif e.widget.get() == "Filtrar cursos por carreras relacionadas":
-                    for x in frameInteraccion.children.values():
-                        x.configure(state="normal")
-                    carrLabel = Label(valoresFrame, text="Carrera: ")
-                    carrLabel.grid(row=1, column=0)
-                    valores = ["Ingeniería de Sistemas","Ciencias de la Computación"]
-                    carrCombo = ttk.Combobox(valoresFrame, values=valores)
-                    carrCombo.grid(row=1, column=1)
+                    label = Label(valoresFrame, text="Carrera: ")
+                    label.grid(row=1, column=0)
+                    valores = ["Ciencias de la computación","Ingenieria de Sistemas"]
+                    combo = ttk.Combobox(valoresFrame, values=valores, state="readonly")
+                    combo.grid(row=1, column=1)
                     def cont(e):
-                        pass
-                    def borr(e):
-                        pass    
+                        if combo.get() != "":
+                            if combo.get() == "Ciencias de la computación":
+                                listaCursos = Curso.filtrarPorCarrera(Registro.getCursos(), Carreras.COMPUTACION)
+                            else:
+                                listaCursos = Curso.filtrarPorCarrera(Registro.getCursos(), Carreras.SISTEMAS)
+                            titl = Label(valoresFrame, text="Los cursos disponibles son los siguientes: ")
+                            titl.grid(row=3, column=0, columnspan=2)
+                            items = []
+                            items.append("{:10s}    {:32s}    {}       {:17s}    {}".format("ID", "Nombre", "Creditos", "Facultad", "Programas relacionados"))
+                            items.append("----------------------------------------------------------------------------------------------------------------------")
+                            for curso in listaCursos:
+                                items.append(str(curso.getId())+"    "+"{:25s}".format(curso.getNombre())+"    "+"{:12s}".format(str(curso.getCreditos()))+"       "+"{:18s}".format(curso.getFacultad()[0].value[1])+"    "+"".join(curso.getCarrerasRelacionadas())+" Click para ver detalles")
+                            scrollbar = ttk.Scrollbar(valoresFrame, orient="vertical")
+                            listbox = Listbox(valoresFrame, yscrollcommand=scrollbar.set, width=200)
+                            listbox.insert(0, *items)
+                            scrollbar.config(command=listbox.yview)
+                            listbox.grid(row=4, column=0, columnspan=2)
+                        
+                        def handleAceptar(e):
+                            print("ncskc")
+                        def handleBorrar(e):
+                            print("ncskc")
+                        Aceptar = frameInteraccion.crearBoton("Aceptar")
+                        Aceptar.grid(row=0, column=0)
+                        Aceptar.bind("<Button-1>", handleAceptar)
+                        Borr = frameInteraccion.crearBoton("Borrar")
+                        Borr.grid(row=0, column=1)
+                        Borr.bind("<Button-1>", handleBorrar)    
                     continuar.bind("<Button-1>",cont)
-                    borrar.bind("<Button-1>",borr)
+                    
                 elif e.widget.get() == "Filtrar cursos por horario":
-                    for x in frameInteraccion.children.values():
-                        x.configure(state="normal")
-                    horLabel = Label(valoresFrame, text="Horario: ")
-                    horLabel.grid(row=1, column=0)
-                    horCombo = Entry(valoresFrame)
-                    horCombo.grid(row=1, column=1)
+                    label = Label(valoresFrame, text="Horario: ")
+                    label.grid(row=1, column=0)
+                    entry = Entry(valoresFrame)
+                    entry.grid(row=1, column=1)
+                    continuar.grid(row=2, column=0, columnspan=1, padx=5, sticky="e")
+                    borrar = Button(valoresFrame, text="Borrar")
+                    borrar.grid(row=2, column=1, padx=5, sticky="w")
+                    def borrarf(e):
+                        entry.delete(0, "end")
+                    borrar.bind("<Button-1>", borrarf)
                     def cont(e):
-                        pass
-                    def borr(e):
-                        pass    
+                        if entry.get() != "":
+                            try:
+                                BusquedaCursos.errorHorario(entry.get())
+                                listaCursos = Curso.filtrarPorHorario(Registro.getCursos(), entry.get())
+                                titl = Label(valoresFrame, text="Los cursos disponibles son los siguientes: ")
+                                titl.grid(row=3, column=0, columnspan=2)
+                                items = []
+                                items.append("{:10s}    {:32s}    {}       {:17s}    {}".format("ID", "Nombre", "Creditos", "Facultad", "Programas relacionados"))
+                                items.append("----------------------------------------------------------------------------------------------------------------------")
+                                for curso in listaCursos:
+                                    items.append(str(curso.getId())+"    "+"{:25s}".format(curso.getNombre())+"    "+"{:12s}".format(str(curso.getCreditos()))+"       "+"{:18s}".format(curso.getFacultad()[0].value[1])+"    "+"".join(curso.getCarrerasRelacionadas())+" Click para ver detalles")
+                                scrollbar = ttk.Scrollbar(valoresFrame, orient="vertical")
+                                listbox = Listbox(valoresFrame, yscrollcommand=scrollbar.set, width=200)
+                                listbox.insert(0, *items)
+                                scrollbar.config(command=listbox.yview)
+                                listbox.grid(row=4, column=0, columnspan=2)
+                            
+                                def handleAceptar(e):
+                                    print("ncskc")
+                                def handleBorrar(e):
+                                    print("ncskc")
+                                Aceptar = frameInteraccion.crearBoton("Aceptar")
+                                Aceptar.grid(row=0, column=0)
+                                Aceptar.bind("<Button-1>", handleAceptar)
+                                Borr = frameInteraccion.crearBoton("Borrar")
+                                Borr.grid(row=0, column=1)
+                                Borr.bind("<Button-1>", handleBorrar)
+                            except HorarioException as he:
+                                messagebox.showerror("Error", he.mostrarMensaje())
                     continuar.bind("<Button-1>",cont)
-                    borrar.bind("<Button-1>",borr)
             for x in valoresFrame.children.values():
                 try:
                     if x.winfo_name() == "1":
