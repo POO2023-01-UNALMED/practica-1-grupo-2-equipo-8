@@ -186,36 +186,7 @@ public class AsignarCita {
             }
         });
     
-        /* // Obtener el tamaño de la lista de estudiantes
-        int n = estudiantes.size();
-    
-        // Recorrer la lista de estudiantes para ordenarla por PAPI
-        for (int i = 0; i < n - 1; i++) {
-            // Encontrar el índice del estudiante con el PAPI máximo
-            int maxIndex = i;
-
-            for (int j = i + 1; j < n; j++) {
-                // Obtener los estudiantes a comparar
-                Estudiante estudianteJ = estudiantes.get(j);
-                Estudiante estudianteMax = estudiantes.get(maxIndex);
-
-                // Calcular el valor de PAPI para cada estudiante
-                double papiJ = estudianteJ.calcularPAPI(estudianteJ.getSemestre());
-                double papiMax = estudianteMax.calcularPAPI(estudianteMax.getSemestre());
-
-                // Si el valor de PAPI del estudiante J es mayor, actualizar el índice del máximo
-                if (papiJ > papiMax) {
-                    maxIndex = j;
-                }
-            }
-            // Si el índice del máximo es diferente del actual, intercambiar los estudiantes
-            if (maxIndex != i) {
-                // Intercambiar los estudiantes en la lista
-                Estudiante tempEstudiante = estudiantes.get(i);
-                estudiantes.set(i, estudiantes.get(maxIndex));
-                estudiantes.set(maxIndex, tempEstudiante);
-            }
-        } */
+       
         
         // Retornar la lista de estudiantes ordenada por PAPI de mayor a menor
         return estudiantes;

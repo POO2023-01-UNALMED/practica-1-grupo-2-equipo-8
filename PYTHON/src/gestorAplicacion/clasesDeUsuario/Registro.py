@@ -2,14 +2,14 @@ from abc import ABC, abstractclassmethod
 from gestorAplicacion.clasesDeCurso.Curso import Curso
 class Registro(ABC):
     _cantidadUsuariosExistentes = 0
-    _estudiantes = set()
-    _estudiantesMatriculados = set()
+    _estudiantes = []
+    _estudiantesMatriculados = []
     _cursos = []
-    _admins = set()
-    _profesores = set()
-    _estimulosEstudiantes = set()
-    _estimulosProfesores = set()
-    _estudiantesConCita = set()
+    _admins = []
+    _profesores = []
+    _estimulosEstudiantes = []
+    _estimulosProfesores = []
+    _estudiantesConCita = []
 
     def __init__(self, nombre, correo, nombreUsuario, clave, documentoIdentificacion):
         self._nombre = nombre
@@ -44,7 +44,7 @@ class Registro(ABC):
     
     @classmethod
     def agregarAdmin(cls, admin):
-        Registro._admins.add(admin)
+        Registro._admins.append(admin)
     
     @classmethod
     def getProfesores(cls):
@@ -56,7 +56,7 @@ class Registro(ABC):
     
     @classmethod
     def agregarProfesor(cls, profesor):
-        Registro._profesores.add(profesor)
+        Registro._profesores.append(profesor)
     
     @classmethod
     def getEstimulosEstudiantes(cls):
@@ -68,7 +68,7 @@ class Registro(ABC):
     
     @classmethod
     def agregarEstimulosEstudiantes(cls, estimulos):
-        Registro._estimulosEstudiantes.add(estimulos)
+        Registro._estimulosEstudiantes.append(estimulos)
     
     @classmethod
     def getEstimulosProfesores(cls):
@@ -80,7 +80,7 @@ class Registro(ABC):
     
     @classmethod
     def agregarEstimulosProfesores(cls, estimulos):
-        Registro._estimulosProfesores.add(estimulos)
+        Registro._estimulosProfesores.append(estimulos)
     
     @classmethod
     def getEstudiantes(cls):
@@ -92,7 +92,7 @@ class Registro(ABC):
 
     @classmethod
     def agregarEstudiante(cls, estudiante):
-        Registro._estudiantes.add(estudiante)
+        Registro._estudiantes.append(estudiante)
     
     @classmethod
     def getEstudiantesMatriculados(cls):
@@ -104,7 +104,7 @@ class Registro(ABC):
     
     @classmethod
     def agregarEstudianteMatriculado(cls, estudiante):
-        Registro._estudiantesMatriculados.add(estudiante)
+        Registro._estudiantesMatriculados.append(estudiante)
     
     @classmethod
     def getCursos(cls) -> list[Curso] : 
@@ -122,7 +122,7 @@ class Registro(ABC):
                 comp = False
                 break
         if comp == True:
-            Registro._cursos.add(curso)
+            Registro._cursos.append(curso)
     
     @classmethod
     def eliminarCurso(cls, curso):

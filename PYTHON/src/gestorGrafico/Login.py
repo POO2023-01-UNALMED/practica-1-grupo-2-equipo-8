@@ -1,15 +1,14 @@
 from gestorAplicacion.clasesDeUsuario.Registro import Registro
+from gestorGrafico.UserWindow import UserWindow
+from gestorGrafico.Root import Root
 from tkinter import Button, Entry, Frame, Label, StringVar, Tk, ttk, Menu
 
 
 
 class Login:
     @classmethod
-    def iniciar(cls):
-        def salir():
-            pass
-        
-        root = Tk()
+    def iniciar(cls, root:Root):
+
         root.state("zoomed")
         root.title("Registro")
         
@@ -17,7 +16,7 @@ class Login:
         root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
-        archivo.add_command(label="Salir", command=salir)
+        archivo.add_command(label="Salir", command=root.salir)
         frame1 = Frame(root, width=400, height=400)
         frame1.pack(expand=True)
         frame11 = Frame(frame1)
@@ -61,6 +60,8 @@ class Login:
                         if(us.getNombreUsuario()==nom and us.getClave()==clav):
                             comp = True
                             #Menu.sistema(us) #Falta ver a qué se va a redireccionar
+                            root.cleanRoot()
+                            UserWindow(root, us)
                             break
                     if comp == False:
                         res.configure(text="El Nombre o la clave no coincide")
@@ -73,6 +74,8 @@ class Login:
                     for us in Registro.getProfesores():
                         if(us.getNombreUsuario()==nom and us.getClave()==clav):
                             comp = True
+                            root.cleanRoot()
+                            UserWindow(root, us)
                             #Menu.sistema(us) #Falta ver a qué se va a redireccionar
                             break
                     if comp == False:
@@ -86,6 +89,8 @@ class Login:
                     for us in Registro.getAdmins():
                         if(us.getNombreUsuario()==nom and us.getClave()==clav):
                             comp = True
+                            root.cleanRoot()
+                            UserWindow(root, us)
                             #Menu.sistema(us) #Falta ver a qué se va a redireccionar
                             break
                     if comp == False:
@@ -107,5 +112,4 @@ class Login:
         
         boton1.bind("<Button-1>",handle)
         boton2.bind("<Button-1>",handle)
-        root.mainloop()
  
