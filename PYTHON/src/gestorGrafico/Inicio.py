@@ -1,14 +1,15 @@
 import tkinter as tk
+from gestorGrafico.Root import Root
 from PIL import Image, ImageTk
 import os
 import pathlib
-from programador import Programador
+from .programador import Programador
 from gestorGrafico.Register import Register
 
 path = os.path.join(pathlib.Path(__file__).parent.absolute())
 
 class Inicio:
-    def __init__(self):
+    def __init__(self, root:Root):
         # Creamos a los poderosos 4 programadores
         # Cada uno se agrega con sus fotos y su biografía
         # La biografía debe ser corta y decir dónde y cuándo naciste y qué te gusta
@@ -44,7 +45,8 @@ class Inicio:
         self.contI = 0
         self.p = self.programadores[self.contP]
 
-        self.ventana = tk.Tk()
+        self.ventana = root
+        self.ventana.state("zoomed")
         self.ventana.title("Ventana de inicio")
         self.P1 = tk.Frame(self.ventana, bg= "lightgray")
         self.P1.pack(side="left", padx=10, pady=5, fill="both", expand=True)
@@ -106,8 +108,10 @@ class Inicio:
         self.ventana.mainloop()
 
     def iniciar(self, event):
-        self.ventana.destroy()
-        Register.register()
+        self.ventana.cleanRoot()
+        Register.register(self.ventana)
+        """ self.ventana.destroy()
+        Register.register() """
 
 
 
@@ -146,8 +150,3 @@ class Inicio:
         self.imagen4 = tk.Label(self.P6, image=imagen4)
         self.imagen4.image = imagen4  # Guardar una referencia para evitar que se elimine la imagen
         self.imagen4.grid(row=1, column=1)
-        
-
-
-# Crear una instancia de la clase Inicio
-inicio = Inicio()
