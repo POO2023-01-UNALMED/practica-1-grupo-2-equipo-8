@@ -1,7 +1,8 @@
 import tkinter as tk
+from tkinter import ttk
 
 class FieldFrame(tk.Frame):
-    def __init__(self, root, tituloProceso=None, descripcionProceso=None, criterios=None, valores = None) :
+    def __init__(self, root, tituloProceso=None, descripcionProceso=None, criterios=None, valores = None, valoresCombo = None) :
         super().__init__(root)
 
         self._root = root
@@ -11,8 +12,12 @@ class FieldFrame(tk.Frame):
         self._valores = valores
         self._entrys = []
         self._entradasUsuario = []
+        if valoresCombo == None:
+            self._valoresCombo = []
+        else:
+            self._valoresCombo = valoresCombo
 
-        # Si se habré la ventana por primera vez
+        # Si se abre la ventana por primera vez
         if tituloProceso == None :
             frame = tk.Frame(root)
             tk.Label(root, text='ELIJA UN PROCESO').pack()
@@ -33,15 +38,36 @@ class FieldFrame(tk.Frame):
         frameDescripcionProceso.pack()
 
         # Valores
-        frameValores = tk.Frame(root)
+        valoresCombo = []
+        for x in self._valoresCombo:
+            valoresCombo.append(x)
+        frameValores = tk.Frame(root, name="valores")
+        cont = 1
         for i in range(len(criterios)) :
             criterio = tk.Label(frameValores, text=criterios[i])
             criterio.grid(row=i, column=0)
 
-            valor = tk.Entry(frameValores)
-            valor.grid(row=i, column=1)
-            valor.insert(0, valores[i])
-            self._entrys.append(valor)
+            if valores[i] == "combobox":
+                valor = ttk.Combobox(frameValores, values=valoresCombo[0], width=30, name=str(cont))
+                valor.grid(row=i, column=1)
+                self._entrys.append(valor)
+                valoresCombo.pop(0)
+                cont+=1
+            elif valores[i] == "comboboxdeshabilitado":
+                valor = ttk.Combobox(frameValores, values=valoresCombo[0], width=30, name=str(cont), state="disabled")
+                valor.grid(row=i, column=1)
+                self._entrys.append(valor)
+                valoresCombo.pop(0)
+                cont+=1
+            elif valores[i] == "deshabilitado":
+                valor = tk.Entry(frameValores, state="disabled")
+                valor.grid(row=i, column=1)
+                self._entrys.append(valor)
+            else:
+                valor = tk.Entry(frameValores)
+                valor.grid(row=i, column=1)
+                valor.insert(0, valores[i])
+                self._entrys.append(valor)
         frameValores.anchor(tk.CENTER)
         frameValores.pack()
 

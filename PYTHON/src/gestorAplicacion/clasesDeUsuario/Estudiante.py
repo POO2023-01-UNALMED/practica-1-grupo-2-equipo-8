@@ -1,3 +1,4 @@
+
 from ..clasesExtra.Horario import Horario
 from .Registro import Registro
 
@@ -120,8 +121,9 @@ class Estudiante(Registro):
         except ZeroDivisionError:
             return 0
     
-    def buscarCursos(self):
-        BusquedaCursos.buscarCursos(self)
+    def buscarCursos(self, root):
+        from gestorGrafico.BusquedaCursos import BusquedaCursos
+        BusquedaCursos(root, self).buscarCursos()
     
     
     def crearHorario(self):

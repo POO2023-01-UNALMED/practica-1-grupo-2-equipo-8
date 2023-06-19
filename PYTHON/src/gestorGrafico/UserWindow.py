@@ -10,8 +10,9 @@ class UserWindow :
         self._user = user
 
         def recomendarAsignaturas() :
-            root.cleanRoot()
             RecomendarAsignaturas(root, self._user)
+        def buscarCursos():
+            self._user.buscarCursos(root)
 
         root.title('Mi Gestor Académico')
         root.state("zoomed")
@@ -40,7 +41,7 @@ class UserWindow :
         elif isinstance(self._user, Estudiante) :
             lista_procesos = [
                 ('Ver recomendación de asignaturas', recomendarAsignaturas),
-                ('Buscar asignatura', None),
+                ('Buscar asignatura', buscarCursos),
                 ('Crear horario', None),
                 ('Inscribir materias', None),
                 ('Ver estímulos a los que aplica', None),

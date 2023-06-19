@@ -376,6 +376,7 @@ class Register:
                                     entry6.delete(0, "end")
                                     entry6.configure(state="disabled")
                                     anadir.after(2000, anadir.config(state="normal"))
+                                    anadir.after(2000, anadir.invoke)
                             def borrarf(e):
                                 res.configure(text="")
                                 lis = []
@@ -494,7 +495,7 @@ class Register:
                     messagebox.showerror("Error", ce.mostrarMensaje())
                     entry1.delete(0, "end")
                     entry2.delete(0, "end")
-                    combobox.set("Usuarios")
+                    combobox.set("Usuarios")   
         boton2.bind("<Button-1>",handle)
         boton1.bind("<Button-1>",handle)
         root.mainloop()
