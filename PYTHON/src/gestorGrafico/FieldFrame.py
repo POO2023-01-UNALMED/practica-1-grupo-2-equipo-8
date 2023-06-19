@@ -48,7 +48,7 @@ class FieldFrame(tk.Frame):
             criterio.grid(row=i, column=0)
 
             if valores[i] == "combobox":
-                valor = ttk.Combobox(frameValores, values=valoresCombo[0], width=30, name=str(cont))
+                valor = ttk.Combobox(frameValores, values=valoresCombo[0], width=30, name=str(cont), state="readonly")
                 valor.grid(row=i, column=1)
                 self._entrys.append(valor)
                 valoresCombo.pop(0)
