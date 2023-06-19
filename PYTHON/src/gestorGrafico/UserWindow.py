@@ -6,6 +6,7 @@ from gestorAplicacion.clasesDeUsuario.Admin import Admin
 from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 #from ..gestorAplicacion.clasesDeUsuario.Profesor import Profesor
 from .RecomendarAsignaturas import RecomendarAsignaturas
+from .AsignarCita import AsignarCita
 from baseDatos.Serializador import Serializador
 
 class UserWindow :
@@ -13,10 +14,16 @@ class UserWindow :
         self._user = user
 
         def recomendarAsignaturas() :
+            root.cleanRoot()
             RecomendarAsignaturas(root, self._user)
+            
         def buscarCursos():
             root.cleanRoot()
             self._user.buscarCursos(root)
+
+        def asignarCita():
+            root.cleanRoot()
+            AsignarCita(root, self._user)
 
         root.title('Mi Gestor Académico')
 
@@ -34,7 +41,7 @@ class UserWindow :
                 ('Crear curso', None),
                 ('Eliminar curso', None),
                 ('Buscar asignatura', None),
-                ('Asignar citas de inscripción', None),
+                ('Asignar citas de inscripción', asignarCita),
                 ('Ver estudiantes', None),
                 ('Ver profesores', None),
                 ('Ver estimulos [por nombre]', None),

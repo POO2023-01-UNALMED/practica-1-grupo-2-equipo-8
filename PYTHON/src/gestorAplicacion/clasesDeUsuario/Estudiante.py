@@ -1,30 +1,24 @@
-
-from ..clasesExtra.Horario import Horario
-from .Registro import Registro
+from gestorAplicacion.clasesExtra.Horario import Horario
+from gestorAplicacion.clasesDeUsuario.Registro import Registro
+from gestorGrafico.AsignarCita import AsignarCita
 
 class Estudiante(Registro):
-    def __init__(self, nombre=None, correo=None, nombreUsuario=None, clave=None, documento=None, carrera=None, facultad=None, semestre=None, cursosVistos = None, listaCursos = None):
+    def __init__(self, nombre=None, correo=None, nombreUsuario=None, clave=None, documento=None, carrera=None, facultad=None, semestre=None, cursosVistos = [], listaCursos = []):
         super().__init__(nombre, correo, nombreUsuario, clave, documento)
         self._carrera = carrera
         self._facultad = facultad
         self._semestre = semestre
-        self._horariosCreados = set()
-        self._estimulos = set()
-        if listaCursos == None:
-            self._listaCursos = set()
-        else:
-            self._listaCursos = listaCursos
-        if cursosVistos == None:
-            self._cursosVistos = set()
-        else:
-            self._cursosVistos = cursosVistos
-        self._listaCursosInscritos = set()
-        """ for ce in listaCursos:
+        self._horariosCreados = []
+        self._estimulos = []
+        self._listaCursos = listaCursos
+        self._cursosVistos = cursosVistos
+        self._listaCursosInscritos = []
+        for ce in listaCursos:
             profesor = ce.getProfesor()
             for cp in profesor.getListaCursos():
                 if ce.getNombre() == cp.getNombre():
                     cp.agregarEstudiante(self)
-                    cp.setCupos(cp.getCupos()-1) """
+                    cp.setCupos(cp.getCupos()-1)
         self._cita = None
         self._inscribir = False
         Registro.agregarEstudiante(self)
@@ -35,7 +29,7 @@ class Estudiante(Registro):
     
 
     def setListaCursos(self, curso):
-        self._listaCursos.add(curso)
+        self._listaCursos.append(curso)
     
 
     def getCursosVistos(self):
@@ -43,11 +37,11 @@ class Estudiante(Registro):
     
 
     def agregarCursoVisto(self, cursoVisto):
-        self._cursosVistos.add(cursoVisto)
+        self._cursosVistos.append(cursoVisto)
     
 
     def setCursosVistos(self, curso):
-        self._cursosVistos.add(curso)
+        self._cursosVistos.append(curso)
     
 
     def getListaCursosInscritos(self): 
@@ -55,7 +49,7 @@ class Estudiante(Registro):
     
 
     def setListaCursosInscritos(self, curso):
-        self._listaCursosInscritos.add(curso)
+        self._listaCursosInscritos.append(curso)
     
 
     def getCarrera(self): 
@@ -91,7 +85,7 @@ class Estudiante(Registro):
     
 
     def agregarHorario(self, horario):
-        self._horariosCreados.add(horario)
+        self._horariosCreados.append(horario)
     
     
     def getCita(self): 
@@ -128,7 +122,7 @@ class Estudiante(Registro):
     
     def crearHorario(self):
         horario = Horario(self, [])
-        self._horariosCreados.add(horario)
+        self._horariosCreados.append(horario)
         return horario
     
     
@@ -136,10 +130,10 @@ class Estudiante(Registro):
         if cursos != None:
             for ce in self._listaCursos:
                 if(ce.calcularPromedio()>=3):
-                    self._cursosVistos.add(ce)
+                    self._cursosVistos.append(ce)
             self._listaCursos.clear()
             for ce in cursos:
-                self._listaCursos.add(ce)
+                self._listaCursos.append(ce)
             for ce in cursos:
                 profesor = ce.getProfesor()
                 for cp in profesor.getListaCursos():
@@ -152,10 +146,10 @@ class Estudiante(Registro):
         elif horario != None:
             for ce in self._listaCursos:
                 if(ce.calcularPromedio()>=3):
-                    self._cursosVistos.add(ce)
+                    self._cursosVistos.append(ce)
             self._listaCursos.clear()
             for ce in horario.getCursos():
-                self._listaCursos.add(ce)
+                self._listaCursos.append(ce)
             
             for ce in horario.getCursos():
                 profesor = ce.getProfesor()
@@ -176,7 +170,7 @@ class Estudiante(Registro):
         #por lo que se obtiene la lista de nombres,
         nombresCursosVistos = []
         for asignatura in self.getCursosVistos(): 
-            nombresCursosVistos.add(asignatura.getNombre())
+            nombresCursosVistos.append(asignatura.getNombre())
         
         #y se revisa si el nombre del curso está en los cursos vistos.
         return curso.getNombre() in nombresCursosVistos

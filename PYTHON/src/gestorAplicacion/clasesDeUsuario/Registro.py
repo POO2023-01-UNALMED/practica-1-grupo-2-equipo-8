@@ -1,5 +1,6 @@
 from abc import ABC, abstractclassmethod
 from gestorAplicacion.clasesDeCurso.Curso import Curso
+
 class Registro(ABC):
     _cantidadUsuariosExistentes = 0
     _estudiantes = []
@@ -47,7 +48,7 @@ class Registro(ABC):
         Registro._admins.append(admin)
     
     @classmethod
-    def getProfesores(cls):
+    def getProfesores(cls) :
         return Registro._profesores
     
     @classmethod
