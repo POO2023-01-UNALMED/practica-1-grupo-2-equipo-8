@@ -127,7 +127,7 @@ class BusquedaCursos(Frame):
                 pass
             def handleBorrar(e):
                 pass
-            val = ["Filtrar cursos por facultad","Filtrar cursos por carreras relacionadas","Filtrar cursos por horario"]
+            val = ["Ver todos los cursos","Filtrar cursos por facultad","Filtrar cursos por carreras relacionadas","Filtrar cursos por horario"]
             frameInteraccion = FieldFrame(self._root, titulo, descripcion, ["Indique lo que quiere realizar"], ["combobox"], [val])
             frameInteraccion.crearBoton("Aceptar", handleAceptar).grid(row=0, column=0)
             frameInteraccion.crearBoton("Borrar", handleBorrar).grid(row=0, column=1)
@@ -153,7 +153,7 @@ class BusquedaCursos(Frame):
                     facLabel = Label(valoresFrame, text="Facultad: ")
                     facLabel.grid(row=1, column=0)
                     valores = ["Minas","Ciencias"]
-                    facCombo = ttk.Combobox(valoresFrame, values=valores)
+                    facCombo = ttk.Combobox(valoresFrame, values=valores, state="readonly")
                     facCombo.grid(row=1, column=1)
                     def cont(e):
                         if facCombo.get() != "":
@@ -161,16 +161,20 @@ class BusquedaCursos(Frame):
                                 listaCursos = Curso.filtrarPorFacultad(Registro.getCursos(), Facultades.MINAS)
                             else:
                                 listaCursos = Curso.filtrarPorFacultad(Registro.getCursos(), Facultades.CIENCIAS)
+                            titl = Label(valoresFrame, text="Los cursos disponibles son los siguientes: ")
+                            titl.grid(row=3, column=0, columnspan=2)
+                            items = []
+                            items.append("{:10s}    {:32s}    {}       {:17s}    {}".format("ID", "Nombre", "Creditos", "Facultad", "Programas relacionados"))
+                            items.append("----------------------------------------------------------------------------------------------------------------------")
+                            for curso in listaCursos:
+                                items.append(str(curso.getId())+"    "+"{:25s}".format("curso.getNombre()")+"    "+"{:12s}".format(str(curso.getCreditos()))+"       "+"{:18s}".format(curso.getFacultad()[0].value[1])+"    "+str(curso.getCarrerasRelacionadas())+" Click para ver detalles")
                             scrollbar = ttk.Scrollbar(valoresFrame, orient="vertical")
-                            items = listaCursos
-                            listbox = Listbox(valoresFrame, yscrollcommand=scrollbar.set)
+                            listbox = Listbox(valoresFrame, yscrollcommand=scrollbar.set, width=200)
                             listbox.insert(0, *items)
                             scrollbar.config(command=listbox.yview)
-                            listbox.grid(row=3, column=0, columnspan=2)
-                    def borr(e):
-                        pass    
+                            listbox.grid(row=4, column=0, columnspan=2)
+                            
                     continuar.bind("<Button-1>",cont)
-                    borrar.bind("<Button-1>",borr)
                 elif e.widget.get() == "Filtrar cursos por carreras relacionadas":
                     for x in frameInteraccion.children.values():
                         x.configure(state="normal")
@@ -288,7 +292,7 @@ class BusquedaCursos(Frame):
             if(compp == true && !listaCursos.isEmpty())
                 while(true)
                     System.out.println("Los cursos disponibles son:\n"
-                    + String.format("\t%s\t%-32s\t%s\t%-17s\t%s","ID","Nombre","Creditos","Facultad","Programas relacionados"))
+                    + format("\t%s\t%-32s\t%s\t%-17s\t%s","ID","Nombre","Creditos","Facultad","Programas relacionados"))
                     System.out.println("----------------------------------------------------------------------------------------------------------------------")
                     int cont = 1
                     for(Curso curso : listaCursos)
