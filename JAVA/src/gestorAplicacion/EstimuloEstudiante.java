@@ -14,8 +14,7 @@ public class EstimuloEstudiante extends Estimulo implements EstimuloEstudianteIn
       ArrayList<Facultades> facultadesAplica,
       int cupos,
       int pbm,
-      double papa
-  ) {
+      double papa) {
     super(nombre, descripcion, aQuienAplica, facultadesAplica, cupos);
     this.pbm = pbm;
     this.papa = papa;

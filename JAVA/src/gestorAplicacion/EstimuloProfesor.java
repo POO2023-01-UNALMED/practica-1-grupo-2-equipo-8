@@ -7,13 +7,12 @@ public class EstimuloProfesor extends Estimulo implements EstimuloProfesorInterf
   private ArrayList<Integer> materiasImpartidas;
 
   public EstimuloProfesor(
-    String nombre,
-    String descripcion,
-    TipoUsuarios aQuienAplica, 
-    ArrayList<Facultades> facultadesAplica,
-    int cupos,
-    ArrayList<Integer> materiasImpartidas
-  ) {
+      String nombre,
+      String descripcion,
+      TipoUsuarios aQuienAplica,
+      ArrayList<Facultades> facultadesAplica,
+      int cupos,
+      ArrayList<Integer> materiasImpartidas) {
     super(nombre, descripcion, aQuienAplica, facultadesAplica, cupos);
     this.materiasImpartidas = materiasImpartidas;
   }
@@ -22,10 +21,10 @@ public class EstimuloProfesor extends Estimulo implements EstimuloProfesorInterf
   public ArrayList<String> obtenerCriterios() {
     ArrayList<String> criterios = new ArrayList<>();
 
-    String materias = "Materias: [";    
-    for(Integer cursoId: materiasImpartidas) {
-      for(Curso curso: Registro.getCursos()) {
-        if(curso.getId() == cursoId) {
+    String materias = "Materias: [";
+    for (Integer cursoId : materiasImpartidas) {
+      for (Curso curso : Registro.getCursos()) {
+        if (curso.getId() == cursoId) {
           materias += curso.getNombre() + ", ";
         }
       }
@@ -33,8 +32,8 @@ public class EstimuloProfesor extends Estimulo implements EstimuloProfesorInterf
     materias += "]";
 
     String facultades = "Facultad: [";
-    for(Facultades facultad: getFacultadesAplica()) {
-    	facultades += facultad.getNombre() + ", ";
+    for (Facultades facultad : getFacultadesAplica()) {
+      facultades += facultad.getNombre() + ", ";
     }
     facultades += "]";
 
@@ -47,19 +46,19 @@ public class EstimuloProfesor extends Estimulo implements EstimuloProfesorInterf
   }
 
   public ArrayList<Profesor> obtenerAplicantes() {
-	  ArrayList<Profesor> profesores = new ArrayList<>();
+    ArrayList<Profesor> profesores = new ArrayList<>();
 
-	  for(Profesor profesor: Registro.getProfesores()) {
-		  if(verificarRequisitos(profesor)) {
-			  profesores.add(profesor);
-		  }
-	  }
+    for (Profesor profesor : Registro.getProfesores()) {
+      if (verificarRequisitos(profesor)) {
+        profesores.add(profesor);
+      }
+    }
 
-	  return profesores;
+    return profesores;
   }
 
   public boolean verificarRequisitos(Profesor profesor) {
-    boolean cumpleRequisitos = true; 
+    boolean cumpleRequisitos = true;
 
     if (this.getCupos() <= 0) {
       cumpleRequisitos = false;
@@ -68,11 +67,12 @@ public class EstimuloProfesor extends Estimulo implements EstimuloProfesorInterf
     if (!this.getFacultadesAplica().contains(profesor.getFacultad())) {
       cumpleRequisitos = false;
     }
-    
-    for(Integer cursoId: materiasImpartidas) {
-      for(Curso curso: Registro.getCursos()) {
-        if(curso.getId() != cursoId) continue;
-        if(!profesor.validarExistenciaCurso(curso)) {
+
+    for (Integer cursoId : materiasImpartidas) {
+      for (Curso curso : Registro.getCursos()) {
+        if (curso.getId() != cursoId)
+          continue;
+        if (!profesor.validarExistenciaCurso(curso)) {
           cumpleRequisitos = false;
         }
       }
@@ -85,7 +85,7 @@ public class EstimuloProfesor extends Estimulo implements EstimuloProfesorInterf
   public ArrayList<Integer> getMateriasImpartidas() {
     return materiasImpartidas;
   }
-  
+
   // setters
   public void setMateriasImpartidas(ArrayList<Integer> materiasImpartidas) {
     this.materiasImpartidas = materiasImpartidas;
