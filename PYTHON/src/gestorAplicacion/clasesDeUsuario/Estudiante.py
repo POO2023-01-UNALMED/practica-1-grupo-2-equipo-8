@@ -123,7 +123,7 @@ class Estudiante(Registro):
     
     def buscarCursos(self, root):
         from gestorGrafico.BusquedaCursos import BusquedaCursos
-        BusquedaCursos(root, self).buscarCursos()
+        BusquedaCursos(root, self).buscarCursos(self)
     
     
     def crearHorario(self):
