@@ -17,4 +17,5 @@ if __name__ == '__main__' :
     root = Root()
     Inicio(root)
     root.mainloop()
+    
     Serializador.serializador()

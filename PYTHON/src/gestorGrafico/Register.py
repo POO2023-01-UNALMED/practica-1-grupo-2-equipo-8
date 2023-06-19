@@ -132,7 +132,6 @@ class Register:
     @classmethod
     def register(cls, root:Root):
         
-        root.state("zoomed")
         root.title("Registro")
         
         menuBar = Menu(root)

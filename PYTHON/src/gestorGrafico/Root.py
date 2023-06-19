@@ -1,8 +1,9 @@
-from tkinter import Tk
+from tkinter import Tk, Menu
 
 class Root(Tk) :
     def __init__(self) -> None:
         super().__init__()
+        self.state("zoomed")
 
     def mainloop(self, n: int = 0) -> None:
         return super().mainloop(n)

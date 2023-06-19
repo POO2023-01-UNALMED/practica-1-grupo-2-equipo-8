@@ -47,7 +47,6 @@ class Inicio:
         self.p = self.programadores[self.contP]
 
         self.ventana = root
-        self.ventana.state("zoomed")
         self.ventana.title("Ventana de inicio")
         self.P1 = tk.Frame(self.ventana, bg= "lightgray")
         self.P1.pack(side="left", padx=10, pady=5, fill="both", expand=True)
