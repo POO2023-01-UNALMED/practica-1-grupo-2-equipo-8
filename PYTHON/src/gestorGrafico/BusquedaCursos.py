@@ -659,19 +659,22 @@ class BusquedaCursos(Frame):
                 tabla.pack()
                 frameTabla.grid(row=5+y, column=0, columnspan=2)
                 y+=1
+            def cont(e):
+                from gestorGrafico.UserWindow import UserWindow
+                nh = e.widget.winfo_name()
+                self._root.cleanRoot()
+                horario = horarios[int(nh)]
+                horario.agregarCurso(grupo)
+                
+                UserWindow(self._root, estudiante)
+            for x in listaBotones:
+                x.bind("<Button-1>", cont)
         else:
             aviso = Label(valoresFrame, text="No se han creado horarios", font=("Arial", 15), fg="red")
             aviso.grid(row=3, column=0)
         volver = Button(framebotones, text="Volver")
         volver.grid(row=0, column=0)
-        def cont(e):
-            from gestorGrafico.UserWindow import UserWindow
-            nh = e.widget.winfo_name()
-            self._root.cleanRoot()
-            horario = horarios[int(nh)]
-            horario.agregarCurso(grupo)
-            
-            UserWindow(self._root, estudiante)
+        
         def vol(e):
             self._root.cleanRoot()
             curso = None
@@ -680,8 +683,6 @@ class BusquedaCursos(Frame):
                     curso = x
                     break
             self.mostrarDetalles(curso, estudiante)
-        for x in listaBotones:
-            x.bind("<Button-1>", cont)
         volver.bind("<Button-1>", vol)
     
     @classmethod
