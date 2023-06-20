@@ -1,6 +1,6 @@
 
 from gestorAplicacion.clasesDeUsuario.Registro import Registro
-from gestorAplicacion.clasesExtra.estimulo import Estimulo
+from gestorAplicacion.clasesExtra.Estimulo import Estimulo
 from gestorAplicacion.clasesExtra.EstimuloEstudianteInterfaz import EstimuloEstudianteInterfaz
 
 class EstimuloEstudiante(Estimulo, EstimuloEstudianteInterfaz):
