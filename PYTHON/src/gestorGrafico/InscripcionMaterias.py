@@ -44,14 +44,15 @@ class IncripcionMaterias(Frame):
             IncripcionMaterias.errorCita(estudiante)
             labelti = Label(valoresFrame, text="Indique el tipo de inscripción: ")
             labelti.grid(row=0, column=0, padx=5)
-            vals = ["Incribir materias manuealmente", "Incribir materias a partir de un horario creado"]
-            tinscripcion = ttk.Combobox(valoresFrame, values=vals, width=150)
+            vals = ["Incribir materias manualmente", "Incribir materias a partir de un horario creado"]
+            tinscripcion = ttk.Combobox(valoresFrame, values=vals, width=80)
             tinscripcion.grid(row=0, column=0, padx=5)
             def selected(e):
-                self._root.cleanRoot()
-                if e.widget.get() == "Incribir materias manuealmente":
+                if e.widget.get() == "Incribir materias manualmente":
+                    self._root.cleanRoot()
                     self.inscribirManualmente(estudiante)
                 if e.widget.get() == "Incribir materias a partir de un horario creado":
+                    self._root.cleanRoot()
                     self.inscribirConHorario(estudiante)
             tinscripcion.bind("<<ComboboxSelected>>", selected)    
         except EstudianteSinCitaException as esc:
@@ -74,7 +75,7 @@ class IncripcionMaterias(Frame):
             valoresFrame.pack(anchor="n")
             framebotones = Frame(self._root)
             framebotones.pack(anchor="s")
-            tit = Label(valoresFrame, "Selección de asignaturas", font=("Arial", 18))
+            tit = Label(valoresFrame, text="Selección de asignaturas", font=("Arial", 18))
             tit.grid(row=0, column=0)
             
             listaCursos = []
@@ -84,7 +85,8 @@ class IncripcionMaterias(Frame):
             cursosBorrar = []
             for ce in cursosAprobados:
                 if(ce.calcularPromedio()<3):
-                    cursosBorrar.add(ce)
+                    cursosBorrar.append(ce)
+
             dif = []
             for x in cursosAprobados:
                 comp = True
@@ -92,13 +94,13 @@ class IncripcionMaterias(Frame):
                     if x == y:
                         comp == False
                 if comp == True:
-                    dif.append()
+                    dif.append(x)
             cursosAprobados = dif
             cursosABorrar = []
             for c1 in cursosPosibles:
                 for c2 in cursosAprobados:
                     if(c1.getNombre() == c2.getNombre()):
-                        cursosABorrar.add(c1)
+                        cursosABorrar.append(c1)
             dif1 = []
             for x in cursosPosibles:
                 comp = True
@@ -106,7 +108,7 @@ class IncripcionMaterias(Frame):
                     if x == y:
                         comp == False
                 if comp == True:
-                    dif1.append()
+                    dif1.append(x)
             cursosPosibles = dif1
 
             
@@ -122,9 +124,9 @@ class IncripcionMaterias(Frame):
                 txt = "No hay cursos disponibles"
                 messagebox.showerror("Error", txt)
                 self._root.cleanRoot()
-                UserWindow(self._root, estudiante)
+                a = UserWindow(self._root, estudiante)
             else:
-                selecasig = Label(valoresFrame, "Seleccione un curso que quiera inscribir:", font=("Arial", 12))
+                selecasig = Label(valoresFrame, text="Seleccione un curso que quiera inscribir:", font=("Arial", 12))
                 selecasig.grid(row=1, column=0)
                 frameTabla = Frame(valoresFrame, name="tabla")
 
@@ -164,7 +166,9 @@ class IncripcionMaterias(Frame):
                         for x in Registro.getCursos():
                             if x.getNombre() == curso:
                                 curs = x
+                                break
                         if curs != None:
+                            self._root.cleanRoot()
                             self.mostrarDetalles(curs, estudiante, listaCursos, cursosres)
                     else:
                         messagebox.showinfo("Error", "No has seleccionado ningún curso")
@@ -174,10 +178,11 @@ class IncripcionMaterias(Frame):
                     else:
                         horario = Horario(listaCursos)
                         if(horario.validarHorario(estudiante)):
+                            from gestorGrafico.UserWindow import UserWindow
                             estudiante.inscribirCursos(listaCursos)
                             messagebox.showinfo("Proceso Exitoso", "La inscripción fue exitosa")
                             self._root.cleanRoot()
-                            UserWindow(self._root, estudiante)
+                            a = UserWindow(self._root, estudiante)
                         else:
                             self._root.cleanRoot()
                             messagebox.showinfo("Error", "Los cursos seleccionados presentan inconsistencias (hay horarios cruzados o no cumples con los requisitos de algún curso). Deberá hacer el proceso de nuevo.")
@@ -193,7 +198,7 @@ class IncripcionMaterias(Frame):
             valoresFrame.pack(anchor="n")
             framebotones = Frame(self._root)
             framebotones.pack(anchor="s")
-            tit = Label(valoresFrame, "Selección de asignaturas", font=("Arial", 18))
+            tit = Label(valoresFrame, text="Selección de asignaturas", font=("Arial", 18))
             tit.grid(row=0, column=0)
             listaCursos = listac
             if(len(cursosres) == 0):
@@ -201,9 +206,9 @@ class IncripcionMaterias(Frame):
                 txt = "No hay cursos disponibles"
                 messagebox.showerror("Error", txt)
                 self._root.cleanRoot()
-                UserWindow(self._root, estudiante)
+                a = UserWindow(self._root, estudiante)
             else:
-                selecasig = Label(valoresFrame, "Seleccione un curso que quiera inscribir:", font=("Arial", 12))
+                selecasig = Label(valoresFrame, text="Seleccione un curso que quiera inscribir:", font=("Arial", 12))
                 selecasig.grid(row=1, column=0)
                 frameTabla = Frame(valoresFrame, name="tabla")
 
@@ -243,6 +248,7 @@ class IncripcionMaterias(Frame):
                         for x in Registro.getCursos():
                             if x.getNombre() == curso:
                                 curs = x
+                                break
                         if curs != None:
                             comp = True
                             for x in listaCursos:
@@ -251,6 +257,7 @@ class IncripcionMaterias(Frame):
                                     messagebox.showinfo("Error", "Ya añadiste este curso")
                                     break
                             if comp == True:
+                                self._root.cleanRoot()
                                 self.mostrarDetalles(curs, estudiante, listaCursos, cursosres)    
                     else:
                         messagebox.showinfo("Error", "No has seleccionado ningún curso")
@@ -258,12 +265,13 @@ class IncripcionMaterias(Frame):
                     if(len(listaCursos) == 0):
                         messagebox.showinfo("Error", "No has inscrito ningún curso")
                     else:
-                        horario = Horario(listaCursos)
+                        horario = Horario(estudiante, listaCursos)
                         if(horario.validarHorario(estudiante)):
+                            from gestorGrafico.UserWindow import UserWindow
                             estudiante.inscribirCursos(listaCursos)
                             messagebox.showinfo("Proceso Exitoso", "La inscripción fue exitosa")
                             self._root.cleanRoot()
-                            UserWindow(self._root, estudiante)
+                            a = UserWindow(self._root, estudiante)
                         else:
                             self._root.cleanRoot()
                             messagebox.showinfo("Error", "Los cursos seleccionados presentan inconsistencias (hay horarios cruzados o no cumples con los requisitos de algún curso). Deberá hacer el proceso de nuevo.")
@@ -332,7 +340,8 @@ class IncripcionMaterias(Frame):
                 ng = tabla.item(item)["values"][0]
                 grupo = listaCursos[int(ng)-1]
                 if grupo.getCupos()>0:
-                    lista = listac.append(grupo)
+                    listac.append(grupo)
+                    lista = listac
                     messagebox.showinfo("Proceso exitoso", "El curso se agregó correctamente")
                     self._root.cleanRoot()
                     self.inscribirManualmente(estudiante, lista, cursosres)
@@ -354,7 +363,7 @@ class IncripcionMaterias(Frame):
         archivo.add_command(label="Inicio", command=lambda : self._root.inicio(self._estudiante))
         archivo.add_command(label="Salir", command=self._root.salir)
         
-        if(len(estudiante.getHorariosCreados() == 0)):
+        if len(estudiante.getHorariosCreados()) == 0:
             messagebox.showerror("Error", "No ha creado ningún horario, debes inscribir manualmente")
             self._root.cleanRoot()
             self.inscribirManualmente(estudiante)
@@ -406,10 +415,11 @@ class IncripcionMaterias(Frame):
                 self._root.cleanRoot()
                 horario = horarios[int(nh)]
                 if(horario.validarHorario(estudiante)):
+                    from gestorGrafico.UserWindow import UserWindow
                     estudiante.inscribirCursos(horario.getCursos())
                     messagebox.showinfo("Proceso Exitoso", "La inscripción fue exitosa")
                     self._root.cleanRoot()
-                    UserWindow(self._root, estudiante)
+                    a = UserWindow(self._root, estudiante)
                 else:
                     messagebox.showinfo("Error", "Los cursos seleccionados presentan inconsistencias (hay horarios cruzados, el horario contiene cursos que ya aprobaste o no cumples con los requisitos de algún curso). Deberá hacer el proceso de nuevo.")
                     self._root.cleanRoot()

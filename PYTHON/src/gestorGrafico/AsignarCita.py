@@ -21,7 +21,7 @@ class AsignarCita:
         self.root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
-        archivo.add_command(label="Inicio", command=lambda : self._root.inicio(self._user))
+        archivo.add_command(label="Inicio", command=lambda : self.root.inicio(self._user))
         archivo.add_command(label="Salir", command=self.root.salir)
 
         self.asignadosProvicionales = []
@@ -142,12 +142,12 @@ class AsignarCita:
         else:
             respuesta = messagebox.askyesno("Confirmación", "¿Estás seguro que deseas continuar?")
             if respuesta:
-                estudiantes = AsignarCita.estudiantesConCita = self.asignadosProvicionales
-                for i in range(len(estudiantes)):
+                AsignarCita.estudiantesConCita = self.asignadosProvicionales
+                for i in range(len(AsignarCita.estudiantesConCita)):
                     if i == 0:
-                        estudiantes[i].setInscribir(True)
+                        AsignarCita.estudiantesConCita[i].setInscribir(True)
                     else:
-                        estudiantes[i].setInscribir(False)
+                        AsignarCita.estudiantesConCita[i].setInscribir(False)
             self.root.cleanRoot()
             UserWindow.UserWindow(self.root, self._user)
 
@@ -178,5 +178,6 @@ class AsignarCita:
         estudiantesPorPAPA = sorted(estudiantes, key=lambda estudiante: estudiante.calcularPAPA(), reverse=True)
         return estudiantesPorPAPA
 
-
-
+    @classmethod
+    def getEstudiantesConCita(cls) :
+        return cls.estudiantesConCita

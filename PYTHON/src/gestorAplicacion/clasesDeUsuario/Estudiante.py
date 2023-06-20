@@ -140,9 +140,9 @@ class Estudiante(Registro):
                     if ce.getNombre() == cp.getNombre():
                         cp.agregarEstudiante(self)
                         cp.setCupos(cp.getCupos()-1)
-                        AsignarCita.getEstudiantesConCita().get(0).setInscribir(False)
-                        AsignarCita.getEstudiantesConCita().remove(0)
-                        AsignarCita.getEstudiantesConCita().get(0).setInscribir(True)
+                        AsignarCita.getEstudiantesConCita()[0].setInscribir(False)
+                        AsignarCita.getEstudiantesConCita().pop(0)
+                        AsignarCita.getEstudiantesConCita()[0].setInscribir(True)
         elif horario != None:
             for ce in self._listaCursos:
                 if(ce.calcularPromedio()>=3):
@@ -157,9 +157,9 @@ class Estudiante(Registro):
                     if ce.getNombre() == cp.getNombre():
                         cp.agregarEstudiante(self)
                         cp.setCupos(cp.getCupos()-1)
-                        AsignarCita.getEstudiantesConCita().get(0).setInscribir(False)
-                        AsignarCita.getEstudiantesConCita().remove(0)
-                        AsignarCita.getEstudiantesConCita().get(0).setInscribir(True)
+                        AsignarCita.getEstudiantesConCita()[0].setInscribir(False)
+                        AsignarCita.getEstudiantesConCita().pop(0)
+                        AsignarCita.getEstudiantesConCita()[0].setInscribir(True)
     
     def vioCurso(self, curso):
         #Si el estudiante es nuevo, no ha cursado ninguna materia

@@ -43,7 +43,32 @@ class Horario:
         return True
 
     def validarHorario(self, estudiante):
-        for x in range(len(self.cursos)):
+        for curso1 in self.cursos :
+            for curso2 in self.cursos :
+                if curso1 == curso2 :
+                    continue
+
+                datos1 = curso1.getHorario().split(" ")
+                dias1 = [datos1[0], datos1[2]]
+                horas1 = [datos1[1].split("-"), datos1[3].split("-")]
+
+                datos2 = curso2.getHorario().split(" ")
+                dias2 = [datos2[0], datos2[2]]
+                horas2 = [datos2[1].split("-"), datos2[3].split("-")]
+
+                # No hubo colisión por días
+                if (dias1[0] not in dias2) and (dias1[1] not in dias2) : continue
+
+                # Cruce horario
+                hi1, hf1 = int(horas1[0][0][:2]), int(horas1[0][1][:2])
+                hi2, hf2 = int(horas2[0][0][:2]), int(horas2[0][1][:2])
+                # No hubo colisión
+                if hf1 <= hi2 or hf2 <= hi1 : continue
+                
+                return False
+            break
+
+        """ for x in range(len(self.cursos)):
             curso1 = self.cursos[x]
             datos1 = curso1.getHorario().split(" ")
             dias1 = [datos1[0], datos1[2]]
@@ -68,7 +93,7 @@ class Horario:
                                     hi2 < hf1 <= hf2):
                                 return False
                         cont2 += 1
-                    cont1 += 1
+                    cont1 += 1 """
 
         for ce1 in estudiante.getCursosVistos():
             for ce2 in self.getCursos():
