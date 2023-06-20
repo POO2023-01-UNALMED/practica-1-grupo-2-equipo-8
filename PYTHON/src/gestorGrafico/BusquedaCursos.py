@@ -192,33 +192,36 @@ class BusquedaCursos(Frame):
                         tabla.pack()
                         frameTabla.grid(row=4, column=0, columnspan=2)
                     
-                    def handleAceptar(e):
-                        item = tabla.focus()
-                        if item != "":
-                            curso = tabla.item(item)["values"][1]
-                            curs = None
-                            for x in Registro.getCursos():
-                                if x.getNombre() == curso:
-                                    curs = x
-                            if curs != None:
-                                self._root.cleanRoot()
-                                if estudiante == None and horario == None:
-                                    self.mostrarDetalles(curs)
-                                elif estudiante != None and horario == None:
-                                    self.mostrarDetalles(curs, estudiante)
-                                else:
-                                    self.mostrarDetalles(curs, estudiante, horario)
-                        else:
-                            messagebox.showinfo("Error", "Seleccione un curso para ver sus detalles")
-                    def handleBorrar(e):
-                        self._root.cleanRoot()
-                        self.buscarCursos()
-                    Aceptar = frameInteraccion.crearBoton("Aceptar")
-                    Aceptar.grid(row=0, column=0)
-                    Aceptar.bind("<Button-1>", handleAceptar)
-                    Borr = frameInteraccion.crearBoton("Borrar")
-                    Borr.grid(row=0, column=1)
-                    Borr.bind("<Button-1>", handleBorrar)    
+                        def handleAceptar(e):
+                            item = tabla.focus()
+                            if item != "":
+                                curso = tabla.item(item)["values"][1]
+                                curs = None
+                                for x in Registro.getCursos():
+                                    if x.getNombre() == curso:
+                                        curs = x
+                                if curs != None:
+                                    self._root.cleanRoot()
+                                    if estudiante == None and horario == None:
+                                        self.mostrarDetalles(curs)
+                                    elif estudiante != None and horario == None:
+                                        self.mostrarDetalles(curs, estudiante)
+                                    else:
+                                        self.mostrarDetalles(curs, estudiante, horario)
+                            else:
+                                messagebox.showinfo("Error", "Seleccione un curso para ver sus detalles")
+                        def handleBorrar(e):
+                            self._root.cleanRoot()
+                            self.buscarCursos()
+                        Aceptar = frameInteraccion.crearBoton("Aceptar")
+                        Aceptar.grid(row=0, column=0)
+                        Aceptar.bind("<Button-1>", handleAceptar)
+                        Borr = frameInteraccion.crearBoton("Borrar")
+                        Borr.grid(row=0, column=1)
+                        Borr.bind("<Button-1>", handleBorrar)
+                    else:
+                        messagebox.showinfo("Error", "Seleccione una carrera")
+                        
                 continuar.bind("<Button-1>",cont)
                 
             elif e.widget.get() == "Filtrar cursos por carreras relacionadas":
@@ -264,33 +267,35 @@ class BusquedaCursos(Frame):
                         tabla.pack()
                         frameTabla.grid(row=4, column=0, columnspan=2)
                     
-                    def handleAceptar(e):
-                        item = tabla.focus()
-                        if item != "":
-                            curso = tabla.item(item)["values"][1]
-                            curs = None
-                            for x in Registro.getCursos():
-                                if x.getNombre() == curso:
-                                    curs = x
-                            if curs != None:
-                                self._root.cleanRoot()
-                                if estudiante == None and horario == None:
-                                    self.mostrarDetalles(curs)
-                                elif estudiante != None and horario == None:
-                                    self.mostrarDetalles(curs, estudiante)
-                                else:
-                                    self.mostrarDetalles(curs, estudiante, horario)
-                        else:
-                            messagebox.showinfo("Error", "Seleccione un curso para ver sus detalles")
-                    def handleBorrar(e):
-                        self._root.cleanRoot()
-                        self.buscarCursos()
-                    Aceptar = frameInteraccion.crearBoton("Aceptar")
-                    Aceptar.grid(row=0, column=0)
-                    Aceptar.bind("<Button-1>", handleAceptar)
-                    Borr = frameInteraccion.crearBoton("Borrar")
-                    Borr.grid(row=0, column=1)
-                    Borr.bind("<Button-1>", handleBorrar)    
+                        def handleAceptar(e):
+                            item = tabla.focus()
+                            if item != "":
+                                curso = tabla.item(item)["values"][1]
+                                curs = None
+                                for x in Registro.getCursos():
+                                    if x.getNombre() == curso:
+                                        curs = x
+                                if curs != None:
+                                    self._root.cleanRoot()
+                                    if estudiante == None and horario == None:
+                                        self.mostrarDetalles(curs)
+                                    elif estudiante != None and horario == None:
+                                        self.mostrarDetalles(curs, estudiante)
+                                    else:
+                                        self.mostrarDetalles(curs, estudiante, horario)
+                            else:
+                                messagebox.showinfo("Error", "Seleccione un curso para ver sus detalles")
+                        def handleBorrar(e):
+                            self._root.cleanRoot()
+                            self.buscarCursos()
+                        Aceptar = frameInteraccion.crearBoton("Aceptar")
+                        Aceptar.grid(row=0, column=0)
+                        Aceptar.bind("<Button-1>", handleAceptar)
+                        Borr = frameInteraccion.crearBoton("Borrar")
+                        Borr.grid(row=0, column=1)
+                        Borr.bind("<Button-1>", handleBorrar)
+                    else:
+                        messagebox.showinfo("Error", "Seleccione una carrera")
                 continuar.bind("<Button-1>",cont)
                 
             elif e.widget.get() == "Filtrar cursos por horario":
@@ -647,7 +652,7 @@ class BusquedaCursos(Frame):
                     tabla.heading(f"#{i+1}", text=e)
                     i += 1
                 for grupo in cursos:
-                    items = []
+                    items = [grupo.getNombre(), str(grupo.getCreditos()), grupo.getProfesor(),grupo.getHorario(), str(grupo.getCupos())]
                     tabla.insert("", "end", values=items)
                 tabla.column("c4", minwidth=0, width=300)
                 tabla.pack()
@@ -670,7 +675,7 @@ class BusquedaCursos(Frame):
             self._root.cleanRoot()
             curso = None
             for x in Registro.getCursos():
-                if grupo.getNombre == x.getNombre():
+                if grupo.getNombre() == x.getNombre():
                     curso = x
                     break
             self.mostrarDetalles(curso, estudiante)
@@ -680,6 +685,7 @@ class BusquedaCursos(Frame):
     
     @classmethod
     def reportarFallo(cls, *args):
+        print(args)
         if len(args) == 1:
             messagebox.showinfo("Error", "Ya tienes el curso "+args[0])
         if len(args) == 2:
