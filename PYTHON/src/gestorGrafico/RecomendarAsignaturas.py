@@ -34,7 +34,7 @@ class RecomendarAsignaturas(Frame) :
 
         titulo = "RECOMENDACIÓN DE ASIGNATURAS"
         descripcion = "Se te recomendarán materias para cursar el próximo semestre de acuerdo a tu historial académico y carrera."
-        frameInteraccion = FieldFrame(root, titulo, descripcion, ['¿Incluir libre elección?'], valores=['radio'])
+        frameInteraccion = FieldFrame(root, tituloProceso=titulo, descripcionProceso=descripcion, criterios=['¿Incluir libre elección?'], valores=['radio'])
         frameInteraccion.crearBoton("Aceptar", handleAceptar).grid(row=0, column=0)
         frameInteraccion.crearBoton("Volver", handleVolver).grid(row=0, column=1)
         frameInteraccion.pack()
