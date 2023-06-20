@@ -27,7 +27,7 @@ class Horario:
                 horas2 = [datos2[1].split("-"), datos2[3].split("-")]
                 if curso1.getNombre() == curso2.getNombre():
                     BusquedaCursos.reportarFallo(curso1.getNombre())
-                    self.cursos.pop()
+                    self.cursos.pop(-1)
                     return False
                 else:
                     cont1 = 1
@@ -42,7 +42,7 @@ class Horario:
                                 if (hi1 == hi2) or (hi1 <= hi2 < hf1) or (hi1 < hf2 <= hf1) or (hi2 <= hi1 < hf2) or (
                                         hi2 < hf1 <= hf2):
                                     BusquedaCursos.reportarFallo(curso1, curso2)
-                                    self.cursos.pop()
+                                    self.cursos.pop(-1)
                                     return False
                             cont2 += 1
                         cont1 += 1

@@ -6,7 +6,7 @@ from gestorAplicacion.clasesExtra.Facultades import Facultades
 from gestorGrafico.FieldFrame import FieldFrame
 
 from gestorAplicacion.clasesDeUsuario.Registro import Registro
-from gestorGrafico.UserWindow import UserWindow
+
 
 class BusquedaCursos(Frame):
     def __init__(self, root, estudiante=None) :
@@ -592,8 +592,10 @@ class BusquedaCursos(Frame):
             continuar = Button(framebotones, text="Continuar")
             continuar.grid(row=0, column=0)
             def cont(e):
+                from gestorGrafico.UserWindow import UserWindow
                 item = tabla.focus()
                 if item != "":
+                    self._root.cleanRoot()
                     ng = tabla.item(item)["values"][0]
                     grupo = grupos[int(ng)-1]
                     horario.agregarCurso(grupo)
@@ -612,7 +614,7 @@ class BusquedaCursos(Frame):
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
         archivo.add_command(label="Salir", command=self._root.salir)
-        horarios = estudiante.getHorarios()
+        horarios = estudiante.getHorariosCreados()
         valoresFrame = Frame(self._root)
         valoresFrame.pack(anchor="n")
         framebotones = Frame(self._root)
@@ -625,7 +627,7 @@ class BusquedaCursos(Frame):
             y = 0
             listaBotones = []
             for x in horarios:
-                label = Label(valoresFrame, text="Horario "+x.getId())
+                label = Label(valoresFrame, text="Horario "+str(x.getId()))
                 label.grid(row=3+y, column=0, sticky="e", padx=5)
                 selector = Button(valoresFrame, text="Seleccionar", name=str(y))
                 selector.grid(row=3+y, column=1, sticky="w", padx=5)
@@ -657,15 +659,17 @@ class BusquedaCursos(Frame):
         volver = Button(framebotones, text="Volver")
         volver.grid(row=0, column=0)
         def cont(e):
+            from gestorGrafico.UserWindow import UserWindow
+            nh = e.widget.winfo_name()
             self._root.cleanRoot()
-            nh = x.winfo_name()
             horario = horarios[int(nh)]
             horario.agregarCurso(grupo)
+            
             UserWindow(self._root, estudiante)
         def vol(e):
             self._root.cleanRoot()
             curso = None
-            for x in Registro.getCursos:
+            for x in Registro.getCursos():
                 if grupo.getNombre == x.getNombre():
                     curso = x
                     break
@@ -681,6 +685,6 @@ class BusquedaCursos(Frame):
         if len(args) == 2:
             messagebox.showinfo("Error", "Hay un problema entre el horario del curso "+args[0].getNombre()+" y el curso "+args[1].getNombre()+"\nHorario de "+args[0].getNombre()+":"+args[0].getHorario()+"\tHorario"+args[1].getNombre()+":"+args[1].getHorario())
     @classmethod
-    def aceptar():
+    def aceptar(cls):
         messagebox.showinfo("Proceso excitoso", "El curso se agregó correctamente")
 
