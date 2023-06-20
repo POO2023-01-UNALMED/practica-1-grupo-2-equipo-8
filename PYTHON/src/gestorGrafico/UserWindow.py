@@ -1,4 +1,4 @@
-from tkinter import Tk, Frame, Button, Menu, LEFT
+from tkinter import Tk, Frame, Button, Menu, messagebox, LEFT
 from gestorAplicacion.clasesExtra.Horario import Horario
 from gestorGrafico.BusquedaCursos import BusquedaCursos
 
@@ -15,6 +15,14 @@ from baseDatos.Serializador import Serializador
 class UserWindow :
     def __init__(self, root:Root, user) -> None:
         self._user = user
+
+        def handleAplicacion() :
+            messagebox.showinfo(title="Mi Gestor Académico",
+                                message="Es una aplicación que permite tanto a estudiantes como profesores llevar su historia académica.")
+
+        def handleAcercaDe() :
+            messagebox.showinfo(title="Autores",
+                                message="Samuel Restrepo Aguilar\nJesús Porto López\nJuan Pablo Robledo Meza\nJhon Jairo Hernández Castañeda")
 
         def recomendarAsignaturas() :
             root.cleanRoot()
@@ -42,7 +50,7 @@ class UserWindow :
         barra_menus = Menu()
         # Botón archivo
         archivo = Menu(barra_menus, tearoff=False)
-        archivo.add_command(label="Aplicación")
+        archivo.add_command(label="Aplicación", command=handleAplicacion)
         archivo.add_command(label="Salir", command=root.salir)
 
         # Botón procesos y consultas
@@ -74,7 +82,7 @@ class UserWindow :
         
         # Botón ayuda
         ayuda = Menu(barra_menus, tearoff=False)
-        ayuda.add_command(label="Acerca de")
+        ayuda.add_command(label="Acerca de", command=handleAcercaDe)
 
         # Se agregan los botones
         barra_menus.add_cascade(menu=archivo, label="Archivo")
