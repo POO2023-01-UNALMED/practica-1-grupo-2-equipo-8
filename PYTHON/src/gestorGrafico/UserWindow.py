@@ -94,5 +94,4 @@ class UserWindow :
         # 2) INTERACCIÓN USUARIO
         # Interaccion Usuario
         frameInteraccion = FieldFrame(root)
-        #frameInteraccion = FieldFrame(root, 'A', 'B', ['A', 'B'], ['a', 'b'])
         frameInteraccion.pack()

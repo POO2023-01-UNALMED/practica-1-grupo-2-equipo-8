@@ -5,6 +5,7 @@ from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 from gestorAplicacion.clasesDeUsuario.Registro import Registro
 from gestorAplicacion.clasesDeCurso.Curso import Curso
 from gestorGrafico.FieldFrame import FieldFrame
+from Errores.TablaSinSeleccionException import TablaSinSeleccionException
 
 class RecomendarAsignaturas(Frame) :
     def __init__(self, root:Root, estudiante:Estudiante) :
@@ -71,16 +72,23 @@ class RecomendarAsignaturas(Frame) :
                 UserWindow(self._root, self._estudiante)
 
             frameResultado = Frame(self._root)
-            Label(frameResultado, text="No hay cursos para recomendar.").pack()
-            Button(frameResultado, text="Volver", command=handleVolver).pack()
+            Label(frameResultado, text="No hay cursos para recomendar.", font=("arial", 15)).pack()
+            Button(frameResultado, text="Volver", command=handleVolver, font=("arial", 12)).pack()
             frameResultado.pack()
         else :
+            self._root.cleanRoot()
             self.recomendar2()
 
     def recomendar2(self) :
+        menuBar = Menu(self._root)
+        self._root.config(menu=menuBar)
+        archivo = Menu(menuBar, tearoff=False)
+        menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Salir", command=self._root.salir)
+
         frameTitulo = Frame(self._root)
-        Label(frameTitulo, text="A continuación se muestran las asignaturas recomendadas para cursar el próximo semestre.").pack()
-        Label(frameTitulo, text="Seleccione una para ver los profesores disponibles.").pack()
+        Label(frameTitulo, text="A continuación se muestran las asignaturas recomendadas para cursar el próximo semestre.", font=("arial", 15)).pack()
+        Label(frameTitulo, text="Seleccione un curso para ver los profesores disponibles.", font=("arial", 12)).pack()
         frameTitulo.anchor(CENTER)
         frameTitulo.pack()
 
@@ -107,7 +115,7 @@ class RecomendarAsignaturas(Frame) :
             self.recomendar3()
 
         frameBotones = Frame(self._root)
-        Button(frameBotones, text="Aceptar", command=handleAceptar).pack()      
+        Button(frameBotones, text="Aceptar", command=handleAceptar, font=("arial", 12)).pack()      
         frameBotones.pack()
 
     def recomendar3(self) :
@@ -138,8 +146,8 @@ class RecomendarAsignaturas(Frame) :
                 RecomendarAsignaturas(self._root, self._estudiante)
 
             frameResultado = Frame(self._root)
-            Label(frameResultado, text="No hay profesores que dicten el curso.").pack()
-            Button(frameResultado, text="Volver", command=handleVolver).pack()
+            Label(frameResultado, text="No hay profesores que dicten el curso.", font=("arial", 20)).pack()
+            Button(frameResultado, text="Volver", command=handleVolver, font=("arial", 12)).pack()
             frameResultado.pack()
         else :
             self.recomendar4()
@@ -153,7 +161,7 @@ class RecomendarAsignaturas(Frame) :
         self.listaProfesores = [p for p in self.listaProfesores if p not in profesoresNoCalificados]
         self.listaProfesores = sorted(self.listaProfesores, key=lambda x : x.getCalificacion(), reverse=True)
 
-        Label(self._root, text="PROFESORES QUE DICTAN EL CURSO DE INTERÉS").pack()
+        Label(self._root, text="PROFESORES QUE DICTAN EL CURSO DE INTERÉS", font=("arial", 20)).pack()
 
         # Treeview
         frameTabla = Frame(self._root)
@@ -180,6 +188,6 @@ class RecomendarAsignaturas(Frame) :
             UserWindow(self._root, self._estudiante)
 
         frameBotones = Frame(self._root)
-        Button(frameBotones, text="Ver Otro Curso", command=handleOtroCurso).grid(row=0, column=0)
-        Button(frameBotones, text="Menú Principal", command=handleMenuPrincipal).grid(row=0, column=1)        
+        Button(frameBotones, text="Ver Otro Curso", command=handleOtroCurso, font=("arial", 15)).grid(row=0, column=0)
+        Button(frameBotones, text="Menú Principal", command=handleMenuPrincipal, font=("arial", 15)).grid(row=0, column=1)        
         frameBotones.pack()
