@@ -43,7 +43,7 @@ class UserWindow :
 
         def inscripcionMaterias() :
             root.cleanRoot()
-            IncripcionMaterias.inscribirMaterias(root, self._user)
+            IncripcionMaterias(root, self._user).inscribirMaterias(self._user)
 
         root.title('Mi Gestor Académico')
 
@@ -90,7 +90,6 @@ class UserWindow :
         barra_menus.add_cascade(menu=procesosYConsultas, label="Procesos y Consultas")
         barra_menus.add_cascade(menu=ayuda, label="Ayuda")
         root.config(menu=barra_menus)
-
         # 2) INTERACCIÓN USUARIO
         # Interaccion Usuario
         frameInteraccion = FieldFrame(root)

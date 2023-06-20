@@ -14,8 +14,6 @@ class BusquedaCursos(Frame):
         self._estudiante = estudiante
         self._root = root
         self._entradas = []
-    
-    
         
     @classmethod
     def errorHorario(cls, horario):
@@ -124,6 +122,9 @@ class BusquedaCursos(Frame):
                 raise HorarioException(horario)   
        
     def buscarCursos(self, estudiante = None, horario = None):
+        scrollbar = ttk.Scrollbar(self._root, orient="vertical", command=self._root.yview)
+        scrollbar.pack(side="right", fill="y")
+        self.configure(yscrollcommand=scrollbar.set)
         menuBar = Menu(self._root)
         self._root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
@@ -699,5 +700,5 @@ class BusquedaCursos(Frame):
             messagebox.showinfo("Error", "Hay un problema entre el horario del curso "+args[0].getNombre()+" y el curso "+args[1].getNombre()+"\nHorario de "+args[0].getNombre()+":"+args[0].getHorario()+"\tHorario"+args[1].getNombre()+":"+args[1].getHorario())
     @classmethod
     def aceptar(cls):
-        messagebox.showinfo("Proceso excitoso", "El curso se agregó correctamente")
+        messagebox.showinfo("Proceso exitoso", "El curso se agregó correctamente")
 

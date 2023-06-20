@@ -41,40 +41,42 @@ class FieldFrame(tk.Frame):
         valoresCombo = []
         for x in self._valoresCombo:
             valoresCombo.append(x)
+        
         frameValores = tk.Frame(root, name="valores")
-        cont = 1
-        for i in range(len(criterios)) :
-            criterio = tk.Label(frameValores, text=self._criterios[i])
-            criterio.grid(row=i, column=0)
+        if criterios != None:
+            cont = 1
+            for i in range(len(criterios)) :
+                criterio = tk.Label(frameValores, text=self._criterios[i])
+                criterio.grid(row=i, column=0)
 
-            if valores[i] == "combobox":
-                valor = ttk.Combobox(frameValores, values=valoresCombo[0], width=30, name=str(cont), state="readonly")
-                valor.grid(row=i, column=1)
-                self._entrys.append(valor)
-                valoresCombo.pop(0)
-                cont+=1
-            elif valores[i] == "comboboxdeshabilitado":
-                valor = ttk.Combobox(frameValores, values=valoresCombo[0], width=30, name=str(cont), state="disabled")
-                valor.grid(row=i, column=1)
-                self._entrys.append(valor)
-                valoresCombo.pop(0)
-                cont+=1
-            elif valores[i] == "deshabilitado":
-                valor = tk.Entry(frameValores, state="disabled")
-                valor.grid(row=i, column=1)
-                self._entrys.append(valor)
-            elif valores[i] == 'radio' :
-                frameRadios = tk.Frame(frameValores)
-                radio = tk.IntVar()
-                tk.Radiobutton(frameRadios, text='Sí', variable=radio, value=1).grid(row=0, column=0)
-                tk.Radiobutton(frameRadios, text='No', variable=radio, value=0).grid(row=0, column=1)
-                self._entrys.append(radio)
-                frameRadios.grid(row=i, column=1)
-            else :
-                valor = tk.Entry(frameValores)
-                valor.grid(row=i, column=1)
-                valor.insert(0, self._valores[i])
-                self._entrys.append(valor)
+                if valores[i] == "combobox":
+                    valor = ttk.Combobox(frameValores, values=valoresCombo[0], width=30, name=str(cont), state="readonly")
+                    valor.grid(row=i, column=1)
+                    self._entrys.append(valor)
+                    valoresCombo.pop(0)
+                    cont+=1
+                elif valores[i] == "comboboxdeshabilitado":
+                    valor = ttk.Combobox(frameValores, values=valoresCombo[0], width=30, name=str(cont), state="disabled")
+                    valor.grid(row=i, column=1)
+                    self._entrys.append(valor)
+                    valoresCombo.pop(0)
+                    cont+=1
+                elif valores[i] == "deshabilitado":
+                    valor = tk.Entry(frameValores, state="disabled")
+                    valor.grid(row=i, column=1)
+                    self._entrys.append(valor)
+                elif valores[i] == 'radio' :
+                    frameRadios = tk.Frame(frameValores)
+                    radio = tk.IntVar()
+                    tk.Radiobutton(frameRadios, text='Sí', variable=radio, value=1).grid(row=0, column=0)
+                    tk.Radiobutton(frameRadios, text='No', variable=radio, value=0).grid(row=0, column=1)
+                    self._entrys.append(radio)
+                    frameRadios.grid(row=i, column=1)
+                else :
+                    valor = tk.Entry(frameValores)
+                    valor.grid(row=i, column=1)
+                    valor.insert(0, self._valores[i])
+                    self._entrys.append(valor)
         frameValores.anchor(tk.CENTER)
         frameValores.pack()
 
