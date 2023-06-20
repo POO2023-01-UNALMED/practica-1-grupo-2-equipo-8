@@ -3,7 +3,7 @@ from gestorGrafico.Root import Root
 from PIL import Image, ImageTk
 import os
 import pathlib
-from .programador import Programador
+from gestorGrafico.Programador import Programador
 from gestorGrafico.Register import Register
 from gestorGrafico.Login import Login
 
