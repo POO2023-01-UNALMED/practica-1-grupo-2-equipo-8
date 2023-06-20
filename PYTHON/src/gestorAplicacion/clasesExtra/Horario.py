@@ -1,5 +1,3 @@
-from gestorGrafico.BusquedaCursos import BusquedaCursos
-
 
 class Horario:
     def __init__(self, estudiante, cursos=None):
