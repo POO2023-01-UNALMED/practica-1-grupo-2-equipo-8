@@ -27,13 +27,13 @@ class FieldFrame(tk.Frame):
         
         # Titulo proceso
         frameTituloProceso = tk.Frame(root)
-        tk.Label(frameTituloProceso, text=self._tituloProceso).pack()
+        tk.Label(frameTituloProceso, text=self._tituloProceso, font=("arial", 30)).pack()
         frameTituloProceso.anchor(tk.CENTER)
         frameTituloProceso.pack()
 
         # Descripcion proceso
         frameDescripcionProceso = tk.Frame(root)
-        tk.Label(frameDescripcionProceso, text=self._descripcionProceso).pack()
+        tk.Label(frameDescripcionProceso, text=self._descripcionProceso, font=("arial", 15)).pack()
         frameDescripcionProceso.anchor(tk.CENTER)
         frameDescripcionProceso.pack()
 
@@ -80,15 +80,6 @@ class FieldFrame(tk.Frame):
         frameValores.anchor(tk.CENTER)
         frameValores.pack()
 
-        # Botones
-        """ frameBotones = tk.Frame(self._root)
-        aceptar = tk.Button(frameBotones, text='Aceptar', command=self.handleAceptar)
-        aceptar.grid(row=0, column=0)
-
-        borrar = tk.Button(frameBotones, text='Borrar')
-        borrar.grid(row=0, column=1)
-        frameBotones.pack() """
-
     def handleAceptar(self) :
             self.getEntradasUsuario()
             self._entradas = self._entradasUsuario
@@ -100,4 +91,4 @@ class FieldFrame(tk.Frame):
             self._entradasUsuario.append(entrada.get())
 
     def crearBoton(self, texto, comando=None) :
-        return tk.Button(self, text=texto, command=comando)
+        return tk.Button(self, text=texto, command=comando, font=("arial", 15))
