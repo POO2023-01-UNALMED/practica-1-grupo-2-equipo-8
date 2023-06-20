@@ -4,6 +4,7 @@ from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 from gestorAplicacion.clasesDeUsuario.Registro import Registro
 from gestorAplicacion.clasesExtra.Horario import Horario
 from gestorGrafico.BusquedaCursos import BusquedaCursos
+from gestorGrafico.FieldFrame import FieldFrame
 from gestorGrafico.Root import Root
 
 class IncripcionMaterias():
@@ -29,6 +30,7 @@ class IncripcionMaterias():
                     valoresFrame = x
             except KeyError:
                 continue
+        
         if(estudiante.getInscribir()):
             while(true)
                 System.out.println("Indique lo que desea hacer:\n"
