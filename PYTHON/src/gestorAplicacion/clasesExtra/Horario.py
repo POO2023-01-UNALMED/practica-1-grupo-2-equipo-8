@@ -15,37 +15,33 @@ class Horario:
 
     def validarDisponibilidad(self):
         from gestorGrafico.BusquedaCursos import BusquedaCursos
-        for x in range(len(self.cursos)):
-            curso1 = self.cursos[x]
-            datos1 = curso1.getHorario().split(" ")
-            dias1 = [datos1[0], datos1[2]]
-            horas1 = [datos1[1].split("-"), datos1[3].split("-")]
-            for y in range(x + 1, len(self.cursos)):
-                curso2 = self.cursos[y]
+
+        for curso1 in self.cursos :
+            for curso2 in self.cursos :
+                if curso1 == curso2 :
+                    continue
+
+                datos1 = curso1.getHorario().split(" ")
+                dias1 = [datos1[0], datos1[2]]
+                horas1 = [datos1[1].split("-"), datos1[3].split("-")]
+
                 datos2 = curso2.getHorario().split(" ")
                 dias2 = [datos2[0], datos2[2]]
                 horas2 = [datos2[1].split("-"), datos2[3].split("-")]
-                if curso1.getNombre() == curso2.getNombre():
-                    BusquedaCursos.reportarFallo(curso1.getNombre())
-                    self.cursos.pop(-1)
-                    return False
-                else:
-                    cont1 = 1
-                    cont2 = 1
-                    for dia1 in dias1:
-                        for dia2 in dias2:
-                            if dia1 == dia2:
-                                hi1 = int(horas1[cont1][0][:2])
-                                hf1 = int(horas1[cont1][1][:2])
-                                hi2 = int(horas2[cont2][0][:2])
-                                hf2 = int(horas2[cont2][1][:2])
-                                if (hi1 == hi2) or (hi1 <= hi2 < hf1) or (hi1 < hf2 <= hf1) or (hi2 <= hi1 < hf2) or (
-                                        hi2 < hf1 <= hf2):
-                                    BusquedaCursos.reportarFallo(curso1, curso2)
-                                    self.cursos.pop(-1)
-                                    return False
-                            cont2 += 1
-                        cont1 += 1
+
+                # No hubo colisión por días
+                if (dias1[0] not in dias2) and (dias1[1] not in dias2) : continue
+
+                # Cruce horario
+                hi1, hf1 = int(horas1[0][0][:2]), int(horas1[0][1][:2])
+                hi2, hf2 = int(horas2[0][0][:2]), int(horas2[0][1][:2])
+                # No hubo colisión
+                if hf1 <= hi2 or hf2 <= hi1 : continue
+                
+                BusquedaCursos.reportarFallo(curso1, curso2)
+                self.cursos.pop(-1)
+                return False
+            break
         return True
 
     def validarHorario(self, estudiante):

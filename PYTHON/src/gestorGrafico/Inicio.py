@@ -21,7 +21,7 @@ class Inicio:
                             path+"\\imagenes\\jesus3.png", path+"\\imagenes\\jesus4.png"])
 
         samuel = Programador("Samuel Restrepo Aguilar",
-                            "Estudia Ciencias de la Computación.\nNació en Medellin Antioquia el ?? de ?? de ??\nSus gustos son ??",
+                            "Estudia Ciencias de la Computación.\nNació en Medellin Antioquia el 17 de Agosto de 2004\nSus gustos son la matemática y los algorítmos",
                             [path+"\\imagenes\\samuel1.png", path+"\\imagenes\\samuel2.png", 
                             path+"\\imagenes\\samuel3.png", path+"\\imagenes\\samuel4.png"])
 
@@ -113,8 +113,6 @@ class Inicio:
         self.imagen4 = tk.Label(self.P6, image=imagen4)
         self.imagen4.image = imagen4  # Guardar una referencia para evitar que se elimine la imagen
         self.imagen4.grid(row=1, column=1)
-
-        self.ventana.mainloop()
 
     def iniciar(self, event):
         self.ventana.cleanRoot()

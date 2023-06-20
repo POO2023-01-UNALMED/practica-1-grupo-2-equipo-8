@@ -1,212 +1,411 @@
-from tkinter import Frame, Label, Menu, Button, CENTER
+from tkinter import Button, Entry, Frame, Label, Listbox, Menu, Radiobutton, StringVar, Tk, Toplevel, messagebox, ttk
+from Errores.EstudianteSinCitaException import EstudianteSinCitaException
 
 from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 from gestorAplicacion.clasesDeUsuario.Registro import Registro
 from gestorAplicacion.clasesExtra.Horario import Horario
 from gestorGrafico.BusquedaCursos import BusquedaCursos
+from gestorGrafico.FieldFrame import FieldFrame
 from gestorGrafico.Root import Root
 
-class IncripcionMaterias:
-    @staticmethod
-    def inscribirMaterias(root:Root, estudiante:Estudiante):
-        menuBar = Menu(root)
-        root.config(menu=menuBar)
+class IncripcionMaterias(Frame):
+    def __init__(self, root, estudiante=None) :
+        super().__init__(root)
+        self._estudiante = estudiante
+        self._root = root
+        self._entradas = []
+    
+    @classmethod
+    def errorCita(cls, estudiante):
+        if estudiante.getInscribir() == False:
+            raise EstudianteSinCitaException(estudiante)
+    
+    def inscribirMaterias(self, estudiante):
+        menuBar = Menu(self._root)
+        self._root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
-        archivo.add_command(label="Salir", command=root.salir)
-
-        comp = False
-        if estudiante.getInscribir():
-            Label(root, text="INSCRIPCIÓN DE MATERIAS", anchor=CENTER).pack()
-            Label(root, text="¿Qué desea hacer?", anchor=CENTER).pack()
-            frameFormulario = Frame(root)
+        archivo.add_command(label="Salir", command=self._root.salir)
+        titulo = "Busqueda de Cursos"
+        descrip = "Aquí podrás inscribir materias en caso de que ya tengas una cita asignada"
+        frameInteraccion = FieldFrame(self._root, titulo, descrip)
+        frameInteraccion.pack()
+        valoresFrame = None
+        for x in self._root.children.values():
+            try:
+                if x.winfo_name() == "valores":
+                    valoresFrame = x
+            except KeyError:
+                continue
+        
+        try:
+            IncripcionMaterias.errorCita(estudiante)
+            labelti = Label(valoresFrame, text="Indique el tipo de inscripción: ")
+            labelti.grid(row=0, column=0, padx=5)
+            vals = ["Incribir materias manuealmente", "Incribir materias a partir de un horario creado"]
+            tinscripcion = ttk.Combobox(valoresFrame, values=vals, width=150)
+            tinscripcion.grid(row=0, column=0, padx=5)
+            def selected(e):
+                self._root.cleanRoot()
+                if e.widget.get() == "Incribir materias manuealmente":
+                    self.inscribirManualmente(estudiante)
+                if e.widget.get() == "Incribir materias a partir de un horario creado":
+                    self.inscribirConHorario(estudiante)
+            tinscripcion.bind("<<ComboboxSelected>>", selected)    
+        except EstudianteSinCitaException as esc:
+            txt = esc.mostrarMensaje()
+            messagebox.showerror("Error", txt)
+            self._root.cleanRoot()
+            horario = estudiante.crearHorario() 
+            BusquedaCursos(self._root, estudiante).buscarCursos(estudiante, horario)
+        
+    def inscribirManualmente(self, estudiante, listac = None, cursosres = None):
+        menuBar = Menu(self._root)
+        self._root.config(menu=menuBar)
+        archivo = Menu(menuBar, tearoff=False)
+        menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Salir", command=self._root.salir)
+        if listac == None:
+            valoresFrame = Frame(self._root)
+            valoresFrame.pack(anchor="n")
+            framebotones = Frame(self._root)
+            framebotones.pack(anchor="s")
+            tit = Label(valoresFrame, "Selección de asignaturas", font=("Arial", 18))
+            tit.grid(row=0, column=0)
             
+            listaCursos = []
+            cursosPosibles = Registro.getCursos().copy()
+            cursosAprobados = estudiante.getListaCursos().copy()
             
-            while True:
-                print("Indique lo que desea hacer:\n"
-                      + "1. Incribir materias manualmente\n"
-                      + "2. Incribir materias a partir de un horario creado\n"
-                      + "3. Volver")
-                opcion = input()
-                if opcion not in ["1", "2", "3"]:
-                    print("Debe seleccionar una opción entre el 1 y el 3")
-                    continue
-                if opcion == "1":
-                    IncripcionMaterias.inscribirManualmente(estudiante)
-                    break
-                elif opcion == "2":
-                    IncripcionMaterias.inscribirConHorario(estudiante)
-                    break
-                elif opcion == "3":
-                    return
+            cursosBorrar = []
+            for ce in cursosAprobados:
+                if(ce.calcularPromedio()<3):
+                    cursosBorrar.add(ce)
+            dif = []
+            for x in cursosAprobados:
+                comp = True
+                for y in cursosBorrar:
+                    if x == y:
+                        comp == False
+                if comp == True:
+                    dif.append()
+            cursosAprobados = dif
+            cursosABorrar = []
+            for c1 in cursosPosibles:
+                for c2 in cursosAprobados:
+                    if(c1.getNombre() == c2.getNombre()):
+                        cursosABorrar.add(c1)
+            dif1 = []
+            for x in cursosPosibles:
+                comp = True
+                for y in cursosABorrar:
+                    if x == y:
+                        comp == False
+                if comp == True:
+                    dif1.append()
+            cursosPosibles = dif1
 
-        else:
-            Label(text="Usted no puede inscribir cursos en este momento, pero si gustas te redirigiremos a crear un horario\n"
-                  + "Este horario te servirá para inscribir (en el momento en el que puedas inscribir) automáticamente las materias que guardaste en dicho horario").pack()
-
-            def handleVolver() :
-                from gestorGrafico.UserWindow import UserWindow
-                root.cleanRoot()
-                UserWindow(root, estudiante)
-
-            def handleCrearHorario() :
-                horario = estudiante.crearHorario()
-                root.cleanRoot()
-                BusquedaCursos.buscarCursos(estudiante, horario)
-
-            frameBotones = Frame(root)
-            Button(frameBotones, text="Volver", command=handleVolver).grid(row=0, column=0)
-            Button(frameBotones, text="Crear Horario", command=handleCrearHorario).grid(row=0, column=1)
-            frameBotones.pack()
-
-    @staticmethod
-    def inscribirManualmente(estudiante):
-        print("Selección de asignaturas")
-        listaCursos = []
-        cursosPosibles = list(Registro.getCursos().copy())
-        cursosAprobados = list(estudiante.getListaCursos().copy())
-
-        cursosBorrar = []
-        for ce in cursosAprobados:
-            if ce.calcularPromedio() < 3:
-                cursosBorrar.append(ce)
-        for curso in cursosBorrar:
-            cursosAprobados.remove(curso)
-
-        cursosABorrar = []
-        for c1 in cursosPosibles:
-            for c2 in cursosAprobados:
-                if c1.getNombre() == c2.getNombre():
-                    cursosABorrar.append(c1)
-        for curso in cursosABorrar:
-            cursosPosibles.remove(curso)
-
-        cursosABorrar = []
-        for c1 in cursosPosibles:
-            for c2 in estudiante.getCursosVistos():
-                if c1.getNombre() == c2.getNombre():
-                    cursosABorrar.append(c1)
-        for curso in cursosABorrar:
-            cursosPosibles.remove(curso)
-
-        while True:
+            
             cursosres = cursosPosibles.copy()
             for curso in listaCursos:
                 for c in cursosPosibles:
-                    if c.getNombre() == curso.getNombre():
-                        cursosres.remove(c)
+                    if(c.getNombre() == curso.getNombre()):
+                        cursosres.remove(cursosres.index(c))
+                    
+                
+            if(len(cursosres) == 0):
+                from gestorGrafico.UserWindow import UserWindow
+                txt = "No hay cursos disponibles"
+                messagebox.showerror("Error", txt)
+                self._root.cleanRoot()
+                UserWindow(self._root, estudiante)
+            else:
+                selecasig = Label(valoresFrame, "Seleccione un curso que quiera inscribir:", font=("Arial", 12))
+                selecasig.grid(row=1, column=0)
+                frameTabla = Frame(valoresFrame, name="tabla")
+                tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4", "c5"), show="headings", height=len(cursosres))
+                scrollbar = ttk.Scrollbar(frameTabla, orient="vertical", command=tabla.yview)
+                scrollbar.pack(side="right", fill="y")
+                tabla.configure(yscrollcommand=scrollbar.set)
+                i = 0
+                for e in ["ID", "NOMBRE", "CREDITOS", "FACULTAD", "CARRERAS RELACIONADAS"] :
+                    tabla.column(f"#{i+1}", anchor="center")
+                    tabla.heading(f"#{i+1}", text=e)
+                    i += 1
 
-            if not cursosres:
-                print("No hay cursos disponibles")
-                break
-
-            print("Seleccione un curso que quiera inscribir: ")
-            cont = 1
-            print("Los cursos disponibles son:\n"
-                  + "\t{:>2}\t{:32}\t{:8}\t{:17}\t{}".format("ID", "Nombre", "Creditos", "Facultad", "Programas relacionados"))
-            print("----------------------------------------------------------------------------------------------------------------------")
-            for curso in cursosres:
-                print("\t{:>2}\t{:32}\t{:8}\t{:17}\t{}".format(curso.getId(), curso.getNombre(), curso.getCreditos(), curso.getFacultad(), curso.getCarrerasRelacionadas()))
-                print("{}\tInscribir".format(cont))
-                cont += 1
-            print("{}\tNo agregar más cursos".format(cont))
-            while True:
-                opcion = input()
-                if opcion == str(cont):
-                    if not listaCursos:
-                        print("No has inscrito ningún curso")
-                        break
+                for curso in cursosres:
+                    lis = []
+                    for x in curso.getCarrerasRelacionadas():
+                        lis.append(x.value[1])
+                    items = [str(curso.getId()),curso.getNombre(),curso.getCreditos(),curso.getFacultad()[0].value[1],", ".join(lis)]
+                    tabla.insert("", "end", values=items)
+                tabla.column("c5", minwidth=0, width=300)
+                tabla.pack()
+                frameTabla.grid(row=2, column=0)
+                
+                continuar = Button(framebotones, text="Continuar")
+                continuar.grid(row=0, column=0)
+                parar = Button(framebotones, text="No agregar más")
+                parar.grid(row=0, column=1, padx=5)
+                volver = Button(framebotones, text="Volver")
+                volver.grid(row=0, column=2)
+                
+                def cont(e):
+                    item = tabla.focus()
+                    if item != "":
+                        curso = tabla.item(item)["values"][1]
+                        curs = None
+                        for x in Registro.getCursos():
+                            if x.getNombre() == curso:
+                                curs = x
+                        if curs != None:
+                            self.mostrarDetalles(curs, estudiante, listaCursos, cursosres)
                     else:
-                        comp = True
-                        break
-
-                for x in range(1, len(cursosres) + 1):
-                    if opcion == str(x):
-                        curso = cursosres[x - 1]
-                        ce = IncripcionMaterias.mostrarDetalles(estudiante, curso)
-                        listaCursos.append(ce)
-                        break
-
-                else:
-                    print("Debe seleccionar un número entre el 1 y el {}".format(cont))
-                    continue
-                break
-
-            if comp:
-                break
-
-        horario = Horario(listaCursos)
-        if horario.validarHorario(estudiante):
-            estudiante.inscribirCursos(listaCursos)
-            print("La inscripción fue exitosa")
-        else:
-            print("Los cursos seleccionados presentan inconsistencias (hay horarios cruzados o no cumples con los requisitos de algún curso). Deberá hacer el proceso de nuevo.")
-            IncripcionMaterias.inscribirMaterias(estudiante)
-
-    @staticmethod
-    def inscribirConHorario(estudiante):
-        if not estudiante.getHorariosCreados():
-            print("No ha creado ningún horario, debes inscribir manualmente")
-            IncripcionMaterias.inscribirManualmente(estudiante)
-        else:
-            while True:
-                cont = 1
-                for horario in estudiante.getHorariosCreados():
-                    print("Horario {}:\n".format(horario.getId()))
-                    print("Los cursos disponibles son:\n"
-                          + "\t{:32}\t{:8}\t{:25}\t{:39}\t{}".format("Nombre", "Creditos", "Profesor", "Horario", "Cupos"))
-                    print("----------------------------------------------------------------------------------------------------------------------------------------------")
-                    for ce in horario.getCursos():
-                        print("\t{:32}\t{:8}\t{:25}\t{:39}\t{}".format(ce.getNombre(), ce.getCreditos(), ce.getProfesor().getNombre(), ce.getHorario(), ce.getCupos()))
-                    print("\n{}\tSeleccionar\n".format(cont))
-                    cont += 1
-
-                opcion = input()
-                comp = True
-                for x in range(1, cont):
-                    if opcion == str(x):
-                        horario = estudiante.getHorariosCreados()[x - 1]
-                        if horario.validarHorario(estudiante):
-                            estudiante.inscribirCursos(horario.getCursos())
-                            print("La inscripción fue exitosa")
+                        messagebox.showinfo("Error", "No has seleccionado ningún curso")
+                def para(e):
+                    if(len(listaCursos) == 0):
+                        messagebox.showinfo("Error", "No has inscrito ningún curso")
+                    else:
+                        horario = Horario(listaCursos)
+                        if(horario.validarHorario(estudiante)):
+                            estudiante.inscribirCursos(listaCursos)
+                            messagebox.showinfo("Proceso Exitoso", "La inscripción fue exitosa")
+                            self._root.cleanRoot()
+                            UserWindow(self._root, estudiante)
                         else:
-                            print("Los cursos seleccionados presentan inconsistencias (hay horarios cruzados, el horario contiene cursos que ya aprobaste o no cumples con los requisitos de algún curso). Deberá hacer el proceso de nuevo.")
-                            IncripcionMaterias.inscribirMaterias(estudiante)
-                        comp = False
-                        break
+                            self._root.cleanRoot()
+                            messagebox.showinfo("Error", "Los cursos seleccionados presentan inconsistencias (hay horarios cruzados o no cumples con los requisitos de algún curso). Deberá hacer el proceso de nuevo.")
+                            self.inscribirMaterias(estudiante)
+                def vol(e):
+                    self._root.cleanRoot()
+                    self.inscribirMaterias(estudiante)
+                continuar.bind("<Button-1>", cont)
+                parar.bind("<Button-1>", para)
+                volver.bind("<Button-1>", vol)
+        else:
+            valoresFrame = Frame(self._root)
+            valoresFrame.pack(anchor="n")
+            framebotones = Frame(self._root)
+            framebotones.pack(anchor="s")
+            tit = Label(valoresFrame, "Selección de asignaturas", font=("Arial", 18))
+            tit.grid(row=0, column=0)
+            listaCursos = listac
+            if(len(cursosres) == 0):
+                from gestorGrafico.UserWindow import UserWindow
+                txt = "No hay cursos disponibles"
+                messagebox.showerror("Error", txt)
+                self._root.cleanRoot()
+                UserWindow(self._root, estudiante)
+            else:
+                selecasig = Label(valoresFrame, "Seleccione un curso que quiera inscribir:", font=("Arial", 12))
+                selecasig.grid(row=1, column=0)
+                frameTabla = Frame(valoresFrame, name="tabla")
+                tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4", "c5"), show="headings", height=len(cursosres))
+                scrollbar = ttk.Scrollbar(frameTabla, orient="vertical", command=tabla.yview)
+                scrollbar.pack(side="right", fill="y")
+                tabla.configure(yscrollcommand=scrollbar.set)
+                i = 0
+                for e in ["ID", "NOMBRE", "CREDITOS", "FACULTAD", "CARRERAS RELACIONADAS"] :
+                    tabla.column(f"#{i+1}", anchor="center")
+                    tabla.heading(f"#{i+1}", text=e)
+                    i += 1
 
-                if comp:
-                    print("Debe seleccionar una opción entre el 1 y el {}".format(cont - 1))
-                    continue
-                break
-
-    @staticmethod
-    def mostrarDetalles(estudiante, curso):
-        while True:
-            listaCursos = curso.obtenerGrupos(estudiante)
-            print("{}({})\n{}\n{}\n{}".format(curso.getNombre(), curso.getId(), curso.getCreditos(), curso.getFacultad(), curso.getCarrerasRelacionadas()))
-            cont = 1
-            for ce in listaCursos:
-                print("Profesor: {}\nHorario: {}\nCupos: {}".format(ce.getProfesor(), ce.getHorario(), ce.getCupos()))
-                print("{}\tInscribir".format(cont))
-                cont += 1
-            print("{}\tvolver".format(cont))
-            opcion = input()
-            if opcion == str(cont):
-                IncripcionMaterias.inscribirManualmente(estudiante)
-
-            comp = True
-            for x in range(1, cont):
-                if opcion == str(x):
-                    if curso.obtenerGrupos() and listaCursos[x - 1].getCupos() > 0:
-                        print("----------------------------------------------------------------------------------------------------------------------------------------------")
-                        print("El curso se agregó correctamente")
-                        print("----------------------------------------------------------------------------------------------------------------------------------------------")
-                        return listaCursos[x - 1]
+                for curso in cursosres:
+                    lis = []
+                    for x in curso.getCarrerasRelacionadas():
+                        lis.append(x.value[1])
+                    items = [str(curso.getId()),curso.getNombre(),curso.getCreditos(),curso.getFacultad()[0].value[1],", ".join(lis)]
+                    tabla.insert("", "end", values=items)
+                tabla.column("c5", minwidth=0, width=300)
+                tabla.pack()
+                frameTabla.grid(row=2, column=0)
+                
+                continuar = Button(framebotones, text="Continuar")
+                continuar.grid(row=0, column=0)
+                parar = Button(framebotones, text="No agregar más")
+                parar.grid(row=0, column=1, padx=5)
+                volver = Button(framebotones, text="Volver")
+                volver.grid(row=0, column=2)
+                
+                def cont(e):
+                    item = tabla.focus()
+                    if item != "":
+                        curso = tabla.item(item)["values"][1]
+                        curs = None
+                        for x in Registro.getCursos():
+                            if x.getNombre() == curso:
+                                curs = x
+                        if curs != None:
+                            comp = True
+                            for x in listaCursos:
+                                if x.getNombre() == curs.getNombre():
+                                    comp = False
+                                    messagebox.showinfo("Error", "Ya añadiste este curso")
+                                    break
+                            if comp == True:
+                                self.mostrarDetalles(curs, estudiante, listaCursos, cursosres)    
                     else:
-                        print("El curso seleccionado no tiene profesores asignados o no tiene cupos")
-                    comp = False
-                    break
-
-            if comp:
-                print("Debe seleccionar una opción entre el 1 y el {}".format(cont))
+                        messagebox.showinfo("Error", "No has seleccionado ningún curso")
+                def para(e):
+                    if(len(listaCursos) == 0):
+                        messagebox.showinfo("Error", "No has inscrito ningún curso")
+                    else:
+                        horario = Horario(listaCursos)
+                        if(horario.validarHorario(estudiante)):
+                            estudiante.inscribirCursos(listaCursos)
+                            messagebox.showinfo("Proceso Exitoso", "La inscripción fue exitosa")
+                            self._root.cleanRoot()
+                            UserWindow(self._root, estudiante)
+                        else:
+                            self._root.cleanRoot()
+                            messagebox.showinfo("Error", "Los cursos seleccionados presentan inconsistencias (hay horarios cruzados o no cumples con los requisitos de algún curso). Deberá hacer el proceso de nuevo.")
+                            self.inscribirMaterias(estudiante)
+                def vol(e):
+                    self._root.cleanRoot()
+                    self.inscribirMaterias(estudiante)
+                continuar.bind("<Button-1>", cont)
+                parar.bind("<Button-1>", para)
+                volver.bind("<Button-1>", vol)
+                    
+    def mostrarDetalles(self, curso, estudiante, listac, cursosres):
+        menuBar = Menu(self._root)
+        self._root.config(menu=menuBar)
+        archivo = Menu(menuBar, tearoff=False)
+        menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Salir", command=self._root.salir)
+        listaCursos = curso.obtenerGrupos(estudiante)
+        valoresFrame = Frame(self._root)
+        valoresFrame.pack(anchor="n")
+        framebotones = Frame(self._root)
+        framebotones.pack(anchor="s")
+        titulo = Label(valoresFrame, text="Detalles del curso "+ curso.getNombre(), font=("Arial", 18))
+        titulo.grid(row=1, column=0)
+        lis = []
+        for x in curso.getCarrerasRelacionadas():
+            lis.append(x.value[1])
+        txt = curso.getNombre()+"("+str(curso.getId())+")\n"+"Creditos: "+str(curso.getCreditos())+"\n"+"Facultad: "+curso.getFacultad()[0].value[1]+"\n"+"Carreras relacionadas: "+", ".join(lis)
+        descrip = Label(valoresFrame, text=txt, font=("Arial", 12))
+        descrip.grid(row=2, column=0, pady=10)
+        nota = Label(valoresFrame, text="Para agregar inscribir un curso, debes seleccionar el grupo que quieras y luego darle click a continuar", font=("Arial", 12), pady=5)
+        nota.grid(row=3, column=0)
+        if len(listaCursos) != 0:
+            frameTabla = Frame(valoresFrame, name="tabla")
+            tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4"), show="headings", height=len(listaCursos))
+            scrollbar = ttk.Scrollbar(frameTabla, orient="vertical", command=tabla.yview)
+            scrollbar.pack(side="right", fill="y")
+            tabla.configure(yscrollcommand=scrollbar.set)
+            
+            i = 0
+            for e in ["GRUPO", "PROFESOR", "CUPOS", "HORARIO"] :
+                tabla.column(f"#{i+1}", anchor="center")
+                tabla.heading(f"#{i+1}", text=e)
+                i += 1
+            i = 1
+            for grupo in listaCursos:
+                items = [str(i),grupo.getProfesor(), str(grupo.getCupos()), grupo.getHorario()]
+                tabla.insert("", "end", values=items)
+                i+=1
+            tabla.column("c4", minwidth=0, width=300)
+            tabla.pack()
+            frameTabla.grid(row=4, column=0)
+        else:
+            aviso = Label(valoresFrame, text="El curso seleccionado no tiene profesores asignados", font=("Arial", 15), fg="red")
+            aviso.grid(row=4, column=0)
+        volver = Button(framebotones, text="Volver")
+        volver.grid(row=0, column=1)
+        continuar = Button(framebotones, text="Continuar")
+        continuar.grid(row=0, column=0)
+        def cont(e):
+            item = tabla.focus()
+            if item != "":
+                ng = tabla.item(item)["values"][0]
+                grupo = listaCursos[int(ng)-1]
+                if grupo.getCupos()>0:
+                    lista = listac.append(grupo)
+                    messagebox.showinfo("Proceso exitoso", "El curso se agregó correctamente")
+                    self._root.cleanRoot()
+                    self.inscribirManualmente(estudiante, lista, cursosres)
+                else:
+                    messagebox.showinfo("Proceso exitoso", "El curso seleccionado no tiene profesores asignados o no tiene cupos")
+            else:
+                messagebox.showinfo("Error", "Seleccione un grupo para poderlo agregar")
+        def vol(e):
+            self._root.cleanRoot()
+            self.inscribirManualmente(estudiante)
+        continuar.bind("<Button-1>", cont)
+        volver.bind("<Button-1>", vol)
+    
+    def inscribirConHorario(self, estudiante):
+        menuBar = Menu(self._root)
+        self._root.config(menu=menuBar)
+        archivo = Menu(menuBar, tearoff=False)
+        menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Salir", command=self._root.salir)
+        if(len(estudiante.getHorariosCreados() == 0)):
+            messagebox.showerror("Error", "No ha creado ningún horario, debes inscribir manualmente")
+            self._root.cleanRoot()
+            self.inscribirManualmente(estudiante)
+        else:
+            horarios = estudiante.getHorariosCreados()
+            valoresFrame = Frame(self._root)
+            valoresFrame.pack(anchor="n")
+            framebotones = Frame(self._root)
+            framebotones.pack(anchor="s")
+            titulo = Label(valoresFrame, text="Horarios creados", font=("Arial", 18))
+            titulo.grid(row=1, column=0)
+            nota = Label(valoresFrame, text="Escoge el horario que quieras dandole click al boton Seleccionar del horario correspondiente", font=("Arial", 12), pady=5)
+            nota.grid(row=2, column=0)
+            y = 0
+            z = 3
+            listaBotones = []
+            for x in horarios:
+                label = Label(valoresFrame, text="Horario "+str(x.getId()))
+                label.grid(row=z, column=0, sticky="e", padx=5)
+                selector = Button(valoresFrame, text="Seleccionar", name=str(y))
+                selector.grid(row=z, column=1, sticky="w", padx=5)
+                listaBotones.append(selector)
+                descrip = Label(valoresFrame, text="Cursos dentro del horario")
+                descrip.grid(row=z+1, column=0, columnspan=2, pady=5)
+                frameTabla = Frame(valoresFrame)
+                cursos = x.getCursos()
+                tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4", "c5"), show="headings", height=len(cursos))
+                scrollbar = ttk.Scrollbar(frameTabla, orient="vertical", command=tabla.yview)
+                scrollbar.pack(side="right", fill="y")
+                tabla.configure(yscrollcommand=scrollbar.set)
+                
+                i = 0
+                for e in ["NOMBRE","CREDITOS","PROFESOR","HORARIO","CUPOS"] :
+                    tabla.column(f"#{i+1}", anchor="center")
+                    tabla.heading(f"#{i+1}", text=e)
+                    i += 1
+                for x in cursos:
+                    items = [x.getNombre(), str(x.getCreditos()), x.getProfesor(),x.getHorario(), str(x.getCupos())]
+                    tabla.insert("", "end", values=items)
+                tabla.column("c4", minwidth=0, width=300)
+                tabla.pack()
+                frameTabla.grid(row=z+2, column=0, columnspan=2)
+                y+=1
+                z+=3
+            def cont(e):
+                from gestorGrafico.UserWindow import UserWindow
+                nh = e.widget.winfo_name()
+                self._root.cleanRoot()
+                horario = horarios[int(nh)]
+                if(horario.validarHorario(estudiante)):
+                    estudiante.inscribirCursos(horario.getCursos())
+                    messagebox.showinfo("Proceso Exitoso", "La inscripción fue exitosa")
+                    self._root.cleanRoot()
+                    UserWindow(self._root, estudiante)
+                else:
+                    messagebox.showinfo("Error", "Los cursos seleccionados presentan inconsistencias (hay horarios cruzados, el horario contiene cursos que ya aprobaste o no cumples con los requisitos de algún curso). Deberá hacer el proceso de nuevo.")
+                    self._root.cleanRoot()
+                    self.inscribirMaterias(estudiante)
+            for x in listaBotones:
+                x.bind("<Button-1>", cont)
+            volver = Button(framebotones, text="Volver")
+            volver.grid(row=0, column=0)
+            
+            def vol(e):
+                self._root.cleanRoot()
+                self.inscribirMaterias(estudiante)
+            volver.bind("<Button-1>", vol)

@@ -1,4 +1,4 @@
-from tkinter import Tk, Frame, Button, Menu, LEFT
+from tkinter import Tk, Frame, Button, Menu, messagebox, LEFT
 from gestorAplicacion.clasesExtra.Horario import Horario
 from gestorGrafico.BusquedaCursos import BusquedaCursos
 
@@ -20,6 +20,14 @@ class UserWindow :
     def __init__(self, root:Root, user) -> None:
         self._user = user
 
+        def handleAplicacion() :
+            messagebox.showinfo(title="Mi Gestor Académico",
+                                message="Es una aplicación que permite tanto a estudiantes como profesores llevar su historia académica.")
+
+        def handleAcercaDe() :
+            messagebox.showinfo(title="Autores",
+                                message="Samuel Restrepo Aguilar\nJesús Porto López\nJuan Pablo Robledo Meza\nJhon Jairo Hernández Castañeda")
+
         def recomendarAsignaturas() :
             root.cleanRoot()
             RecomendarAsignaturas(root, self._user)
@@ -33,12 +41,13 @@ class UserWindow :
             AsignarCita(root, self._user)
         
         def crearHorario():
+            root.cleanRoot()
             horario = self._user.crearHorario()
             BusquedaCursos(root, self._user).buscarCursos(self._user, horario)
 
         def inscripcionMaterias() :
             root.cleanRoot()
-            IncripcionMaterias.inscribirMaterias(root, self._user)
+            IncripcionMaterias(root, self._user).inscribirMaterias(self._user)
 
         def bucarEstimulos():
             root.cleanRoot()
@@ -61,14 +70,13 @@ class UserWindow :
         barra_menus = Menu()
         # Botón archivo
         archivo = Menu(barra_menus, tearoff=False)
-        archivo.add_command(label="Aplicación")
+        archivo.add_command(label="Aplicación", command=handleAplicacion)
         archivo.add_command(label="Salir", command=root.salir)
 
         # Botón procesos y consultas
         procesosYConsultas = Menu(barra_menus, tearoff=False)
         if isinstance(self._user, Admin) :
             lista_procesos = [
-                ('Buscar asignatura', None),
                 ('Asignar citas de inscripción', asignarCita),
                 ('Ver estimulos [por nombre]', bucarEstimulosPorId),
                 ('Ver estimulos [todos]', bucarEstimulos),
@@ -84,8 +92,8 @@ class UserWindow :
         else :
             lista_procesos = [
                 ('Calificar', None),
-                ('Ver estímulos a los que aplica', bucarEstimulos),
                 ('Buscar asignatura', None)
+                ('Ver estímulos a los que aplica', bucarEstimulos),
             ]
 
         for proceso in lista_procesos :
@@ -93,16 +101,14 @@ class UserWindow :
         
         # Botón ayuda
         ayuda = Menu(barra_menus, tearoff=False)
-        ayuda.add_command(label="Acerca de")
+        ayuda.add_command(label="Acerca de", command=handleAcercaDe)
 
         # Se agregan los botones
         barra_menus.add_cascade(menu=archivo, label="Archivo")
         barra_menus.add_cascade(menu=procesosYConsultas, label="Procesos y Consultas")
         barra_menus.add_cascade(menu=ayuda, label="Ayuda")
         root.config(menu=barra_menus)
-
         # 2) INTERACCIÓN USUARIO
         # Interaccion Usuario
         frameInteraccion = FieldFrame(root)
-        #frameInteraccion = FieldFrame(root, 'A', 'B', ['A', 'B'], ['a', 'b'])
         frameInteraccion.pack()

@@ -1,5 +1,6 @@
 from tkinter import Button, Entry, Frame, Label, Listbox, Menu, Radiobutton, StringVar, Tk, Toplevel, messagebox, ttk
 from Errores.HorarioException import HorarioException
+from Errores.TablaSinSeleccionException import TablaSinSeleccionException
 from gestorAplicacion.clasesDeCurso.Curso import Curso
 from gestorAplicacion.clasesExtra.Carreras import Carreras
 from gestorAplicacion.clasesExtra.Facultades import Facultades
@@ -14,8 +15,6 @@ class BusquedaCursos(Frame):
         self._estudiante = estudiante
         self._root = root
         self._entradas = []
-    
-    
         
     @classmethod
     def errorHorario(cls, horario):
@@ -122,14 +121,21 @@ class BusquedaCursos(Frame):
         else:
             if abs(int(h21[0])-int(h22[0]))>4:
                 raise HorarioException(horario)   
-       
+     
+    @classmethod
+    def errorTabla(cls, item):
+       if item == "":
+           raise TablaSinSeleccionException
     def buscarCursos(self, estudiante = None, horario = None):
         menuBar = Menu(self._root)
         self._root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
         archivo.add_command(label="Salir", command=self._root.salir)
-        titulo = "Busqueda de Cursos"
+        if horario == None:
+            titulo = "Busqueda de Cursos"
+        else:
+            titulo = "Crear Horario"
         descripcion = "Aquí podrás buscar las asignaturas disponibles en el sistema y ver sus detalles"
         val = ["Ver todos los cursos","Filtrar cursos por facultad","Filtrar cursos por carreras relacionadas","Filtrar cursos por horario"]
         frameInteraccion = FieldFrame(self._root, titulo, descripcion, ["Indique lo que quiere realizar"], ["combobox"], [val])
@@ -192,33 +198,38 @@ class BusquedaCursos(Frame):
                         tabla.pack()
                         frameTabla.grid(row=4, column=0, columnspan=2)
                     
-                    def handleAceptar(e):
-                        item = tabla.focus()
-                        if item != "":
-                            curso = tabla.item(item)["values"][1]
-                            curs = None
-                            for x in Registro.getCursos():
-                                if x.getNombre() == curso:
-                                    curs = x
-                            if curs != None:
-                                self._root.cleanRoot()
-                                if estudiante == None and horario == None:
-                                    self.mostrarDetalles(curs)
-                                elif estudiante != None and horario == None:
-                                    self.mostrarDetalles(curs, estudiante)
-                                else:
-                                    self.mostrarDetalles(curs, estudiante, horario)
-                        else:
-                            messagebox.showinfo("Error", "Seleccione un curso para ver sus detalles")
-                    def handleBorrar(e):
-                        self._root.cleanRoot()
-                        self.buscarCursos()
-                    Aceptar = frameInteraccion.crearBoton("Aceptar")
-                    Aceptar.grid(row=0, column=0)
-                    Aceptar.bind("<Button-1>", handleAceptar)
-                    Borr = frameInteraccion.crearBoton("Borrar")
-                    Borr.grid(row=0, column=1)
-                    Borr.bind("<Button-1>", handleBorrar)    
+                        def handleAceptar(e):
+                            item = tabla.focus()
+                            try:
+                                BusquedaCursos.errorTabla(item)
+                                curso = tabla.item(item)["values"][1]
+                                curs = None
+                                for x in Registro.getCursos():
+                                    if x.getNombre() == curso:
+                                        curs = x
+                                if curs != None:
+                                    self._root.cleanRoot()
+                                    if estudiante == None and horario == None:
+                                        self.mostrarDetalles(curs)
+                                    elif estudiante != None and horario == None:
+                                        self.mostrarDetalles(curs, estudiante)
+                                    else:
+                                        self.mostrarDetalles(curs, estudiante, horario)
+                            except TablaSinSeleccionException as tss:
+                                txt = tss.mostrarMensaje()
+                                messagebox.showinfo("Error", txt)
+                        def handleBorrar(e):
+                            self._root.cleanRoot()
+                            self.buscarCursos()
+                        Aceptar = frameInteraccion.crearBoton("Aceptar")
+                        Aceptar.grid(row=0, column=0)
+                        Aceptar.bind("<Button-1>", handleAceptar)
+                        Borr = frameInteraccion.crearBoton("Borrar")
+                        Borr.grid(row=0, column=1)
+                        Borr.bind("<Button-1>", handleBorrar)
+                    else:
+                        messagebox.showinfo("Error", "Seleccione una carrera")
+                        
                 continuar.bind("<Button-1>",cont)
                 
             elif e.widget.get() == "Filtrar cursos por carreras relacionadas":
@@ -264,33 +275,37 @@ class BusquedaCursos(Frame):
                         tabla.pack()
                         frameTabla.grid(row=4, column=0, columnspan=2)
                     
-                    def handleAceptar(e):
-                        item = tabla.focus()
-                        if item != "":
-                            curso = tabla.item(item)["values"][1]
-                            curs = None
-                            for x in Registro.getCursos():
-                                if x.getNombre() == curso:
-                                    curs = x
-                            if curs != None:
-                                self._root.cleanRoot()
-                                if estudiante == None and horario == None:
-                                    self.mostrarDetalles(curs)
-                                elif estudiante != None and horario == None:
-                                    self.mostrarDetalles(curs, estudiante)
-                                else:
-                                    self.mostrarDetalles(curs, estudiante, horario)
-                        else:
-                            messagebox.showinfo("Error", "Seleccione un curso para ver sus detalles")
-                    def handleBorrar(e):
-                        self._root.cleanRoot()
-                        self.buscarCursos()
-                    Aceptar = frameInteraccion.crearBoton("Aceptar")
-                    Aceptar.grid(row=0, column=0)
-                    Aceptar.bind("<Button-1>", handleAceptar)
-                    Borr = frameInteraccion.crearBoton("Borrar")
-                    Borr.grid(row=0, column=1)
-                    Borr.bind("<Button-1>", handleBorrar)    
+                        def handleAceptar(e):
+                            item = tabla.focus()
+                            try:
+                                BusquedaCursos.errorTabla(item)
+                                curso = tabla.item(item)["values"][1]
+                                curs = None
+                                for x in Registro.getCursos():
+                                    if x.getNombre() == curso:
+                                        curs = x
+                                if curs != None:
+                                    self._root.cleanRoot()
+                                    if estudiante == None and horario == None:
+                                        self.mostrarDetalles(curs)
+                                    elif estudiante != None and horario == None:
+                                        self.mostrarDetalles(curs, estudiante)
+                                    else:
+                                        self.mostrarDetalles(curs, estudiante, horario)
+                            except TablaSinSeleccionException as tss:
+                                txt = tss.mostrarMensaje()
+                                messagebox.showinfo("Error", txt)
+                        def handleBorrar(e):
+                            self._root.cleanRoot()
+                            self.buscarCursos()
+                        Aceptar = frameInteraccion.crearBoton("Aceptar")
+                        Aceptar.grid(row=0, column=0)
+                        Aceptar.bind("<Button-1>", handleAceptar)
+                        Borr = frameInteraccion.crearBoton("Borrar")
+                        Borr.grid(row=0, column=1)
+                        Borr.bind("<Button-1>", handleBorrar)
+                    else:
+                        messagebox.showinfo("Error", "Seleccione una carrera")
                 continuar.bind("<Button-1>",cont)
                 
             elif e.widget.get() == "Filtrar cursos por horario":
@@ -342,7 +357,8 @@ class BusquedaCursos(Frame):
                         
                             def handleAceptar(e):
                                 item = tabla.focus()
-                                if item != "":
+                                try:
+                                    BusquedaCursos.errorTabla(item)
                                     curso = tabla.item(item)["values"][1]
                                     curs = None
                                     for x in Registro.getCursos():
@@ -356,8 +372,9 @@ class BusquedaCursos(Frame):
                                             self.mostrarDetalles(curs, estudiante)
                                         else:
                                             self.mostrarDetalles(curs, estudiante, horario)
-                                else:
-                                    messagebox.showinfo("Error", "Seleccione un curso para ver sus detalles")
+                                except TablaSinSeleccionException as tss:
+                                    txt = tss.mostrarMensaje()
+                                    messagebox.showinfo("Error", txt)
                             def handleBorrar(e):
                                 self._root.cleanRoot()
                                 self.buscarCursos()
@@ -402,7 +419,8 @@ class BusquedaCursos(Frame):
             
                 def handleAceptar(e):
                     item = tabla.focus()
-                    if item != "":
+                    try:
+                        BusquedaCursos.errorTabla(item)
                         curso = tabla.item(item)["values"][1]
                         curs = None
                         for x in Registro.getCursos():
@@ -416,8 +434,9 @@ class BusquedaCursos(Frame):
                                 self.mostrarDetalles(curs, estudiante)
                             else:
                                 self.mostrarDetalles(curs, estudiante, horario)
-                    else:
-                        messagebox.showinfo("Error", "Seleccione un curso para ver sus detalles")
+                    except TablaSinSeleccionException as tss:
+                        txt = tss.mostrarMensaje()
+                        messagebox.showinfo("Error", txt)
                 def handleBorrar(e):
                     self._root.cleanRoot()
                     self.buscarCursos()
@@ -488,7 +507,7 @@ class BusquedaCursos(Frame):
             volver.grid(row=0, column=0)
             def vol(e):
                 self._root.cleanRoot()
-                self.buscarCursos()
+                self.buscarCursos(estudiante)
             volver.bind("<Button-1>", vol)
             
         elif estudiante != None and horario == None:
@@ -536,16 +555,18 @@ class BusquedaCursos(Frame):
             continuar.grid(row=0, column=0)
             def cont(e):
                 item = tabla.focus()
-                if item != "":
+                try:
+                    BusquedaCursos.errorTabla(item)
                     ng = tabla.item(item)["values"][0]
                     grupo = grupos[int(ng)-1]
                     self._root.cleanRoot()
                     self.agregarCurso(estudiante, grupo)   
-                else:
-                    messagebox.showinfo("Error", "Seleccione un grupo para poderlo agregar")
+                except TablaSinSeleccionException as tss:
+                    txt = tss.mostrarMensaje()
+                    messagebox.showinfo("Error", txt)
             def vol(e):
                 self._root.cleanRoot()
-                self.buscarCursos()
+                self.buscarCursos(estudiante)
             continuar.bind("<Button-1>", cont)
             volver.bind("<Button-1>", vol)
         else:
@@ -594,17 +615,20 @@ class BusquedaCursos(Frame):
             def cont(e):
                 from gestorGrafico.UserWindow import UserWindow
                 item = tabla.focus()
-                if item != "":
-                    self._root.cleanRoot()
+                try:
+                    BusquedaCursos.errorTabla(item)
+                    
                     ng = tabla.item(item)["values"][0]
+                    self._root.cleanRoot()
                     grupo = grupos[int(ng)-1]
                     horario.agregarCurso(grupo)
                     UserWindow(self._root, estudiante)  
-                else:
-                    messagebox.showinfo("Error", "Seleccione un grupo para poderlo agregar")
+                except TablaSinSeleccionException as tss:
+                    txt = tss.mostrarMensaje()
+                    messagebox.showinfo("Error", txt)
             def vol(e):
                 self._root.cleanRoot()
-                self.buscarCursos()
+                self.buscarCursos(estudiante)
             continuar.bind("<Button-1>", cont)
             volver.bind("<Button-1>", vol)
             
@@ -625,16 +649,17 @@ class BusquedaCursos(Frame):
         nota.grid(row=2, column=0)
         if len(horarios) != 0:
             y = 0
+            z = 3
             listaBotones = []
             for x in horarios:
                 label = Label(valoresFrame, text="Horario "+str(x.getId()))
-                label.grid(row=3+y, column=0, sticky="e", padx=5)
+                label.grid(row=z, column=0, sticky="e", padx=5)
                 selector = Button(valoresFrame, text="Seleccionar", name=str(y))
-                selector.grid(row=3+y, column=1, sticky="w", padx=5)
+                selector.grid(row=z, column=1, sticky="w", padx=5)
                 listaBotones.append(selector)
                 descrip = Label(valoresFrame, text="Cursos dentro del horario")
-                descrip.grid(row=4+y, column=0, columnspan=2, pady=5)
-                frameTabla = Frame(valoresFrame, name="tabla")
+                descrip.grid(row=z+1, column=0, columnspan=2, pady=5)
+                frameTabla = Frame(valoresFrame)
                 cursos = x.getCursos()
                 tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4", "c5"), show="headings", height=len(cursos))
                 scrollbar = ttk.Scrollbar(frameTabla, orient="vertical", command=tabla.yview)
@@ -646,45 +671,48 @@ class BusquedaCursos(Frame):
                     tabla.column(f"#{i+1}", anchor="center")
                     tabla.heading(f"#{i+1}", text=e)
                     i += 1
-                for grupo in cursos:
-                    items = []
+                for x in cursos:
+                    items = [x.getNombre(), str(x.getCreditos()), x.getProfesor(),x.getHorario(), str(x.getCupos())]
                     tabla.insert("", "end", values=items)
                 tabla.column("c4", minwidth=0, width=300)
                 tabla.pack()
-                frameTabla.grid(row=5+y, column=0, columnspan=2)
+                frameTabla.grid(row=z+2, column=0, columnspan=2)
                 y+=1
+                z+=3
+            def cont(e):
+                from gestorGrafico.UserWindow import UserWindow
+                nh = e.widget.winfo_name()
+                self._root.cleanRoot()
+                horario = horarios[int(nh)]
+                horario.agregarCurso(grupo)
+                
+                UserWindow(self._root, estudiante)
+            for x in listaBotones:
+                x.bind("<Button-1>", cont)
         else:
             aviso = Label(valoresFrame, text="No se han creado horarios", font=("Arial", 15), fg="red")
             aviso.grid(row=3, column=0)
         volver = Button(framebotones, text="Volver")
         volver.grid(row=0, column=0)
-        def cont(e):
-            from gestorGrafico.UserWindow import UserWindow
-            nh = e.widget.winfo_name()
-            self._root.cleanRoot()
-            horario = horarios[int(nh)]
-            horario.agregarCurso(grupo)
-            
-            UserWindow(self._root, estudiante)
+        
         def vol(e):
             self._root.cleanRoot()
             curso = None
             for x in Registro.getCursos():
-                if grupo.getNombre == x.getNombre():
+                if grupo.getNombre() == x.getNombre():
                     curso = x
                     break
             self.mostrarDetalles(curso, estudiante)
-        for x in listaBotones:
-            x.bind("<Button-1>", cont)
         volver.bind("<Button-1>", vol)
     
     @classmethod
     def reportarFallo(cls, *args):
+        print(args)
         if len(args) == 1:
             messagebox.showinfo("Error", "Ya tienes el curso "+args[0])
         if len(args) == 2:
             messagebox.showinfo("Error", "Hay un problema entre el horario del curso "+args[0].getNombre()+" y el curso "+args[1].getNombre()+"\nHorario de "+args[0].getNombre()+":"+args[0].getHorario()+"\tHorario"+args[1].getNombre()+":"+args[1].getHorario())
     @classmethod
     def aceptar(cls):
-        messagebox.showinfo("Proceso excitoso", "El curso se agregó correctamente")
+        messagebox.showinfo("Proceso exitoso", "El curso se agregó correctamente")
 
