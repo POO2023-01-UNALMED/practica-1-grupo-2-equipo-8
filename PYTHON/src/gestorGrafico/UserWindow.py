@@ -1,4 +1,6 @@
 from tkinter import Tk, Frame, Button, Menu, LEFT
+from gestorAplicacion.clasesExtra.Horario import Horario
+from gestorGrafico.BusquedaCursos import BusquedaCursos
 
 from gestorGrafico.Root import Root
 from .FieldFrame import FieldFrame
@@ -24,6 +26,10 @@ class UserWindow :
         def asignarCita():
             root.cleanRoot()
             AsignarCita(root, self._user)
+        
+        def crearHorario():
+            horario = self._user.crearHorario()
+            BusquedaCursos(root, self._user).buscarCursos(self._user, horario)
 
         root.title('Mi Gestor Académico')
 
@@ -52,7 +58,7 @@ class UserWindow :
             lista_procesos = [
                 ('Ver recomendación de asignaturas', recomendarAsignaturas),
                 ('Buscar asignatura', buscarCursos),
-                ('Crear horario', None),
+                ('Crear horario', crearHorario),
                 ('Inscribir materias', None),
                 ('Ver estímulos a los que aplica', None),
                 ('Calificar a un profesor', None)

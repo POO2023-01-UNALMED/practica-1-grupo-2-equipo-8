@@ -1,3 +1,6 @@
+from gestorGrafico.BusquedaCursos import BusquedaCursos
+
+
 class Horario:
     def __init__(self, estudiante, cursos=None):
         self.id = 1 if not estudiante.getHorariosCreados() else estudiante.getHorariosCreados()[-1].getId() + 1
