@@ -1,4 +1,5 @@
 from tkinter import Button, Entry, Frame, Label, Listbox, Menu, Radiobutton, StringVar, Tk, Toplevel, messagebox, ttk
+from Errores.EstudianteSinCitaException import EstudianteSinCitaException
 
 from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 from gestorAplicacion.clasesDeUsuario.Registro import Registro
@@ -13,6 +14,11 @@ class IncripcionMaterias(Frame):
         self._estudiante = estudiante
         self._root = root
         self._entradas = []
+    
+    @classmethod
+    def errorCita(cls, estudiante):
+        if estudiante.getInscribir() == False:
+            raise EstudianteSinCitaException(estudiante)
     
     def inscribirMaterias(self, estudiante):
         menuBar = Menu(self._root)
@@ -32,7 +38,8 @@ class IncripcionMaterias(Frame):
             except KeyError:
                 continue
         
-        if(estudiante.getInscribir()):
+        try:
+            IncripcionMaterias.errorCita(estudiante)
             labelti = Label(valoresFrame, text="Indique el tipo de inscripción: ")
             labelti.grid(row=0, column=0, padx=5)
             vals = ["Incribir materias manuealmente", "Incribir materias a partir de un horario creado"]
@@ -45,8 +52,8 @@ class IncripcionMaterias(Frame):
                 if e.widget.get() == "Incribir materias a partir de un horario creado":
                     self.inscribirConHorario(estudiante)
             tinscripcion.bind("<<ComboboxSelected>>", selected)    
-        else:
-            txt = "Usted no puede inscribir cursos en este momento, pero te redirigiremos a crear un horario\nEste horario te servirá para inscribir (en el momento en el que puedas inscribir) automáticamente las materias que guardaste en dicho horario"
+        except EstudianteSinCitaException as esc:
+            txt = esc.mostrarMensaje()
             messagebox.showerror("Error", txt)
             self._root.cleanRoot()
             horario = estudiante.crearHorario() 

@@ -1,5 +1,6 @@
 from tkinter import Button, Entry, Frame, Label, Listbox, Menu, Radiobutton, StringVar, Tk, Toplevel, messagebox, ttk
 from Errores.HorarioException import HorarioException
+from Errores.TablaSinSeleccionException import TablaSinSeleccionException
 from gestorAplicacion.clasesDeCurso.Curso import Curso
 from gestorAplicacion.clasesExtra.Carreras import Carreras
 from gestorAplicacion.clasesExtra.Facultades import Facultades
@@ -120,11 +121,12 @@ class BusquedaCursos(Frame):
         else:
             if abs(int(h21[0])-int(h22[0]))>4:
                 raise HorarioException(horario)   
-       
+     
+    @classmethod
+    def errorTabla(cls, item):
+       if item == "":
+           raise TablaSinSeleccionException
     def buscarCursos(self, estudiante = None, horario = None):
-        scrollbar = ttk.Scrollbar(self._root, orient="vertical", command=self._root.yview)
-        scrollbar.pack(side="right", fill="y")
-        self.configure(yscrollcommand=scrollbar.set)
         menuBar = Menu(self._root)
         self._root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
@@ -198,7 +200,8 @@ class BusquedaCursos(Frame):
                     
                         def handleAceptar(e):
                             item = tabla.focus()
-                            if item != "":
+                            try:
+                                BusquedaCursos.errorTabla(item)
                                 curso = tabla.item(item)["values"][1]
                                 curs = None
                                 for x in Registro.getCursos():
@@ -212,8 +215,9 @@ class BusquedaCursos(Frame):
                                         self.mostrarDetalles(curs, estudiante)
                                     else:
                                         self.mostrarDetalles(curs, estudiante, horario)
-                            else:
-                                messagebox.showinfo("Error", "Seleccione un curso para ver sus detalles")
+                            except TablaSinSeleccionException as tss:
+                                txt = tss.mostrarMensaje()
+                                messagebox.showinfo("Error", txt)
                         def handleBorrar(e):
                             self._root.cleanRoot()
                             self.buscarCursos()
@@ -273,7 +277,8 @@ class BusquedaCursos(Frame):
                     
                         def handleAceptar(e):
                             item = tabla.focus()
-                            if item != "":
+                            try:
+                                BusquedaCursos.errorTabla(item)
                                 curso = tabla.item(item)["values"][1]
                                 curs = None
                                 for x in Registro.getCursos():
@@ -287,8 +292,9 @@ class BusquedaCursos(Frame):
                                         self.mostrarDetalles(curs, estudiante)
                                     else:
                                         self.mostrarDetalles(curs, estudiante, horario)
-                            else:
-                                messagebox.showinfo("Error", "Seleccione un curso para ver sus detalles")
+                            except TablaSinSeleccionException as tss:
+                                txt = tss.mostrarMensaje()
+                                messagebox.showinfo("Error", txt)
                         def handleBorrar(e):
                             self._root.cleanRoot()
                             self.buscarCursos()
@@ -351,7 +357,8 @@ class BusquedaCursos(Frame):
                         
                             def handleAceptar(e):
                                 item = tabla.focus()
-                                if item != "":
+                                try:
+                                    BusquedaCursos.errorTabla(item)
                                     curso = tabla.item(item)["values"][1]
                                     curs = None
                                     for x in Registro.getCursos():
@@ -365,8 +372,9 @@ class BusquedaCursos(Frame):
                                             self.mostrarDetalles(curs, estudiante)
                                         else:
                                             self.mostrarDetalles(curs, estudiante, horario)
-                                else:
-                                    messagebox.showinfo("Error", "Seleccione un curso para ver sus detalles")
+                                except TablaSinSeleccionException as tss:
+                                    txt = tss.mostrarMensaje()
+                                    messagebox.showinfo("Error", txt)
                             def handleBorrar(e):
                                 self._root.cleanRoot()
                                 self.buscarCursos()
@@ -411,7 +419,8 @@ class BusquedaCursos(Frame):
             
                 def handleAceptar(e):
                     item = tabla.focus()
-                    if item != "":
+                    try:
+                        BusquedaCursos.errorTabla(item)
                         curso = tabla.item(item)["values"][1]
                         curs = None
                         for x in Registro.getCursos():
@@ -425,8 +434,9 @@ class BusquedaCursos(Frame):
                                 self.mostrarDetalles(curs, estudiante)
                             else:
                                 self.mostrarDetalles(curs, estudiante, horario)
-                    else:
-                        messagebox.showinfo("Error", "Seleccione un curso para ver sus detalles")
+                    except TablaSinSeleccionException as tss:
+                        txt = tss.mostrarMensaje()
+                        messagebox.showinfo("Error", txt)
                 def handleBorrar(e):
                     self._root.cleanRoot()
                     self.buscarCursos()
@@ -545,13 +555,15 @@ class BusquedaCursos(Frame):
             continuar.grid(row=0, column=0)
             def cont(e):
                 item = tabla.focus()
-                if item != "":
+                try:
+                    BusquedaCursos.errorTabla(item)
                     ng = tabla.item(item)["values"][0]
                     grupo = grupos[int(ng)-1]
                     self._root.cleanRoot()
                     self.agregarCurso(estudiante, grupo)   
-                else:
-                    messagebox.showinfo("Error", "Seleccione un grupo para poderlo agregar")
+                except TablaSinSeleccionException as tss:
+                    txt = tss.mostrarMensaje()
+                    messagebox.showinfo("Error", txt)
             def vol(e):
                 self._root.cleanRoot()
                 self.buscarCursos(estudiante)
@@ -603,15 +615,17 @@ class BusquedaCursos(Frame):
             def cont(e):
                 from gestorGrafico.UserWindow import UserWindow
                 item = tabla.focus()
-                if item != "":
+                try:
+                    BusquedaCursos.errorTabla(item)
                     
                     ng = tabla.item(item)["values"][0]
                     self._root.cleanRoot()
                     grupo = grupos[int(ng)-1]
                     horario.agregarCurso(grupo)
                     UserWindow(self._root, estudiante)  
-                else:
-                    messagebox.showinfo("Error", "Seleccione un grupo para poderlo agregar")
+                except TablaSinSeleccionException as tss:
+                    txt = tss.mostrarMensaje()
+                    messagebox.showinfo("Error", txt)
             def vol(e):
                 self._root.cleanRoot()
                 self.buscarCursos(estudiante)

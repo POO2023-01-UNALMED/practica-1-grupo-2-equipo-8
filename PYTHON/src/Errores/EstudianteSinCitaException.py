@@ -7,4 +7,4 @@ class EstudianteSinCitaException(ErroresUserWindow) :
         self._entrada = estudiante
 
     def mostrarMensaje(self) :
-        return f"El estudiante {self._entrada.getNombre()} no tiene cita asignada en este momento. No puede proceder con la inscripción hasta que sea asignada."
+        return f"El estudiante {self._entrada.getNombre()} no tiene cita asignada en este momento. No puede proceder con la inscripción hasta que sea asignada. Se le redigirá a crear un horario.\nEste horario le servirá para inscribir (en el momento en el que puedas inscribir) automáticamente las materias que guardaste en dicho horario"
