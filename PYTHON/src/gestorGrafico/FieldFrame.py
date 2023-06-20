@@ -8,7 +8,7 @@ class FieldFrame(tk.Frame):
         # Si se abre la ventana por primera vez
         if tituloProceso == None :
             frame = tk.Frame(root)
-            tk.Label(root, text='ELIJA UN PROCESO').pack()
+            tk.Label(root, text='En el menú superior selecciona alguna de las opciones de "Procesos y Consultas"', font=("arial", 20)).place(relx=.5, rely=.5,anchor= tk.CENTER)
             frame.anchor(tk.CENTER)
             frame.pack()
             return

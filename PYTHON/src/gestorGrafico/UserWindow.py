@@ -58,7 +58,6 @@ class UserWindow :
         procesosYConsultas = Menu(barra_menus, tearoff=False)
         if isinstance(self._user, Admin) :
             lista_procesos = [
-                ('Buscar asignatura', None),
                 ('Asignar citas de inscripción', asignarCita),
                 ('Ver estimulos [por nombre]', None),
                 ('Ver estimulos [todos]', None),
