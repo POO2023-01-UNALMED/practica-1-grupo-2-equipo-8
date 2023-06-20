@@ -37,6 +37,7 @@ class UserWindow :
             AsignarCita(root, self._user)
         
         def crearHorario():
+            root.cleanRoot()
             horario = self._user.crearHorario()
             BusquedaCursos(root, self._user).buscarCursos(self._user, horario)
 

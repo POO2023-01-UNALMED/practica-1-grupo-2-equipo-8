@@ -129,7 +129,10 @@ class BusquedaCursos(Frame):
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
         archivo.add_command(label="Salir", command=self._root.salir)
-        titulo = "Busqueda de Cursos"
+        if horario == None:
+            titulo = "Busqueda de Cursos"
+        else:
+            titulo = "Crear Horario"
         descripcion = "Aquí podrás buscar las asignaturas disponibles en el sistema y ver sus detalles"
         val = ["Ver todos los cursos","Filtrar cursos por facultad","Filtrar cursos por carreras relacionadas","Filtrar cursos por horario"]
         frameInteraccion = FieldFrame(self._root, titulo, descripcion, ["Indique lo que quiere realizar"], ["combobox"], [val])
