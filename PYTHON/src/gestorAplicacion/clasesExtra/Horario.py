@@ -1,3 +1,6 @@
+from gestorGrafico.BusquedaCursos import BusquedaCursos
+
+
 class Horario:
     def __init__(self, estudiante, cursos=None):
         self.id = 1 if not estudiante.getHorariosCreados() else estudiante.getHorariosCreados()[-1].getId() + 1
@@ -5,11 +8,13 @@ class Horario:
         self.cursos = cursos if cursos else []
 
     def agregarCurso(self, curso):
+        from gestorGrafico.BusquedaCursos import BusquedaCursos
         self.cursos.append(curso)
         if self.validarDisponibilidad():
             BusquedaCursos.aceptar()
 
     def validarDisponibilidad(self):
+        from gestorGrafico.BusquedaCursos import BusquedaCursos
         for x in range(len(self.cursos)):
             curso1 = self.cursos[x]
             datos1 = curso1.getHorario().split(" ")
@@ -22,7 +27,7 @@ class Horario:
                 horas2 = [datos2[1].split("-"), datos2[3].split("-")]
                 if curso1.getNombre() == curso2.getNombre():
                     BusquedaCursos.reportarFallo(curso1.getNombre())
-                    self.cursos.pop()
+                    self.cursos.pop(-1)
                     return False
                 else:
                     cont1 = 1
@@ -37,7 +42,7 @@ class Horario:
                                 if (hi1 == hi2) or (hi1 <= hi2 < hf1) or (hi1 < hf2 <= hf1) or (hi2 <= hi1 < hf2) or (
                                         hi2 < hf1 <= hf2):
                                     BusquedaCursos.reportarFallo(curso1, curso2)
-                                    self.cursos.pop()
+                                    self.cursos.pop(-1)
                                     return False
                             cont2 += 1
                         cont1 += 1

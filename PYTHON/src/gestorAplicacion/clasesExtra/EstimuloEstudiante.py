@@ -1,7 +1,7 @@
 
-from clasesDeUsuario.Registro import Registro
-from clasesExtra.Estimulo import Estimulo
-from clasesExtra.EstimuloEstudianteInterfaz import EstimuloEstudianteInterfaz
+from gestorAplicacion.clasesDeUsuario.Registro import Registro
+from gestorAplicacion.clasesExtra.Estimulo import Estimulo
+from gestorAplicacion.clasesExtra.EstimuloEstudianteInterfaz import EstimuloEstudianteInterfaz
 
 class EstimuloEstudiante(Estimulo, EstimuloEstudianteInterfaz):
     def __init__(
@@ -23,7 +23,7 @@ class EstimuloEstudiante(Estimulo, EstimuloEstudianteInterfaz):
 
         facultades = "Facultad: ["
         for facultad in self.getFacultadesAplica():
-            facultades += facultad.getNombre() + ", "
+            facultades += facultad.name + ", "
         facultades += "]"
 
         criterios.append(facultades)

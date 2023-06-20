@@ -61,8 +61,8 @@ class CursoEstudiante(Curso.Curso):
         listaPorcentajes = self.getListaPorcentajes()
         total = 0
         for i in range(len(self._listaNotas)):
-            a = self._listaNotas[i][1]
-            b = self._listaPorcentajes[i][1] / 100.0
+            a = self._listaNotas[i]
+            b = self._listaPorcentajes[i] / 100.0
             total += a * b
         
         total = round(total * 10.0) / 10.0

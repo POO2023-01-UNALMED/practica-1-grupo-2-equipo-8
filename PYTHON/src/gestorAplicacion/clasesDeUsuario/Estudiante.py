@@ -2,15 +2,15 @@ from gestorAplicacion.clasesExtra.Horario import Horario
 from gestorAplicacion.clasesDeUsuario.Registro import Registro
 
 class Estudiante(Registro):
-    def __init__(self, nombre=None, correo=None, nombreUsuario=None, clave=None, documento=None, carrera=None, facultad=None, semestre=None, cursosVistos = [], listaCursos = []):
+    def __init__(self, nombre, correo, nombreUsuario, clave, documento, carrera, facultad, semestre, cursosVistos = [], listaCursos = []):
         super().__init__(nombre, correo, nombreUsuario, clave, documento)
         self._carrera = carrera
         self._facultad = facultad
         self._semestre = semestre
         self._horariosCreados = []
         self._estimulos = []
-        self._listaCursos = listaCursos
-        self._cursosVistos = cursosVistos
+        self._listaCursos = []
+        self._cursosVistos = []
         self._listaCursosInscritos = []
         for ce in listaCursos:
             profesor = ce.getProfesor()
@@ -116,7 +116,7 @@ class Estudiante(Registro):
     
     def buscarCursos(self, root):
         from gestorGrafico.BusquedaCursos import BusquedaCursos
-        BusquedaCursos(root, self).buscarCursos()
+        BusquedaCursos(root, self).buscarCursos(self)
     
     
     def crearHorario(self):
