@@ -17,11 +17,12 @@ class AsignarCita:
         root.state("zoomed")
         root.title("Asignar Citas de Inscripción")
         
-        menuBar = Menu(root)
-        root.config(menu=menuBar)
+        menuBar = Menu(self.root)
+        self.root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
-        archivo.add_command(label="Salir", command=root.salir)
+        archivo.add_command(label="Inicio", command=lambda : self._root.inicio(self._user))
+        archivo.add_command(label="Salir", command=self.root.salir)
 
         self.asignadosProvicionales = []
 

@@ -131,14 +131,16 @@ class BusquedaCursos(Frame):
         self._root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Inicio", command=lambda : self._root.inicio(self._estudiante))
         archivo.add_command(label="Salir", command=self._root.salir)
+
         if horario == None:
             titulo = "Busqueda de Cursos"
         else:
             titulo = "Crear Horario"
         descripcion = "Aquí podrás buscar las asignaturas disponibles en el sistema y ver sus detalles"
         val = ["Ver todos los cursos","Filtrar cursos por facultad","Filtrar cursos por carreras relacionadas","Filtrar cursos por horario"]
-        frameInteraccion = FieldFrame(self._root, titulo, descripcion, ["Indique lo que quiere realizar"], ["combobox"], [val])
+        frameInteraccion = FieldFrame(self._root, tituloProceso=titulo, descripcionProceso=descripcion, criterios=["Indique lo que quiere realizar"], valores=["combobox"], valoresCombo=[val])
         frameInteraccion.pack()
         valoresFrame = None
         for x in self._root.children.values():
@@ -176,8 +178,9 @@ class BusquedaCursos(Frame):
                         titl = Label(valoresFrame, text="Los cursos disponibles son los siguientes (seleccione uno para ver sus detalles y dele click a continuar): ")
                         titl.grid(row=3, column=0, columnspan=2)
                         
+                        l = 20 if len(listaCursos) > 20 else len(listaCursos)
                         frameTabla = Frame(valoresFrame, name="tabla")
-                        tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4", "c5"), show="headings", height=len(listaCursos))
+                        tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4", "c5"), show="headings", height=l)
                         scrollbar = ttk.Scrollbar(frameTabla, orient="vertical", command=tabla.yview)
                         scrollbar.pack(side="right", fill="y")
                         tabla.configure(yscrollcommand=scrollbar.set)
@@ -254,7 +257,9 @@ class BusquedaCursos(Frame):
                         titl = Label(valoresFrame, text="Los cursos disponibles son los siguientes (seleccione uno para ver sus detalles y dele click a continuar): ")
                         titl.grid(row=3, column=0, columnspan=2)
                         frameTabla = Frame(valoresFrame, name="tabla")
-                        tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4", "c5"), show="headings", height=len(listaCursos))
+
+                        l = 20 if len(listaCursos) > 20 else len(listaCursos)
+                        tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4", "c5"), show="headings", height=l)
                         scrollbar = ttk.Scrollbar(frameTabla, orient="vertical", command=tabla.yview)
                         scrollbar.pack(side="right", fill="y")
                         tabla.configure(yscrollcommand=scrollbar.set)
@@ -334,7 +339,9 @@ class BusquedaCursos(Frame):
                             titl = Label(valoresFrame, text="Los cursos disponibles son los siguientes (seleccione uno para ver sus detalles y dele click a continuar): ")
                             titl.grid(row=3, column=0, columnspan=2)
                             frameTabla = Frame(valoresFrame, name="tabla")
-                            tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4", "c5"), show="headings", height=len(listaCursos))
+
+                            l = 20 if len(listaCursos) > 20 else len(listaCursos)
+                            tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4", "c5"), show="headings", height=l)
                             scrollbar = ttk.Scrollbar(frameTabla, orient="vertical", command=tabla.yview)
                             scrollbar.pack(side="right", fill="y")
                             tabla.configure(yscrollcommand=scrollbar.set)
@@ -394,9 +401,9 @@ class BusquedaCursos(Frame):
                 titl = Label(valoresFrame, text="Los cursos disponibles son los siguientes (seleccione uno para ver sus detalles y dele click a continuar): ")
                 titl.grid(row=3, column=0, columnspan=2)
                 
-
+                l = 20 if len(listaCursos) > 20 else len(listaCursos)
                 frameTabla = Frame(valoresFrame, name="tabla")
-                tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4", "c5"), show="headings", height=len(listaCursos))
+                tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4", "c5"), show="headings", height=l)
                 scrollbar = ttk.Scrollbar(frameTabla, orient="vertical", command=tabla.yview)
                 scrollbar.pack(side="right", fill="y")
                 tabla.configure(yscrollcommand=scrollbar.set)
@@ -458,7 +465,9 @@ class BusquedaCursos(Frame):
         self._root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Inicio", command=lambda : self._root.inicio(self._estudiante))
         archivo.add_command(label="Salir", command=self._root.salir)
+
         if estudiante == None and horario == None:
             grupos = []
             profesores = []
@@ -481,8 +490,9 @@ class BusquedaCursos(Frame):
             descrip = Label(valoresFrame, text=txt, font=("Arial", 12))
             descrip.grid(row=2, column=0, pady=10)
             if len(grupos) != 0:
+                l = 20 if len(grupos) > 20 else len(grupos)
                 frameTabla = Frame(valoresFrame, name="tabla")
-                tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4"), show="headings", height=len(grupos))
+                tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4"), show="headings", height=l)
                 scrollbar = ttk.Scrollbar(frameTabla, orient="vertical", command=tabla.yview)
                 scrollbar.pack(side="right", fill="y")
                 tabla.configure(yscrollcommand=scrollbar.set)
@@ -527,8 +537,9 @@ class BusquedaCursos(Frame):
             nota = Label(valoresFrame, text="Para agregar un curso a un horario existente, debes seleccionar el grupo que quieras y luego darle click a continuar", font=("Arial", 12), pady=5)
             nota.grid(row=3, column=0)
             if len(grupos) != 0:
+                l = 20 if len(grupos) > 20 else len(grupos)
                 frameTabla = Frame(valoresFrame, name="tabla")
-                tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4"), show="headings", height=len(grupos))
+                tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4"), show="headings", height=l)
                 scrollbar = ttk.Scrollbar(frameTabla, orient="vertical", command=tabla.yview)
                 scrollbar.pack(side="right", fill="y")
                 tabla.configure(yscrollcommand=scrollbar.set)
@@ -586,8 +597,9 @@ class BusquedaCursos(Frame):
             nota = Label(valoresFrame, text="Para agregarle un curso al horario creado, debes seleccionar el grupo que quieras y luego darle click a continuar", font=("Arial", 12), pady=5)
             nota.grid(row=3, column=0)
             if len(grupos) != 0:
+                l = 20 if len(grupos) > 20 else len(grupos)
                 frameTabla = Frame(valoresFrame, name="tabla")
-                tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4"), show="headings", height=len(grupos))
+                tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4"), show="headings", height=l)
                 scrollbar = ttk.Scrollbar(frameTabla, orient="vertical", command=tabla.yview)
                 scrollbar.pack(side="right", fill="y")
                 tabla.configure(yscrollcommand=scrollbar.set)
@@ -637,7 +649,9 @@ class BusquedaCursos(Frame):
         self._root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Inicio", command=lambda : self._root.inicio(estudiante))
         archivo.add_command(label="Salir", command=self._root.salir)
+
         horarios = estudiante.getHorariosCreados()
         valoresFrame = Frame(self._root)
         valoresFrame.pack(anchor="n")
@@ -661,7 +675,8 @@ class BusquedaCursos(Frame):
                 descrip.grid(row=z+1, column=0, columnspan=2, pady=5)
                 frameTabla = Frame(valoresFrame)
                 cursos = x.getCursos()
-                tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4", "c5"), show="headings", height=len(cursos))
+                l = 20 if len(cursos) > 20 else len(cursos)
+                tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4", "c5"), show="headings", height=l)
                 scrollbar = ttk.Scrollbar(frameTabla, orient="vertical", command=tabla.yview)
                 scrollbar.pack(side="right", fill="y")
                 tabla.configure(yscrollcommand=scrollbar.set)

@@ -108,7 +108,7 @@ class UserWindow :
         root.config(menu=barra_menus)
         # 2) INTERACCIÓN USUARIO
         # Interaccion Usuario
-        frameInteraccion = FieldFrame(root, self._user)
+        frameInteraccion = FieldFrame(root, user=self._user)
         frameInteraccion.pack()
 
         # comment

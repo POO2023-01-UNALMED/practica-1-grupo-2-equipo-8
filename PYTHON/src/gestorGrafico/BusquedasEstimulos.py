@@ -19,11 +19,12 @@ class BusquedaEstimulos(Frame):
       root.cleanRoot()
       self.recomendar()
 
-    menuBar = Menu(root)
-    root.config(menu=menuBar)
+    menuBar = Menu(self._root)
+    self._root.config(menu=menuBar)
     archivo = Menu(menuBar, tearoff=False)
     menuBar.add_cascade(label="Archivo", menu=archivo)
-    archivo.add_command(label="Salir", command=root.salir)
+    archivo.add_command(label="Inicio", command=lambda : self._root.inicio(self._user))
+    archivo.add_command(label="Salir", command=self._root.salir)
 
     titulo = "BUSQUEDA DE ESTÍMULOS"
     descripcion = "Se mostraran estimulos para los cuales aplicas de acuerdo a los criterios establecidos en cada estímulo."
@@ -227,10 +228,12 @@ class BusquedaEstimulos(Frame):
         self._root.cleanRoot()
         frameInteraccion = FieldFrame(self._root, "BUSQUEDA DE ESTÍMULOS", "Se mostraran estimulos para los cuales aplicas de acuerdo a los criterios establecidos en cada estímulo.", [])
         frameInteraccion.pack()
+
         menuBar = Menu(self._root)
         self._root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Inicio", command=lambda : self._root.inicio(self._user))
         archivo.add_command(label="Salir", command=self._root.salir)
 
         estimulos = BusquedaEstimulos.obtenerEstimulosEstudiante()
@@ -268,10 +271,12 @@ class BusquedaEstimulos(Frame):
         self._root.cleanRoot()
         frameInteraccion = FieldFrame(self._root, "BUSQUEDA DE ESTÍMULOS", "Se mostraran estimulos para los cuales aplicas de acuerdo a los criterios establecidos en cada estímulo.", [])
         frameInteraccion.pack()
+
         menuBar = Menu(self._root)
         self._root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Inicio", command=lambda : self._root.inicio(self._user))
         archivo.add_command(label="Salir", command=self._root.salir)
 
         estimulos = BusquedaEstimulos.obtenerEstimulosProfesor()
@@ -312,10 +317,13 @@ class BusquedaEstimulos(Frame):
         frameInteraccion = FieldFrame(self._root, "BUSQUEDA DE ESTÍMULOS", "Se mostraran estimulos para los cuales aplicas de acuerdo a los criterios establecidos en cada estímulo.", [])
         frameInteraccion.pack()
         menuBar = Menu(self._root)
+
         self._root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Inicio", command=lambda : self._root.inicio(self._user))
         archivo.add_command(label="Salir", command=self._root.salir)
+        
         frame1 = Frame(self._root, width=400, height=400)
         frame1.pack(expand=True)
         frame11 = Frame(frame1)

@@ -6,7 +6,7 @@ from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 from gestorAplicacion.clasesDeUsuario.Profesor import Profesor
 
 class FieldFrame(tk.Frame):
-    def __init__(self, root, user = None, tituloProceso=None, descripcionProceso=None, criterios=None, valores = None, valoresCombo = None) :
+    def __init__(self, root, tituloProceso=None, descripcionProceso=None, criterios=None, valores = None, valoresCombo = None, user = None) :
         super().__init__(root)
 
         # Si se abre la ventana por primera vez

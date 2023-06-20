@@ -25,7 +25,9 @@ class IncripcionMaterias(Frame):
         self._root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Inicio", command=lambda : self._root.inicio(self._estudiante))
         archivo.add_command(label="Salir", command=self._root.salir)
+
         titulo = "Busqueda de Cursos"
         descrip = "Aquí podrás inscribir materias en caso de que ya tengas una cita asignada"
         frameInteraccion = FieldFrame(self._root, titulo, descrip)
@@ -64,7 +66,9 @@ class IncripcionMaterias(Frame):
         self._root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Inicio", command=lambda : self._root.inicio(self._estudiante))
         archivo.add_command(label="Salir", command=self._root.salir)
+
         if listac == None:
             valoresFrame = Frame(self._root)
             valoresFrame.pack(anchor="n")
@@ -123,7 +127,9 @@ class IncripcionMaterias(Frame):
                 selecasig = Label(valoresFrame, "Seleccione un curso que quiera inscribir:", font=("Arial", 12))
                 selecasig.grid(row=1, column=0)
                 frameTabla = Frame(valoresFrame, name="tabla")
-                tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4", "c5"), show="headings", height=len(cursosres))
+
+                l = 20 if len(cursosres) > 20 else len(cursosres)
+                tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4", "c5"), show="headings", height=l)
                 scrollbar = ttk.Scrollbar(frameTabla, orient="vertical", command=tabla.yview)
                 scrollbar.pack(side="right", fill="y")
                 tabla.configure(yscrollcommand=scrollbar.set)
@@ -200,7 +206,9 @@ class IncripcionMaterias(Frame):
                 selecasig = Label(valoresFrame, "Seleccione un curso que quiera inscribir:", font=("Arial", 12))
                 selecasig.grid(row=1, column=0)
                 frameTabla = Frame(valoresFrame, name="tabla")
-                tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4", "c5"), show="headings", height=len(cursosres))
+
+                l = 20 if len(cursosres) > 20 else len(cursosres)
+                tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4", "c5"), show="headings", height=l)
                 scrollbar = ttk.Scrollbar(frameTabla, orient="vertical", command=tabla.yview)
                 scrollbar.pack(side="right", fill="y")
                 tabla.configure(yscrollcommand=scrollbar.set)
@@ -272,7 +280,9 @@ class IncripcionMaterias(Frame):
         self._root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Inicio", command=lambda : self._root.inicio(self._estudiante))
         archivo.add_command(label="Salir", command=self._root.salir)
+
         listaCursos = curso.obtenerGrupos(estudiante)
         valoresFrame = Frame(self._root)
         valoresFrame.pack(anchor="n")
@@ -289,8 +299,9 @@ class IncripcionMaterias(Frame):
         nota = Label(valoresFrame, text="Para agregar inscribir un curso, debes seleccionar el grupo que quieras y luego darle click a continuar", font=("Arial", 12), pady=5)
         nota.grid(row=3, column=0)
         if len(listaCursos) != 0:
+            l = 20 if len(listaCursos) > 20 else len(listaCursos)
             frameTabla = Frame(valoresFrame, name="tabla")
-            tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4"), show="headings", height=len(listaCursos))
+            tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4"), show="headings", height=l)
             scrollbar = ttk.Scrollbar(frameTabla, orient="vertical", command=tabla.yview)
             scrollbar.pack(side="right", fill="y")
             tabla.configure(yscrollcommand=scrollbar.set)
@@ -340,7 +351,9 @@ class IncripcionMaterias(Frame):
         self._root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Inicio", command=lambda : self._root.inicio(self._estudiante))
         archivo.add_command(label="Salir", command=self._root.salir)
+        
         if(len(estudiante.getHorariosCreados() == 0)):
             messagebox.showerror("Error", "No ha creado ningún horario, debes inscribir manualmente")
             self._root.cleanRoot()
@@ -368,7 +381,8 @@ class IncripcionMaterias(Frame):
                 descrip.grid(row=z+1, column=0, columnspan=2, pady=5)
                 frameTabla = Frame(valoresFrame)
                 cursos = x.getCursos()
-                tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4", "c5"), show="headings", height=len(cursos))
+                l = 20 if len(cursos) > 20 else len(cursos)
+                tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4", "c5"), show="headings", height=l)
                 scrollbar = ttk.Scrollbar(frameTabla, orient="vertical", command=tabla.yview)
                 scrollbar.pack(side="right", fill="y")
                 tabla.configure(yscrollcommand=scrollbar.set)
