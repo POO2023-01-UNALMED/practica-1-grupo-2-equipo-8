@@ -31,7 +31,7 @@ class IncripcionMaterias():
             except KeyError:
                 continue
         
-        if(estudiante.getInscribir()):
+        """if(estudiante.getInscribir()):
             while(true)
                 System.out.println("Indique lo que desea hacer:\n"
                     + "1. Incribir materias manuealmente\n"
@@ -249,5 +249,5 @@ class IncripcionMaterias():
             if(comp == true)
                 System.out.println("Debe seleccionar una opción entre el 1 y el "+cont)
             
-        
+        """
     
