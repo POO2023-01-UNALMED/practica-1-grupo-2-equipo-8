@@ -27,8 +27,10 @@ class AsignarCita:
 
         self.titulo = Frame(root)
         self.titulo.pack(side="top")
-        self.saludo = Label(self.titulo, text="Asignar Citas de Inscripción", font=("arial", 20))
+        self.saludo = Label(self.titulo, text="Asignar Citas de Inscripción", font=("arial", 30))
         self.saludo.pack(padx=5, pady=5, anchor="center")
+        self.descripcion = Label(self.titulo, text="Aquí podrás asignarles a los estudiantes sus respectivas citas de inscripción", font=("arial", 15))
+        self.descripcion.pack(padx=5, pady=5, anchor="center")
 
         self.contenido = Frame(root)
         self.contenido.pack()
@@ -76,8 +78,9 @@ class AsignarCita:
         self.reseteoSoft.grid(row=0, column=1, padx=5, pady=5)
         self.reseteoSoft.bind("<Button-1>", self.soft)
 
-        self.cajaSeleccionados = Text(self.frame_right)
+        self.cajaSeleccionados = Text(self.frame_right, wrap="word")
         self.cajaSeleccionados.insert(END, "Aquí se mostrarán los estudiantes seleccionados en el orden de inscripción")
+        self.cajaSeleccionados.configure(state="disable")
 
         scrollbar = Scrollbar(self.frame_right)
         scrollbar.config(command=self.cajaSeleccionados.yview)
@@ -111,6 +114,7 @@ class AsignarCita:
         if len(self.lista.curselection())==0:
             messagebox.showerror("Error", "Debe seleccionar a al menos un estudiante")
         else:
+            self.cajaSeleccionados.configure(state="normal")
             self.cajaSeleccionados.delete('1.0', END)
             seleccionados = []
             seleccion = self.lista.curselection()
@@ -122,11 +126,14 @@ class AsignarCita:
                 self.cajaSeleccionados.insert(END, estudiante.__str__() + "\n")
             self.asignadosProvicionales = ordenados
             self.deseleccionar_todos("e")
+            self.cajaSeleccionados.configure(state="disable")
         
     def limpiar(self, event):
+        self.cajaSeleccionados.configure(state="normal")
         self.cajaSeleccionados.delete('1.0', END)
         self.asignadosProvicionales = []
         self.cajaSeleccionados.insert(END, "Aquí se mostrarán los estudiantes seleccionados en el orden de inscripción")
+        self.cajaSeleccionados.configure(state="disable")
 
     def continuar(self, event):
         if len(self.asignadosProvicionales) == 0:
@@ -159,7 +166,12 @@ class AsignarCita:
     def soft(self, event):
         respuesta = messagebox.askyesno("Confirmación", "¿Estás seguro que deseas resetear las citas de Inscripción?\nEsto hará que ningun estudiante tenga una\nEsta decisión es irreversible")
         if respuesta:
+            self.lista.delete(0, "end")
             AsignarCita.estudiantesConCita = []
+            for estudiante in Registro.getEstudiantes():
+                estudiante.setInscribir(False)
+                self.lista.insert(END, estudiante)
+            
 
     def ordenarPorPAPA(self, estudiantes):
         estudiantesPorPAPA = sorted(estudiantes, key=lambda estudiante: estudiante.calcularPAPA(), reverse=True)
