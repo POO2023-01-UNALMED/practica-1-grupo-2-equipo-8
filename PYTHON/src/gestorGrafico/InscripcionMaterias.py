@@ -414,7 +414,7 @@ class IncripcionMaterias(Frame):
                 nh = e.widget.winfo_name()
                 self._root.cleanRoot()
                 horario = horarios[int(nh)]
-                if(horario.validarHorario(estudiante)):
+                if(horario.validarHorario(estudiante) and len(horario.getCursos()) != 0):
                     from gestorGrafico.UserWindow import UserWindow
                     estudiante.inscribirCursos(horario.getCursos())
                     messagebox.showinfo("Proceso Exitoso", "La inscripción fue exitosa")
