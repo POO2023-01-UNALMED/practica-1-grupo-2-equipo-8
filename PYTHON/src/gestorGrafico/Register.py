@@ -14,8 +14,8 @@ class Register:
     @classmethod
     def errorHorario(cls, horario):
         lis = horario.split()
-        dias = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo", "miercoles", "sabado"]
-        if len(lis) != 4 or not(lis[0].lower() in dias) or not(lis[0].lower() in dias):
+        dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Domingo", "Sabado"]
+        if len(lis) != 4 or not(lis[0] in dias) or not(lis[0] in dias):
             
             raise HorarioException(horario)
         if "-" in lis[1]:
@@ -332,7 +332,7 @@ class Register:
                             entry5.grid(row=2, column=2, columnspan=2, sticky="w")
                             label = Label(frame13, text="Seleccione los cursos que dicta a continuación")
                             label.grid(row=3, column=0, columnspan=4, pady=10)
-                            ej = Label(frame13, text="Ejemplo de la entrada para el horario: Martes 12:00-14:00 Jueves 14:00-16:00")
+                            ej = Label(frame13, text="Ejemplo de la entrada para el horario: Martes 12:00-14:00 Jueves 14:00-16:00 (Los dias no deben tener tildes)")
                             ej.grid(row=4, column=0, columnspan=4, pady=10)
                             label6 = Label(frame13, text="Seleccione un curso:")
                             label6.grid(row=5, column=0)
