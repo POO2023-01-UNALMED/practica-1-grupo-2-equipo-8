@@ -496,7 +496,7 @@ class BusquedaCursos(Frame):
             volver.grid(row=0, column=0)
             def vol(e):
                 self._root.cleanRoot()
-                self.buscarCursos()
+                self.buscarCursos(estudiante)
             volver.bind("<Button-1>", vol)
             
         elif estudiante != None and horario == None:
@@ -553,7 +553,7 @@ class BusquedaCursos(Frame):
                     messagebox.showinfo("Error", "Seleccione un grupo para poderlo agregar")
             def vol(e):
                 self._root.cleanRoot()
-                self.buscarCursos()
+                self.buscarCursos(estudiante)
             continuar.bind("<Button-1>", cont)
             volver.bind("<Button-1>", vol)
         else:
@@ -613,7 +613,7 @@ class BusquedaCursos(Frame):
                     messagebox.showinfo("Error", "Seleccione un grupo para poderlo agregar")
             def vol(e):
                 self._root.cleanRoot()
-                self.buscarCursos()
+                self.buscarCursos(estudiante)
             continuar.bind("<Button-1>", cont)
             volver.bind("<Button-1>", vol)
             
