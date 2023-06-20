@@ -31,7 +31,7 @@ class Inicio:
                             path+"\\imagenes\\pablo3.png", path+"\\imagenes\\pablo4.png"])
 
         jhon = Programador("Jhon Jairo Hernandez Castaneda",
-                            "Estudia Ingenieria de Sistemas.\nNació en namekusein el ?? de ?? de ??\nSus gustos son ??",
+                            "Estudia Ingenieria de Sistemas.\nNació en Leticia el ?? de ?? de ??\nSus gustos son ??",
                             [path+"\\imagenes\\jhon1.png", path+"\\imagenes\\jhon2.png", 
                             path+"\\imagenes\\jhon3.png", path+"\\imagenes\\jhon4.png"])
 

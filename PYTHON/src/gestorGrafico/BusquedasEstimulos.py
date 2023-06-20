@@ -1,7 +1,38 @@
+from tkinter import Button, Entry, Frame, Label, Listbox, Menu, StringVar, Tk, Toplevel, messagebox, ttk
 from gestorAplicacion.clasesDeUsuario.Registro import Registro
 from gestorAplicacion.clasesExtra.TipoUsuarios import TipoUsuarios
+from gestorGrafico.FieldFrame import FieldFrame
 
-class BusquedaEstimulos:
+class BusquedaEstimulos(Frame):
+  def __init__(self, root, estudiante=None):
+    super().__init__(root)
+    self._estudiante = estudiante
+    self._root = root
+    self._entradas = []
+
+    def handleAceptar() :
+      frameInteraccion.getEntradasUsuario()
+      self._entradas = frameInteraccion._entradasUsuario
+      root.cleanRoot()
+      self.recomendar()
+
+    menuBar = Menu(root)
+    root.config(menu=menuBar)
+    archivo = Menu(menuBar, tearoff=False)
+    menuBar.add_cascade(label="Archivo", menu=archivo)
+    archivo.add_command(label="Salir", command=root.salir)
+
+    titulo = "BUSQUEDA DE ESTÍMULOS"
+    descripcion = "Se mostraran estimulos para los cuales aplicas de acuerdo a los criterios establecidos en cada estímulo."
+    frameInteraccion = FieldFrame(root, titulo, descripcion, ['¿Incluir libre elección?'], valores=['radio'])
+    frameInteraccion.crearBoton("Aceptar", handleAceptar).grid(row=0, column=0)
+    frameInteraccion.crearBoton("Borrar").grid(row=0, column=1)
+    frameInteraccion.pack()
+
+    if estudiante:
+      BusquedaEstimulos.buscarEstimulos(estudiante, None)
+
+
   @staticmethod
   def buscarEstimulos(estudiante=None, profesor=None):
     if estudiante:

@@ -7,6 +7,7 @@ from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 #from ..gestorAplicacion.clasesDeUsuario.Profesor import Profesor
 from .RecomendarAsignaturas import RecomendarAsignaturas
 from .AsignarCita import AsignarCita
+from .BusquedasEstimulos import BusquedaEstimulos
 from baseDatos.Serializador import Serializador
 
 class UserWindow :
@@ -24,6 +25,10 @@ class UserWindow :
         def asignarCita():
             root.cleanRoot()
             AsignarCita(root, self._user)
+
+        def bucarEstimulos():
+            root.cleanRoot()
+            BusquedaEstimulos(root, self._user)
 
         root.title('Mi Gestor Académico')
 
@@ -44,8 +49,8 @@ class UserWindow :
                 ('Asignar citas de inscripción', asignarCita),
                 ('Ver estudiantes', None),
                 ('Ver profesores', None),
-                ('Ver estimulos [por nombre]', None),
-                ('Ver estimulos [todos]', None),
+                ('Ver estimulos [por nombre]', bucarEstimulos),
+                ('Ver estimulos [todos]', bucarEstimulos),
                 ('Modificar estudiante con cursos', None)
             ]
         elif isinstance(self._user, Estudiante) :
@@ -54,13 +59,13 @@ class UserWindow :
                 ('Buscar asignatura', buscarCursos),
                 ('Crear horario', None),
                 ('Inscribir materias', None),
-                ('Ver estímulos a los que aplica', None),
+                ('Ver estímulos a los que aplica', bucarEstimulos),
                 ('Calificar a un profesor', None)
             ]
         else :
             lista_procesos = [
                 ('Calificar', None),
-                ('Ver estímulos a los que aplica', None),
+                ('Ver estímulos a los que aplica', bucarEstimulos),
                 ('Buscar asignatura', None)
             ]
 
