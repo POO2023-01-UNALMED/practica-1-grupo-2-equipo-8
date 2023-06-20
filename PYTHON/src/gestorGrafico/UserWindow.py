@@ -72,9 +72,7 @@ class UserWindow :
             ]
         else :
             lista_procesos = [
-                ('Calificar', None),
                 ('Ver estímulos a los que aplica', None),
-                ('Buscar asignatura', None)
             ]
 
         for proceso in lista_procesos :
