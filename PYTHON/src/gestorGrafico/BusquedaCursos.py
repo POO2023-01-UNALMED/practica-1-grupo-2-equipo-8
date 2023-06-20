@@ -634,16 +634,17 @@ class BusquedaCursos(Frame):
         nota.grid(row=2, column=0)
         if len(horarios) != 0:
             y = 0
+            z = 3
             listaBotones = []
             for x in horarios:
                 label = Label(valoresFrame, text="Horario "+str(x.getId()))
-                label.grid(row=3+y, column=0, sticky="e", padx=5)
+                label.grid(row=z, column=0, sticky="e", padx=5)
                 selector = Button(valoresFrame, text="Seleccionar", name=str(y))
-                selector.grid(row=3+y, column=1, sticky="w", padx=5)
+                selector.grid(row=z, column=1, sticky="w", padx=5)
                 listaBotones.append(selector)
                 descrip = Label(valoresFrame, text="Cursos dentro del horario")
-                descrip.grid(row=4+y, column=0, columnspan=2, pady=5)
-                frameTabla = Frame(valoresFrame, name="tabla")
+                descrip.grid(row=z+1, column=0, columnspan=2, pady=5)
+                frameTabla = Frame(valoresFrame)
                 cursos = x.getCursos()
                 tabla = ttk.Treeview(frameTabla, column=("c1", "c2", "c3", "c4", "c5"), show="headings", height=len(cursos))
                 scrollbar = ttk.Scrollbar(frameTabla, orient="vertical", command=tabla.yview)
@@ -660,8 +661,9 @@ class BusquedaCursos(Frame):
                     tabla.insert("", "end", values=items)
                 tabla.column("c4", minwidth=0, width=300)
                 tabla.pack()
-                frameTabla.grid(row=5+y, column=0, columnspan=2)
+                frameTabla.grid(row=z+2, column=0, columnspan=2)
                 y+=1
+                z+=3
             def cont(e):
                 from gestorGrafico.UserWindow import UserWindow
                 nh = e.widget.winfo_name()
