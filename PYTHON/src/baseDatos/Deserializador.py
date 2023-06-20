@@ -57,5 +57,5 @@ class Deserializador:
             pcs = pickle.load(file)
             Registro.setCursos(pcs)
         except EOFError :
-            Registro.setEstimulosEstudiantes([])
+            Registro.setCursos([])
         file.close()
