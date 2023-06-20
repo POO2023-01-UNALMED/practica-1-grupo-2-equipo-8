@@ -600,8 +600,9 @@ class BusquedaCursos(Frame):
                 from gestorGrafico.UserWindow import UserWindow
                 item = tabla.focus()
                 if item != "":
-                    self._root.cleanRoot()
+                    
                     ng = tabla.item(item)["values"][0]
+                    self._root.cleanRoot()
                     grupo = grupos[int(ng)-1]
                     horario.agregarCurso(grupo)
                     UserWindow(self._root, estudiante)  
@@ -651,8 +652,8 @@ class BusquedaCursos(Frame):
                     tabla.column(f"#{i+1}", anchor="center")
                     tabla.heading(f"#{i+1}", text=e)
                     i += 1
-                for grupo in cursos:
-                    items = [grupo.getNombre(), str(grupo.getCreditos()), grupo.getProfesor(),grupo.getHorario(), str(grupo.getCupos())]
+                for x in cursos:
+                    items = [x.getNombre(), str(x.getCreditos()), x.getProfesor(),x.getHorario(), str(x.getCupos())]
                     tabla.insert("", "end", values=items)
                 tabla.column("c4", minwidth=0, width=300)
                 tabla.pack()
