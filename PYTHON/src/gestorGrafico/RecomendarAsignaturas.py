@@ -19,6 +19,11 @@ class RecomendarAsignaturas(Frame) :
             root.cleanRoot()
             self.recomendar()
 
+        def handleVolver() :
+            from gestorGrafico.UserWindow import UserWindow
+            root.cleanRoot()
+            UserWindow(root, estudiante)
+
         menuBar = Menu(root)
         root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
@@ -29,7 +34,7 @@ class RecomendarAsignaturas(Frame) :
         descripcion = "Se te recomendarán materias para cursar el próximo semestre de acuerdo a tu historial académico y carrera."
         frameInteraccion = FieldFrame(root, titulo, descripcion, ['¿Incluir libre elección?'], valores=['radio'])
         frameInteraccion.crearBoton("Aceptar", handleAceptar).grid(row=0, column=0)
-        frameInteraccion.crearBoton("Borrar").grid(row=0, column=1)
+        frameInteraccion.crearBoton("Volver", handleVolver).grid(row=0, column=1)
         frameInteraccion.pack()
 
     def recomendar(self) :
@@ -74,7 +79,8 @@ class RecomendarAsignaturas(Frame) :
 
     def recomendar2(self) :
         frameTitulo = Frame(self._root)
-        Label(frameTitulo, text="A continuación se muestran las asignaturas recomendadas para cursar el próximo semestre:").pack()
+        Label(frameTitulo, text="A continuación se muestran las asignaturas recomendadas para cursar el próximo semestre.").pack()
+        Label(frameTitulo, text="Seleccione una para ver los profesores disponibles.").pack()
         frameTitulo.anchor(CENTER)
         frameTitulo.pack()
 
