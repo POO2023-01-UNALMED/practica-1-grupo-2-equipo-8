@@ -29,6 +29,7 @@ class RecomendarAsignaturas(Frame) :
         root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Inicio", command=lambda : root.inicio(self._estudiante))
         archivo.add_command(label="Salir", command=root.salir)
 
         titulo = "RECOMENDACIÓN DE ASIGNATURAS"
@@ -43,6 +44,7 @@ class RecomendarAsignaturas(Frame) :
         self._root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Inicio", command=lambda : self._root.inicio(self._estudiante))
         archivo.add_command(label="Salir", command=self._root.salir)
 
         # Obtener valor ingresado por el usuario
@@ -84,6 +86,7 @@ class RecomendarAsignaturas(Frame) :
         self._root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Inicio", command=lambda : self._root.inicio(self._estudiante))
         archivo.add_command(label="Salir", command=self._root.salir)
 
         frameTitulo = Frame(self._root)
@@ -123,6 +126,7 @@ class RecomendarAsignaturas(Frame) :
         self._root.config(menu=menuBar)
         archivo = Menu(menuBar, tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
+        archivo.add_command(label="Inicio", command=lambda : self._root.inicio(self._estudiante))
         archivo.add_command(label="Salir", command=self._root.salir)
 
         # Encontrar curso
@@ -165,7 +169,7 @@ class RecomendarAsignaturas(Frame) :
 
         # Treeview
         frameTabla = Frame(self._root)
-        tabla = Treeview(frameTabla, column=("c1", "c2", "c3"), show='headings', height=len(self.cursosParaRecomendar))
+        tabla = Treeview(frameTabla, column=("c1", "c2", "c3"), show='headings', height=len(self.listaProfesores))
 
         i = 0
         for e in ['NOMBRE', 'CALIFICACION', 'FACULTAD'] :

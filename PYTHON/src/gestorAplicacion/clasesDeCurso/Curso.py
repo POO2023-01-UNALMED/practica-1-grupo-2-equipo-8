@@ -7,21 +7,12 @@ class Curso:
         self._numeroParciales = numeroParciales
         self._listaPorcentajes = listaPorcentajes
         self._facultades = facultades
-        if id == 0:
-            self._id = 100000 + len(Registro.getCursos())
-        else:
-            self._id = id
+        self._id = 100000 + len(Registro.getCursos()) if id == 0 else id
         self._cupos = 0
-        self._horariosClase = set()
-        if preRequisitos == None:
-            self._preRequisitos = set()
-        else:
-            self._preRequisitos = preRequisitos
-        if carrerasRelacionadas == None:
-            self._carrerasRelacionadas = set()
-        else:
-            self._carrerasRelacionadas = carrerasRelacionadas
-        self._profesoresQueDictanElCurso = set()
+        self._horariosClase = []
+        self._preRequisitos = preRequisitos
+        self._carrerasRelacionadas = carrerasRelacionadas
+        self._profesoresQueDictanElCurso = []
         self._esLibreEleccion = esLibreEleccion
         Registro.agregarCurso(self) # Se agrega el curso creado a la base de datos.
 

@@ -18,3 +18,8 @@ class Root(Tk) :
         Serializador.serializador()
         self.cleanRoot()
         Inicio(self)
+
+    def inicio(self, user) :
+        from gestorGrafico.UserWindow import UserWindow
+        self.cleanRoot()
+        UserWindow(self, user)
