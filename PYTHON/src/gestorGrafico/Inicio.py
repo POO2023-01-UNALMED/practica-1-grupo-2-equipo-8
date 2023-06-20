@@ -3,7 +3,7 @@ from gestorGrafico.Root import Root
 from PIL import Image, ImageTk
 import os
 import pathlib
-from .programador import Programador
+from gestorGrafico.Programador import Programador
 from gestorGrafico.Register import Register
 from gestorGrafico.Login import Login
 
@@ -16,7 +16,7 @@ class Inicio:
         # La biografía debe ser corta y decir dónde y cuándo naciste y qué te gusta
         # // Borrar este comentario antes de enviar el proyecto XD
         jesus = Programador("Jesús Miguel Porto López",
-                            "Estudia Ingenieria de Sistemas.\nNació en Necoclí Antioquia el 24 de septiembre de 2003.\nSus gustos son el Fútbol, los videojuegos y odiar a java",
+                            "Estudia Ingenieria de Sistemas.\nNació en Necoclí Antioquia el 24 de septiembre de 2003.\nSus gustos son el Fútbol y los videojuegos. Odia a java",
                             [path+"\\imagenes\\jesus1.png", path+"\\imagenes\\jesus2.png", 
                             path+"\\imagenes\\jesus3.png", path+"\\imagenes\\jesus4.png"])
 
@@ -36,11 +36,12 @@ class Inicio:
                             path+"\\imagenes\\jhon3.png", path+"\\imagenes\\jhon4.png"])
 
         self.programadores = [jesus, samuel, pablo, jhon]
-        self.imagenesMGA = [Image.open(path+"\\imagenes\\MGA5.png").resize((600, 600)),
+        self.imagenesMGA = [
+                    Image.open(path+"\\imagenes\\MGA1.png").resize((600, 600)),
                     Image.open(path+"\\imagenes\\MGA2.png").resize((600, 600)),
                     Image.open(path+"\\imagenes\\MGA3.png").resize((600, 600)),
                     Image.open(path+"\\imagenes\\MGA4.png").resize((600, 600)),
-                    Image.open(path+"\\imagenes\\MGA1.png").resize((600, 600))]
+                    Image.open(path+"\\imagenes\\MGA5.png").resize((600, 600))]
 
         self.contP = 0
         self.contI = 0

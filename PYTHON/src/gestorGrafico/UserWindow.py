@@ -3,12 +3,13 @@ from gestorAplicacion.clasesExtra.Horario import Horario
 from gestorGrafico.BusquedaCursos import BusquedaCursos
 
 from gestorGrafico.Root import Root
-from .FieldFrame import FieldFrame
+from gestorGrafico.FieldFrame import FieldFrame
 from gestorAplicacion.clasesDeUsuario.Admin import Admin
 from gestorAplicacion.clasesDeUsuario.Estudiante import Estudiante
 #from ..gestorAplicacion.clasesDeUsuario.Profesor import Profesor
-from .RecomendarAsignaturas import RecomendarAsignaturas
-from .AsignarCita import AsignarCita
+from gestorGrafico.RecomendarAsignaturas import RecomendarAsignaturas
+from gestorGrafico.AsignarCita import AsignarCita
+from gestorGrafico.InscripcionMaterias import IncripcionMaterias
 from baseDatos.Serializador import Serializador
 
 class UserWindow :
@@ -31,6 +32,10 @@ class UserWindow :
             horario = self._user.crearHorario()
             BusquedaCursos(root, self._user).buscarCursos(self._user, horario)
 
+        def inscripcionMaterias() :
+            root.cleanRoot()
+            IncripcionMaterias.inscribirMaterias(root, self._user)
+
         root.title('Mi Gestor Académico')
 
         # 1) MENU SUPERIOR
@@ -44,24 +49,18 @@ class UserWindow :
         procesosYConsultas = Menu(barra_menus, tearoff=False)
         if isinstance(self._user, Admin) :
             lista_procesos = [
-                ('Crear curso', None),
-                ('Eliminar curso', None),
                 ('Buscar asignatura', None),
                 ('Asignar citas de inscripción', asignarCita),
-                ('Ver estudiantes', None),
-                ('Ver profesores', None),
                 ('Ver estimulos [por nombre]', None),
                 ('Ver estimulos [todos]', None),
-                ('Modificar estudiante con cursos', None)
             ]
         elif isinstance(self._user, Estudiante) :
             lista_procesos = [
                 ('Ver recomendación de asignaturas', recomendarAsignaturas),
                 ('Buscar asignatura', buscarCursos),
                 ('Crear horario', crearHorario),
-                ('Inscribir materias', None),
+                ('Inscribir materias', inscripcionMaterias),
                 ('Ver estímulos a los que aplica', None),
-                ('Calificar a un profesor', None)
             ]
         else :
             lista_procesos = [

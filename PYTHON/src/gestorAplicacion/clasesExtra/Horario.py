@@ -8,11 +8,13 @@ class Horario:
         self.cursos = cursos if cursos else []
 
     def agregarCurso(self, curso):
+        from gestorGrafico.BusquedaCursos import BusquedaCursos
         self.cursos.append(curso)
         if self.validarDisponibilidad():
             BusquedaCursos.aceptar()
 
     def validarDisponibilidad(self):
+        from gestorGrafico.BusquedaCursos import BusquedaCursos
         for x in range(len(self.cursos)):
             curso1 = self.cursos[x]
             datos1 = curso1.getHorario().split(" ")

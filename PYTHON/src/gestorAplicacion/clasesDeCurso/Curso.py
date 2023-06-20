@@ -1,6 +1,6 @@
 class Curso:
-    def __init__(self, nombre, creditos, numeroParciales, listaPorcentajes, facultades, id = 0, preRequisitos = None, carrerasRelacionadas = None, esLibreEleccion = False):
-        from ..clasesDeUsuario.Registro import Registro
+    def __init__(self, nombre, creditos, numeroParciales, listaPorcentajes, facultades, id = 0, preRequisitos = [], carrerasRelacionadas = [], esLibreEleccion = False):
+        from gestorAplicacion.clasesDeUsuario.Registro import Registro
 
         self._nombre = nombre
         self._creditos = creditos

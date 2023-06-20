@@ -7,4 +7,5 @@ class Admin(Registro) :
 
     # METODOS
     def buscarCursos() :
-        pass
+        from gestorGrafico.BusquedaCursos import BusquedaCursos
+        BusquedaCursos.buscarCursos()

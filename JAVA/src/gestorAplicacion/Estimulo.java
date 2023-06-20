@@ -12,12 +12,11 @@ public abstract class Estimulo implements Serializable {
     private int cupos;
 
     public Estimulo(
-        String nombre,
-        String descripcion,
-        TipoUsuarios aQuienAplica, 
-        ArrayList<Facultades> facultadesAplica,
-        int cupos
-    ) {
+            String nombre,
+            String descripcion,
+            TipoUsuarios aQuienAplica,
+            ArrayList<Facultades> facultadesAplica,
+            int cupos) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.aQuienAplica = aQuienAplica;
