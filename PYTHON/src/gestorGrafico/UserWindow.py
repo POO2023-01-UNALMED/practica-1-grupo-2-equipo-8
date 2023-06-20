@@ -91,8 +91,6 @@ class UserWindow :
             ]
         else :
             lista_procesos = [
-                ('Calificar', None),
-                ('Buscar asignatura', None)
                 ('Ver estímulos a los que aplica', bucarEstimulos),
             ]
 
